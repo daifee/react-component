@@ -1,3 +1,5 @@
+import './style';
+
 export Cell from './Cell';
 export CellBody from './CellBody';
 export CellFooter from './CellFooter';

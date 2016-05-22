@@ -5,7 +5,8 @@
  *   * 所有 class 都增加 namespace
  *   * _user 属性不加 namespace
  */
-import {namespace} from './config';
+import config from './config';
+const {namespace} = config;
 
 const hasOwn = {}.hasOwnProperty;
 
@@ -30,10 +31,12 @@ export default function classNames() {
       classes.push(classNames.apply(null, arg));
     } else if (argType === 'object') {
       for (key in arg) {
+        if (!hasOwn.call(arg, key) || !arg[key]) continue;
+
         // 用户传入的
-        if (key === '_user') {
+        if (key === '_user' ) {
           classes.push(arg[key]);
-        } else if (hasOwn.call(arg, key) && arg[key]) {
+        } else {
           prePush(classes, key);
         }
       }

@@ -1,0 +1,11 @@
+@import '../variables';
+
+
+.#{$namespace} {
+
+  &cell {
+    display: block;
+    background-color: red;
+  }
+
+}

@@ -15,6 +15,9 @@ module.exports = {
     path: path.resolve(ROOT_PATH, 'dist'),
     filename: './app.bundle.js'
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.scss', '.css']
+  },
   module: {
     loaders: [
       {
@@ -24,7 +27,7 @@ module.exports = {
       },
       {
         test: /.scss$/,
-        loader: 'style!css!postcss!scss'
+        loader: 'style!css!postcss!sass'
       }
     ]
   },
