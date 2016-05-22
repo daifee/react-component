@@ -5,7 +5,7 @@ export {
   CellHeader,
   Cells,
   CellsTitle,
-  CellTips
+  CellsTips
 } from './Cell';
 
 

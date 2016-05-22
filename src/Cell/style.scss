@@ -56,6 +56,13 @@ $active-color: #ececec;  // 点击状态背景
     }
   }
 
+  &cells-tips {
+    margin-top: .3em;
+    color: $font-color-2;
+    padding: 0 $gap;
+    font-size: $font-size-1;
+  }
+
   &cells {
     position: relative;
     margin-top: 1.17647059em;
@@ -102,6 +109,18 @@ $active-color: #ececec;  // 点击状态背景
         display: none;
       }
     }
+  }
+
+  &cell-body {
+    flex-grow: 1;
+  }
+
+  &cell-header {
+
+  }
+
+  &cell-footer {
+    color: $font-color-2;
   }
 
   /**
