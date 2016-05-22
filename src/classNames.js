@@ -43,6 +43,6 @@ export default function classNames() {
     }
   }
 
-  return classes;
+  return classes.join(' ');
 }
 

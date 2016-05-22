@@ -27,9 +27,9 @@ export default class Home extends Component {
         title='React Component'
         subTitle='组件化开发'>
         <CellsTitle>Component</CellsTitle>
-        <Cells>{components.map((item, index) => {
+        <Cells arrow={true}>{components.map((item, index) => {
           return (
-            <Cell key={index} href={item.href}>
+            <Cell key={index} access={true} href={item.href}>
               <CellBody>{item.name}</CellBody>
             </Cell>
           );

@@ -11,12 +11,18 @@ export default class Cells extends Component {
       PropTypes.string,
       PropTypes.array
     ]).isRequired,
-    className: PropTypes.string
+    className: PropTypes.string,
+    access: PropTypes.bool,
+    arrow: PropTypes.bool
   };
 
   render() {
-    const {children, className, ...others} = this.props;
-    const classes = classNames('cells', {_user: className});
+    const {children, className, access, arrow, ...others} = this.props;
+    const classes = classNames('cells', {
+      'cells-access': access,
+      'cells-arrow': arrow,
+      _user: className
+    });
 
     return (
       <div className={classes} {...others}>{children}</div>
