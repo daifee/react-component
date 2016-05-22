@@ -3,7 +3,7 @@ import React, {
   PropTypes
 } from 'react';
 
-import './page.scss';
+import './Page.style';
 
 export default class Page extends Component {
   static propTypes = {

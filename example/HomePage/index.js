@@ -10,7 +10,8 @@ import {
 import './style';
 import Page from '../components/Page';
 
-export default class Home extends Component {
+
+export default class HomePage extends Component {
   state = {
     components: [
       {name: 'Button', href: '#button'},

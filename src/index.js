@@ -9,3 +9,4 @@ export {
 } from './Cell';
 
 
+export Button from './Button';
