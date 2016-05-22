@@ -1,18 +1,7 @@
-import Cell from './Cell';
-import CellBody from './CellBody';
-import CellFooter from './CellFooter';
-import CellHeader from './CellHeader';
-import Cells from './Cells';
-import CellsTitle from './CellsTitle';
-import CellTips from './CellTips';
-
-
-export default {
-  Cell,
-  CellBody,
-  CellFooter,
-  CellHeader,
-  Cells,
-  CellsTitle,
-  CellTips
-};
+export Cell from './Cell';
+export CellBody from './CellBody';
+export CellFooter from './CellFooter';
+export CellHeader from './CellHeader';
+export Cells from './Cells';
+export CellsTitle from './CellsTitle';
+export CellTips from './CellTips';

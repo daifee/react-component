@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, IndexRoute} from 'react-router';
+import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 import Home from './Home';
 
 
 function App() {
   return (
-    <Router>
+    <Router history={hashHistory}>
       <Route path='/' component={Home} />
     </Router>
   );
