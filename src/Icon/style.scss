@@ -1,0 +1,30 @@
+.zzcui-attention{
+  display: inline-block;
+  position: relative;
+  width: 0.36rem;
+  height: 0.36rem;
+  font-size: 0.36rem;
+  background-color: red;
+  border-radius: 50%;
+
+  &:after, &:before {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 0.12em;
+    margin-left: -0.04em;
+    background-color: white;
+    border-radius: 0.04em;
+  }
+
+  &:after{
+    top: 0.12em;
+    height: 0.5em;
+  }
+
+  &:before{
+    top: 0.7em;
+    height: 0.12em;
+  }
+}
