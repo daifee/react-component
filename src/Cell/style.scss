@@ -1,11 +1,91 @@
 @import '../variables';
 
+// 间隔
+$gap: 15px;
+
+// 字体颜色
+$font-color-1: #000;
+$font-color-2: #888;
+
+
+// 字体大小
+$font-size-1: 14px;
+$font-size-2: 17px;
+
+$cells-bg: #fff;
+$hr-color: #d9d9d9;  // 分割线
+
+@mixin hr() {
+  content: " ";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  font-size: 0;
+  background-color: $hr-color;
+  transform: scaleY(.5);
+}
+
 
 .#{$namespace} {
 
+  &cells-title {
+    margin-top: .77em;
+    margin-bottom: .3em;
+    padding: 0 $gap;
+    color: $font-color-2;
+    font-size: $font-size-1;
+
+    & + .#{$namespace}cells {
+      margin-top: 0;
+    }
+  }
+
+  &cells {
+    position: relative;
+    margin-top: 1.17647059em;
+    background-color: $cells-bg;
+    line-height: 1.41176471;
+    font-size: 17px;
+    overflow: hidden;
+
+    &:before, &:after {
+      @include hr();
+    }
+
+    &:before {
+      top: 0;
+      transform-origin: 0 0;
+    }
+
+    &:after {
+      bottom: 0;
+      transform-origin: 0 100%;
+    }
+  }
+
   &cell {
-    display: block;
-    background-color: red;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px $gap;
+
+    // for <a />
+    text-decoration: none;
+    color: inherit;
+
+    &:before {
+      @include hr();
+      top: 0;
+      left: $gap;
+      transform-origin: 0 0;
+    }
+
+    &:first-child {
+      &:before {
+        display: none;
+      }
+    }
   }
 
 }

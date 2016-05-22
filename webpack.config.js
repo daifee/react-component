@@ -7,6 +7,8 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
+  devtool: 'source-map',
+
   context: path.resolve(ROOT_PATH, 'example'),
   entry: {
     app: './app.js'
@@ -36,5 +38,6 @@ module.exports = {
       template: path.resolve(ROOT_PATH, 'example/index.html')
     }),
     // new OpenBrowserPlugin({ url: 'http://localhost:8082' })
-  ]
+  ],
+  postcss: [autoprefixer]
 };

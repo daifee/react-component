@@ -7,6 +7,7 @@ import {
   Cells,
   CellsTitle
 } from '../../src';
+import './style';
 
 export default class Home extends Component {
   state = {
@@ -22,7 +23,8 @@ export default class Home extends Component {
 
     return (
       <div>
-        <CellsTitle>react-component</CellsTitle>
+        <h1>React Component</h1>
+        <CellsTitle>Component</CellsTitle>
         <Cells>{components.map((item, index) => {
           return (
             <Cell key={index} href={item.href}>

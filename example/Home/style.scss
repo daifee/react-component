@@ -1,0 +1,14 @@
+
+$bg-color: #fbf9fe;
+$title-color: #3cc51f;
+
+
+body {
+  background-color: $bg-color;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  color: $title-color;
+}
