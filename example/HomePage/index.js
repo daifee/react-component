@@ -15,7 +15,8 @@ export default class HomePage extends Component {
   state = {
     components: [
       {name: 'Button', href: '#button'},
-      {name: 'Cell', href: '#cell'}
+      {name: 'Cell', href: '#cell'},
+      {name: 'Icon', href: '#icon'}
     ]
   };
 

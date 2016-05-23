@@ -1,19 +1,32 @@
 import React, {
+  Component,
   PropTypes
 } from 'react';
+import classNames from '../classNames';
 
+const matchUnit = /(\D+)$/;
 
-export default function IconAttention(props) {
-  let {size} = props;
-  let style = {
-    width: size,
-    height: size,
-    fontSize: size
+export default class IconAttention extends Component {
+  static propTypes = {
+    size: PropTypes.string
   };
 
-  return (<i className='zzcui-attention' style={style}></i>);
+  static defaultProps = {
+    size: '40px'
+  };
+
+  render() {
+    const {size, className, ...others} = this.props;
+    let classes = classNames('icon-attention', {'_user': className});
+    let style = {
+      height: size,
+      width: size,
+      fontSize: size
+    };
+
+    return (
+      <i className={classes} style={style} {...others} />
+    );
+  }
 }
 
-IconAttention.propTypes = {
-  size: PropTypes.string
-};

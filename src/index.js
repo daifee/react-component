@@ -1,4 +1,8 @@
 export {
+  IconAttention
+} from './Icon';
+
+export {
   Cell,
   CellBody,
   CellFooter,
@@ -7,6 +11,5 @@ export {
   CellsTitle,
   CellsTips
 } from './Cell';
-
 
 export Button from './Button';

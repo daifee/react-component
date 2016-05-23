@@ -4,6 +4,8 @@ import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 import HomePage from './HomePage';
 import ButtonPage from './ButtonPage';
 import CellPage from './CellPage';
+import IconPage from './IconPage';
+
 
 function App() {
   return (
@@ -11,6 +13,7 @@ function App() {
       <Route path='/' component={HomePage} />
       <Route path='/button' component={ButtonPage} />
       <Route path='/cell' component={CellPage} />
+      <Route path='/icon' component={IconPage} />
     </Router>
   );
 }
