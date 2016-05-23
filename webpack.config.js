@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         test: /.scss$/,
-        loader: 'style!css!postcss!sass'
+        loader: ExtractTextPlugin.extract('style', 'css!postcss!sass')
       }
     ]
   },
@@ -37,6 +37,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(ROOT_PATH, 'example/index.html')
     }),
+    new ExtractTextPlugin('app.css')
     // new OpenBrowserPlugin({ url: 'http://localhost:8082' })
   ],
   postcss: [autoprefixer]
