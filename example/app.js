@@ -5,7 +5,7 @@ import HomePage from './HomePage';
 import ButtonPage from './ButtonPage';
 import CellPage from './CellPage';
 import IconPage from './IconPage';
-
+import MaskPage from './MaskPage';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
       <Route path='/button' component={ButtonPage} />
       <Route path='/cell' component={CellPage} />
       <Route path='/icon' component={IconPage} />
+      <Route path='/mask' component={MaskPage} />
     </Router>
   );
 }

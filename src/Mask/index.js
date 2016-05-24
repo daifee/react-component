@@ -4,28 +4,48 @@ import React, {
 } from 'react';
 import classNames from '../classNames';
 import './style';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import config from '../config';
+const {namespace} = config;
 
 export default class Mask extends Component {
   static propTypes = {
     transparent: PropTypes.bool,
+    zIndex: PropTypes.number,
     show: PropTypes.bool,
-    zIndex: PropTypes.number
+    duration: PropTypes.number,
+    timingFunction: PropTypes.string
   };
 
   static defaultProps = {
-    zIndex: 99
+    zIndex: 99,
+    transparent: false,
+    show: false,
+    duration: 150,
+    timingFunction: 'ease-in'
   };
 
   render() {
-    const {zIndex, transparent, show, className, ...others} = this.props;
+    const {zIndex, transparent, duration, timingFunction, show, className, ...others} = this.props;
     let classes = classNames('mask', {
-      '_user': className,
-      'mask-show': show,
-      'mask-transparent': transparent
+      '_user': className
     });
 
-    let style = {zIndex};
+    let style = {
+      zIndex,
+      transitionDuration: `${duration}ms`,
+      transitionTimingFunction: timingFunction
+    };
 
-    return (<div className={classes} {...others} style={style} />);
+    return (
+      <ReactCSSTransitionGroup
+        component='div'
+        className={`${namespace}-mask-wrap`}
+        transitionName={`${namespace}-mask`}
+        transitionEnterTimeout={duration}
+        transitionLeaveTimeout={duration}>
+        {show ? [<div key='first' className={classes} style={style} {...others} />] : []}
+      </ReactCSSTransitionGroup>
+    );
   }
 }

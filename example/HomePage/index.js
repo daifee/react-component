@@ -16,7 +16,8 @@ export default class HomePage extends Component {
     components: [
       {name: 'Button', href: '#button'},
       {name: 'Cell', href: '#cell'},
-      {name: 'Icon', href: '#icon'}
+      {name: 'Icon', href: '#icon'},
+      {name: 'Mask', href: '#mask'}
     ]
   };
 
