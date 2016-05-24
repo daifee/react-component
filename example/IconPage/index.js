@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import {
   IconAttention,
+  IconLoading,
   Cell,
   CellBody,
   CellHeader,
@@ -19,19 +20,26 @@ export default class IconPage extends Component {
     //
     return (
       <Page title='Icon'>
-        <CellsTitle>IconAttention</CellsTitle>
+        <CellsTitle>Icons</CellsTitle>
         <Cells>
+          <Cell access={true} arrow={true}>
+            <CellHeader><IconAttention size='20px' /></CellHeader>
+            <CellBody>CellHeader 应该是一个 icon</CellBody>
+          </Cell>
           <Cell>
             <CellBody>
               <IconAttention />
               <IconAttention size='34px' />
-              <IconAttention size='40px' className='custom' />
+              <IconAttention size='40px' className='custom-attention' />
             </CellBody>
           </Cell>
 
-          <Cell access={true} arrow={true}>
-            <CellHeader><IconAttention size='20px' /></CellHeader>
-            <CellBody>注意啦</CellBody>
+          <Cell>
+            <CellBody>
+              <IconLoading />
+              <IconLoading className='custom-loading' />
+              <IconLoading scale={0.8} />
+            </CellBody>
           </Cell>
         </Cells>
       </Page>

@@ -1,5 +1,6 @@
 export {
-  IconAttention
+  IconAttention,
+  IconLoading
 } from './Icon';
 
 export {
