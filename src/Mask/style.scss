@@ -1,0 +1,23 @@
+@import '../variables';
+
+.#{$namespace} {
+
+  &mask {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    &-show {
+      display: block;
+      background-color: rgba(0, 0, 0, .6);
+    }
+
+    &-transparent {
+      background-color: rgba(0, 0, 0, 0);
+    }
+  }
+}
