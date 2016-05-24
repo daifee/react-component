@@ -39,13 +39,16 @@ export default class Mask extends Component {
 
     return (
       <ReactCSSTransitionGroup
-        component='div'
-        className={`${namespace}-mask-wrap`}
+        component={Wrap}
         transitionName={`${namespace}-mask`}
         transitionEnterTimeout={duration}
         transitionLeaveTimeout={duration}>
-        {show ? [<div key='first' className={classes} style={style} {...others} />] : []}
+        {show ? (<div key='first' className={classes} style={style} {...others} />) : null}
       </ReactCSSTransitionGroup>
     );
   }
+}
+
+function Wrap(props) {
+  return props.children[0] || null;
 }

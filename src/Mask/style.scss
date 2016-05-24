@@ -1,13 +1,6 @@
 @import '../variables';
 
 .#{$namespace} {
-
-  &mask-wrap {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-
   &mask {
     position: fixed;
     width: 100%;
