@@ -6,6 +6,7 @@ import ButtonPage from './ButtonPage';
 import CellPage from './CellPage';
 import IconPage from './IconPage';
 import MaskPage from './MaskPage';
+import ToastPage from './ToastPage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path='/cell' component={CellPage} />
       <Route path='/icon' component={IconPage} />
       <Route path='/mask' component={MaskPage} />
+      <Route path='/toast' component={ToastPage} />
     </Router>
   );
 }

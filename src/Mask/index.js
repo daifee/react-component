@@ -39,7 +39,7 @@ export default class Mask extends Component {
 
     return (
       <ReactCSSTransitionGroup
-        component={Wrap}
+        component={EmptyContainer}
         transitionName={`${namespace}-mask`}
         transitionEnterTimeout={duration}
         transitionLeaveTimeout={duration}>
@@ -49,6 +49,6 @@ export default class Mask extends Component {
   }
 }
 
-function Wrap(props) {
+function EmptyContainer(props) {
   return props.children[0] || null;
 }
