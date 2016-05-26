@@ -12,6 +12,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './style';
 
 let apiInstance = null;
+let timer = null;
 
 export default class Toast extends Component {
   static propTypes = {
@@ -29,9 +30,23 @@ export default class Toast extends Component {
     timingFunction: 'ease-in'
   };
 
-  static show(icon, content, options = {}) {
+  /**
+   * 显示 Toast，如果 icon != loading 则定时隐藏
+   * @param  {[type]} icon    [description]
+   * @param  {[type]} content [description]
+   * @param  {Object} options [description]
+   * @return {[type]}         [description]
+   */
+  static show(icon, content, options = {}, timeout = 2200) {
     let nexState = {icon, content, ...options, show: true};
     apiInstance.setState(nexState);
+
+    // 如果 icon != loading 定时隐藏
+    clearTimeout(timer);
+    if (icon === 'loading') return;
+    timer = setTimeout(() => {
+      this.hide();
+    }, timeout);
   };
 
   static hide() {
@@ -39,7 +54,7 @@ export default class Toast extends Component {
     apiInstance.setState(nexState);
   }
 
-  static showLoading(content, options) {
+  static showLoading(content = '加载中…', options) {
     this.show('loading', content, options);
   }
 

@@ -8,6 +8,7 @@ import {
 } from '../../src';
 import './style';
 
+
 export default class ToastPage extends Component {
   state = {
     toast1: false
@@ -30,6 +31,10 @@ export default class ToastPage extends Component {
           onClick={this.hideComponent} />
       </Page>
     );
+  }
+
+  componentDidMount() {
+    Toast.show('attention', '注意啦');
   }
 
   showComponent = () => {
