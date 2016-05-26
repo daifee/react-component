@@ -2,6 +2,7 @@ import React, {
   Component,
   PropTypes
 } from 'react';
+import {render} from 'react-dom';
 import classNames from '../classNames';
 import {
   IconAttention,
@@ -9,6 +10,8 @@ import {
 } from '../Icon';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './style';
+
+let apiInstance = null;
 
 export default class Toast extends Component {
   static propTypes = {
@@ -25,6 +28,24 @@ export default class Toast extends Component {
     duration: 150,
     timingFunction: 'ease-in'
   };
+
+  static show(icon, content, options = {}) {
+    let nexState = {icon, content, ...options, show: true};
+    apiInstance.setState(nexState);
+  };
+
+  static hide() {
+    let nexState = {...apiInstance.state, show: false};
+    apiInstance.setState(nexState);
+  }
+
+  static showLoading(content, options) {
+    this.show('loading', content, options);
+  }
+
+  static hideLoading() {
+    this.hide();
+  }
 
   render() {
     const {show, duration} = this.props;
@@ -87,4 +108,35 @@ export default class Toast extends Component {
 function EmptyContainer(props) {
   return props.children[0] || null;
 }
+
+
+
+/**
+ * 提供接口
+ */
+
+class ToastApi extends Component {
+  state = {
+    icon: '',
+    content: ''
+  };
+
+  render() {
+    //
+    return (
+      <Toast {...this.state} />
+    );
+  }
+}
+
+// 创建容器
+function createContainer() {
+  const div = document.createElement('div');
+  div.className = classNames('toast-api-container');
+  document.body.appendChild(div);
+
+  return div;
+}
+
+apiInstance = render((<ToastApi />), createContainer());
 
