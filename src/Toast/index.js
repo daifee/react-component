@@ -8,94 +8,40 @@ import {
   IconAttention,
   IconLoading
 } from '../Icon';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './style';
+import TransitionShowContainer from '../TransitionShowContainer';
 
 let apiInstance = null;
 let timer = null;
 
-export default class Toast extends Component {
+
+export default class Toast extends TransitionShowContainer {
   static propTypes = {
-    icon: PropTypes.string.isRequired,  // icon 名称，如果默认不支持，可以是 className
-    content: PropTypes.string.isRequired,
-    show: PropTypes.bool,
-    zIndex: PropTypes.number,
-    duration: PropTypes.number,  // 毫秒
-    timingFunction: PropTypes.string
+    ...TransitionShowContainer.propTypes,
+    icon: PropTypes.string.isRequired,  // icon 名称和 className（组件没有的情况）
+    content: PropTypes.string.isRequired
   };
 
-  static defaultProps = {
-    zIndex: 9999,
-    duration: 150,
-    timingFunction: 'ease-in'
-  };
+  transitionName = classNames('toast');
 
-  /**
-   * 显示 Toast，如果 icon != loading 则定时隐藏
-   * @param  {[type]} icon    [description]
-   * @param  {[type]} content [description]
-   * @param  {Object} options [description]
-   * @return {[type]}         [description]
-   */
-  static show(icon, content, options = {}, timeout = 2200) {
-    let nexState = {icon, content, ...options, show: true};
-    apiInstance.setState(nexState);
-
-    // 如果 icon != loading 定时隐藏
-    clearTimeout(timer);
-    if (icon === 'loading') return;
-    timer = setTimeout(() => {
-      this.hide();
-    }, timeout);
-  };
-
-  static hide() {
-    let nexState = {...apiInstance.state, show: false};
-    apiInstance.setState(nexState);
-  }
-
-  static showLoading(content = '加载中…', options) {
-    this.show('loading', content, options);
-  }
-
-  static hideLoading() {
-    this.hide();
-  }
-
-  render() {
-    const {show, duration} = this.props;
-    let transitionName = classNames('toast');
-
-    return (
-      <ReactCSSTransitionGroup
-        component={EmptyContainer}
-        transitionName={transitionName}
-        transitionEnterTimeout={duration}
-        transitionLeaveTimeout={duration}>
-        {show ? this.renderMain() : null}
-      </ReactCSSTransitionGroup>
-    );
-  }
-
-  renderMain() {
+  renderMain(style) {
     const {
-      icon,
-      content,
-      className,
+      // 过滤
+      show,
       zIndex,
       duration,
       timingFunction,
+
+      icon,
+      content,
+      className,
       ...others
     } = this.props;
     let classes = classNames('toast', {_user: className});
-    let style = {
-      zIndex,
-      transitionDuration: `${duration}ms`,
-      transitionTimingFunction: timingFunction
-    };
+
     //
     return (
-      <div key='unique' className={classes} style={style} {...others} >
+      <div className={classes} style={style} {...others} >
         <div>
           <div>
             {this.matchIcon(icon)}
@@ -115,6 +61,35 @@ export default class Toast extends Component {
       default:
         return null;
     }
+  }
+
+  /**
+   * API 接口（静态方法）
+   */
+
+  static show(icon, content, options = {}, timeout = 2200) {
+    let nexState = {icon, content, ...options, show: true};
+    apiInstance.setState(nexState);
+
+    // 如果 icon != loading 定时隐藏
+    clearTimeout(timer);
+    if (icon === 'loading') return;
+    timer = setTimeout(() => {
+      this.hide();
+    }, timeout);
+  }
+
+  static hide() {
+    let nexState = {...apiInstance.state, show: false};
+    apiInstance.setState(nexState);
+  }
+
+  static showLoading(content = '加载中…', options) {
+    this.show('loading', content, options);
+  }
+
+  static hideLoading() {
+    this.hide();
   }
 }
 
