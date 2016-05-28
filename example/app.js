@@ -8,6 +8,7 @@ import IconPage from './IconPage';
 import MaskPage from './MaskPage';
 import ToastPage from './ToastPage';
 import DialogPage from './DialogPage';
+import NotificationPage from './NotificationPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path='/mask' component={MaskPage} />
       <Route path='/toast' component={ToastPage} />
       <Route path='/dialog' component={DialogPage} />
+      <Route path='/notification' component={NotificationPage} />
     </Router>
   );
 }

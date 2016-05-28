@@ -19,7 +19,8 @@ export default class HomePage extends Component {
       {name: 'Icon', href: '#icon'},
       {name: 'Mask', href: '#mask'},
       {name: 'Toast', href: '#toast'},
-      {name: 'Dialog', href: '#dialog'}
+      {name: 'Dialog', href: '#dialog'},
+      {name: 'Notification', href: '#notification'}
     ]
   };
 
