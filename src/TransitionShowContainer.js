@@ -1,7 +1,7 @@
 /**
  * 很多组件都需要 show() 和 hide() 接口，需要过渡效果
  *
- * 抽象出父类 TeansitionShowContainer
+ * 抽象出父类 TransitionShowContainer
  */
 
 import React, {
@@ -35,9 +35,14 @@ export default class TransitionShowContainer extends Component {
     } = this.props;
     let style = {
       zIndex,
-      transitionDuration: duration,
+      transitionDuration: (duration + 'ms'),
       transitionTimingFunction: timingFunction
     };
+
+    if (typeof this.transitionName !== 'string') {
+      throw new ReferenceError('未定义 transitionName 属性');
+    }
+
 
     return (
       <ReactCSSTransitionGroup

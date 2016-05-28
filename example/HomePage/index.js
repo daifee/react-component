@@ -18,7 +18,8 @@ export default class HomePage extends Component {
       {name: 'Cell', href: '#cell'},
       {name: 'Icon', href: '#icon'},
       {name: 'Mask', href: '#mask'},
-      {name: 'Toast', href: '#toast'}
+      {name: 'Toast', href: '#toast'},
+      {name: 'Dialog', href: '#dialog'}
     ]
   };
 

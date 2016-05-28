@@ -7,6 +7,7 @@ import CellPage from './CellPage';
 import IconPage from './IconPage';
 import MaskPage from './MaskPage';
 import ToastPage from './ToastPage';
+import DialogPage from './DialogPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path='/icon' component={IconPage} />
       <Route path='/mask' component={MaskPage} />
       <Route path='/toast' component={ToastPage} />
+      <Route path='/dialog' component={DialogPage} />
     </Router>
   );
 }

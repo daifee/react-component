@@ -1,0 +1,115 @@
+@import '../variables';
+
+$bg-color: #fff;
+$hr-color: #d5d5d5;
+$content-gap: 20px;
+
+.#{$namespace} {
+  &dialog {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, .2);
+    transition-property: opacity;
+
+    &-enter {
+      opacity: .3;
+
+      &-active {
+        opacity: 1;
+      }
+    }
+
+    &-leave {
+      opacity: 1;
+
+      &-active {
+        opacity: .3;
+      }
+    }
+
+    // main
+    > div {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      min-width: 80%;
+      max-width: 400px;
+      transform: translate3d(-50%, -50%, 0);
+      background-color: $bg-color;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    header {
+      font-size: 17px;
+      padding: 1.2em $content-gap .5em;
+    }
+
+    p {
+      font-size: 15px;
+      padding: 0 $content-gap;
+    }
+
+    footer {
+      display: flex;
+      position: relative;
+      margin-top: $content-gap;
+      height: 42px;
+      line-height: 42px;
+
+      &:before {
+        content: ' ';
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        right: 0;
+        font-size: 0;
+        height: 1px;
+        transform: scaleY(.5);
+        background-color: $hr-color;
+      }
+
+      button {
+        position: relative;
+        flex-grow: 1;
+        border: none;
+        outline: none;
+        background-color: $bg-color;
+        font-size: 17px;
+
+        &:active {
+          background-color: #eee;
+        }
+
+        &:before {
+          content: ' ';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          font-size: 0;
+          width: 1px;
+          background-color: $hr-color;
+          transform: scaleX(.5);
+        }
+
+        &:first-child {
+          &:before {
+            content: none;
+          }
+        }
+      }
+    }
+
+    &-api-container {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+  }
+}

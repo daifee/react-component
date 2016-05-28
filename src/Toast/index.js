@@ -18,8 +18,8 @@ let timer = null;
 export default class Toast extends TransitionShowContainer {
   static propTypes = {
     ...TransitionShowContainer.propTypes,
-    icon: PropTypes.string.isRequired,  // icon 名称和 className（组件没有的情况）
-    content: PropTypes.string.isRequired
+    icon: PropTypes.string,  // icon 名称和 className（组件没有的情况）
+    content: PropTypes.string
   };
 
   transitionName = classNames('toast');
@@ -68,7 +68,13 @@ export default class Toast extends TransitionShowContainer {
    */
 
   static show(icon, content, options = {}, timeout = 2200) {
-    let nexState = {icon, content, ...options, show: true};
+    let nexState = {
+      ...apiInstance.state,
+      ...options,
+      icon,
+      content,
+      show: true
+    };
     apiInstance.setState(nexState);
 
     // 如果 icon != loading 定时隐藏
@@ -95,38 +101,25 @@ export default class Toast extends TransitionShowContainer {
 
 
 
-function EmptyContainer(props) {
-  return props.children[0] || null;
-}
-
-
 
 /**
  * 提供接口
  */
 
 class ToastApi extends Component {
-  state = {
-    icon: '',
-    content: ''
-  };
+  state = {};
 
   render() {
-    //
-    return (
-      <Toast {...this.state} />
-    );
+    return (<Toast {...this.state} />);
   }
 }
 
-// 创建容器
-function createContainer() {
+function renderContainer() {
   const div = document.createElement('div');
   div.className = classNames('toast-api-container');
   document.body.appendChild(div);
-
-  return div;
+  apiInstance = render((<ToastApi />), div);
 }
 
-apiInstance = render((<ToastApi />), createContainer());
+renderContainer();
 
