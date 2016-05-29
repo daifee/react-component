@@ -61,7 +61,7 @@ Notification.defaultProps = {
  *   * timingFunction {String}  显示和隐藏过渡动画类型
  * @return {[type]}         [description]
  */
-Notification.show = (content, type = 'default', options = {timeout: 2000}) => {
+Notification.show = (content, type = 'default', options = {}) => {
   let [...notifications] = apiInstance.state.notifications;
   // others 赋值到 notification
   let {timeout, zIndex, ...others} = options;
@@ -76,7 +76,7 @@ Notification.show = (content, type = 'default', options = {timeout: 2000}) => {
 
   setTimeout(() => {
     hide(id);
-  }, timeout);
+  }, (timeout || 2000));
 };
 
 function hide(id) {
