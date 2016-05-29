@@ -20,7 +20,8 @@ export default class HomePage extends Component {
       {name: 'Mask', href: '#mask'},
       {name: 'Toast', href: '#toast'},
       {name: 'Dialog', href: '#dialog'},
-      {name: 'Notification', href: '#notification'}
+      {name: 'Notification', href: '#notification'},
+      {name: 'ActionSheet', href: '#actionsheet'}
     ]
   };
 

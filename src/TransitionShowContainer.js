@@ -55,7 +55,14 @@ export default class TransitionShowContainer extends Component {
     );
   }
 
-
+  /**
+   * 渲染组件主题
+   * @param  {Object} style 样式
+   *   * zIndex {Number}  垂直位置
+   *   * transitionDuration {String}  过渡动画持续时长（单位：ms）
+   *   * transitionTimingFunction  过渡动画类型
+   * @return {React.element}       [description]
+   */
   renderMain(style = {}) {
     return null;
   }

@@ -9,6 +9,7 @@ import MaskPage from './MaskPage';
 import ToastPage from './ToastPage';
 import DialogPage from './DialogPage';
 import NotificationPage from './NotificationPage';
+import ActionSheetPage from './ActionSheetPage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path='/toast' component={ToastPage} />
       <Route path='/dialog' component={DialogPage} />
       <Route path='/notification' component={NotificationPage} />
+      <Route path='/actionsheet' component={ActionSheetPage} />
     </Router>
   );
 }
