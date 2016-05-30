@@ -9,9 +9,8 @@ import React, {
 } from 'react';
 import {render} from 'react-dom';
 import './style';
-import {classNames, createContainer} from '../utils';
+import {classNames, createInstance} from '../utils';
 import TransitionShowContainer from '../TransitionShowContainer';
-import getApiContainer from '../getApiContainer';
 
 let apiInstance;
 
@@ -32,7 +31,7 @@ export default class ActionSheet extends TransitionShowContainer {
 
   static defaultProps = {
     ...TransitionShowContainer.defaultProps,
-    duration: 300,
+    duration: 250,
     buttons: []
   };
 
@@ -79,7 +78,7 @@ export default class ActionSheet extends TransitionShowContainer {
   };
 
   static getInstance(container) {
-    return render(<ActionSheetApi />, container);
+    return render(<ApiContainer />, container);
   }
 
 
@@ -120,7 +119,7 @@ class Button extends Component {
 
 
 
-class ActionSheetApi extends Component {
+class ApiContainer extends Component {
   state = {};
 
   render() {
@@ -149,5 +148,4 @@ class ActionSheetApi extends Component {
 }
 
 
-const container = createContainer();
-apiInstance = render(<ActionSheetApi />, container);
+apiInstance = createInstance(ApiContainer);

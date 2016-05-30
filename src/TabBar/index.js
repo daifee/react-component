@@ -2,7 +2,7 @@ import React, {
   Component,
   PropTypes
 } from 'react';
-import classNames from '../classNames';
+import {classNames} from '../utils';
 import './style';
 
 
@@ -99,8 +99,6 @@ export default class TabBar extends Component {
 
   static Item = TabBarItem;
 }
-
-
 
 
 class Tab extends Component {

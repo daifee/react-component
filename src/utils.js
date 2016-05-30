@@ -1,5 +1,6 @@
 import config from './config';
-
+import React from 'react';
+import {render} from 'react-dom';
 
 const {namespace} = config;
 const hasOwn = {}.hasOwnProperty;
@@ -42,10 +43,21 @@ function prePush(arr, value) {
 }
 
 
-export function createContainer() {
+
+export function createInstance(Component, container) {
+  if (!container) {
+    container = createContainer();
+  }
+
+  return render(<Component />, container);
+}
+
+function createContainer() {
   let div = document.createElement('div');
   div.className = classNames('api-container');
   document.body.appendChild(div);
 
   return div;
 }
+
+

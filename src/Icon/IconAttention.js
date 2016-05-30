@@ -2,7 +2,7 @@ import React, {
   Component,
   PropTypes
 } from 'react';
-import classNames from '../classNames';
+import {classNames} from '../utils';
 
 const matchUnit = /(\D+)$/;
 

@@ -2,8 +2,7 @@ import React, {
   Component,
   PropTypes
 } from 'react';
-import {render} from 'react-dom';
-import classNames from '../classNames';
+import {classNames, createInstance} from '../utils';
 import {
   IconAttention,
   IconLoading
@@ -67,35 +66,20 @@ export default class Toast extends TransitionShowContainer {
    * API 接口（静态方法）
    */
 
-  static show(icon, content, options = {}, timeout = 2200) {
-    let nexState = {
-      ...apiInstance.state,
-      ...options,
-      icon,
-      content,
-      show: true
-    };
-    apiInstance.setState(nexState);
-
-    // 如果 icon != loading 定时隐藏
-    clearTimeout(timer);
-    if (icon === 'loading') return;
-    timer = setTimeout(() => {
-      this.hide();
-    }, timeout);
+  static show(icon, content, options, timeout) {
+    apiInstance.show(icon, content, options, timeout);
   }
 
   static hide() {
-    let nexState = {...apiInstance.state, show: false};
-    apiInstance.setState(nexState);
+    apiInstance.hide();
   }
 
-  static showLoading(content = '加载中…', options) {
-    this.show('loading', content, options);
+  static showLoading(content, options) {
+    apiInstance.showLoading(content, options);
   }
 
   static hideLoading() {
-    this.hide();
+    apiInstance.hideLoading();
   }
 }
 
@@ -106,20 +90,43 @@ export default class Toast extends TransitionShowContainer {
  * 提供接口
  */
 
-class ToastApi extends Component {
+class ApiContainer extends Component {
   state = {};
 
   render() {
     return (<Toast {...this.state} />);
   }
+
+  show(icon, content, options = {}, timeout = 2200) {
+    let nexState = {
+      ...this.state,
+      ...options,
+      icon,
+      content,
+      show: true
+    };
+    this.setState(nexState);
+
+    // 如果 icon != loading 定时隐藏
+    clearTimeout(timer);
+    if (icon === 'loading') return;
+    timer = setTimeout(() => {
+      this.hide();
+    }, timeout);
+  }
+
+  hide() {
+    let nexState = {...this.state, show: false};
+    this.setState(nexState);
+  }
+
+  showLoading(content = '加载中…', options) {
+    this.show('loading', content, options);
+  }
+
+  hideLoading() {
+    this.hide();
+  }
 }
 
-function renderContainer() {
-  const div = document.createElement('div');
-  div.className = classNames('toast-api-container');
-  document.body.appendChild(div);
-  apiInstance = render((<ToastApi />), div);
-}
-
-renderContainer();
-
+apiInstance = createInstance(ApiContainer);

@@ -2,53 +2,25 @@ import React, {
   Component,
   PropTypes
 } from 'react';
-import classNames from '../classNames';
+import {classNames} from '../utils';
 import './style';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import config from '../config';
-const {namespace} = config;
+import TransitionShowContainer from '../TransitionShowContainer';
 
-export default class Mask extends Component {
-  static propTypes = {
-    transparent: PropTypes.bool,
-    zIndex: PropTypes.number,
-    show: PropTypes.bool,
-    duration: PropTypes.number,
-    timingFunction: PropTypes.string
-  };
+export default class Mask extends TransitionShowContainer {
 
-  static defaultProps = {
-    zIndex: 99,
-    transparent: false,
-    show: false,
-    duration: 150,
-    timingFunction: 'ease-in'
-  };
+  transitionName = classNames('mask');
 
-  render() {
-    const {zIndex, transparent, duration, timingFunction, show, className, ...others} = this.props;
-    let classes = classNames('mask', {
-      '_user': className
-    });
+  renderMain(style) {
+    const {
+      // reset
+      show, zIndex, duration, timingFunction,
 
-    let style = {
-      zIndex,
-      transitionDuration: `${duration}ms`,
-      transitionTimingFunction: timingFunction
-    };
+      className,
+      ...others
+    } = this.props;
+    let classes = classNames('mask', {_user: className});
 
-    return (
-      <ReactCSSTransitionGroup
-        component={EmptyContainer}
-        transitionName={`${namespace}-mask`}
-        transitionEnterTimeout={duration}
-        transitionLeaveTimeout={duration}>
-        {show ? (<div key='first' className={classes} style={style} {...others} />) : null}
-      </ReactCSSTransitionGroup>
-    );
+    return (<div className={classes} {...others} style={style} />);
   }
 }
 
-function EmptyContainer(props) {
-  return props.children[0] || null;
-}

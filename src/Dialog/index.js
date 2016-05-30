@@ -3,7 +3,7 @@ import React, {
   PropTypes
 } from 'react';
 import {render} from 'react-dom';
-import classNames from '../classNames';
+import {classNames, createInstance} from '../utils';
 import TransitionShowContainer from '../TransitionShowContainer';
 import './style';
 
@@ -30,7 +30,8 @@ export default class Dialog extends TransitionShowContainer {
       title,
       content,
       buttons,
-      className
+      className,
+      _hide
     } = this.props;
     let classes = classNames('dialog', {_user: className});
 
@@ -40,29 +41,19 @@ export default class Dialog extends TransitionShowContainer {
           <header><strong>{title}</strong></header>
           <p>{content}</p>
           <footer>{buttons.map((button, index) => {
-            return (<Button {...button} key={index} />);
+            return (<Button {...button} key={index} _hide={_hide} />);
           })}</footer>
         </div>
       </div>
     );
   }
 
-  static hide() {
-    let nextState = {...nextState, show: false};
-    apiInstance.setState(nextState);
+  static getInstance(container) {
+    return createInstance(ApiContainer, container);
   }
 
   static show(title, content, buttons, options) {
-    let nextState = {
-      ...apiInstance.state,
-      ...options,
-      title,
-      content,
-      buttons,
-      show: true
-    };
-
-    apiInstance.setState(nextState);
+    apiInstance.show(title, content, buttons, options);
   }
 }
 
@@ -74,31 +65,42 @@ class Button extends Component {
   }
 
   click = () => {
-    const {onClick} = this.props;
+    const {onClick, _hide} = this.props;
 
-    Dialog.hide();
+    _hide();
     onClick && onClick();
   };
 }
 
-/**
- * 提供接口
- */
-class DialogApi extends Component {
+
+
+
+
+class ApiContainer extends Component {
   state = {};
 
   render() {
-    return (<Dialog {...this.state} />);
+    return (<Dialog {...this.state} _hide={this.hide} />);
   }
+
+  show(title, content, buttons, options) {
+    let nextState = {
+      ...this.state,
+      ...options,
+      title,
+      content,
+      buttons,
+      show: true
+    };
+
+    this.setState(nextState);
+  }
+
+  hide = () => {
+    let nextState = {...this.state, show: false};
+    this.setState(nextState);
+  };
 }
 
-function renderContainer() {
-  const div = document.createElement('div');
-  div.className = classNames('dialog-api-container');
-  document.body.appendChild(div);
-
-  apiInstance = render((<DialogApi />), div);
-}
-
-renderContainer();
+apiInstance = createInstance(ApiContainer);
 

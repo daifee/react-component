@@ -2,9 +2,8 @@ import React, {
   Component,
   PropTypes
 } from 'react';
-import {render} from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import classNames from '../classNames';
+import {classNames, createInstance} from '../utils';
 import './style';
 
 let apiInstance = null;
@@ -18,75 +17,49 @@ function getId() {
 }
 
 
-export default function Notification(props) {
-  const {
-    type,
-    content,
-    timingFunction,
-    className,
-    ...others
-  } = props;
-  let classes = classNames('notification', `notification-${type}`, {
-    _user: className
-  });
-  let style = {
-    transitionDuration: (duration + 'ms'),
-    transitionTimingFunction: timingFunction
+export default class Notification extends Component {
+  static propTypes = {
+    type: PropTypes.oneOf(['default', 'info', 'success', 'warn', 'error']),
+    content: PropTypes.string.isRequired,
+    timingFunction: PropTypes.string
   };
 
-  return (
-    <li className={classes} style={style} {...others}>
-      <span>{content}</span>
-    </li>
-  );
+  static defaultProps = {
+    timingFunction: 'ease-in'
+  };
+
+  render() {
+    const {
+      type,
+      content,
+      timingFunction,
+      className,
+      ...others
+    } = this.props;
+    let classes = classNames('notification', `notification-${type}`, {
+      _user: className
+    });
+    let style = {
+      transitionDuration: (duration + 'ms'),
+      transitionTimingFunction: timingFunction
+    };
+
+    return (
+      <li className={classes} style={style} {...others}>
+        <span>{content}</span>
+      </li>
+    );
+  }
+
+  static getInstance(container) {
+    return createInstance(Notifications, container);
+  }
+
+  static show(content, type, options) {
+    apiInstance.show(content, type, options);
+  }
 }
 
-Notification.propTypes = {
-  type: PropTypes.oneOf(['default', 'info', 'success', 'warn', 'error']),
-  content: PropTypes.string.isRequired,
-  timingFunction: PropTypes.string
-};
-
-Notification.defaultProps = {
-  timingFunction: 'ease-in'
-};
-
-/**
- * 显示 Notification
- * @param  {String} content 显示的内容
- * @param  {String} type    告示类型
- * @param  {Object} options 可选更多参数
- *   * timeout {Number}  持续显示时长，毫秒
- *   * zIndex {Number}  在 z-index 轴位置
- *   * timingFunction {String}  显示和隐藏过渡动画类型
- * @return {[type]}         [description]
- */
-Notification.show = (content, type = 'default', options = {}) => {
-  let [...notifications] = apiInstance.state.notifications;
-  // others 赋值到 notification
-  let {timeout, zIndex, ...others} = options;
-  let id = getId();
-  let notification = {id, type, content, ...others};
-
-  notifications.unshift(notification);
-
-  let nextState = {...apiInstance.state, zIndex, notifications};
-
-  apiInstance.setState(nextState);
-
-  setTimeout(() => {
-    hide(id);
-  }, (timeout || 2000));
-};
-
-function hide(id) {
-  let notifications = apiInstance.state.notifications.filter((item) => {
-    return id !== item.id;
-  });
-  let nextState = {...apiInstance.state, notifications};
-
-  apiInstance.setState(nextState);
-}
 
 
 class Notifications extends Component {
@@ -120,18 +93,34 @@ class Notifications extends Component {
       </ReactCSSTransitionGroup>
     );
   }
+
+  show(content, type = 'default', options = {}) {
+    let [...notifications] = this.state.notifications;
+    // others 赋值到 notification
+    let {timeout, zIndex, ...others} = options;
+    let id = getId();
+    let notification = {id, type, content, ...others};
+
+    notifications.unshift(notification);
+
+    let nextState = {...this.state, zIndex, notifications};
+
+    this.setState(nextState);
+
+    setTimeout(() => {
+      this.hide(id);
+    }, (timeout || 2000));
+  }
+
+  hide(id) {
+    let notifications = this.state.notifications.filter((item) => {
+      return id !== item.id;
+    });
+    let nextState = {...this.state, notifications};
+
+    this.setState(nextState);
+  }
 }
 
 
-
-
-
-function renderContainer() {
-  const div = document.createElement('div');
-  div.className = classNames('notification-api-container');
-  document.body.appendChild(div);
-
-  apiInstance = render((<Notifications />), div);
-}
-
-renderContainer();
+apiInstance = createInstance(Notifications);
