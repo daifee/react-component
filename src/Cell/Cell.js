@@ -12,16 +12,16 @@ export default class Cell extends Component {
       PropTypes.array
     ]).isRequired,
     className: PropTypes.string,
-    tagName: PropTypes.string,
+    component: PropTypes.string,
     href: PropTypes.string,
     access: PropTypes.bool,
     arrow: PropTypes.bool
   };
 
 	render() {
-    const {children, className, tagName, access, arrow, ...others} = this.props;
+    const {children, className, component, access, arrow, ...others} = this.props;
     const {href} = others;
-    const Tag = href ? 'a' : (tagName ? tagName : 'div');
+    const Tag = href ? 'a' : (component ? component : 'div');
     const classes = classNames('cell', {
       'cell-access': access,
       'cell-arrow': arrow,

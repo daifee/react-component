@@ -16,7 +16,7 @@ export default class Button extends Component {
       PropTypes.element,
       PropTypes.string,
       PropTypes.array
-    ]).isRequired,
+    ]).isRequired
   };
 
   static defaultProps = {
@@ -37,15 +37,15 @@ export default class Button extends Component {
       [`btn-${type}`]: true,
       'btn-disabled': disabled
     });
-    const Tag = href ? 'a' : 'button';
+    const component = href ? 'a' : 'button';
 
     return (
-      <Tag
+      <component
         onTouchStart={this.handleDisabled}
         className={classes}
         {...others}>
         {children}
-      </Tag>
+      </component>
     );
   }
 }
