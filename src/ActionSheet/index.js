@@ -1,13 +1,20 @@
+/**
+ * ActionSheet(提供 API 接口)
+ *
+ */
+
 import React, {
   Component,
   PropTypes
 } from 'react';
 import {render} from 'react-dom';
-import classNames from '../classNames';
 import './style';
+import {classNames, createContainer} from '../utils';
 import TransitionShowContainer from '../TransitionShowContainer';
+import getApiContainer from '../getApiContainer';
 
-let apiInstance = null;
+let apiInstance;
+
 let id = 0;
 function getId() {
   return id++;
@@ -66,42 +73,21 @@ export default class ActionSheet extends TransitionShowContainer {
   }
 
   click = () => {
-    const {onClick} = this.props;
-    hide();
+    const {onClick, _hide} = this.props;
+    _hide();
     onClick && onClick();
   };
 
-  /**
-   * 显示 ActionSheet
-   * @param  {Object}   options  参数选项
-   *   * buttons {Array}  按钮。数组每个值是按钮名字（String）
-   *   * cancelButtonIndex {Number}  第几个是取消按钮，对应 buttons 的 index
-   *   * destroyButtonIndex {Number}  第二个是有“销毁”动作的按钮，对应 buttons 的 index
-   *   * title {String}  标题
-   * @param  {Function} callback 点击 buttons 后会执行的回调，参数为 button 的 index
-   * @return {[type]}            [description]
-   */
-  static show(options = {}, callback) {
-    // cancelButtonIndex 默认值
-    let cancelButtonIndex = options.buttons.length - 1;
-    let nextState = {
-      cancelButtonIndex,
-      ...apiInstance.state,
-      ...options,
-      callback,
-      show: true
-    };
+  static getInstance(container) {
+    return render(<ActionSheetApi />, container);
+  }
 
-    apiInstance.setState(nextState);
+
+  static show(options = {}, callback) {
+    apiInstance.show(options, callback);
   }
 }
 
-
-function hide() {
-  let nextState = {...apiInstance.state, show: false};
-
-  apiInstance.setState(nextState);
-}
 
 class Button extends Component {
   static propTypes = {
@@ -134,23 +120,34 @@ class Button extends Component {
 
 
 
-/**
- * 提供接口
- */
 class ActionSheetApi extends Component {
   state = {};
 
   render() {
-    return (<ActionSheet {...this.state} />);
+    return (<ActionSheet {...this.state} _hide={this.hide} />);
+  }
+
+  show(options = {}, callback) {
+    // cancelButtonIndex 默认值
+    let cancelButtonIndex = options.buttons.length - 1;
+    let nextState = {
+      cancelButtonIndex,
+      ...this.state,
+      ...options,
+      callback,
+      show: true
+    };
+
+    this.setState(nextState);
+  }
+
+  hide = () => {
+    let nextState = {...this.state, show: false};
+
+    this.setState(nextState);
   }
 }
 
-function renderContainer() {
-  const div = document.createElement('div');
-  div.className = classNames('action-sheet-api-container');
-  document.body.appendChild(div);
 
-  apiInstance = render((<ActionSheetApi />), div);
-}
-
-renderContainer();
+const container = createContainer();
+apiInstance = render(<ActionSheetApi />, container);
