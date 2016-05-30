@@ -4,81 +4,83 @@ $default-color: #eee;
 $primary-color: #04be02;
 $warn-color: #ef4f4f;
 
-.#{$namespace} {
-  &btn {
-    // reset
-    border: none;
-    outline: none;
+$selector: '.#{$namespace}-btn';
+$selector-disabled: '.#{$namespace}-btn-disabled';
 
-    position: relative;
-    display: block;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 14px;
+
+#{$selector} {
+  // reset
+  border: none;
+  outline: none;
+
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 14px;
+  box-sizing: border-box;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  line-height: 2.33333333;
+  border-radius: 5px;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  overflow: hidden;
+
+  &:after {
+    content: " ";
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid rgba(0,0,0,.2);
+    transform: scale(.5);
+    transform-origin: 0 0;
     box-sizing: border-box;
-    font-size: 18px;
-    text-align: center;
-    text-decoration: none;
-    color: #fff;
-    line-height: 2.33333333;
-    border-radius: 5px;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    overflow: hidden;
+    border-radius: 10px;
+  }
 
-    &:after {
-      content: " ";
-      width: 200%;
-      height: 200%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      border: 1px solid rgba(0,0,0,.2);
-      transform: scale(.5);
-      transform-origin: 0 0;
-      box-sizing: border-box;
-      border-radius: 10px;
-    }
-
-    & + .#{$namespace}btn {
-      margin-top: 15px;
-    }
+  & + #{$selector} {
+    margin-top: 15px;
   }
 
 
-  &btn-default {
+  &-default {
     background-color: $default-color;
     color: #454545;
 
-    &:not(.#{$namespace}btn-disabled):active {
+    &:not(#{$selector-disabled}):active {
       color: #a1a1a1;
       background-color: #dedede;
     }
 
     // 覆盖 primary 和 warn 的样式
-    &.#{$namespace}btn-disabled {
+    &#{$selector-disabled} {
       color: #c9c9c9;
     }
   }
 
-  &btn-primary {
+  &-primary {
     background-color: $primary-color;
 
-    &:not(.#{$namespace}btn-disabled):active {
+    &:not(#{$selector-disabled}):active {
       color: hsla(0,0%,100%,.4);
       background-color: #039702;
     }
   }
 
-  &btn-warn {
+  &-warn {
     background-color: $warn-color;
 
-    &:not(.#{$namespace}btn-disabled):active {
+    &:not(#{$selector-disabled}):active {
       color: hsla(0,0%,100%,.4);
       background-color: #c13e3e;
     }
   }
 
-  &btn-disabled {
+  &-disabled {
     color: hsla(0, 0%, 100%, .6);
   }
 }

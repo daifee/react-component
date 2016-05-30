@@ -1,87 +1,94 @@
 @import '../variables';
 
-@mixin animation($num) {
-  animation: #{$namespace}#{$num} 1.25s linear infinite;
-}
 
-.#{$namespace} {
+/**
+ * BEGIN IconAttention
+ */
 
-  /**
-   * IconAttention
-   */
-  &icon-attention {
-    display: inline-block;
-    position: relative;
-    background-color: red;
-    border-radius: 50%;
+$selector-attention: '.#{$namespace}-icon-attention';
 
-    &:after, &:before {
-      display: block;
-      content: '';
-      position: absolute;
-      left: 50%;
-      width: 0.12em;
-      margin-left: -0.06em;
-      background-color: white;
-      border-radius: 0.04em;
-    }
+#{$selector-attention} {
+  display: inline-block;
+  position: relative;
+  background-color: red;
+  border-radius: 50%;
 
-    &:after{
-      top: 0.12em;
-      height: 0.5em;
-    }
-
-    &:before{
-      top: 0.7em;
-      height: 0.12em;
-    }
+  &:after, &:before {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 0.12em;
+    margin-left: -0.06em;
+    background-color: white;
+    border-radius: 0.04em;
   }
 
-
-
-  /**
-   * IconLoading
-   */
-  &icon-loading {
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    width: 34px;
-    height: 34px;
-    animation: #{$namespace}icon-loading 1s infinite linear;
-
-    &-leaf {
-      position: absolute;
-      display: inline-block;
-      width: 10px;
-      height: 3px;
-      border-radius: 1px;
-      background-color: #d1d1d5;
-
-      right: 0;
-      top: 50%;
-      transform-origin: -7px 0;
-
-
-      &-0 {@include animation(0);}
-      &-1 {@include animation(1);}
-      &-2 {@include animation(2);}
-      &-3 {@include animation(3);}
-      &-4 {@include animation(4);}
-      &-5 {@include animation(5);}
-      &-6 {@include animation(6);}
-      &-7 {@include animation(7);}
-      &-8 {@include animation(8);}
-      &-9 {@include animation(9);}
-      &-10 {@include animation(10);}
-      &-11 {@include animation(11);}
-    }
+  &:after{
+    top: 0.12em;
+    height: 0.5em;
   }
 
+  &:before{
+    top: 0.7em;
+    height: 0.12em;
+  }
+}
+
+/**
+ * END IconAttention
+ */
+
+
+/**
+ * BEGIN IconLoading
+ */
+
+$selector-loading: '.#{$namespace}-icon-loading';
+$keyframes-loading: '#{$namespace}-icon-loading';
+
+@mixin loadingAnimation($num) {
+  animation: #{$keyframes-loading}#{$num} 1.25s linear infinite;
+}
+
+#{$selector-loading} {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  width: 34px;
+  height: 34px;
+  animation: #{$namespace}icon-loading 1s infinite linear;
+
+  &-leaf {
+    position: absolute;
+    display: inline-block;
+    width: 10px;
+    height: 3px;
+    border-radius: 1px;
+    background-color: #d1d1d5;
+
+    right: 0;
+    top: 50%;
+    transform-origin: -7px 0;
+
+
+    &-0 {@include loadingAnimation(0);}
+    &-1 {@include loadingAnimation(1);}
+    &-2 {@include loadingAnimation(2);}
+    &-3 {@include loadingAnimation(3);}
+    &-4 {@include loadingAnimation(4);}
+    &-5 {@include loadingAnimation(5);}
+    &-6 {@include loadingAnimation(6);}
+    &-7 {@include loadingAnimation(7);}
+    &-8 {@include loadingAnimation(8);}
+    &-9 {@include loadingAnimation(9);}
+    &-10 {@include loadingAnimation(10);}
+    &-11 {@include loadingAnimation(11);}
+  }
 }
 
 
-@keyframes #{$namespace}0 {
+@keyframes #{$keyframes-loading}0 {
     0% {opacity: .25;}
     0.01% {opacity: .25;}
     0.02% {opacity: 1;}
@@ -89,7 +96,7 @@
     to {opacity: .25;}
 }
 
-@keyframes #{$namespace}1 {
+@keyframes #{$keyframes-loading}1 {
     0% {opacity: .25;}
     8.34333% {opacity: .25;}
     8.35333% {opacity: 1;}
@@ -97,7 +104,7 @@
     to {opacity: .25;}
 }
 
-@keyframes #{$namespace}2 {
+@keyframes #{$keyframes-loading}2 {
     0% {opacity: .25;}
     16.6767% {opacity: .25;}
     16.6867% {opacity: 1;}
@@ -105,7 +112,7 @@
     to {opacity: .25;}
 }
 
-@keyframes #{$namespace}3 {
+@keyframes #{$keyframes-loading}3 {
     0% {opacity: .25;}
     25.01% {opacity: .25;}
     25.02% {opacity: 1;}
@@ -113,7 +120,7 @@
     to {opacity: .25;}
 }
 
-@keyframes #{$namespace}4 {
+@keyframes #{$keyframes-loading}4 {
     0% {opacity: .25;}
     33.3433% {opacity: .25;}
     33.3533% {opacity: 1;}
@@ -121,7 +128,7 @@
     to {opacity: .25;}
 }
 
-@keyframes #{$namespace}5 {
+@keyframes #{$keyframes-loading}5 {
     0% {opacity: .270958333333333;}
     41.6767% {opacity: .25;}
     41.6867% {opacity: 1;}
@@ -129,7 +136,7 @@
     to {opacity: .270958333333333;}
 }
 
-@keyframes #{$namespace}6 {
+@keyframes #{$keyframes-loading}6 {
     0% {opacity: .375125;}
     50.01% {opacity: .25;}
     50.02% {opacity: 1;}
@@ -137,7 +144,7 @@
     to {opacity: .375125;}
 }
 
-@keyframes #{$namespace}7 {
+@keyframes #{$keyframes-loading}7 {
     0% {opacity: .479291666666667;}
     58.3433% {opacity: .25;}
     58.3533% {opacity: 1;}
@@ -145,7 +152,7 @@
     to {opacity: .479291666666667;}
 }
 
-@keyframes #{$namespace}8 {
+@keyframes #{$keyframes-loading}8 {
     0% {opacity: .583458333333333;}
     66.6767% {opacity: .25;}
     66.6867% {opacity: 1;}
@@ -153,7 +160,7 @@
     to {opacity: .583458333333333;}
 }
 
-@keyframes #{$namespace}9 {
+@keyframes #{$keyframes-loading}9 {
     0% {opacity: .687625;}
     75.01% {opacity: .25;}
     75.02% {opacity: 1;}
@@ -161,7 +168,7 @@
     to {opacity: .687625;}
 }
 
-@keyframes #{$namespace}10 {
+@keyframes #{$keyframes-loading}10 {
     0% {opacity: .791791666666667;}
     83.3433% {opacity: .25;}
     83.3533% {opacity: 1;}
@@ -169,11 +176,15 @@
     to {opacity: .791791666666667;}
 }
 
-@keyframes #{$namespace}11 {
+@keyframes #{$keyframes-loading}11 {
     0% {opacity: .895958333333333;}
     91.6767% {opacity: .25;}
     91.6867% {opacity: 1;}
     51.6767% {opacity: .25;}
     to {opacity: .895958333333333;}
 }
+
+/**
+ * END IconLoading
+ */
 

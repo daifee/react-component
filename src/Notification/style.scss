@@ -12,75 +12,75 @@ $enter-top: 20px;
 $opacity: 1;
 $enter-opacity: .3;
 
-.#{$namespace} {
+$selector: '.#{$namespace}-notification';
 
-  &notification {
-    &-container {
-      position: fixed;
-      left: 0;
-      right: 0;
-      top: -1px;
-      height: 0px;
-      margin: 0;
-      padding: 0;
-    }
+#{$selector} {
 
-    position: relative;
-    list-style: none;
+  &-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: -1px;
+    height: 0px;
     margin: 0;
     padding: 0;
-    margin-top: 6px;
-    text-align: center;
-    transition-property: opacity, top;
+  }
+
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 6px;
+  text-align: center;
+  transition-property: opacity, top;
+  opacity: $opacity;
+  top: $top;
+
+  &-enter {
+    opacity: $enter-opacity;
+    top: $enter-top;
+
+    &-active {
+      opacity: $opacity;
+      top: $top;
+    }
+  }
+
+  &-leave {
     opacity: $opacity;
     top: $top;
 
-    &-enter {
+    &-active {
       opacity: $enter-opacity;
       top: $enter-top;
-
-      &-active {
-        opacity: $opacity;
-        top: $top;
-      }
     }
+  }
 
-    &-leave {
-      opacity: $opacity;
-      top: $top;
+  &>span {
+    display: inline-block;
+    padding: 5px 12px;
+    background-color: rgba(162, 162, 162, 1);
+    border-radius: 8px;
+    max-width: 60%;
+  }
 
-      &-active {
-        opacity: $enter-opacity;
-        top: $enter-top;
-      }
-    }
+  &-default {
+    color: $default-color;
+  }
 
-    &>span {
-      display: inline-block;
-      padding: 5px 12px;
-      background-color: rgba(162, 162, 162, 1);
-      border-radius: 8px;
-      max-width: 60%;
-    }
+  &-info {
+    color: $info-color;
+  }
 
-    &-default {
-      color: $default-color;
-    }
+  &-success {
+    color: $success-color;
+  }
 
-    &-info {
-      color: $info-color;
-    }
+  &-warn {
+    color: $warn-color;
+  }
 
-    &-success {
-      color: $success-color;
-    }
-
-    &-warn {
-      color: $warn-color;
-    }
-
-    &-error {
-      color: $error-color;
-    }
+  &-error {
+    color: $error-color;
   }
 }

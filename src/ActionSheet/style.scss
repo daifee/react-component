@@ -2,6 +2,9 @@
 
 $hr-color: #ddd;
 
+$selector: '.#{$namespace}-action-sheet';
+$selector-main: '.#{$namespace}-action-sheet-main';
+
 @mixin hr() {
   content: ' ';
   position: absolute;
@@ -13,122 +16,119 @@ $hr-color: #ddd;
   transform: scaleY(.5);
 }
 
-.#{$namespace} {
-  &action-sheet {
+#{$selector} {
+  &-api-container {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    width: 0;
+    height: 0;
+  }
 
-    &-api-container {
-      position: absolute;
-      left: -9999px;
-      top: -9999px;
-      width: 0;
-      height: 0;
-    }
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .3);
+  transition-property: background-color;
 
-    position: fixed;
+  &-main {
+    position: absolute;
+    bottom: 0;
     left: 0;
-    top: 0;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .3);
-    transition-property: background-color;
+    background-color: #fff;
+    transform: translate3d(0, 0%, 0);
+    transition-property: transform;
 
-    &-main {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: #fff;
-      transform: translate3d(0, 0%, 0);
-      transition-property: transform;
-
-      > header {
-        padding: 0 16px;
-        line-height: 44px;
-        position: relative;
-        color: #888;
-
-        &:after {
-          @include hr();
-        }
-      }
-
-      >ol {
-        margin: 0;
-        padding: 0;
-      }
-    }
-
-    &-item {
-      list-style: none;
+    > header {
+      padding: 0 16px;
+      line-height: 44px;
       position: relative;
-      text-align: center;
+      color: #888;
 
       &:after {
         @include hr();
       }
+    }
 
-      &:last-child {
-        border-top: 4px solid #eee;
+    >ol {
+      margin: 0;
+      padding: 0;
+    }
+  }
 
-        &:after {
-          content: none;
-        }
-      }
+  &-item {
+    list-style: none;
+    position: relative;
+    text-align: center;
 
-      > button {
-        border: none;
-        outline: none;
-        padding: 0;
-        display: block;
-        width: 100%;
-        background-color: transparent;
-        line-height: 44px;
-        font-size: 18px;
+    &:after {
+      @include hr();
+    }
 
-        &:active {
-          background-color: #eee;
-        }
-      }
+    &:last-child {
+      border-top: 4px solid #eee;
 
-      &-cancel > button {
-        color: #888;
-      }
-
-      &-destroy > button {
-        color: red;
+      &:after {
+        content: none;
       }
     }
 
+    > button {
+      border: none;
+      outline: none;
+      padding: 0;
+      display: block;
+      width: 100%;
+      background-color: transparent;
+      line-height: 44px;
+      font-size: 18px;
 
-    &-enter {
-      background-color: rgba(0, 0, 0, 0);
-
-      > .#{$namespace}action-sheet-main {
-        transform: translate3d(0, 100%, 0);
-      }
-
-      &-active {
-        background-color: rgba(0, 0, 0, .3);
-
-        > .#{$namespace}action-sheet-main {
-          transform: translate3d(0, 0%, 0);
-        }
+      &:active {
+        background-color: #eee;
       }
     }
 
-    &-leave {
+    &-cancel > button {
+      color: #888;
+    }
+
+    &-destroy > button {
+      color: red;
+    }
+  }
+
+
+  &-enter {
+    background-color: rgba(0, 0, 0, 0);
+
+    > #{$selector-main} {
+      transform: translate3d(0, 100%, 0);
+    }
+
+    &-active {
       background-color: rgba(0, 0, 0, .3);
 
-      > .#{$namespace}action-sheet-main {
+      > #{$selector-main} {
         transform: translate3d(0, 0%, 0);
       }
+    }
+  }
 
-      &-active {
-        background-color: rgba(0, 0, 0, 0);
+  &-leave {
+    background-color: rgba(0, 0, 0, .3);
 
-        > .#{$namespace}action-sheet-main {
-          transform: translate3d(0, 100%, 0);
-        }
+    > #{$selector-main} {
+      transform: translate3d(0, 0%, 0);
+    }
+
+    &-active {
+      background-color: rgba(0, 0, 0, 0);
+
+      > #{$selector-main} {
+        transform: translate3d(0, 100%, 0);
       }
     }
   }
