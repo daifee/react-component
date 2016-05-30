@@ -1,3 +1,5 @@
+import './style';
+
 export {
   IconAttention,
   IconLoading
