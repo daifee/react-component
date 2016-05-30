@@ -6,6 +6,36 @@ import classNames from '../classNames';
 import './style';
 
 
+class TabBarItem extends Component {
+  static propTypes = {
+    selected: PropTypes.bool,
+    icon: PropTypes.string,
+    selectedIcon: PropTypes.string,
+    title: PropTypes.string,
+    badge: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
+    onClick: PropTypes.func,
+    className: PropTypes.string
+  };
+
+  render() {
+    const {
+      selected,
+      children
+    } = this.props;
+    let classes = classNames('tab-bar-body-item', {
+      'tab-bar-body-item-selected': selected
+    });
+
+    return (
+      <div className={classes}>{children}</div>
+    );
+  }
+}
+
+
 export default class TabBar extends Component {
   static propTypes = {
     barColor: PropTypes.string,  // 导航条颜色
@@ -27,8 +57,10 @@ export default class TabBar extends Component {
     const {
       barColor,
       lineColor,
-      children,
+      color,
+      selectedColor,
       translucent,
+      children,
       className,
       ...others
     } = this.props;
@@ -40,7 +72,7 @@ export default class TabBar extends Component {
       backgroundColor: barColor
     };
     let lineStyle = {
-      backgroundColor: lineStyle
+      backgroundColor: lineColor
     };
 
     return (
@@ -64,36 +96,10 @@ export default class TabBar extends Component {
       </div>
     );
   }
+
+  static Item = TabBarItem;
 }
 
-class TabBarItem extends Component {
-  static propTypes = {
-    selected: PropTypes.bool,
-    icon: PropTypes.string,
-    selectedIcon: PropTypes.string,
-    title: PropTypes.string,
-    badge: PropTypes.oneTypeOf([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    onClick: PropTypes.func,
-    className: PropTypes.string
-  };
-
-  render() {
-    const {
-      selected,
-      children
-    } = this.props;
-    let classes = classNames('tab-bar-body-item', {
-      'tab-bar-body-item-selected': selected
-    });
-
-    return (
-      <div className={classes}>{children}</div>
-    );
-  }
-}
 
 
 
@@ -129,7 +135,7 @@ class Tab extends Component {
       <li className={classes} onClick={onClick}>
         <div className={classNames('tab-bar-item-label')}>
           <i className={iconClass} style={style} />
-          {badge ? (<span>{badge}</span>) : null}
+          {typeof badge !== 'undefined' ? (<span>{badge}</span>) : null}
         </div>
         <div className={classNames('tab-bar-item-title')} style={style}>
           {title}

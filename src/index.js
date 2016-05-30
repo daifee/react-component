@@ -19,3 +19,4 @@ export Toast from './Toast';
 export Dialog from './Dialog';
 export Notification from './Notification';
 export ActionSheet from './ActionSheet';
+export TabBar from './TabBar';

@@ -30,6 +30,10 @@ module.exports = {
       {
         test: /.scss$/,
         loader: ExtractTextPlugin.extract('style', 'css!postcss!sass')
+      },
+      {
+        test: /\.(eot|ttf|woff|svg)$/,
+        loader: 'url?name=fonts/[name].[hash].[ext]'
       }
     ]
   },

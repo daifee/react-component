@@ -1,0 +1,16 @@
+
+@import './font-icon/style.css';
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  height: 100%;
+
+  .rc-tab-bar-body-item {
+    padding: 0 16px;
+  }
+}

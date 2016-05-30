@@ -21,7 +21,8 @@ export default class HomePage extends Component {
       {name: 'Toast', href: '#toast'},
       {name: 'Dialog', href: '#dialog'},
       {name: 'Notification', href: '#notification'},
-      {name: 'ActionSheet', href: '#actionsheet'}
+      {name: 'ActionSheet', href: '#actionsheet'},
+      {name: 'TabBar', href: '#tabbar'}
     ]
   };
 
