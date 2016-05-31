@@ -8,80 +8,89 @@ import {
   IconLoading
 } from '../Icon';
 import './style';
-import TransitionShowContainer from '../TransitionShowContainer';
+import TransitionShow from '../TransitionShow';
 
 let apiInstance = null;
 let timer = null;
 
-
-export default class Toast extends TransitionShowContainer {
-  static propTypes = {
-    ...TransitionShowContainer.propTypes,
-    icon: PropTypes.string,  // icon 名称和 className（组件没有的情况）
-    content: PropTypes.string
+export default function Toast(props) {
+  let {
+    show,
+    zIndex,
+    duration,
+    timingFunction,
+    style,
+    className,
+    icon,
+    content,
+    ...others
+  } = props;
+  let classes = classNames('toast', {_user: className});
+  style = {
+    ...style,
+    zIndex,
+    transitionDuration: (duration + 'ms'),
+    transitionTimingFunction: timingFunction
   };
 
-  transitionName = classNames('toast');
-
-  renderMain(protectedStyle) {
-    let {
-      // reset
-      show, zIndex, duration, timingFunction, style,
-
-      icon, content, className, ...others
-    } = this.props;
-    let classes = classNames('toast', {_user: className});
-    style = protectedStyle;
-
-    //
-    return (
+  return (
+    <TransitionShow
+      show={show}
+      transitionName={classNames('toast')}
+      duration={duration}>
       <div className={classes} style={style} {...others} >
         <div>
           <div>
-            {this.matchIcon(icon)}
+            {matchIcon(icon)}
             <p>{content}</p>
           </div>
         </div>
       </div>
-    );
-  }
-
-  matchIcon(name) {
-    switch (name) {
-      case 'loading':
-        return (<IconLoading />);
-      case 'attention':
-        return (<IconAttention />);
-      default:
-        return null;
-    }
-  }
-
-  /**
-   * API 接口（静态方法）
-   */
-  static getInstance(container) {
-    return createInstance(ApiContainer, container);
-  }
-
-  static show(icon, content, options, timeout) {
-    apiInstance.show(icon, content, options, timeout);
-  }
-
-  static hide() {
-    apiInstance.hide();
-  }
-
-  static showLoading(content, options) {
-    apiInstance.showLoading(content, options);
-  }
-
-  static hideLoading() {
-    apiInstance.hideLoading();
-  }
+    </TransitionShow>
+  );
 }
 
 
+Toast.propTypes = {
+  ...TransitionShow.sharePropTypes,
+  icon: PropTypes.string,
+  content: PropTypes.string
+};
+
+Toast.defaultProps = TransitionShow.shareDefaultProps;
+
+
+Toast.getInstance = (container) => {
+  return createInstance(ApiContainer, container);
+};
+
+Toast.show = (icon, content, options, timeout) => {
+  apiInstance.show(icon, content, options, timeout);
+};
+
+Toast.hide = () => {
+  apiInstance.hide();
+};
+
+Toast.showLoading = (content, options) => {
+  apiInstance.showLoading(content, options);
+};
+
+Toast.hideLoading = () => {
+  apiInstance.hideLoading();
+};
+
+
+function matchIcon(name) {
+  switch (name) {
+    case 'loading':
+      return (<IconLoading />);
+    case 'attention':
+      return (<IconAttention />);
+    default:
+      return null;
+  }
+}
 
 
 /**

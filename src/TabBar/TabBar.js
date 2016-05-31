@@ -27,14 +27,16 @@ export default function TabBar(props) {
   };
 
   return (
-    <div className={classes}>
+    <div className={classes} {...others}>
       <div className={classNames('tab-bar-body')}>
         {children}
       </div>
       <footer style={barStyle}>
         <div style={lineStyle} />
         <ul>{children.map((child, index) => {
-          const {children, ...props} = child.props;
+          let props = {...child.props};
+          delete props.children;
+
           return (
             <Button
               key={index}
@@ -84,7 +86,7 @@ function Button(props) {
   };
 
   return (
-    <li className={classes} onClick={onClick}>
+    <li className={classes} onClick={onClick} {...others}>
       <div className={classNames('tab-bar-item-label')}>
         <i className={iconClass} style={style} />
         {typeof badge !== 'undefined' ? (<span>{badge}</span>) : null}

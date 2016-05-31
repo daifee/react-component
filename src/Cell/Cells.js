@@ -6,11 +6,7 @@ import {classNames} from '../utils';
 
 export default class Cells extends Component {
   static propTypes = {
-    children: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.string,
-      PropTypes.array
-    ]).isRequired,
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
     access: PropTypes.bool,
     arrow: PropTypes.bool

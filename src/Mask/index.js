@@ -3,33 +3,43 @@ import React, {
 } from 'react';
 import {classNames} from '../utils';
 import './style';
-import TransitionShowContainer from '../TransitionShowContainer';
+import TransitionShow from '../TransitionShow';
 
-
-export default class Mask extends TransitionShowContainer {
-  static propTypes = {
-    ...TransitionShowContainer.propTypes,
-    transparent: PropTypes.bool,
-    className: PropTypes.string
+export default function Mask(props) {
+  let {
+    show,
+    zIndex,
+    duration,
+    timingFunction,
+    style,
+    className,
+    transparent,
+    ...others
+  } = props;
+  let classes = classNames('mask', {
+    _user: className,
+    'mask-transparent': transparent
+  });
+  style = {
+    ...style,
+    zIndex,
+    transitionDuration: (duration + 'ms'),
+    transitionTimingFunction: timingFunction
   };
 
-  transitionName = classNames('mask');
-
-  renderMain(protectedStyle) {
-    let {
-      // reset
-      show, zIndex, duration, timingFunction, style,
-
-      className, transparent,
-      ...others
-    } = this.props;
-    let classes = classNames('mask', {
-      _user: className,
-      'mask-transparent': transparent
-    });
-    style = protectedStyle;
-
-    return (<div className={classes} {...others} style={style} />);
-  }
+  return (
+    <TransitionShow
+      show={show}
+      transitionName={classNames('mask')}
+      duration={duration}>
+      <div className={classes} {...others} style={style} />
+    </TransitionShow>
+  );
 }
 
+Mask.propTypes = {
+  ...TransitionShow.sharePropTypes,
+  transparent: PropTypes.bool
+};
+
+Mask.defaultProps = TransitionShow.shareDefaultProps;

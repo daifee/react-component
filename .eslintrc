@@ -19,7 +19,7 @@
       "named": "never"
     }],
     "react/jsx-no-bind": 0,
-    "no-unneeded-ternary": 0,
-    "no-unused-vars": 0  // 还是要报告声明但未使用的变量的
+    "no-unneeded-ternary": 0,  // 三目运算
+    "no-unused-vars": 1  // 还是要报告声明但未使用的变量的
   }
 }

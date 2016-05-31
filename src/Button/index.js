@@ -1,5 +1,4 @@
 import React, {
-  Component,
   PropTypes
 } from 'react';
 import {classNames} from '../utils';
@@ -13,10 +12,10 @@ export default function Button(props) {
     [`btn-${type}`]: true,
     'btn-disabled': disabled
   });
-  const component = href ? 'a' : 'button';
+  const Component = href ? 'a' : 'button';
 
   return (
-    <component
+    <Component
       className={classes}
       {...others}
       onTouchStart={(e) => {
@@ -24,7 +23,7 @@ export default function Button(props) {
         onTouchStart && onTouchStart(e);
       }}>
       {children}
-    </component>
+    </Component>
   );
 }
 

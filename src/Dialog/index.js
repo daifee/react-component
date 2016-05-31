@@ -3,33 +3,40 @@ import React, {
   PropTypes
 } from 'react';
 import {classNames, createInstance} from '../utils';
-import TransitionShowContainer from '../TransitionShowContainer';
+import TransitionShow from '../TransitionShow';
 import './style';
 
 let apiInstance = null;
 
-export default class Dialog extends TransitionShowContainer {
-  static propTypes = {
-    ...TransitionShowContainer.propTypes,
-    title: PropTypes.string,
-    content: PropTypes.string,
-    buttons: PropTypes.array  // [{text: '', onClik: () => {}}]
+
+export default function Dialog(props) {
+  let {
+    show,
+    zIndex,
+    duration,
+    timingFunction,
+    style,
+    className,
+    title,
+    content,
+    buttons,
+    _hide,
+    ...others
+  } = props;
+  let classes = classNames('dialog', {_user: className});
+  style = {
+    ...style,
+    zIndex,
+    transitionDuration: (duration + 'ms'),
+    transitionTimingFunction: timingFunction
   };
 
-  transitionName = classNames('dialog');
-
-  renderMain(protectedStyle) {
-    let {
-      // 过滤
-      show, zIndex, duration, timingFunction, style,
-
-      title, content, buttons, className, _hide
-    } = this.props;
-    let classes = classNames('dialog', {_user: className});
-    style = protectedStyle;
-
-    return (
-      <div className={classes} style={style}>
+  return (
+    <TransitionShow
+      show={show}
+      transitionName={classNames('dialog')}
+      duration={duration}>
+      <div className={classes} style={style} {...others}>
         <div>
           <header><strong>{title}</strong></header>
           <p>{content}</p>
@@ -38,17 +45,32 @@ export default class Dialog extends TransitionShowContainer {
           })}</footer>
         </div>
       </div>
-    );
-  }
-
-  static getInstance(container) {
-    return createInstance(ApiContainer, container);
-  }
-
-  static show(title, content, buttons, options) {
-    apiInstance.show(title, content, buttons, options);
-  }
+    </TransitionShow>
+  );
 }
+
+Dialog.propTypes = {
+  ...TransitionShow.sharePropTypes,
+  title: PropTypes.string,
+  content: PropTypes.string,
+  buttons: PropTypes.array,  // [{text: '', onClik: () => {}}]
+  _hide: PropTypes.func
+};
+
+Dialog.defaultProps = {
+  ...TransitionShow.shareDefaultProps,
+  buttons: []
+};
+
+Dialog.getInstance = (container) => {
+  return createInstance(ApiContainer, container);
+};
+
+Dialog.show = (title, content, buttons, options) => {
+  apiInstance.show(title, content, buttons, options);
+};
+
+
 
 function Button(props) {
   let {text, onClick, _hide, ...others} = props;
@@ -56,7 +78,7 @@ function Button(props) {
     <button
       {...others}
       onClick={(e) => {
-        _hide();
+        _hide && _hide();
         onClick && onClick(e);
       }}>
       {text}

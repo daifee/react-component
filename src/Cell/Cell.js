@@ -6,7 +6,7 @@ import {classNames} from '../utils';
 export default function Cell(props) {
   const {children, className, component, access, arrow, ...others} = props;
   const {href} = others;
-  const Tag = href ? 'a' : (component ? component : 'div');
+  const Component = href ? 'a' : (component ? component : 'div');
   const classes = classNames('cell', {
     'cell-access': access,
     'cell-arrow': arrow,
@@ -15,7 +15,7 @@ export default function Cell(props) {
 
 
   return (
-    <Tag {...others} className={classes}>{children}</Tag>
+    <Component {...others} className={classes}>{children}</Component>
   );
 }
 
