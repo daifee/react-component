@@ -25,7 +25,7 @@ export function classNames() {
         if (!hasOwn.call(arg, key) || !arg[key]) continue;
 
         // 用户传入的
-        if (key === '_user' ) {
+        if (key === '_user') {
           classes.push(arg[key]);
         } else {
           prePush(classes, key);

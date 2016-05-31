@@ -25,7 +25,7 @@ export default class Toast extends TransitionShowContainer {
 
   renderMain(protectedStyle) {
     let {
-      // 过滤
+      // reset
       show, zIndex, duration, timingFunction, style,
 
       icon, content, className, ...others

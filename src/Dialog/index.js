@@ -64,6 +64,11 @@ function Button(props) {
   );
 }
 
+Button.propTypes = {
+  text: PropTypes.string,
+  onClick: PropTypes.func,
+  _hide: PropTypes.func
+};
 
 
 class ApiContainer extends Component {

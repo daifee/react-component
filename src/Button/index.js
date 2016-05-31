@@ -5,7 +5,7 @@ import React, {
 import {classNames} from '../utils';
 import './style';
 
-export default function Button (props) {
+export default function Button(props) {
   const {children, className, type, disabled, onTouchStart, ...others} = props;
   const {href} = others;
   const classes = classNames('btn', {

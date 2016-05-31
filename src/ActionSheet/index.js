@@ -66,12 +66,12 @@ export default class ActionSheet extends TransitionShowContainer {
           <ol>{buttons.map((action, index) => {
             return (
               <Button
-              key={getId()}
-              name={action}
-              index={index}
-              cancel={cancelButtonIndex === index}
-              destroy={destroyButtonIndex === index}
-              callback={callback} />);
+                key={getId()}
+                name={action}
+                index={index}
+                cancel={cancelButtonIndex === index}
+                destroy={destroyButtonIndex === index}
+                callback={callback} />);
           })}</ol>
         </div>
       </div>

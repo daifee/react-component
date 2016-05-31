@@ -8,12 +8,11 @@ import React, {
   Component,
   PropTypes
 } from 'react';
-import {classNames} from './utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 export default class TransitionShowContainer extends Component {
-  static propsTypes = {
+  static propTypes = {
     show: PropTypes.bool,  // 显示 or 隐藏
     zIndex: PropTypes.number,  // css 的 z-index
     duration: PropTypes.number,  // 过渡时长
@@ -66,6 +65,7 @@ export default class TransitionShowContainer extends Component {
     return null;
   }
 }
+
 
 function EmptyContainer(props) {
   return props.children[0] || null;
