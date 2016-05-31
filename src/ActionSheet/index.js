@@ -1,13 +1,7 @@
-/**
- * ActionSheet(提供 API 接口)
- *
- */
-
 import React, {
   Component,
   PropTypes
 } from 'react';
-import {render} from 'react-dom';
 import './style';
 import {classNames, createInstance} from '../utils';
 import TransitionShowContainer from '../TransitionShowContainer';
@@ -78,7 +72,7 @@ export default class ActionSheet extends TransitionShowContainer {
   };
 
   static getInstance(container) {
-    return render(<ApiContainer />, container);
+    return createInstance(ApiContainer, container);
   }
 
 

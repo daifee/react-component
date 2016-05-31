@@ -8,7 +8,7 @@ import React, {
   Component,
   PropTypes
 } from 'react';
-import classNames from './classNames';
+import {classNames} from './utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
