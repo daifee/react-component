@@ -1,0 +1,24 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["standard", "standard-react"],
+  // "ecmaVersion": 7,
+  "globals": {
+    "alert": false,
+    "console": false,
+    "window": false,
+    "DATA": false,
+    "hprose": false,
+    "zzcjsbridge": false
+  },
+
+  "rules": {
+    "semi": [2, "always"],  // 必须使用分号，且正确使用
+    "no-multiple-empty-lines": 0,  // 不限制连续的空行数量
+    "space-before-function-paren": [2, {  // 匿名函数需要空格，命名的不需要
+      "anonymous": "always",
+      "named": "never"
+    }],
+    "react/jsx-no-bind": 0,
+    "no-unused-vars": 1
+  }
+}
