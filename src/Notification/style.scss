@@ -1,10 +1,10 @@
 @import '../variables';
 
-$default-color: #fff;
-$info-color: #81D7F1;
-$success-color: #62F962;
-$warn-color: #F9BB62;
-$error-color: #d9534f;
+$default-color: #AAAAAA;
+$info-color: #01BAD2;
+$success-color: #60BE29;
+$warning-color: #FF6100;
+$danger-color: #E01515;
 
 $top: 30px;
 $enter-top: 20px;
@@ -59,28 +59,28 @@ $selector: '.#{$namespace}-notification';
   &>span {
     display: inline-block;
     padding: 5px 12px;
-    background-color: rgba(162, 162, 162, 1);
+    color: #fff;
     border-radius: 8px;
     max-width: 60%;
   }
 
-  &-default {
-    color: $default-color;
+  &-default > span {
+    background-color: $default-color;
   }
 
-  &-info {
-    color: $info-color;
+  &-info > span {
+    background-color: $info-color;
   }
 
-  &-success {
-    color: $success-color;
+  &-success > span {
+    background-color: $success-color;
   }
 
-  &-warn {
-    color: $warn-color;
+  &-warning > span {
+    background-color: $warning-color;
   }
 
-  &-error {
-    color: $error-color;
+  &-danger > span {
+    background-color: $danger-color;
   }
 }

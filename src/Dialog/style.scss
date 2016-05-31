@@ -13,7 +13,7 @@ $selector: '.#{$namespace}-dialog';
   width: 100%;
   height: 100%;
   text-align: center;
-  background-color: rgba(0, 0, 0, .2);
+  background-color: $mask-bg;
   transition-property: opacity;
 
   &-enter {
@@ -105,11 +105,5 @@ $selector: '.#{$namespace}-dialog';
         }
       }
     }
-  }
-
-  &-api-container {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
   }
 }

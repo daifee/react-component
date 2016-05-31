@@ -8,27 +8,41 @@ $selector: '.#{$namespace}-mask';
   height: 100%;
   top: 0;
   left: 0;
-  background-color: #000;
-
-  opacity: 0.3;
-
-  &-transparent {
-    background-color: transparent;
-  }
+  background-color: $mask-bg;
+  transition-property: background-color;
 
   &-enter {
-    opacity: 0.01;
+    background-color: $mask-bg-transparent;
 
     &-active {
-      opacity: 0.3;
+      background-color: $mask-bg;
     }
   }
 
   &-leave {
-    opacity: 0.3;
+    background-color: $mask-bg;
 
     &-active {
-      opacity: 0.01;
+      background-color: $mask-bg-transparent;
+    }
+  }
+
+  &-transparent {
+    background-color: $mask-bg-transparent;;
+
+    &-enter {
+      background-color: $mask-bg-transparent;;
+
+      &-active {
+        background-color: $mask-bg-transparent;;
+      }
+    }
+
+    &-leave {
+      background-color: $mask-bg-transparent;;
+      &-active {
+        background-color: $mask-bg-transparent;;
+      }
     }
   }
 }

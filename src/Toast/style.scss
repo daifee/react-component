@@ -8,6 +8,7 @@ $selector: '.#{$namespace}-toast';
   height: 100%;
   top: 0;
   left: 0;
+  background-color: $mask-bg-transparent;
 
   &-enter {
     opacity: .3;
@@ -32,8 +33,6 @@ $selector: '.#{$namespace}-toast';
     left: 50%;
     min-width: 7.6em;
     height: 7.6em;
-    // margin-top: -3.8em;
-    // margin-left: -3.8em;
     transform: translate3d(-50%, -50%, 0);
     background-color: rgba(40, 40, 40, .7);
     border-radius: 5px;
@@ -52,12 +51,6 @@ $selector: '.#{$namespace}-toast';
       font-size: 16px;
       color: #fff;
     }
-  }
-
-  &-api-container {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
   }
 
 }

@@ -9,6 +9,7 @@ import TransitionShowContainer from '../TransitionShowContainer';
 export default class Mask extends TransitionShowContainer {
   static propTypes = {
     ...TransitionShowContainer.propTypes,
+    transparent: PropTypes.bool,
     className: PropTypes.string
   };
 
@@ -19,10 +20,13 @@ export default class Mask extends TransitionShowContainer {
       // reset
       show, zIndex, duration, timingFunction, style,
 
-      className,
+      className, transparent,
       ...others
     } = this.props;
-    let classes = classNames('mask', {_user: className});
+    let classes = classNames('mask', {
+      _user: className,
+      'mask-transparent': transparent
+    });
     style = protectedStyle;
 
     return (<div className={classes} {...others} style={style} />);

@@ -30,6 +30,10 @@ export default class HomePage extends Component {
   render() {
     let {components} = this.state;
 
+    components.sort((left, right) => {
+      return left.name > right.name;
+    });
+
     return (
       <Page
         title='React Component'

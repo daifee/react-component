@@ -36,7 +36,7 @@ export default function Notification(props) {
 }
 
 Notification.propTypes = {
-  type: PropTypes.oneOf(['default', 'info', 'success', 'warn', 'error']),
+  type: PropTypes.oneOf(['default', 'info', 'success', 'warning', 'danger']),
   content: PropTypes.string.isRequired,
   timingFunction: PropTypes.string,
   className: PropTypes.string,
@@ -44,6 +44,7 @@ Notification.propTypes = {
 };
 
 Notification.defaultProps = {
+  type: 'default',
   timingFunction: 'ease-in'
 };
 
