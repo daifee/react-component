@@ -17,48 +17,44 @@ function getId() {
 }
 
 
-export default class Notification extends Component {
-  static propTypes = {
-    type: PropTypes.oneOf(['default', 'info', 'success', 'warn', 'error']),
-    content: PropTypes.string.isRequired,
-    timingFunction: PropTypes.string
+export default function Notification(props) {
+  let {type, content, timingFunction, className, style, ...others} = props;
+  let classes = classNames('notification', `notification-${type}`, {
+    _user: className
+  });
+  style = {
+    ...style,
+    transitionDuration: (duration + 'ms'),
+    transitionTimingFunction: timingFunction
   };
 
-  static defaultProps = {
-    timingFunction: 'ease-in'
-  };
-
-  render() {
-    const {
-      type,
-      content,
-      timingFunction,
-      className,
-      ...others
-    } = this.props;
-    let classes = classNames('notification', `notification-${type}`, {
-      _user: className
-    });
-    let style = {
-      transitionDuration: (duration + 'ms'),
-      transitionTimingFunction: timingFunction
-    };
-
-    return (
-      <li className={classes} style={style} {...others}>
-        <span>{content}</span>
-      </li>
-    );
-  }
-
-  static getInstance(container) {
-    return createInstance(Notifications, container);
-  }
-
-  static show(content, type, options) {
-    apiInstance.show(content, type, options);
-  }
+  return (
+    <li className={classes} style={style} {...others}>
+      <span>{content}</span>
+    </li>
+  );
 }
+
+Notification.propTypes = {
+  type: PropTypes.oneOf(['default', 'info', 'success', 'warn', 'error']),
+  content: PropTypes.string.isRequired,
+  timingFunction: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object
+};
+
+Notification.defaultProps = {
+  timingFunction: 'ease-in'
+};
+
+
+Notification.show = (content, type, options) => {
+  apiInstance.show(content, type, options);
+};
+
+Notification.getInstance = (container) => {
+  return createInstance(Notifications, container);
+};
 
 
 
@@ -94,7 +90,8 @@ class Notifications extends Component {
     );
   }
 
-  show(content, type = 'default', options = {}) {
+  // zIndex, timeout
+  show(content, type, options = {}) {
     let [...notifications] = this.state.notifications;
     // others 赋值到 notification
     let {timeout, zIndex, ...others} = options;
@@ -103,7 +100,7 @@ class Notifications extends Component {
 
     notifications.unshift(notification);
 
-    let nextState = {...this.state, zIndex, notifications};
+    let nextState = {zIndex, notifications};
 
     this.setState(nextState);
 

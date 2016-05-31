@@ -4,7 +4,6 @@ import React, {
 } from 'react';
 import {classNames} from '../utils';
 
-const matchUnit = /(\D+)$/;
 
 export default class IconAttention extends Component {
   static propTypes = {

@@ -2,7 +2,6 @@ import React, {
   Component,
   PropTypes
 } from 'react';
-import {render} from 'react-dom';
 import {classNames, createInstance} from '../utils';
 import TransitionShowContainer from '../TransitionShowContainer';
 import './style';
@@ -19,21 +18,15 @@ export default class Dialog extends TransitionShowContainer {
 
   transitionName = classNames('dialog');
 
-  renderMain(style) {
-    const {
+  renderMain(protectedStyle) {
+    let {
       // 过滤
-      show,
-      zIndex,
-      duration,
-      timingFunction,
+      show, zIndex, duration, timingFunction, style,
 
-      title,
-      content,
-      buttons,
-      className,
-      _hide
+      title, content, buttons, className, _hide
     } = this.props;
     let classes = classNames('dialog', {_user: className});
+    style = protectedStyle;
 
     return (
       <div className={classes} style={style}>
@@ -57,22 +50,19 @@ export default class Dialog extends TransitionShowContainer {
   }
 }
 
-
-class Button extends Component {
-  render() {
-    const {text, ...others} = this.props;
-    return (<button {...others} onClick={this.click}>{text}</button>);
-  }
-
-  click = () => {
-    const {onClick, _hide} = this.props;
-
-    _hide();
-    onClick && onClick();
-  };
+function Button(props) {
+  let {text, onClick, _hide, ...others} = props;
+  return (
+    <button
+      {...others}
+      onClick={(e) => {
+        _hide();
+        onClick && onClick(e);
+      }}>
+      {text}
+    </button>
+  );
 }
-
-
 
 
 
@@ -85,7 +75,6 @@ class ApiContainer extends Component {
 
   show(title, content, buttons, options) {
     let nextState = {
-      ...this.state,
       ...options,
       title,
       content,

@@ -5,47 +5,39 @@ import React, {
 import {classNames} from '../utils';
 import './style';
 
+export default function Button (props) {
+  const {children, className, type, disabled, onTouchStart, ...others} = props;
+  const {href} = others;
+  const classes = classNames('btn', {
+    '_user': className,
+    [`btn-${type}`]: true,
+    'btn-disabled': disabled
+  });
+  const component = href ? 'a' : 'button';
 
-export default class Button extends Component {
-  static propTypes = {
-    type: PropTypes.oneOf(['default', 'primary', 'warn']),
-    disabled: PropTypes.bool,
-    className: PropTypes.string,
-    href: PropTypes.string,
-    children: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.string,
-      PropTypes.array
-    ]).isRequired
-  };
-
-  static defaultProps = {
-    type: 'default'
-  };
-
-  handleDisabled = (e) => {
-    if (this.props.disabled) {
-      e.preventDefault();
-    }
-  };
-
-  render() {
-    const {children, className, type, disabled, ...others} = this.props;
-    const {href} = others;
-    const classes = classNames('btn', {
-      '_user': className,
-      [`btn-${type}`]: true,
-      'btn-disabled': disabled
-    });
-    const component = href ? 'a' : 'button';
-
-    return (
-      <component
-        onTouchStart={this.handleDisabled}
-        className={classes}
-        {...others}>
-        {children}
-      </component>
-    );
-  }
+  return (
+    <component
+      className={classes}
+      {...others}
+      onTouchStart={(e) => {
+        disabled && e.preventDefault();
+        onTouchStart && onTouchStart(e);
+      }}>
+      {children}
+    </component>
+  );
 }
+
+Button.propTypes = {
+  type: PropTypes.oneOf(['default', 'primary', 'warn']),
+  disabled: PropTypes.bool,
+  href: PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  onTouchStart: PropTypes.func
+};
+
+Button.defaultProps = {
+  type: 'default'
+};
+

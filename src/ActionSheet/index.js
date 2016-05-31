@@ -13,6 +13,8 @@ function getId() {
   return id++;
 }
 
+
+
 export default class ActionSheet extends TransitionShowContainer {
   static propTypes = {
     ...TransitionShowContainer.propTypes,
@@ -20,7 +22,8 @@ export default class ActionSheet extends TransitionShowContainer {
     cancelButtonIndex: PropTypes.number,
     destroyButtonIndex: PropTypes.number,
     title: PropTypes.string,
-    callback: PropTypes.func
+    callback: PropTypes.func,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -31,10 +34,10 @@ export default class ActionSheet extends TransitionShowContainer {
 
   transitionName = classNames('action-sheet');
 
-  renderMain(style) {
-    const {
-      // reset
-      show, zIndex, duration, timingFunction,
+  renderMain(protectedStyle) {
+    let {
+      // reset TransitionShowContainer
+      show, zIndex, duration, timingFunction, style,
 
       buttons,
       cancelButtonIndex,
@@ -46,8 +49,18 @@ export default class ActionSheet extends TransitionShowContainer {
     } = this.props;
     let classes = classNames('action-sheet', {_user: className});
 
+    style = protectedStyle;
+    // 默认值
+    if (typeof cancelButtonIndex === 'undefined') {
+      cancelButtonIndex = buttons.length - 1;
+    }
+
     return (
-      <div className={classes} style={style} {...others} onClick={this.click}>
+      <div
+        className={classes}
+        style={style}
+        {...others}
+        onClick={this.click}>
         <div className={classNames('action-sheet-main')} style={style}>
           {title ? (<header>{title}</header>) : null}
           <ol>{buttons.map((action, index) => {
@@ -121,11 +134,7 @@ class ApiContainer extends Component {
   }
 
   show(options = {}, callback) {
-    // cancelButtonIndex 默认值
-    let cancelButtonIndex = options.buttons.length - 1;
     let nextState = {
-      cancelButtonIndex,
-      ...this.state,
       ...options,
       callback,
       show: true

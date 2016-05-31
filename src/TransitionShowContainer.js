@@ -17,23 +17,22 @@ export default class TransitionShowContainer extends Component {
     show: PropTypes.bool,  // 显示 or 隐藏
     zIndex: PropTypes.number,  // css 的 z-index
     duration: PropTypes.number,  // 过渡时长
-    timingFunction: PropTypes.string  // 动画类型
+    timingFunction: PropTypes.string,  // 动画类型
+    style: PropTypes.object
   };
 
   static defaultProps = {
+    show: false,
     zIndex: 9999,
-    duration: 150,
-    timingFunction: 'ease-in'
+    duration: 80,
+    timingFunction: 'ease-in',
+    style: {}
   };
 
   render() {
-    const {
-      show,
-      zIndex,
-      duration,
-      timingFunction
-    } = this.props;
-    let style = {
+    let {show, zIndex, duration, timingFunction, style} = this.props;
+    style = {
+      ...style,
       zIndex,
       transitionDuration: (duration + 'ms'),
       transitionTimingFunction: timingFunction

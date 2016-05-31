@@ -23,20 +23,15 @@ export default class Toast extends TransitionShowContainer {
 
   transitionName = classNames('toast');
 
-  renderMain(style) {
-    const {
+  renderMain(protectedStyle) {
+    let {
       // 过滤
-      show,
-      zIndex,
-      duration,
-      timingFunction,
+      show, zIndex, duration, timingFunction, style,
 
-      icon,
-      content,
-      className,
-      ...others
+      icon, content, className, ...others
     } = this.props;
     let classes = classNames('toast', {_user: className});
+    style = protectedStyle;
 
     //
     return (
@@ -65,6 +60,9 @@ export default class Toast extends TransitionShowContainer {
   /**
    * API 接口（静态方法）
    */
+  static getInstance(container) {
+    return createInstance(ApiContainer, container);
+  }
 
   static show(icon, content, options, timeout) {
     apiInstance.show(icon, content, options, timeout);
