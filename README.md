@@ -1,4 +1,4 @@
-# React-Component
+# Daifee-React-Component
 
 一套决定项目 UI 风格的  react component。
 

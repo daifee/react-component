@@ -4,6 +4,14 @@ import React, {
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
+/**
+ * TransitionShow 使子组件实现简单的“显示和隐藏”过渡动画
+ * @param {object} props 传入组件的参数
+ * @param {boolean} [props.show=false] 是否显示子组件（children）
+ * @param {string} props.transitionName 实现过渡动画的 className
+ * @param {number} [props.duration=80] 过渡动画持续时间
+ * @param {PropTypes.node} props.children 子组件
+ */
 export default function TransitionShow(props) {
   let {show, transitionName, duration, children} = props;
 
@@ -25,16 +33,29 @@ TransitionShow.propTypes = {
   children: PropTypes.node
 };
 
-
-TransitionShow.sharePropTypes = {
-  show: TransitionShow.propTypes.show,  // 显示 or 隐藏
-  duration: TransitionShow.propTypes.duration,  // 过渡时长
-  zIndex: PropTypes.number,  // css 的 z-index
-  timingFunction: PropTypes.string,  // 动画类型
-  style: PropTypes.object,
-  className: PropTypes.string
+TransitionShow.defaultProps = {
+  show: false,
+  duration: 80
 };
 
+
+/**
+ * TransitionShow 子组件要定义的属性
+ * @type {Object}
+ */
+TransitionShow.sharePropTypes = {
+  show: TransitionShow.propTypes.show,
+  duration: TransitionShow.propTypes.duration,
+  zIndex: PropTypes.number,
+  timingFunction: PropTypes.string,
+  style: PropTypes.object,  // 通过 style 定义动画 duration/zIndex/timgFunction
+  className: PropTypes.string  // 用户自定义 class，所有组件都提供的属性
+};
+
+/**
+ * TranstionShow 子组件要定义的默认属性
+ * @type {Object}
+ */
 TransitionShow.shareDefaultProps = {
   duration: 80,
   zIndex: 9999,
