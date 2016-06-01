@@ -1,5 +1,5 @@
 {
-  "name": "react-component",
+  "name": "daifee-react-component",
   "version": "1.0.0",
   "description": "封装常用的 react 组件，参考（copy） weui 的 UI 风格",
   "main": "index.js",
@@ -10,6 +10,7 @@
     "lint:watch": "esw -w src/"
   },
   "keywords": [
+    "daifee-react-component",
     "react-component",
     "react",
     "component",

@@ -32,6 +32,7 @@ export default function ActionSheet(props) {
     ...others
   } = props;
   let classes = classNames('action-sheet', {_user: className});
+  typeof cancelButtonIndex === 'undefined' && (cancelButtonIndex = buttons.length - 1);
   style = {
     ...style,
     zIndex,

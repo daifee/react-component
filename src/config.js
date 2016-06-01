@@ -3,5 +3,5 @@
  */
 
 export default {
-  namespace: 'rc'
+  namespace: 'daifee-rc'
 };
