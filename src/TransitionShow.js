@@ -7,9 +7,9 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 /**
  * TransitionShow 使子组件实现简单的“显示和隐藏”过渡动画
  * @param {object} props 传入组件的参数
- * @param {boolean} [props.show=false] 是否显示子组件（children）
+ * @param {boolean} props.show=false 是否显示子组件（children）
  * @param {string} props.transitionName 实现过渡动画的 className
- * @param {number} [props.duration=80] 过渡动画持续时间
+ * @param {number} props.duration 过渡动画持续时间
  * @param {PropTypes.node} props.children 子组件
  * @return {PropTypes.element} React element
  *
@@ -46,8 +46,7 @@ TransitionShow.propTypes = {
 };
 
 TransitionShow.defaultProps = {
-  show: false,
-  duration: 80
+  show: false
 };
 
 

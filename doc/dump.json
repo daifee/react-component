@@ -1,0 +1,2779 @@
+[
+  {
+    "__docId__": 0,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/ActionSheet/index.js",
+    "memberof": null,
+    "longname": "src/ActionSheet/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport './style';\nimport {classNames, createInstance} from '../utils';\nimport TransitionShow from '../TransitionShow';\n\nlet apiInstance;\n\nlet id = 0;\nfunction getId() {\n  return id++;\n}\n\n/**\n * ActionSheet 组件\n * @param {object} props 传入组件的属性\n * @param {boolean} props.show 是否显示\n * @param {number} props.zIndex z-index 值\n * @param {number} props.duration 过渡持续时间。单位：ms\n * @param {string} props.timingFunction 动画类型\n * @param {object} props.style 传入自定义 style 值\n * @param {string} props.className 传入自定义 class\n * @param {array} props.buttons 定义本组件的按钮，数组值作为按钮名\n * @param {number} props.cancelButtonIndex 第几个是\"取消\"按钮，会附加一个 class\n * @param {number} props.destroyButtonIndex 第几个是“危险”按钮，会附加一个 class\n * @param {string} props.title 显示的组件title\n * @param {function} props.callback 点击按钮后调用的 callback，按钮索引作为参数\n * @param {function} props.onClick 组件被点击后被调用。\n * @param {function} props._hide 组件点击后被调用（请用 onClick 代替）\n * @description 除了上面说明的属性，还可以定义任何 React 组件有效的属性。\n */\nexport default function ActionSheet(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    buttons,\n    cancelButtonIndex,\n    destroyButtonIndex,\n    title,\n    callback,\n    onClick,\n    _hide,\n    ...others\n  } = props;\n  let classes = classNames('action-sheet', {_user: className});\n  typeof cancelButtonIndex === 'undefined' && (cancelButtonIndex = buttons.length - 1);\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('action-sheet')}\n      duration={duration}>\n      <div\n        className={classes}\n        style={style}\n        {...others}\n        onClick={(e) => {\n          _hide && _hide();\n          onClick && onClick(e);\n        }}>\n        <div className={classNames('action-sheet-main')} style={style}>\n          {title ? (<header>{title}</header>) : null}\n          <ol>{buttons.map((action, index) => {\n            return (\n              <Button\n                key={getId()}\n                name={action}\n                index={index}\n                cancel={cancelButtonIndex === index}\n                destroy={destroyButtonIndex === index}\n                callback={callback} />);\n          })}</ol>\n        </div>\n      </div>\n    </TransitionShow>\n  );\n}\n\nActionSheet.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  buttons: PropTypes.array,\n  cancelButtonIndex: PropTypes.number,\n  destroyButtonIndex: PropTypes.number,\n  title: PropTypes.string,\n  callback: PropTypes.func,\n  onClick: PropTypes.func,\n  _hide: PropTypes.func\n};\n\nActionSheet.defaultProps = {\n  ...TransitionShow.shareDefaultProps,\n  duration: 250,\n  buttons: []\n};\n\n\nActionSheet.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\n\nActionSheet.show = (options = {}, callback) => {\n  apiInstance.show(options, callback);\n};\n\n\nfunction Button(props) {\n  const {name, index, cancel, destroy, callback} = props;\n  let classes = classNames('action-sheet-item', {\n    'action-sheet-item-cancel': cancel,\n    'action-sheet-item-destroy': destroy\n  });\n\n  return (\n    <li className={classes} onClick={() => callback(index)}>\n      <button>{name}</button>\n    </li>\n  );\n}\n\nButton.propTypes = {\n  name: PropTypes.string,\n  index: PropTypes.number,\n  cancel: PropTypes.bool,\n  destroy: PropTypes.bool,\n  callback: PropTypes.func\n};\n\nButton.defaultProps = {\n  callback() {}\n};\n\n\n\nclass ApiContainer extends Component {\n  state = {};\n\n  render() {\n    return (<ActionSheet {...this.state} _hide={this.hide} />);\n  }\n\n  show(options = {}, callback) {\n    let nextState = {\n      ...options,\n      callback,\n      show: true\n    };\n\n    this.setState(nextState);\n  }\n\n  hide = () => {\n    let nextState = {...this.state, show: false};\n\n    this.setState(nextState);\n  }\n}\n\n\napiInstance = createInstance(ApiContainer);\n"
+  },
+  {
+    "__docId__": 1,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "id",
+    "memberof": "src/ActionSheet/index.js",
+    "longname": "src/ActionSheet/index.js~id",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/ActionSheet/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 2,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "getId",
+    "memberof": "src/ActionSheet/index.js",
+    "longname": "src/ActionSheet/index.js~getId",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/ActionSheet/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 3,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "ActionSheet",
+    "memberof": "src/ActionSheet/index.js",
+    "longname": "src/ActionSheet/index.js~ActionSheet",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/ActionSheet/index.js",
+    "importStyle": "ActionSheet",
+    "description": "ActionSheet 组件",
+    "lineNumber": 34,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "除了上面说明的属性，还可以定义任何 React 组件有效的属性。"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "传入组件的属性"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.show",
+        "description": "是否显示"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.zIndex",
+        "description": "z-index 值"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.duration",
+        "description": "过渡持续时间。单位：ms"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.timingFunction",
+        "description": "动画类型"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.style",
+        "description": "传入自定义 style 值"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.className",
+        "description": "传入自定义 class"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.buttons",
+        "description": "定义本组件的按钮，数组值作为按钮名"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.cancelButtonIndex",
+        "description": "第几个是\"取消\"按钮，会附加一个 class"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.destroyButtonIndex",
+        "description": "第几个是“危险”按钮，会附加一个 class"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.title",
+        "description": "显示的组件title"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.callback",
+        "description": "点击按钮后调用的 callback，按钮索引作为参数"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.onClick",
+        "description": "组件被点击后被调用。"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props._hide",
+        "description": "组件点击后被调用（请用 onClick 代替）"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 4,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Button",
+    "memberof": "src/ActionSheet/index.js",
+    "longname": "src/ActionSheet/index.js~Button",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/ActionSheet/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 119,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 5,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "ApiContainer",
+    "memberof": "src/ActionSheet/index.js",
+    "longname": "src/ActionSheet/index.js~ApiContainer",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/ActionSheet/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 147,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 6,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "src/ActionSheet/index.js~ApiContainer",
+    "longname": "src/ActionSheet/index.js~ApiContainer#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 150,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 7,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "show",
+    "memberof": "src/ActionSheet/index.js~ApiContainer",
+    "longname": "src/ActionSheet/index.js~ApiContainer#show",
+    "access": null,
+    "description": null,
+    "lineNumber": 154,
+    "undocument": true,
+    "params": [
+      {
+        "name": "options",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      },
+      {
+        "name": "callback",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 8,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Button/index.js",
+    "memberof": null,
+    "longname": "src/Button/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "/**\n * Button Component\n * @module src/Button\n */\n\nimport React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\n\n\n/**\n * 输出\n * @param {Object} props 传入的 props\n * @param {String} props.type 按钮类型\n */\nexport default function Button(props) {\n  const {children, className, type, disabled, onTouchStart, ...others} = props;\n  const {href} = others;\n  const classes = classNames('btn', {\n    '_user': className,\n    [`btn-${type}`]: true,\n    'btn-disabled': disabled\n  });\n  const Component = href ? 'a' : 'button';\n\n  return (\n    <Component\n      className={classes}\n      {...others}\n      onTouchStart={(e) => {\n        disabled && e.preventDefault();\n        onTouchStart && onTouchStart(e);\n      }}>\n      {children}\n    </Component>\n  );\n}\n\nButton.propTypes = {\n  type: PropTypes.oneOf(['default', 'primary', 'warn']),\n  disabled: PropTypes.bool,\n  href: PropTypes.string,\n  children: PropTypes.node,\n  className: PropTypes.string,\n  onTouchStart: PropTypes.func\n};\n\nButton.defaultProps = {\n  type: 'default'\n};\n\n"
+  },
+  {
+    "__docId__": 9,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Button",
+    "memberof": "src/Button/index.js",
+    "longname": "src/Button/index.js~Button",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Button/index.js",
+    "importStyle": "Button",
+    "description": "输出",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "传入的 props"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.type",
+        "description": "按钮类型"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 10,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Cell/Cell.js",
+    "memberof": null,
+    "longname": "src/Cell/Cell.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n\tPropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function Cell(props) {\n  const {children, className, component, access, arrow, ...others} = props;\n  const {href} = others;\n  const Component = href ? 'a' : (component ? component : 'div');\n  const classes = classNames('cell', {\n    'cell-access': access,\n    'cell-arrow': arrow,\n    _user: className\n  });\n\n\n  return (\n    <Component {...others} className={classes}>{children}</Component>\n  );\n}\n\nCell.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string,\n  component: PropTypes.string,\n  href: PropTypes.string,\n  access: PropTypes.bool,\n  arrow: PropTypes.bool\n};\n"
+  },
+  {
+    "__docId__": 11,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Cell",
+    "memberof": "src/Cell/Cell.js",
+    "longname": "src/Cell/Cell.js~Cell",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Cell/Cell.js",
+    "importStyle": "Cell",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 12,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Cell/CellBody.js",
+    "memberof": null,
+    "longname": "src/Cell/CellBody.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n\tPropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n\nexport default function CellBody(props) {\n  const {className, children, ...others} = props;\n  const classes = classNames('cell-body', {_user: className});\n\n  return (\n    <div {...others} className={classes}>{children}</div>\n  );\n}\n\nCellBody.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n"
+  },
+  {
+    "__docId__": 13,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "CellBody",
+    "memberof": "src/Cell/CellBody.js",
+    "longname": "src/Cell/CellBody.js~CellBody",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Cell/CellBody.js",
+    "importStyle": "CellBody",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 14,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Cell/CellFooter.js",
+    "memberof": null,
+    "longname": "src/Cell/CellFooter.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function CellFooter(props) {\n  const {className, children, ...others} = props;\n  const classes = classNames('cell-footer', {_user: className});\n\n  return (\n    <div {...others} className={classes}>{children}</div>\n  );\n}\n\nCellFooter.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n\n"
+  },
+  {
+    "__docId__": 15,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "CellFooter",
+    "memberof": "src/Cell/CellFooter.js",
+    "longname": "src/Cell/CellFooter.js~CellFooter",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Cell/CellFooter.js",
+    "importStyle": "CellFooter",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 16,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Cell/CellHeader.js",
+    "memberof": null,
+    "longname": "src/Cell/CellHeader.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function CellHeader(props) {\n  const {className, children, ...others} = props;\n  const classes = classNames('cell-header', {'_user': className});\n\n  return (\n    <div className={classes} {...others}>{children}</div>\n  );\n};\n\nCellHeader.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n"
+  },
+  {
+    "__docId__": 17,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "CellHeader",
+    "memberof": "src/Cell/CellHeader.js",
+    "longname": "src/Cell/CellHeader.js~CellHeader",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Cell/CellHeader.js",
+    "importStyle": "CellHeader",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 18,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Cell/Cells.js",
+    "memberof": null,
+    "longname": "src/Cell/Cells.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function Cells(props) {\n  const {children, className, access, arrow, ...others} = props;\n  const classes = classNames('cells', {\n    'cells-access': access,\n    'cells-arrow': arrow,\n    _user: className\n  });\n\n  return (\n    <div className={classes} {...others}>{children}</div>\n  );\n};\n\nCells.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string,\n  access: PropTypes.bool,\n  arrow: PropTypes.bool\n};\n"
+  },
+  {
+    "__docId__": 19,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Cells",
+    "memberof": "src/Cell/Cells.js",
+    "longname": "src/Cell/Cells.js~Cells",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Cell/Cells.js",
+    "importStyle": "Cells",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 20,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Cell/CellsTips.js",
+    "memberof": null,
+    "longname": "src/Cell/CellsTips.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function CellsTips(props) {\n  const {className, children, ...others} = props;\n  const classes = classNames('cells-tips', {_user: className});\n\n  return (\n    <div className={classes} {...others}>{children}</div>\n  );\n};\n\nCellsTips.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n"
+  },
+  {
+    "__docId__": 21,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "CellsTips",
+    "memberof": "src/Cell/CellsTips.js",
+    "longname": "src/Cell/CellsTips.js~CellsTips",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Cell/CellsTips.js",
+    "importStyle": "CellsTips",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 22,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Cell/CellsTitle.js",
+    "memberof": null,
+    "longname": "src/Cell/CellsTitle.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function CellsTitle(props) {\n  const {className, children, ...others} = this.props;\n  const classes = classNames('cells-title', {_user: className});\n\n  return (\n    <div className={classes} {...others}>{children}</div>\n  );\n};\n\nCellsTitle.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n"
+  },
+  {
+    "__docId__": 23,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "CellsTitle",
+    "memberof": "src/Cell/CellsTitle.js",
+    "longname": "src/Cell/CellsTitle.js~CellsTitle",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Cell/CellsTitle.js",
+    "importStyle": "CellsTitle",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 24,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Cell/index.js",
+    "memberof": null,
+    "longname": "src/Cell/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import './style';\n\nexport Cell from './Cell';\nexport CellBody from './CellBody';\nexport CellFooter from './CellFooter';\nexport CellHeader from './CellHeader';\nexport Cells from './Cells';\nexport CellsTitle from './CellsTitle';\nexport CellsTips from './CellsTips';\n"
+  },
+  {
+    "__docId__": 25,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Dialog/index.js",
+    "memberof": null,
+    "longname": "src/Dialog/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames, createInstance} from '../utils';\nimport TransitionShow from '../TransitionShow';\nimport './style';\n\nlet apiInstance = null;\n\n\nexport default function Dialog(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    title,\n    content,\n    buttons,\n    _hide,\n    ...others\n  } = props;\n  let classes = classNames('dialog', {_user: className});\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('dialog')}\n      duration={duration}>\n      <div className={classes} style={style} {...others}>\n        <div>\n          <header><strong>{title}</strong></header>\n          <p>{content}</p>\n          <footer>{buttons.map((button, index) => {\n            return (<Button {...button} key={index} _hide={_hide} />);\n          })}</footer>\n        </div>\n      </div>\n    </TransitionShow>\n  );\n}\n\nDialog.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  title: PropTypes.string,\n  content: PropTypes.string,\n  buttons: PropTypes.array,  // [{text: '', onClik: () => {}}]\n  _hide: PropTypes.func\n};\n\nDialog.defaultProps = {\n  ...TransitionShow.shareDefaultProps,\n  buttons: []\n};\n\nDialog.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\nDialog.show = (title, content, buttons, options) => {\n  apiInstance.show(title, content, buttons, options);\n};\n\n\n\nfunction Button(props) {\n  let {text, onClick, _hide, ...others} = props;\n  return (\n    <button\n      {...others}\n      onClick={(e) => {\n        _hide && _hide();\n        onClick && onClick(e);\n      }}>\n      {text}\n    </button>\n  );\n}\n\nButton.propTypes = {\n  text: PropTypes.string,\n  onClick: PropTypes.func,\n  _hide: PropTypes.func\n};\n\n\nclass ApiContainer extends Component {\n  state = {};\n\n  render() {\n    return (<Dialog {...this.state} _hide={this.hide} />);\n  }\n\n  show(title, content, buttons, options) {\n    let nextState = {\n      ...options,\n      title,\n      content,\n      buttons,\n      show: true\n    };\n\n    this.setState(nextState);\n  }\n\n  hide = () => {\n    let nextState = {...this.state, show: false};\n    this.setState(nextState);\n  };\n}\n\napiInstance = createInstance(ApiContainer);\n\n"
+  },
+  {
+    "__docId__": 26,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "apiInstance",
+    "memberof": "src/Dialog/index.js",
+    "longname": "src/Dialog/index.js~apiInstance",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Dialog/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 27,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Dialog",
+    "memberof": "src/Dialog/index.js",
+    "longname": "src/Dialog/index.js~Dialog",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Dialog/index.js",
+    "importStyle": "Dialog",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 28,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Button",
+    "memberof": "src/Dialog/index.js",
+    "longname": "src/Dialog/index.js~Button",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Dialog/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 75,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 29,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "ApiContainer",
+    "memberof": "src/Dialog/index.js",
+    "longname": "src/Dialog/index.js~ApiContainer",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Dialog/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 96,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 30,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "src/Dialog/index.js~ApiContainer",
+    "longname": "src/Dialog/index.js~ApiContainer#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 99,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 31,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "show",
+    "memberof": "src/Dialog/index.js~ApiContainer",
+    "longname": "src/Dialog/index.js~ApiContainer#show",
+    "access": null,
+    "description": null,
+    "lineNumber": 103,
+    "undocument": true,
+    "params": [
+      {
+        "name": "title",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "content",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "buttons",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "options",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 32,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Icon/IconAttention.js",
+    "memberof": null,
+    "longname": "src/Icon/IconAttention.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n\nexport default function IconAttention(props) {\n  const {size, className, ...others} = props;\n  let classes = classNames('icon-attention', {'_user': className});\n  let style = {\n    height: size,\n    width: size,\n    fontSize: size\n  };\n\n  return (\n    <i className={classes} style={style} {...others} />\n  );\n}\n\nIconAttention.propTypes = {\n  size: PropTypes.string,\n  className: PropTypes.string\n};\n\nIconAttention.defaultProps = {\n  size: '40px'\n};\n"
+  },
+  {
+    "__docId__": 33,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "IconAttention",
+    "memberof": "src/Icon/IconAttention.js",
+    "longname": "src/Icon/IconAttention.js~IconAttention",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Icon/IconAttention.js",
+    "importStyle": "IconAttention",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 34,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Icon/IconLoading.js",
+    "memberof": null,
+    "longname": "src/Icon/IconLoading.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nconst count = 12;\nconst opacityUnit = 1 / (count + 13);\n\n\nexport default function IconLoading(props) {\n  const {className, scale, ...others} = props;\n  let classes = classNames('icon-loading', {_user: className});\n  let leafs = [];\n  let cl, rotate, style;\n\n  for (let i = 0; i < count; i++) {\n    cl = classNames('icon-loading-leaf', `icon-loading-leaf-${i}`);\n    rotate = i * 30;\n    style = {\n      transform: (`rotate(${rotate}deg)`),\n      opacity: (1 - opacityUnit * i)\n    };\n    leafs.push((<i key={i} className={cl} style={style} />));\n  }\n\n  //\n  style = {\n    transform: (`scale(${scale})`)\n  };\n\n  //\n  return (\n    <div className={classes} style={style} {...others}>{leafs}</div>\n  );\n}\n\nIconLoading.propTypes = {\n  scale: PropTypes.number,\n  className: PropTypes.string\n};\nIconLoading.defaultProps = {\n  scale: 1\n};\n\n\n"
+  },
+  {
+    "__docId__": 35,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "count",
+    "memberof": "src/Icon/IconLoading.js",
+    "longname": "src/Icon/IconLoading.js~count",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Icon/IconLoading.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 36,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "opacityUnit",
+    "memberof": "src/Icon/IconLoading.js",
+    "longname": "src/Icon/IconLoading.js~opacityUnit",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Icon/IconLoading.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 37,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "IconLoading",
+    "memberof": "src/Icon/IconLoading.js",
+    "longname": "src/Icon/IconLoading.js~IconLoading",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Icon/IconLoading.js",
+    "importStyle": "IconLoading",
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 38,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Icon/index.js",
+    "memberof": null,
+    "longname": "src/Icon/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import './style';\nexport IconAttention from './IconAttention';\nexport IconLoading from './IconLoading';\n\n"
+  },
+  {
+    "__docId__": 39,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Mask/index.js",
+    "memberof": null,
+    "longname": "src/Mask/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\nimport TransitionShow from '../TransitionShow';\n\nexport default function Mask(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    transparent,\n    ...others\n  } = props;\n  let classes = classNames('mask', {\n    _user: className,\n    'mask-transparent': transparent\n  });\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('mask')}\n      duration={duration}>\n      <div className={classes} {...others} style={style} />\n    </TransitionShow>\n  );\n}\n\nMask.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  transparent: PropTypes.bool\n};\n\nMask.defaultProps = TransitionShow.shareDefaultProps;\n"
+  },
+  {
+    "__docId__": 40,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Mask",
+    "memberof": "src/Mask/index.js",
+    "longname": "src/Mask/index.js~Mask",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Mask/index.js",
+    "importStyle": "Mask",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 41,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Notification/index.js",
+    "memberof": null,
+    "longname": "src/Notification/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\nimport {classNames, createInstance} from '../utils';\nimport './style';\n\nlet apiInstance = null;\n// Notification 显示和隐藏动画持续时间 毫秒\n// container 和 item 都需要设置 duration，而且必须相同\n// 所以不能为 item 自定义 duration\nlet duration = 150;\nlet id = 0;\nfunction getId() {\n  return id++;\n}\n\n\nexport default function Notification(props) {\n  let {type, content, timingFunction, className, style, ...others} = props;\n  let classes = classNames('notification', `notification-${type}`, {\n    _user: className\n  });\n  style = {\n    ...style,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <li className={classes} style={style} {...others}>\n      <span>{content}</span>\n    </li>\n  );\n}\n\nNotification.propTypes = {\n  type: PropTypes.oneOf(['default', 'info', 'success', 'warning', 'danger']),\n  content: PropTypes.string.isRequired,\n  timingFunction: PropTypes.string,\n  className: PropTypes.string,\n  style: PropTypes.object\n};\n\nNotification.defaultProps = {\n  type: 'default',\n  timingFunction: 'ease-in'\n};\n\n\nNotification.show = (content, type, options) => {\n  apiInstance.show(content, type, options);\n};\n\nNotification.getInstance = (container) => {\n  return createInstance(Notifications, container);\n};\n\n\n\nclass Notifications extends Component {\n  state = {\n    zIndex: 9999,\n    notifications: []\n  };\n\n  render() {\n    const {\n      zIndex,\n      notifications\n    } = this.state;\n    let classes = classNames('notification-container');\n    let style = {\n      zIndex\n    };\n\n    return (\n      <ReactCSSTransitionGroup\n        component='ul'\n        transitionName={classNames('notification')}\n        transitionEnterTimeout={duration}\n        transitionLeaveTimeout={duration}\n        className={classes}\n        style={style}>\n        {notifications.map((item) => {\n          const {id, ...others} = item;\n          return (<Notification key={id} {...others} />);\n        })}\n      </ReactCSSTransitionGroup>\n    );\n  }\n\n  // zIndex, timeout\n  show(content, type, options = {}) {\n    let [...notifications] = this.state.notifications;\n    // others 赋值到 notification\n    let {timeout, zIndex, ...others} = options;\n    let id = getId();\n    let notification = {id, type, content, ...others};\n\n    notifications.unshift(notification);\n\n    let nextState = {zIndex, notifications};\n\n    this.setState(nextState);\n\n    setTimeout(() => {\n      this.hide(id);\n    }, (timeout || 2000));\n  }\n\n  hide(id) {\n    let notifications = this.state.notifications.filter((item) => {\n      return id !== item.id;\n    });\n    let nextState = {...this.state, notifications};\n\n    this.setState(nextState);\n  }\n}\n\n\napiInstance = createInstance(Notifications);\n"
+  },
+  {
+    "__docId__": 42,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "apiInstance",
+    "memberof": "src/Notification/index.js",
+    "longname": "src/Notification/index.js~apiInstance",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Notification/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 43,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "duration",
+    "memberof": "src/Notification/index.js",
+    "longname": "src/Notification/index.js~duration",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Notification/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 44,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "id",
+    "memberof": "src/Notification/index.js",
+    "longname": "src/Notification/index.js~id",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Notification/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 45,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "getId",
+    "memberof": "src/Notification/index.js",
+    "longname": "src/Notification/index.js~getId",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Notification/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 46,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Notification",
+    "memberof": "src/Notification/index.js",
+    "longname": "src/Notification/index.js~Notification",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Notification/index.js",
+    "importStyle": "Notification",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 47,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Notifications",
+    "memberof": "src/Notification/index.js",
+    "longname": "src/Notification/index.js~Notifications",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Notification/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 62,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 48,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "src/Notification/index.js~Notifications",
+    "longname": "src/Notification/index.js~Notifications#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 68,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 49,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "show",
+    "memberof": "src/Notification/index.js~Notifications",
+    "longname": "src/Notification/index.js~Notifications#show",
+    "access": null,
+    "description": null,
+    "lineNumber": 95,
+    "undocument": true,
+    "params": [
+      {
+        "name": "content",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "type",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "options",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 50,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "hide",
+    "memberof": "src/Notification/index.js~Notifications",
+    "longname": "src/Notification/index.js~Notifications#hide",
+    "access": null,
+    "description": null,
+    "lineNumber": 113,
+    "undocument": true,
+    "params": [
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 51,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/TabBar/TabBar.js",
+    "memberof": null,
+    "longname": "src/TabBar/TabBar.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport TabBarItem from './TabBarItem';\n\nexport default function TabBar(props) {\n  const {\n    barColor,\n    lineColor,\n    color,\n    selectedColor,\n    translucent,\n    children,\n    className,\n    ...others\n  } = props;\n  let classes = classNames('tab-bar', {\n    '_user': className,\n    'tab-bar-translucent': translucent\n  });\n  let barStyle = {\n    backgroundColor: barColor\n  };\n  let lineStyle = {\n    backgroundColor: lineColor\n  };\n\n  return (\n    <div className={classes} {...others}>\n      <div className={classNames('tab-bar-body')}>\n        {children}\n      </div>\n      <footer style={barStyle}>\n        <div style={lineStyle} />\n        <ul>{children.map((child, index) => {\n          let props = {...child.props};\n          delete props.children;\n\n          return (\n            <Button\n              key={index}\n              color={color}\n              selectedColor={selectedColor}\n              {...props} />\n          );\n        })}</ul>\n      </footer>\n    </div>\n  );\n}\n\nTabBar.propTypes = {\n  barColor: PropTypes.string,  // 导航条颜色\n  lineColor: PropTypes.string,  // 线条颜色\n  color: PropTypes.string,  // tab 内容验证\n  selectedColor: PropTypes.string,  // tab 内容选中状态颜色\n  translucent: PropTypes.bool  // 是否半透明\n};\n\nTabBar.defaultProps = {\n  barColor: '#f7f7fa',\n  lineColor: '#979797',\n  color: '#888',\n  selectedColor: '#09bb07',\n  translucent: false\n};\n\nTabBar.Item = TabBarItem;\n\n\nfunction Button(props) {\n  const {\n    // from TabBar\n    color, selectedColor,\n    // from TabBarItem\n    selected, icon, selectedIcon, title, badge, onClick, className, ...others\n  } = props;\n  let classes = classNames('tab-bar-item', {\n    '_user': className,\n    'tab-bar-item-selected': selected\n  });\n  let iconClass = (selected && selectedIcon) ? selectedIcon : icon;\n  let style = {\n    color: (selected ? selectedColor : color)\n  };\n\n  return (\n    <li className={classes} onClick={onClick} {...others}>\n      <div className={classNames('tab-bar-item-label')}>\n        <i className={iconClass} style={style} />\n        {typeof badge !== 'undefined' ? (<span>{badge}</span>) : null}\n      </div>\n      <div className={classNames('tab-bar-item-title')} style={style}>\n        {title}\n      </div>\n    </li>\n  );\n}\n\nButton.propTypes = {\n  // from TabBar\n  color: TabBar.propTypes.color,\n  selectedColor: TabBar.propTypes.selectedColor,\n  // from TabBarItem 不包含 children\n  ...TabBarItem.propTypes\n};\n"
+  },
+  {
+    "__docId__": 52,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "TabBar",
+    "memberof": "src/TabBar/TabBar.js",
+    "longname": "src/TabBar/TabBar.js~TabBar",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/TabBar/TabBar.js",
+    "importStyle": "TabBar",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 53,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Button",
+    "memberof": "src/TabBar/TabBar.js",
+    "longname": "src/TabBar/TabBar.js~Button",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/TabBar/TabBar.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 72,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 54,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/TabBar/TabBarItem.js",
+    "memberof": null,
+    "longname": "src/TabBar/TabBarItem.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n\nexport default function TabBarItem(props) {\n  const {selected, children} = props;\n  let classes = classNames('tab-bar-body-item', {\n    'tab-bar-body-item-selected': selected\n  });\n\n  return (\n    <div className={classes}>{children}</div>\n  );\n}\n\nTabBarItem.propTypes = {\n  children: PropTypes.node,\n  selected: PropTypes.bool,\n  icon: PropTypes.string,\n  selectedIcon: PropTypes.string,\n  title: PropTypes.string,\n  badge: PropTypes.oneOfType([\n    PropTypes.string,\n    PropTypes.number\n  ]),\n  onClick: PropTypes.func,\n  className: PropTypes.string\n};\n"
+  },
+  {
+    "__docId__": 55,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "TabBarItem",
+    "memberof": "src/TabBar/TabBarItem.js",
+    "longname": "src/TabBar/TabBarItem.js~TabBarItem",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/TabBar/TabBarItem.js",
+    "importStyle": "TabBarItem",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 56,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/TabBar/index.js",
+    "memberof": null,
+    "longname": "src/TabBar/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import './style';\n\nexport TabBar from './TabBar';\nexport TabBarItem from './TabBarItem';\n"
+  },
+  {
+    "__docId__": 57,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Toast/index.js",
+    "memberof": null,
+    "longname": "src/Toast/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames, createInstance} from '../utils';\nimport {\n  IconAttention,\n  IconLoading\n} from '../Icon';\nimport './style';\nimport TransitionShow from '../TransitionShow';\n\nlet apiInstance = null;\nlet timer = null;\n\nexport default function Toast(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    icon,\n    content,\n    ...others\n  } = props;\n  let classes = classNames('toast', {_user: className});\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('toast')}\n      duration={duration}>\n      <div className={classes} style={style} {...others} >\n        <div>\n          <div>\n            {matchIcon(icon)}\n            <p>{content}</p>\n          </div>\n        </div>\n      </div>\n    </TransitionShow>\n  );\n}\n\n\nToast.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  icon: PropTypes.string,\n  content: PropTypes.string\n};\n\nToast.defaultProps = TransitionShow.shareDefaultProps;\n\n\nToast.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\nToast.show = (icon, content, options, timeout) => {\n  apiInstance.show(icon, content, options, timeout);\n};\n\nToast.hide = () => {\n  apiInstance.hide();\n};\n\nToast.showLoading = (content, options) => {\n  apiInstance.showLoading(content, options);\n};\n\nToast.hideLoading = () => {\n  apiInstance.hideLoading();\n};\n\n\nfunction matchIcon(name) {\n  switch (name) {\n    case 'loading':\n      return (<IconLoading />);\n    case 'attention':\n      return (<IconAttention />);\n    default:\n      return null;\n  }\n}\n\n\n/**\n * 提供接口\n */\n\nclass ApiContainer extends Component {\n  state = {};\n\n  render() {\n    return (<Toast {...this.state} />);\n  }\n\n  show(icon, content, options = {}, timeout = 2200) {\n    let nexState = {\n      ...this.state,\n      ...options,\n      icon,\n      content,\n      show: true\n    };\n    this.setState(nexState);\n\n    // 如果 icon != loading 定时隐藏\n    clearTimeout(timer);\n    if (icon === 'loading') return;\n    timer = setTimeout(() => {\n      this.hide();\n    }, timeout);\n  }\n\n  hide() {\n    let nexState = {...this.state, show: false};\n    this.setState(nexState);\n  }\n\n  showLoading(content = '加载中…', options) {\n    this.show('loading', content, options);\n  }\n\n  hideLoading() {\n    this.hide();\n  }\n}\n\napiInstance = createInstance(ApiContainer);\n"
+  },
+  {
+    "__docId__": 58,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "apiInstance",
+    "memberof": "src/Toast/index.js",
+    "longname": "src/Toast/index.js~apiInstance",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Toast/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "timer",
+    "memberof": "src/Toast/index.js",
+    "longname": "src/Toast/index.js~timer",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Toast/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Toast",
+    "memberof": "src/Toast/index.js",
+    "longname": "src/Toast/index.js~Toast",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Toast/index.js",
+    "importStyle": "Toast",
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 61,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "matchIcon",
+    "memberof": "src/Toast/index.js",
+    "longname": "src/Toast/index.js~matchIcon",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Toast/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 84,
+    "undocument": true,
+    "params": [
+      {
+        "name": "name",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 62,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "ApiContainer",
+    "memberof": "src/Toast/index.js",
+    "longname": "src/Toast/index.js~ApiContainer",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Toast/index.js",
+    "importStyle": null,
+    "description": "提供接口",
+    "lineNumber": 100,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 63,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "src/Toast/index.js~ApiContainer",
+    "longname": "src/Toast/index.js~ApiContainer#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 103,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 64,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "show",
+    "memberof": "src/Toast/index.js~ApiContainer",
+    "longname": "src/Toast/index.js~ApiContainer#show",
+    "access": null,
+    "description": null,
+    "lineNumber": 107,
+    "undocument": true,
+    "params": [
+      {
+        "name": "icon",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "content",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "options",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      },
+      {
+        "name": "timeout",
+        "optional": true,
+        "types": [
+          "number"
+        ],
+        "defaultRaw": 2200,
+        "defaultValue": "2200"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 65,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "hide",
+    "memberof": "src/Toast/index.js~ApiContainer",
+    "longname": "src/Toast/index.js~ApiContainer#hide",
+    "access": null,
+    "description": null,
+    "lineNumber": 125,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 66,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "showLoading",
+    "memberof": "src/Toast/index.js~ApiContainer",
+    "longname": "src/Toast/index.js~ApiContainer#showLoading",
+    "access": null,
+    "description": null,
+    "lineNumber": 130,
+    "undocument": true,
+    "params": [
+      {
+        "name": "content",
+        "optional": true,
+        "types": [
+          "string"
+        ],
+        "defaultRaw": "加载中…",
+        "defaultValue": "加载中…"
+      },
+      {
+        "name": "options",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 67,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "hideLoading",
+    "memberof": "src/Toast/index.js~ApiContainer",
+    "longname": "src/Toast/index.js~ApiContainer#hideLoading",
+    "access": null,
+    "description": null,
+    "lineNumber": 134,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 68,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/TransitionShow.js",
+    "memberof": null,
+    "longname": "src/TransitionShow.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\n\n\n/**\n * TransitionShow 使子组件实现简单的“显示和隐藏”过渡动画\n * @param {object} props 传入组件的参数\n * @param {boolean} props.show=false 是否显示子组件（children）\n * @param {string} props.transitionName 实现过渡动画的 className\n * @param {number} props.duration 过渡动画持续时间\n * @param {PropTypes.node} props.children 子组件\n * @return {PropTypes.element} React element\n *\n * @example\n * function Dialog(props) {\n *   let {show, duration} = props;\n *\n *   return (\n *     <TranstionShow show={show} transitionName='dialog'>\n *       <div>啥班</div>\n *     </TransitionShow>\n *   );\n * }\n */\nexport default function TransitionShow(props) {\n  let {show, transitionName, duration, children} = props;\n\n  return (\n    <ReactCSSTransitionGroup\n      component={EmptyContainer}\n      transitionName={transitionName}\n      transitionEnterTimeout={duration}\n      transitionLeaveTimeout={duration}>\n      {show ? children : null}\n    </ReactCSSTransitionGroup>\n  );\n}\n\nTransitionShow.propTypes = {\n  show: PropTypes.bool,\n  transitionName: PropTypes.string.isRequired,\n  duration: PropTypes.number.isRequired,\n  children: PropTypes.node\n};\n\nTransitionShow.defaultProps = {\n  show: false\n};\n\n\n/**\n * TransitionShow 子组件要定义的属性\n * @type {Object}\n */\nTransitionShow.sharePropTypes = {\n  show: TransitionShow.propTypes.show,\n  duration: TransitionShow.propTypes.duration,\n  zIndex: PropTypes.number,\n  timingFunction: PropTypes.string,\n  style: PropTypes.object,  // 通过 style 定义动画 duration/zIndex/timgFunction\n  className: PropTypes.string  // 用户自定义 class，所有组件都提供的属性\n};\n\n/**\n * TranstionShow 子组件要定义的默认属性\n * @type {Object}\n */\nTransitionShow.shareDefaultProps = {\n  duration: 80,\n  zIndex: 9999,\n  timingFunction: 'ease-in',\n  style: {}\n};\n\n\n\n\nfunction EmptyContainer(props) {\n  return props.children[0] || null;\n}\n"
+  },
+  {
+    "__docId__": 69,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "TransitionShow",
+    "memberof": "src/TransitionShow.js",
+    "longname": "src/TransitionShow.js~TransitionShow",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/TransitionShow.js",
+    "importStyle": "TransitionShow",
+    "description": "TransitionShow 使子组件实现简单的“显示和隐藏”过渡动画",
+    "examples": [
+      "function Dialog(props) {\n  let {show, duration} = props;\n\n  return (\n    <TranstionShow show={show} transitionName='dialog'>\n      <div>啥班</div>\n    </TransitionShow>\n  );\n}"
+    ],
+    "lineNumber": 27,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "传入组件的参数"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "false",
+        "defaultRaw": false,
+        "name": "props.show",
+        "description": "是否显示子组件（children）"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.transitionName",
+        "description": "实现过渡动画的 className"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.duration",
+        "description": "过渡动画持续时间"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "PropTypes.node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.children",
+        "description": "子组件"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "PropTypes.element"
+      ],
+      "spread": false,
+      "description": "React element"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 70,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "EmptyContainer",
+    "memberof": "src/TransitionShow.js",
+    "longname": "src/TransitionShow.js~EmptyContainer",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/TransitionShow.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 80,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 71,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/config.js",
+    "memberof": null,
+    "longname": "src/config.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "/**\n * 配置文件\n */\n\n\n/**\n * @type {object} 配置数据对象\n * @property {string} config.namespace='daifee-rc' 用于 css 的命名空间，\n * 如要修改，必须同时修改 ./variables.scss 文件的 $namespace\n */\nconst config = {\n  namespace: 'daifee-rc'\n};\n\nexport default config;\n\n"
+  },
+  {
+    "__docId__": 72,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "config",
+    "memberof": "src/config.js",
+    "longname": "src/config.js~config",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/config.js",
+    "importStyle": "config",
+    "description": "",
+    "lineNumber": 11,
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "'daifee-rc'",
+        "defaultRaw": "'daifee-rc'",
+        "name": "config.namespace",
+        "description": "用于 css 的命名空间，\n如要修改，必须同时修改 ./variables.scss 文件的 $namespace"
+      }
+    ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 73,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/index.js",
+    "memberof": null,
+    "longname": "src/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import './style';\n\nexport {\n  IconAttention,\n  IconLoading\n} from './Icon';\n\nexport {\n  Cell,\n  CellBody,\n  CellFooter,\n  CellHeader,\n  Cells,\n  CellsTitle,\n  CellsTips\n} from './Cell';\n\nexport Button from './Button';\nexport Mask from './Mask';\nexport Toast from './Toast';\nexport Dialog from './Dialog';\nexport Notification from './Notification';\nexport ActionSheet from './ActionSheet';\nexport {\n  TabBar,\n  TabBarItem\n} from './TabBar';\n"
+  },
+  {
+    "__docId__": 74,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/utils.js",
+    "memberof": null,
+    "longname": "src/utils.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import config from './config';\nimport React from 'react';\nimport {render} from 'react-dom';\n\nconst {namespace} = config;\nconst hasOwn = {}.hasOwnProperty;\n\n/**\n * 包装返回 className\n * @param  {string|object} args 要被包装的 className\n * 所有 className 都回被加上项目的 namespace 前缀。\n * 如果参数是对象，则其属性是 class 名，值为 true 则该 class 名被返回。\n * 如果参数的属性是 `_user` 则直接返回其值，不作包装\n * @return {string}         一个或多个 class。例如：\"class1 class2 class3\"\n *\n * @example\n * let classes = classNames('dialog', {\n *   'dialog-btn': false,\n *   'dialog-title': true,\n *   '_user': 'user-class'\n * });\n * console.log(classes);\n * // 假设 namespace='rd'\n * // output: \"rc-dialog rc-dialog-title user-class\"\n */\nexport function classNames(...args) {\n  let classes = [];\n  let arg, argType, key;\n\n  for (let i = 0, len = args.length; i < len; i++) {\n    arg = args[i];\n    argType = typeof arg;\n\n    if (!arg) continue;\n\n    if (argType === 'string' || argType === 'number') {\n      prePush(classes, arg);\n    } else if (Array.isArray(arg)) {\n      classes.push(classNames.apply(null, arg));\n    } else if (argType === 'object') {\n      for (key in arg) {\n        if (!hasOwn.call(arg, key) || !arg[key]) continue;\n\n        // 用户传入的\n        if (key === '_user') {\n          classes.push(arg[key]);\n        } else {\n          prePush(classes, key);\n        }\n      }\n    }\n  }\n\n  return classes.join(' ');\n}\n\nfunction prePush(arr, value) {\n  value = `${namespace}-${value}`;\n  return arr.push(value);\n}\n\n\n/**\n * 根据传入的 Component 创建一个实例，并渲染到 container\n * @param  {Component} Component React 组件\n * @param  {?dom} container 实例将渲染到该 dom 节点，\n * 如果缺少，内部创建 dom 节点。\n * @return {PropTypes.element}           Component 的实例\n */\nexport function createInstance(Component, container) {\n  if (!container) {\n    container = createContainer();\n  }\n\n  return render(<Component />, container);\n}\n\n/**\n * 创建一个 dom 节点，div.${namespace}-apicontainer\n * @return {dom} 节点\n */\nfunction createContainer() {\n  let div = document.createElement('div');\n  div.className = classNames('api-container');\n  document.body.appendChild(div);\n\n  return div;\n}\n\n\n"
+  },
+  {
+    "__docId__": 75,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "namespace",
+    "memberof": "src/utils.js",
+    "longname": "src/utils.js~namespace",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/utils.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 76,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "hasOwn",
+    "memberof": "src/utils.js",
+    "longname": "src/utils.js~hasOwn",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/utils.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 77,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "classNames",
+    "memberof": "src/utils.js",
+    "longname": "src/utils.js~classNames",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/utils.js",
+    "importStyle": "{classNames}",
+    "description": "包装返回 className",
+    "examples": [
+      "let classes = classNames('dialog', {\n  'dialog-btn': false,\n  'dialog-title': true,\n  '_user': 'user-class'\n});\nconsole.log(classes);\n// 假设 namespace='rd'\n// output: \"rc-dialog rc-dialog-title user-class\""
+    ],
+    "lineNumber": 26,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string",
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "args",
+        "description": "要被包装的 className\n所有 className 都回被加上项目的 namespace 前缀。\n如果参数是对象，则其属性是 class 名，值为 true 则该 class 名被返回。\n如果参数的属性是 `_user` 则直接返回其值，不作包装"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "一个或多个 class。例如：\"class1 class2 class3\""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 78,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "prePush",
+    "memberof": "src/utils.js",
+    "longname": "src/utils.js~prePush",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/utils.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 57,
+    "undocument": true,
+    "params": [
+      {
+        "name": "arr",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 79,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "createInstance",
+    "memberof": "src/utils.js",
+    "longname": "src/utils.js~createInstance",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/utils.js",
+    "importStyle": "{createInstance}",
+    "description": "根据传入的 Component 创建一个实例，并渲染到 container",
+    "lineNumber": 70,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Component"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "Component",
+        "description": "React 组件"
+      },
+      {
+        "nullable": true,
+        "types": [
+          "dom"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "container",
+        "description": "实例将渲染到该 dom 节点，\n如果缺少，内部创建 dom 节点。"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "PropTypes.element"
+      ],
+      "spread": false,
+      "description": "Component 的实例"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 80,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "createContainer",
+    "memberof": "src/utils.js",
+    "longname": "src/utils.js~createContainer",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/utils.js",
+    "importStyle": null,
+    "description": "创建一个 dom 节点，div.${namespace}-apicontainer",
+    "lineNumber": 82,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "dom"
+      ],
+      "spread": false,
+      "description": "节点"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 82,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 83,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 84,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 85,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 86,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 87,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 88,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 89,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 90,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 91,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 92,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 93,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 94,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 95,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 96,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 97,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 98,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 99,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 100,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 101,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 102,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 103,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 104,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 105,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 106,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 107,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 108,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 109,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 110,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 111,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 112,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 113,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 114,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 115,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 116,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 117,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 118,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 119,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 120,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 121,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 122,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 123,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 124,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 125,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 126,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 127,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 128,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 130,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 131,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 132,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 133,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 134,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 135,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 136,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 137,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "AudioContext",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~AudioContext",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  }
+]

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/Toast/index.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TransitionShow">TransitionShow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-classNames">classNames</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createInstance">createInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-config">config</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">ActionSheet</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ActionSheet">ActionSheet</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Button</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Button">Button</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Cell</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Cell">Cell</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellBody">CellBody</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellFooter">CellFooter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellHeader">CellHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Cells">Cells</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellsTips">CellsTips</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellsTitle">CellsTitle</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Dialog</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Dialog">Dialog</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Icon</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-IconAttention">IconAttention</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-IconLoading">IconLoading</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Mask</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Mask">Mask</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Notification</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Notification">Notification</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">TabBar</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TabBar">TabBar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TabBarItem">TabBarItem</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Toast</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Toast">Toast</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/Toast/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, {
+  Component,
+  PropTypes
+} from &apos;react&apos;;
+import {classNames, createInstance} from &apos;../utils&apos;;
+import {
+  IconAttention,
+  IconLoading
+} from &apos;../Icon&apos;;
+import &apos;./style&apos;;
+import TransitionShow from &apos;../TransitionShow&apos;;
+
+let apiInstance = null;
+let timer = null;
+
+export default function Toast(props) {
+  let {
+    show,
+    zIndex,
+    duration,
+    timingFunction,
+    style,
+    className,
+    icon,
+    content,
+    ...others
+  } = props;
+  let classes = classNames(&apos;toast&apos;, {_user: className});
+  style = {
+    ...style,
+    zIndex,
+    transitionDuration: (duration + &apos;ms&apos;),
+    transitionTimingFunction: timingFunction
+  };
+
+  return (
+    &lt;TransitionShow
+      show={show}
+      transitionName={classNames(&apos;toast&apos;)}
+      duration={duration}&gt;
+      &lt;div className={classes} style={style} {...others} &gt;
+        &lt;div&gt;
+          &lt;div&gt;
+            {matchIcon(icon)}
+            &lt;p&gt;{content}&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/TransitionShow&gt;
+  );
+}
+
+
+Toast.propTypes = {
+  ...TransitionShow.sharePropTypes,
+  icon: PropTypes.string,
+  content: PropTypes.string
+};
+
+Toast.defaultProps = TransitionShow.shareDefaultProps;
+
+
+Toast.getInstance = (container) =&gt; {
+  return createInstance(ApiContainer, container);
+};
+
+Toast.show = (icon, content, options, timeout) =&gt; {
+  apiInstance.show(icon, content, options, timeout);
+};
+
+Toast.hide = () =&gt; {
+  apiInstance.hide();
+};
+
+Toast.showLoading = (content, options) =&gt; {
+  apiInstance.showLoading(content, options);
+};
+
+Toast.hideLoading = () =&gt; {
+  apiInstance.hideLoading();
+};
+
+
+function matchIcon(name) {
+  switch (name) {
+    case &apos;loading&apos;:
+      return (&lt;IconLoading /&gt;);
+    case &apos;attention&apos;:
+      return (&lt;IconAttention /&gt;);
+    default:
+      return null;
+  }
+}
+
+
+/**
+ * &#x63D0;&#x4F9B;&#x63A5;&#x53E3;
+ */
+
+class ApiContainer extends Component {
+  state = {};
+
+  render() {
+    return (&lt;Toast {...this.state} /&gt;);
+  }
+
+  show(icon, content, options = {}, timeout = 2200) {
+    let nexState = {
+      ...this.state,
+      ...options,
+      icon,
+      content,
+      show: true
+    };
+    this.setState(nexState);
+
+    // &#x5982;&#x679C; icon != loading &#x5B9A;&#x65F6;&#x9690;&#x85CF;
+    clearTimeout(timer);
+    if (icon === &apos;loading&apos;) return;
+    timer = setTimeout(() =&gt; {
+      this.hide();
+    }, timeout);
+  }
+
+  hide() {
+    let nexState = {...this.state, show: false};
+    this.setState(nexState);
+  }
+
+  showLoading(content = &apos;&#x52A0;&#x8F7D;&#x4E2D;&#x2026;&apos;, options) {
+    this.show(&apos;loading&apos;, content, options);
+  }
+
+  hideLoading() {
+    this.hide();
+  }
+}
+
+apiInstance = createInstance(ApiContainer);
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.7)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/ActionSheet/index.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TransitionShow">TransitionShow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-classNames">classNames</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createInstance">createInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-config">config</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">ActionSheet</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ActionSheet">ActionSheet</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Button</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Button">Button</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Cell</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Cell">Cell</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellBody">CellBody</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellFooter">CellFooter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellHeader">CellHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Cells">Cells</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellsTips">CellsTips</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellsTitle">CellsTitle</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Dialog</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Dialog">Dialog</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Icon</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-IconAttention">IconAttention</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-IconLoading">IconLoading</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Mask</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Mask">Mask</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Notification</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Notification">Notification</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">TabBar</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TabBar">TabBar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TabBarItem">TabBarItem</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Toast</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Toast">Toast</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/ActionSheet/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, {
+  Component,
+  PropTypes
+} from &apos;react&apos;;
+import &apos;./style&apos;;
+import {classNames, createInstance} from &apos;../utils&apos;;
+import TransitionShow from &apos;../TransitionShow&apos;;
+
+let apiInstance;
+
+let id = 0;
+function getId() {
+  return id++;
+}
+
+/**
+ * ActionSheet &#x7EC4;&#x4EF6;
+ * @param {object} props &#x4F20;&#x5165;&#x7EC4;&#x4EF6;&#x7684;&#x5C5E;&#x6027;
+ * @param {boolean} props.show &#x662F;&#x5426;&#x663E;&#x793A;
+ * @param {number} props.zIndex z-index &#x503C;
+ * @param {number} props.duration &#x8FC7;&#x6E21;&#x6301;&#x7EED;&#x65F6;&#x95F4;&#x3002;&#x5355;&#x4F4D;&#xFF1A;ms
+ * @param {string} props.timingFunction &#x52A8;&#x753B;&#x7C7B;&#x578B;
+ * @param {object} props.style &#x4F20;&#x5165;&#x81EA;&#x5B9A;&#x4E49; style &#x503C;
+ * @param {string} props.className &#x4F20;&#x5165;&#x81EA;&#x5B9A;&#x4E49; class
+ * @param {array} props.buttons &#x5B9A;&#x4E49;&#x672C;&#x7EC4;&#x4EF6;&#x7684;&#x6309;&#x94AE;&#xFF0C;&#x6570;&#x7EC4;&#x503C;&#x4F5C;&#x4E3A;&#x6309;&#x94AE;&#x540D;
+ * @param {number} props.cancelButtonIndex &#x7B2C;&#x51E0;&#x4E2A;&#x662F;&quot;&#x53D6;&#x6D88;&quot;&#x6309;&#x94AE;&#xFF0C;&#x4F1A;&#x9644;&#x52A0;&#x4E00;&#x4E2A; class
+ * @param {number} props.destroyButtonIndex &#x7B2C;&#x51E0;&#x4E2A;&#x662F;&#x201C;&#x5371;&#x9669;&#x201D;&#x6309;&#x94AE;&#xFF0C;&#x4F1A;&#x9644;&#x52A0;&#x4E00;&#x4E2A; class
+ * @param {string} props.title &#x663E;&#x793A;&#x7684;&#x7EC4;&#x4EF6;title
+ * @param {function} props.callback &#x70B9;&#x51FB;&#x6309;&#x94AE;&#x540E;&#x8C03;&#x7528;&#x7684; callback&#xFF0C;&#x6309;&#x94AE;&#x7D22;&#x5F15;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;
+ * @param {function} props.onClick &#x7EC4;&#x4EF6;&#x88AB;&#x70B9;&#x51FB;&#x540E;&#x88AB;&#x8C03;&#x7528;&#x3002;
+ * @param {function} props._hide &#x7EC4;&#x4EF6;&#x70B9;&#x51FB;&#x540E;&#x88AB;&#x8C03;&#x7528;&#xFF08;&#x8BF7;&#x7528; onClick &#x4EE3;&#x66FF;&#xFF09;
+ * @description &#x9664;&#x4E86;&#x4E0A;&#x9762;&#x8BF4;&#x660E;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x4EFB;&#x4F55; React &#x7EC4;&#x4EF6;&#x6709;&#x6548;&#x7684;&#x5C5E;&#x6027;&#x3002;
+ */
+export default function ActionSheet(props) {
+  let {
+    show,
+    zIndex,
+    duration,
+    timingFunction,
+    style,
+    className,
+    buttons,
+    cancelButtonIndex,
+    destroyButtonIndex,
+    title,
+    callback,
+    onClick,
+    _hide,
+    ...others
+  } = props;
+  let classes = classNames(&apos;action-sheet&apos;, {_user: className});
+  typeof cancelButtonIndex === &apos;undefined&apos; &amp;&amp; (cancelButtonIndex = buttons.length - 1);
+  style = {
+    ...style,
+    zIndex,
+    transitionDuration: (duration + &apos;ms&apos;),
+    transitionTimingFunction: timingFunction
+  };
+
+  return (
+    &lt;TransitionShow
+      show={show}
+      transitionName={classNames(&apos;action-sheet&apos;)}
+      duration={duration}&gt;
+      &lt;div
+        className={classes}
+        style={style}
+        {...others}
+        onClick={(e) =&gt; {
+          _hide &amp;&amp; _hide();
+          onClick &amp;&amp; onClick(e);
+        }}&gt;
+        &lt;div className={classNames(&apos;action-sheet-main&apos;)} style={style}&gt;
+          {title ? (&lt;header&gt;{title}&lt;/header&gt;) : null}
+          &lt;ol&gt;{buttons.map((action, index) =&gt; {
+            return (
+              &lt;Button
+                key={getId()}
+                name={action}
+                index={index}
+                cancel={cancelButtonIndex === index}
+                destroy={destroyButtonIndex === index}
+                callback={callback} /&gt;);
+          })}&lt;/ol&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/TransitionShow&gt;
+  );
+}
+
+ActionSheet.propTypes = {
+  ...TransitionShow.sharePropTypes,
+  buttons: PropTypes.array,
+  cancelButtonIndex: PropTypes.number,
+  destroyButtonIndex: PropTypes.number,
+  title: PropTypes.string,
+  callback: PropTypes.func,
+  onClick: PropTypes.func,
+  _hide: PropTypes.func
+};
+
+ActionSheet.defaultProps = {
+  ...TransitionShow.shareDefaultProps,
+  duration: 250,
+  buttons: []
+};
+
+
+ActionSheet.getInstance = (container) =&gt; {
+  return createInstance(ApiContainer, container);
+};
+
+
+ActionSheet.show = (options = {}, callback) =&gt; {
+  apiInstance.show(options, callback);
+};
+
+
+function Button(props) {
+  const {name, index, cancel, destroy, callback} = props;
+  let classes = classNames(&apos;action-sheet-item&apos;, {
+    &apos;action-sheet-item-cancel&apos;: cancel,
+    &apos;action-sheet-item-destroy&apos;: destroy
+  });
+
+  return (
+    &lt;li className={classes} onClick={() =&gt; callback(index)}&gt;
+      &lt;button&gt;{name}&lt;/button&gt;
+    &lt;/li&gt;
+  );
+}
+
+Button.propTypes = {
+  name: PropTypes.string,
+  index: PropTypes.number,
+  cancel: PropTypes.bool,
+  destroy: PropTypes.bool,
+  callback: PropTypes.func
+};
+
+Button.defaultProps = {
+  callback() {}
+};
+
+
+
+class ApiContainer extends Component {
+  state = {};
+
+  render() {
+    return (&lt;ActionSheet {...this.state} _hide={this.hide} /&gt;);
+  }
+
+  show(options = {}, callback) {
+    let nextState = {
+      ...options,
+      callback,
+      show: true
+    };
+
+    this.setState(nextState);
+  }
+
+  hide = () =&gt; {
+    let nextState = {...this.state, show: false};
+
+    this.setState(nextState);
+  }
+}
+
+
+apiInstance = createInstance(ApiContainer);
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.7)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

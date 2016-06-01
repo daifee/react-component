@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/Notification/index.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TransitionShow">TransitionShow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-classNames">classNames</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createInstance">createInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-config">config</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">ActionSheet</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ActionSheet">ActionSheet</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Button</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Button">Button</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Cell</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Cell">Cell</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellBody">CellBody</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellFooter">CellFooter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellHeader">CellHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Cells">Cells</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellsTips">CellsTips</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellsTitle">CellsTitle</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Dialog</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Dialog">Dialog</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Icon</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-IconAttention">IconAttention</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-IconLoading">IconLoading</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Mask</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Mask">Mask</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Notification</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Notification">Notification</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">TabBar</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TabBar">TabBar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TabBarItem">TabBarItem</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Toast</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Toast">Toast</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/Notification/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, {
+  Component,
+  PropTypes
+} from &apos;react&apos;;
+import ReactCSSTransitionGroup from &apos;react-addons-css-transition-group&apos;;
+import {classNames, createInstance} from &apos;../utils&apos;;
+import &apos;./style&apos;;
+
+let apiInstance = null;
+// Notification &#x663E;&#x793A;&#x548C;&#x9690;&#x85CF;&#x52A8;&#x753B;&#x6301;&#x7EED;&#x65F6;&#x95F4; &#x6BEB;&#x79D2;
+// container &#x548C; item &#x90FD;&#x9700;&#x8981;&#x8BBE;&#x7F6E; duration&#xFF0C;&#x800C;&#x4E14;&#x5FC5;&#x987B;&#x76F8;&#x540C;
+// &#x6240;&#x4EE5;&#x4E0D;&#x80FD;&#x4E3A; item &#x81EA;&#x5B9A;&#x4E49; duration
+let duration = 150;
+let id = 0;
+function getId() {
+  return id++;
+}
+
+
+export default function Notification(props) {
+  let {type, content, timingFunction, className, style, ...others} = props;
+  let classes = classNames(&apos;notification&apos;, `notification-${type}`, {
+    _user: className
+  });
+  style = {
+    ...style,
+    transitionDuration: (duration + &apos;ms&apos;),
+    transitionTimingFunction: timingFunction
+  };
+
+  return (
+    &lt;li className={classes} style={style} {...others}&gt;
+      &lt;span&gt;{content}&lt;/span&gt;
+    &lt;/li&gt;
+  );
+}
+
+Notification.propTypes = {
+  type: PropTypes.oneOf([&apos;default&apos;, &apos;info&apos;, &apos;success&apos;, &apos;warning&apos;, &apos;danger&apos;]),
+  content: PropTypes.string.isRequired,
+  timingFunction: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object
+};
+
+Notification.defaultProps = {
+  type: &apos;default&apos;,
+  timingFunction: &apos;ease-in&apos;
+};
+
+
+Notification.show = (content, type, options) =&gt; {
+  apiInstance.show(content, type, options);
+};
+
+Notification.getInstance = (container) =&gt; {
+  return createInstance(Notifications, container);
+};
+
+
+
+class Notifications extends Component {
+  state = {
+    zIndex: 9999,
+    notifications: []
+  };
+
+  render() {
+    const {
+      zIndex,
+      notifications
+    } = this.state;
+    let classes = classNames(&apos;notification-container&apos;);
+    let style = {
+      zIndex
+    };
+
+    return (
+      &lt;ReactCSSTransitionGroup
+        component=&apos;ul&apos;
+        transitionName={classNames(&apos;notification&apos;)}
+        transitionEnterTimeout={duration}
+        transitionLeaveTimeout={duration}
+        className={classes}
+        style={style}&gt;
+        {notifications.map((item) =&gt; {
+          const {id, ...others} = item;
+          return (&lt;Notification key={id} {...others} /&gt;);
+        })}
+      &lt;/ReactCSSTransitionGroup&gt;
+    );
+  }
+
+  // zIndex, timeout
+  show(content, type, options = {}) {
+    let [...notifications] = this.state.notifications;
+    // others &#x8D4B;&#x503C;&#x5230; notification
+    let {timeout, zIndex, ...others} = options;
+    let id = getId();
+    let notification = {id, type, content, ...others};
+
+    notifications.unshift(notification);
+
+    let nextState = {zIndex, notifications};
+
+    this.setState(nextState);
+
+    setTimeout(() =&gt; {
+      this.hide(id);
+    }, (timeout || 2000));
+  }
+
+  hide(id) {
+    let notifications = this.state.notifications.filter((item) =&gt; {
+      return id !== item.id;
+    });
+    let nextState = {...this.state, notifications};
+
+    this.setState(nextState);
+  }
+}
+
+
+apiInstance = createInstance(Notifications);
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.7)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -13,7 +13,24 @@ function getId() {
   return id++;
 }
 
-
+/**
+ * ActionSheet 组件
+ * @param {object} props 传入组件的属性
+ * @param {boolean} props.show 是否显示
+ * @param {number} props.zIndex z-index 值
+ * @param {number} props.duration 过渡持续时间。单位：ms
+ * @param {string} props.timingFunction 动画类型
+ * @param {object} props.style 传入自定义 style 值
+ * @param {string} props.className 传入自定义 class
+ * @param {array} props.buttons 定义本组件的按钮，数组值作为按钮名
+ * @param {number} props.cancelButtonIndex 第几个是"取消"按钮，会附加一个 class
+ * @param {number} props.destroyButtonIndex 第几个是“危险”按钮，会附加一个 class
+ * @param {string} props.title 显示的组件title
+ * @param {function} props.callback 点击按钮后调用的 callback，按钮索引作为参数
+ * @param {function} props.onClick 组件被点击后被调用。
+ * @param {function} props._hide 组件点击后被调用（请用 onClick 代替）
+ * @description 除了上面说明的属性，还可以定义任何 React 组件有效的属性。
+ */
 export default function ActionSheet(props) {
   let {
     show,
