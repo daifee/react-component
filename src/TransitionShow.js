@@ -11,6 +11,18 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
  * @param {string} props.transitionName 实现过渡动画的 className
  * @param {number} [props.duration=80] 过渡动画持续时间
  * @param {PropTypes.node} props.children 子组件
+ * @return {PropTypes.element} React element
+ *
+ * @example
+ * function Dialog(props) {
+ *   let {show, duration} = props;
+ *
+ *   return (
+ *     <TranstionShow show={show} transitionName='dialog'>
+ *       <div>啥班</div>
+ *     </TransitionShow>
+ *   );
+ * }
  */
 export default function TransitionShow(props) {
   let {show, transitionName, duration, children} = props;
