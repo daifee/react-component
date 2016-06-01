@@ -1,7 +1,7 @@
 import React, {
   Component
 } from 'react';
-import {Button} from '../../src';
+import {Button} from 'daifee-react-component';
 import './style.scss';
 import Page from '../components/Page';
 

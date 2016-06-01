@@ -5,7 +5,7 @@ import Page from '../components/Page';
 import {
   Toast,
   Button
-} from '../../src';
+} from 'daifee-react-component';
 import './style';
 
 

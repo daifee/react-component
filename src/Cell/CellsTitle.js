@@ -4,7 +4,7 @@ import React, {
 import {classNames} from '../utils';
 
 export default function CellsTitle(props) {
-  const {className, children, ...others} = this.props;
+  const {className, children, ...others} = props;
   const classes = classNames('cells-title', {_user: className});
 
   return (

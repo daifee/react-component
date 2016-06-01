@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src/",
     "lint:watch": "esw -w src/",
-    "esdoc": "esdoc -c esdoc.json"
+    "esdoc": "esdoc -c esdoc.json",
+    "compile": "rm -rf ./lib && babel ./src --out-dir ./lib"
   },
   "keywords": [
     "daifee-react-component",
@@ -21,7 +22,7 @@
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^6.3.6",
-    "babel": "^6.5.2",
+    "babel-cli": "^6.9.0",
     "babel-core": "^6.9.0",
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.4",

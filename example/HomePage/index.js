@@ -6,7 +6,7 @@ import {
   CellBody,
   Cells,
   CellsTitle
-} from '../../src';
+} from 'daifee-react-component';
 import './style';
 import Page from '../components/Page';
 

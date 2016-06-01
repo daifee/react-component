@@ -5,7 +5,7 @@ import Page from '../components/Page';
 import {
   Mask,
   Button
-} from '../../src';
+} from 'daifee-react-component';
 
 export default class MaskPage extends Component {
   state = {

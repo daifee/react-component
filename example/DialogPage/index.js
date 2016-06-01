@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import Page from '../components/Page';
-import {Button, Dialog} from '../../src';
+import {Button, Dialog} from 'daifee-react-component';
 import './style';
 
 export default class DialogPage extends Component {

@@ -10,7 +10,7 @@ import {
   Cells,
   CellsTitle,
   CellsTips
-} from '../../src';
+} from 'daifee-react-component';
 import './style';
 
 export default class CellPage extends Component {

@@ -18,7 +18,10 @@ module.exports = {
     filename: './app.bundle.js'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.scss', '.css']
+    extensions: ['', '.js', '.jsx', '.scss', '.css'],
+    alias: {
+      'daifee-react-component': '../../src'
+    }
   },
   module: {
     loaders: [

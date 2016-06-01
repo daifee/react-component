@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import Page from '../components/Page';
-import {Button, Notification} from '../../src';
+import {Button, Notification} from 'daifee-react-component';
 import './style';
 
 export default class NotificationPage extends Component {

@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import Page from '../components/Page';
-import {Button, ActionSheet, Notification} from '../../src';
+import {Button, ActionSheet, Notification} from 'daifee-react-component';
 import './style';
 
 let actionSheet;

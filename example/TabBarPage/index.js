@@ -1,7 +1,7 @@
 import React, {
   Component
 } from 'react';
-import {TabBar} from '../../src';
+import {TabBar} from 'daifee-react-component';
 import './style';
 
 export default class TabBarPage extends Component {
