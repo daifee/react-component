@@ -1,9 +1,20 @@
+/**
+ * Button Component
+ * @module src/Button
+ */
+
 import React, {
   PropTypes
 } from 'react';
 import {classNames} from '../utils';
 import './style';
 
+
+/**
+ * 输出
+ * @param {Object} props 传入的 props
+ * @param {String} props.type 按钮类型
+ */
 export default function Button(props) {
   const {children, className, type, disabled, onTouchStart, ...others} = props;
   const {href} = others;

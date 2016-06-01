@@ -1,21 +1,18 @@
 import React, {
-  Component,
   PropTypes
 } from 'react';
 import {classNames} from '../utils';
 
-export default class CellsTitle extends Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string
-  };
+export default function CellsTitle(props) {
+  const {className, children, ...others} = this.props;
+  const classes = classNames('cells-title', {_user: className});
 
-  render() {
-    const {className, children, ...others} = this.props;
-    const classes = classNames('cells-title', {_user: className});
+  return (
+    <div className={classes} {...others}>{children}</div>
+  );
+};
 
-    return (
-      <div className={classes} {...others}>{children}</div>
-    );
-  }
+CellsTitle.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
 };
