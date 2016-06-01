@@ -7,7 +7,9 @@
     "start": "webpack-dev-server --hot --inline --progress --colors --port 8082",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src/",
-    "lint:watch": "esw -w src/"
+    "lint:watch": "esw -w src/",
+    "jsdoc": "jsdoc src",
+    "esdoc": "esdoc -c esdoc.json"
   },
   "keywords": [
     "daifee-react-component",
@@ -29,6 +31,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-1": "^6.5.0",
     "css-loader": "^0.23.1",
+    "esdoc": "^0.4.7",
     "eslint": "^2.10.2",
     "eslint-config-standard": "^5.3.1",
     "eslint-config-standard-react": "^2.4.0",
