@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require(undefined), require(undefined), require(undefined));
+		module.exports = factory(require("react"), require("react-addons-css-transition-group"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
 		define(["react", "react-addons-css-transition-group", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["DaifeeReactComponent"] = factory(require(undefined), require(undefined), require(undefined));
+		exports["DaifeeReactComponent"] = factory(require("react"), require("react-addons-css-transition-group"), require("react-dom"));
 	else
 		root["DaifeeReactComponent"] = factory(root["React"], root["React"]["addons"]["CSSTransitionGroup"], root["ReactDOM"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_8__, __WEBPACK_EXTERNAL_MODULE_48__) {

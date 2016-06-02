@@ -16,12 +16,13 @@ module.exports = {
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM',
-    'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup'
+    'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
+    // 'daifee-react-component': 'DaifeeReactComponent'
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss', '.css'],
     alias: {
-      'daifee-react-component': '../../dist'
+      'daifee-react-component': '../../src'
     }
   },
   module: {
