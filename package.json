@@ -9,7 +9,10 @@
     "lint": "eslint src/",
     "lint:watch": "esw -w src/",
     "esdoc": "esdoc -c esdoc.json",
-    "build": "rm -rf ./dist && webpack --progress --colors"
+    "build": "npm run clear && npm run build:development && npm run build:production",
+    "build:production": "NODE_ENV=production webpack -p --progress --colors",
+    "build:development": "NODE_ENV=development webpack --progress --colors",
+    "clear": "rm -rf ./dist"
   },
   "keywords": [
     "daifee-react-component",

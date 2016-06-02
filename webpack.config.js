@@ -2,6 +2,7 @@ const path = require('path');
 const process = require('process');
 const ROOT_PATH = process.cwd();
 const autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
@@ -11,7 +12,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(ROOT_PATH, 'dist'),
-    filename: './index.js',
+    filename: (process.env.NODE_ENV === 'production' ? './index.min.js' : './index.js'),
     library: 'DaifeeReactComponent',
     libraryTarget: 'umd'
   },
@@ -64,7 +65,12 @@ module.exports = {
       }
     ]
   },
-  plugins: [],
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    })
+  ],
   postcss: [autoprefixer]
 };
 
