@@ -7,7 +7,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'source-map',
 
   context: path.resolve(ROOT_PATH, 'example'),
   entry: {
