@@ -2,26 +2,43 @@ const path = require('path');
 const process = require('process');
 const ROOT_PATH = process.cwd();
 const autoprefixer = require('autoprefixer');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
 
-  context: path.resolve(ROOT_PATH, 'example'),
   entry: {
-    app: './app.js'
+    app: './src/index.js'
   },
   output: {
     path: path.resolve(ROOT_PATH, 'dist'),
-    filename: './app.bundle.js'
+    filename: './index.js',
+    library: 'DaifeeReactComponent',
+    libraryTarget: 'umd'
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx', '.scss', '.css'],
-    alias: {
-      'daifee-react-component': '../../src'
+  externals: [
+    {
+      'react': {
+        root: 'React',
+        commonjs2: 'react',
+        commonjs: 'react',
+        amd: 'react'
+      },
+      'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: 'react-dom',
+        commonjs: 'react-dom',
+        amd: 'react-dom'
+      },
+      'react-addons-css-transition-group': {
+        root: ['React','addons','CSSTransitionGroup'],
+        commonjs2: 'react-addons-css-transition-group',
+        commonjs: 'react-addons-css-transition-group',
+        amd: 'react-addons-css-transition-group'
+      }
     }
+  ],
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.scss', '.css']
   },
   module: {
     loaders: [
@@ -32,7 +49,7 @@ module.exports = {
       },
       {
         test: /.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css!postcss!sass')
+        loader: 'style!css!postcss!sass'
       },
       {
         test: /\.(eot|ttf|woff|svg)$/,
@@ -40,12 +57,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(ROOT_PATH, 'example/index.html')
-    }),
-    new ExtractTextPlugin('app.css')
-    // new OpenBrowserPlugin({ url: 'http://localhost:8082' })
-  ],
+  plugins: [],
   postcss: [autoprefixer]
 };

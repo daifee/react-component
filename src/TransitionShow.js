@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-
 /**
  * TransitionShow 使子组件实现简单的“显示和隐藏”过渡动画
  * @param {object} props 传入组件的参数

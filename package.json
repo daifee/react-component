@@ -2,14 +2,14 @@
   "name": "daifee-react-component",
   "version": "1.0.0",
   "description": "封装常用的 react 组件，参考（copy） weui 的 UI 风格",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --progress --colors --port 8082",
+    "start": "webpack-dev-server --hot --inline --progress --colors --port 8082  --config ./webpack.config.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src/",
     "lint:watch": "esw -w src/",
     "esdoc": "esdoc -c esdoc.json",
-    "compile": "rm -rf ./lib && babel ./src --out-dir ./lib"
+    "build": "rm -rf ./dist && webpack --progress --colors"
   },
   "keywords": [
     "daifee-react-component",
@@ -50,12 +50,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
-  },
-  "dependencies": {
-    "react-addons-css-transition-group": "^15.1.0",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
+    "webpack-dev-server": "^1.14.1",
     "react-router": "^2.4.1"
   }
 }
