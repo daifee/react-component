@@ -14,9 +14,9 @@ module.exports = {
     app: './app.js'
   },
   externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
+    // 'react': 'React',
+    // 'react-dom': 'ReactDOM',
+    // 'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
     // 'daifee-react-component': 'DaifeeReactComponent'
   },
   resolve: {
@@ -46,8 +46,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(ROOT_PATH, 'example/index.html')
     }),
-    new ExtractTextPlugin('app.css')
-    // new OpenBrowserPlugin({ url: 'http://localhost:8082' })
+    new ExtractTextPlugin('app.css'),
+    new OpenBrowserPlugin({ url: 'http://localhost:8082' })
   ],
   postcss: [autoprefixer]
 };

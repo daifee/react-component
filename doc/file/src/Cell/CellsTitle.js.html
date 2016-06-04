@@ -19,7 +19,7 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  
+  <a data-ice="repoURL" href="https://github.com/daifee/react-component.git" class="repo-url-github">Repository</a>
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -64,7 +64,7 @@
 import {classNames} from &apos;../utils&apos;;
 
 export default function CellsTitle(props) {
-  const {className, children, ...others} = this.props;
+  const {className, children, ...others} = props;
   const classes = classNames(&apos;cells-title&apos;, {_user: className});
 
   return (

@@ -651,7 +651,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function CellsTitle(props) {\n  const {className, children, ...others} = this.props;\n  const classes = classNames('cells-title', {_user: className});\n\n  return (\n    <div className={classes} {...others}>{children}</div>\n  );\n};\n\nCellsTitle.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function CellsTitle(props) {\n  const {className, children, ...others} = props;\n  const classes = classNames('cells-title', {_user: className});\n\n  return (\n    <div className={classes} {...others}>{children}</div>\n  );\n};\n\nCellsTitle.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n"
   },
   {
     "__docId__": 23,
@@ -1683,7 +1683,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\n\n\n/**\n * TransitionShow 使子组件实现简单的“显示和隐藏”过渡动画\n * @param {object} props 传入组件的参数\n * @param {boolean} props.show=false 是否显示子组件（children）\n * @param {string} props.transitionName 实现过渡动画的 className\n * @param {number} props.duration 过渡动画持续时间\n * @param {PropTypes.node} props.children 子组件\n * @return {PropTypes.element} React element\n *\n * @example\n * function Dialog(props) {\n *   let {show, duration} = props;\n *\n *   return (\n *     <TranstionShow show={show} transitionName='dialog'>\n *       <div>啥班</div>\n *     </TransitionShow>\n *   );\n * }\n */\nexport default function TransitionShow(props) {\n  let {show, transitionName, duration, children} = props;\n\n  return (\n    <ReactCSSTransitionGroup\n      component={EmptyContainer}\n      transitionName={transitionName}\n      transitionEnterTimeout={duration}\n      transitionLeaveTimeout={duration}>\n      {show ? children : null}\n    </ReactCSSTransitionGroup>\n  );\n}\n\nTransitionShow.propTypes = {\n  show: PropTypes.bool,\n  transitionName: PropTypes.string.isRequired,\n  duration: PropTypes.number.isRequired,\n  children: PropTypes.node\n};\n\nTransitionShow.defaultProps = {\n  show: false\n};\n\n\n/**\n * TransitionShow 子组件要定义的属性\n * @type {Object}\n */\nTransitionShow.sharePropTypes = {\n  show: TransitionShow.propTypes.show,\n  duration: TransitionShow.propTypes.duration,\n  zIndex: PropTypes.number,\n  timingFunction: PropTypes.string,\n  style: PropTypes.object,  // 通过 style 定义动画 duration/zIndex/timgFunction\n  className: PropTypes.string  // 用户自定义 class，所有组件都提供的属性\n};\n\n/**\n * TranstionShow 子组件要定义的默认属性\n * @type {Object}\n */\nTransitionShow.shareDefaultProps = {\n  duration: 80,\n  zIndex: 9999,\n  timingFunction: 'ease-in',\n  style: {}\n};\n\n\n\n\nfunction EmptyContainer(props) {\n  return props.children[0] || null;\n}\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\n\n/**\n * TransitionShow 使子组件实现简单的“显示和隐藏”过渡动画\n * @param {object} props 传入组件的参数\n * @param {boolean} props.show=false 是否显示子组件（children）\n * @param {string} props.transitionName 实现过渡动画的 className\n * @param {number} props.duration 过渡动画持续时间\n * @param {PropTypes.node} props.children 子组件\n * @return {PropTypes.element} React element\n *\n * @example\n * function Dialog(props) {\n *   let {show, duration} = props;\n *\n *   return (\n *     <TranstionShow show={show} transitionName='dialog'>\n *       <div>啥班</div>\n *     </TransitionShow>\n *   );\n * }\n */\nexport default function TransitionShow(props) {\n  let {show, transitionName, duration, children} = props;\n\n  return (\n    <ReactCSSTransitionGroup\n      component={EmptyContainer}\n      transitionName={transitionName}\n      transitionEnterTimeout={duration}\n      transitionLeaveTimeout={duration}>\n      {show ? children : null}\n    </ReactCSSTransitionGroup>\n  );\n}\n\nTransitionShow.propTypes = {\n  show: PropTypes.bool,\n  transitionName: PropTypes.string.isRequired,\n  duration: PropTypes.number.isRequired,\n  children: PropTypes.node\n};\n\nTransitionShow.defaultProps = {\n  show: false\n};\n\n\n/**\n * TransitionShow 子组件要定义的属性\n * @type {Object}\n */\nTransitionShow.sharePropTypes = {\n  show: TransitionShow.propTypes.show,\n  duration: TransitionShow.propTypes.duration,\n  zIndex: PropTypes.number,\n  timingFunction: PropTypes.string,\n  style: PropTypes.object,  // 通过 style 定义动画 duration/zIndex/timgFunction\n  className: PropTypes.string  // 用户自定义 class，所有组件都提供的属性\n};\n\n/**\n * TranstionShow 子组件要定义的默认属性\n * @type {Object}\n */\nTransitionShow.shareDefaultProps = {\n  duration: 80,\n  zIndex: 9999,\n  timingFunction: 'ease-in',\n  style: {}\n};\n\n\n\n\nfunction EmptyContainer(props) {\n  return props.children[0] || null;\n}\n"
   },
   {
     "__docId__": 69,
@@ -1701,7 +1701,7 @@
     "examples": [
       "function Dialog(props) {\n  let {show, duration} = props;\n\n  return (\n    <TranstionShow show={show} transitionName='dialog'>\n      <div>啥班</div>\n    </TransitionShow>\n  );\n}"
     ],
-    "lineNumber": 27,
+    "lineNumber": 26,
     "params": [
       {
         "nullable": null,
@@ -1779,7 +1779,7 @@
     "importPath": "daifee-react-component/src/TransitionShow.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 80,
+    "lineNumber": 79,
     "undocument": true,
     "params": [
       {

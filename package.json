@@ -9,14 +9,18 @@
   },
   "scripts": {
     "start": "webpack-dev-server --hot --inline --progress --colors --port 8082  --config ./webpack.config.dev.js",
-    "test": "mocha --require ./test/setup.js --compilers js:babel-core/register --recursive",
+    "test": "npm run lint && mocha --require ./test/setup.js --compilers js:babel-core/register --recursive",
     "lint": "eslint src/",
     "lint:watch": "esw -w src/",
     "esdoc": "esdoc -c esdoc.json",
     "build": "npm run clear && npm run build:development && npm run build:production",
     "build:production": "NODE_ENV=production webpack -p --progress --colors",
     "build:development": "NODE_ENV=development webpack --progress --colors",
-    "clear": "rm -rf ./dist"
+    "clear": "rm -rf ./dist",
+    "prepublish": "npm run lint && npm test && npm run esdoc && npm run build",
+    "preversion": "npm run prepublish",
+    "postpublish": "console.log('after publish')",
+    "postversion": "console.log('after update version')"
   },
   "keywords": [
     "daifee-react-component",
@@ -56,15 +60,17 @@
     "node-sass": "^3.7.0",
     "open-browser-webpack-plugin": "0.0.2",
     "postcss-loader": "^0.9.1",
-    "react": "^15.1.0",
-    "react-addons-css-transition-group": "^15.1.0",
-    "react-addons-test-utils": "^15.1.0",
-    "react-dom": "^15.1.0",
     "react-router": "^2.4.1",
+    "react-addons-test-utils": "^15.1.0",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "react": "^15.1.0",
+    "react-addons-css-transition-group": "^15.1.0",
+    "react-dom": "^15.1.0"
   }
 }
