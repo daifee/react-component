@@ -17,10 +17,9 @@
     "build:production": "NODE_ENV=production webpack -p --progress --colors",
     "build:development": "NODE_ENV=development webpack --progress --colors",
     "clear": "rm -rf ./dist",
-    "prepublish": "npm run lint && npm test && npm run esdoc && npm run build",
-    "preversion": "npm run prepublish",
-    "postpublish": "echo 'after publish'",
-    "postversion": "echo 'after update version'"
+    "prepublish": "npm run test && npm run build",
+    "preversion": "npm run test",
+    "postpublish": "git push --tags"
   },
   "keywords": [
     "daifee-react-component",
