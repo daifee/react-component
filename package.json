@@ -1,6 +1,6 @@
 {
   "name": "daifee-react-component",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "封装常用的 react 组件，参考（copy） weui 的 UI 风格",
   "main": "dist/index.js",
   "repository": {
