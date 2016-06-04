@@ -1,6 +1,10 @@
 # Daifee-React-Component
 
+[![Build Status](https://travis-ci.org/daifee/react-component.svg?branch=master)](https://travis-ci.org/daifee/react-component)
+
 一套决定项目 UI 风格的  react component。
+
+所有组件都是 stateless 组件，但为方便，某些组件提供 API 调用方式的静态方法。
 
 ---
 
@@ -8,7 +12,13 @@
 
 ## 使用
 
-所有组件都是 stateless 组件，但为方便，某些组件提供 API 调用方式的静态方法。
+**依赖：**
+
+* React
+* ReactDOM
+* ReactCSSTransitionGroup
+
+
 
 以 `Dialog` 为例：
 
