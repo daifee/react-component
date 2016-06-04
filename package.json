@@ -20,7 +20,7 @@
     "prepublish": "npm run test && npm run build",
     "postpublish": "git push --tags",
     "preversion": "npm run test",
-    "postversion": ""
+    "postversion": "git commit -am '更新版本' && git push"
   },
   "keywords": [
     "daifee-react-component",
