@@ -35,6 +35,8 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TransitionShow">TransitionShow</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-classNames">classNames</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createInstance">createInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-shareDefaultProps">shareDefaultProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-sharePropTypes">sharePropTypes</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-config">config</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">ActionSheet</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ActionSheet">ActionSheet</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Button</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Button">Button</a></span></span></li>
@@ -50,6 +52,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-IconLoading">IconLoading</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Mask</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Mask">Mask</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Notification</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Notification">Notification</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Popup</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Popup">Popup</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">TabBar</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TabBar">TabBar</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TabBarItem">TabBarItem</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Toast</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Toast">Toast</a></span></span></li>
@@ -65,6 +68,7 @@
 import &apos;./style&apos;;
 import {classNames, createInstance} from &apos;../utils&apos;;
 import TransitionShow from &apos;../TransitionShow&apos;;
+import Popup from &apos;../Popup&apos;;
 
 let apiInstance;
 
@@ -75,13 +79,8 @@ function getId() {
 
 /**
  * ActionSheet &#x7EC4;&#x4EF6;
+ * &#x52A8;&#x753B;&#x6548;&#x679C;&#x4F7F;&#x7528; `Popup` &#x7EC4;&#x4EF6; {@link Popup}
  * @param {object} props &#x4F20;&#x5165;&#x7EC4;&#x4EF6;&#x7684;&#x5C5E;&#x6027;
- * @param {boolean} props.show &#x662F;&#x5426;&#x663E;&#x793A;
- * @param {number} props.zIndex z-index &#x503C;
- * @param {number} props.duration &#x8FC7;&#x6E21;&#x6301;&#x7EED;&#x65F6;&#x95F4;&#x3002;&#x5355;&#x4F4D;&#xFF1A;ms
- * @param {string} props.timingFunction &#x52A8;&#x753B;&#x7C7B;&#x578B;
- * @param {object} props.style &#x4F20;&#x5165;&#x81EA;&#x5B9A;&#x4E49; style &#x503C;
- * @param {string} props.className &#x4F20;&#x5165;&#x81EA;&#x5B9A;&#x4E49; class
  * @param {array} props.buttons &#x5B9A;&#x4E49;&#x672C;&#x7EC4;&#x4EF6;&#x7684;&#x6309;&#x94AE;&#xFF0C;&#x6570;&#x7EC4;&#x503C;&#x4F5C;&#x4E3A;&#x6309;&#x94AE;&#x540D;
  * @param {number} props.cancelButtonIndex &#x7B2C;&#x51E0;&#x4E2A;&#x662F;&quot;&#x53D6;&#x6D88;&quot;&#x6309;&#x94AE;&#xFF0C;&#x4F1A;&#x9644;&#x52A0;&#x4E00;&#x4E2A; class
  * @param {number} props.destroyButtonIndex &#x7B2C;&#x51E0;&#x4E2A;&#x662F;&#x201C;&#x5371;&#x9669;&#x201D;&#x6309;&#x94AE;&#xFF0C;&#x4F1A;&#x9644;&#x52A0;&#x4E00;&#x4E2A; class
@@ -93,58 +92,39 @@ function getId() {
  */
 export default function ActionSheet(props) {
   let {
-    show,
-    zIndex,
-    duration,
-    timingFunction,
-    style,
-    className,
     buttons,
     cancelButtonIndex,
     destroyButtonIndex,
     title,
     callback,
     onClick,
-    _hide,
-    ...others
+    _hide
   } = props;
-  let classes = classNames(&apos;action-sheet&apos;, {_user: className});
   typeof cancelButtonIndex === &apos;undefined&apos; &amp;&amp; (cancelButtonIndex = buttons.length - 1);
-  style = {
-    ...style,
-    zIndex,
-    transitionDuration: (duration + &apos;ms&apos;),
-    transitionTimingFunction: timingFunction
-  };
+
 
   return (
-    &lt;TransitionShow
-      show={show}
-      transitionName={classNames(&apos;action-sheet&apos;)}
-      duration={duration}&gt;
-      &lt;div
-        className={classes}
-        style={style}
-        {...others}
-        onClick={(e) =&gt; {
-          _hide &amp;&amp; _hide();
-          onClick &amp;&amp; onClick(e);
-        }}&gt;
-        &lt;div className={classNames(&apos;action-sheet-main&apos;)} style={style}&gt;
-          {title ? (&lt;header&gt;{title}&lt;/header&gt;) : null}
-          &lt;ol&gt;{buttons.map((action, index) =&gt; {
-            return (
-              &lt;Button
-                key={getId()}
-                name={action}
-                index={index}
-                cancel={cancelButtonIndex === index}
-                destroy={destroyButtonIndex === index}
-                callback={callback} /&gt;);
-          })}&lt;/ol&gt;
-        &lt;/div&gt;
+    &lt;Popup
+      {...props}
+      direction=&apos;bottom&apos;
+      onClick={(e) =&gt; {
+        _hide &amp;&amp; _hide();
+        onClick &amp;&amp; onClick(e);
+      }}&gt;
+      &lt;div className={classNames(&apos;action-sheet&apos;)}&gt;
+        {title ? (&lt;header&gt;{title}&lt;/header&gt;) : null}
+        &lt;ol&gt;{buttons.map((button, index) =&gt; {
+          return (
+            &lt;Button
+              key={getId()}
+              name={button}
+              index={index}
+              cancel={cancelButtonIndex === index}
+              destroy={destroyButtonIndex === index}
+              callback={callback} /&gt;);
+        })}&lt;/ol&gt;
       &lt;/div&gt;
-    &lt;/TransitionShow&gt;
+    &lt;/Popup&gt;
   );
 }
 

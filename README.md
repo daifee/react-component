@@ -12,6 +12,11 @@
 
 ## 使用
 
+源码被构建成 **UMD** 模块发布到 NPM.
+
+> npm install -s daifee-react-component
+
+
 **依赖：**
 
 * React

@@ -10,7 +10,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport './style';\nimport {classNames, createInstance} from '../utils';\nimport TransitionShow from '../TransitionShow';\n\nlet apiInstance;\n\nlet id = 0;\nfunction getId() {\n  return id++;\n}\n\n/**\n * ActionSheet 组件\n * @param {object} props 传入组件的属性\n * @param {boolean} props.show 是否显示\n * @param {number} props.zIndex z-index 值\n * @param {number} props.duration 过渡持续时间。单位：ms\n * @param {string} props.timingFunction 动画类型\n * @param {object} props.style 传入自定义 style 值\n * @param {string} props.className 传入自定义 class\n * @param {array} props.buttons 定义本组件的按钮，数组值作为按钮名\n * @param {number} props.cancelButtonIndex 第几个是\"取消\"按钮，会附加一个 class\n * @param {number} props.destroyButtonIndex 第几个是“危险”按钮，会附加一个 class\n * @param {string} props.title 显示的组件title\n * @param {function} props.callback 点击按钮后调用的 callback，按钮索引作为参数\n * @param {function} props.onClick 组件被点击后被调用。\n * @param {function} props._hide 组件点击后被调用（请用 onClick 代替）\n * @description 除了上面说明的属性，还可以定义任何 React 组件有效的属性。\n */\nexport default function ActionSheet(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    buttons,\n    cancelButtonIndex,\n    destroyButtonIndex,\n    title,\n    callback,\n    onClick,\n    _hide,\n    ...others\n  } = props;\n  let classes = classNames('action-sheet', {_user: className});\n  typeof cancelButtonIndex === 'undefined' && (cancelButtonIndex = buttons.length - 1);\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('action-sheet')}\n      duration={duration}>\n      <div\n        className={classes}\n        style={style}\n        {...others}\n        onClick={(e) => {\n          _hide && _hide();\n          onClick && onClick(e);\n        }}>\n        <div className={classNames('action-sheet-main')} style={style}>\n          {title ? (<header>{title}</header>) : null}\n          <ol>{buttons.map((action, index) => {\n            return (\n              <Button\n                key={getId()}\n                name={action}\n                index={index}\n                cancel={cancelButtonIndex === index}\n                destroy={destroyButtonIndex === index}\n                callback={callback} />);\n          })}</ol>\n        </div>\n      </div>\n    </TransitionShow>\n  );\n}\n\nActionSheet.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  buttons: PropTypes.array,\n  cancelButtonIndex: PropTypes.number,\n  destroyButtonIndex: PropTypes.number,\n  title: PropTypes.string,\n  callback: PropTypes.func,\n  onClick: PropTypes.func,\n  _hide: PropTypes.func\n};\n\nActionSheet.defaultProps = {\n  ...TransitionShow.shareDefaultProps,\n  duration: 250,\n  buttons: []\n};\n\n\nActionSheet.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\n\nActionSheet.show = (options = {}, callback) => {\n  apiInstance.show(options, callback);\n};\n\n\nfunction Button(props) {\n  const {name, index, cancel, destroy, callback} = props;\n  let classes = classNames('action-sheet-item', {\n    'action-sheet-item-cancel': cancel,\n    'action-sheet-item-destroy': destroy\n  });\n\n  return (\n    <li className={classes} onClick={() => callback(index)}>\n      <button>{name}</button>\n    </li>\n  );\n}\n\nButton.propTypes = {\n  name: PropTypes.string,\n  index: PropTypes.number,\n  cancel: PropTypes.bool,\n  destroy: PropTypes.bool,\n  callback: PropTypes.func\n};\n\nButton.defaultProps = {\n  callback() {}\n};\n\n\n\nclass ApiContainer extends Component {\n  state = {};\n\n  render() {\n    return (<ActionSheet {...this.state} _hide={this.hide} />);\n  }\n\n  show(options = {}, callback) {\n    let nextState = {\n      ...options,\n      callback,\n      show: true\n    };\n\n    this.setState(nextState);\n  }\n\n  hide = () => {\n    let nextState = {...this.state, show: false};\n\n    this.setState(nextState);\n  }\n}\n\n\napiInstance = createInstance(ApiContainer);\n"
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport './style';\nimport {classNames, createInstance} from '../utils';\nimport TransitionShow from '../TransitionShow';\nimport Popup from '../Popup';\n\nlet apiInstance;\n\nlet id = 0;\nfunction getId() {\n  return id++;\n}\n\n/**\n * ActionSheet 组件\n * 动画效果使用 `Popup` 组件 {@link Popup}\n * @param {object} props 传入组件的属性\n * @param {array} props.buttons 定义本组件的按钮，数组值作为按钮名\n * @param {number} props.cancelButtonIndex 第几个是\"取消\"按钮，会附加一个 class\n * @param {number} props.destroyButtonIndex 第几个是“危险”按钮，会附加一个 class\n * @param {string} props.title 显示的组件title\n * @param {function} props.callback 点击按钮后调用的 callback，按钮索引作为参数\n * @param {function} props.onClick 组件被点击后被调用。\n * @param {function} props._hide 组件点击后被调用（请用 onClick 代替）\n * @description 除了上面说明的属性，还可以定义任何 React 组件有效的属性。\n */\nexport default function ActionSheet(props) {\n  let {\n    buttons,\n    cancelButtonIndex,\n    destroyButtonIndex,\n    title,\n    callback,\n    onClick,\n    _hide\n  } = props;\n  typeof cancelButtonIndex === 'undefined' && (cancelButtonIndex = buttons.length - 1);\n\n\n  return (\n    <Popup\n      {...props}\n      direction='bottom'\n      onClick={(e) => {\n        _hide && _hide();\n        onClick && onClick(e);\n      }}>\n      <div className={classNames('action-sheet')}>\n        {title ? (<header>{title}</header>) : null}\n        <ol>{buttons.map((button, index) => {\n          return (\n            <Button\n              key={getId()}\n              name={button}\n              index={index}\n              cancel={cancelButtonIndex === index}\n              destroy={destroyButtonIndex === index}\n              callback={callback} />);\n        })}</ol>\n      </div>\n    </Popup>\n  );\n}\n\nActionSheet.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  buttons: PropTypes.array,\n  cancelButtonIndex: PropTypes.number,\n  destroyButtonIndex: PropTypes.number,\n  title: PropTypes.string,\n  callback: PropTypes.func,\n  onClick: PropTypes.func,\n  _hide: PropTypes.func\n};\n\nActionSheet.defaultProps = {\n  ...TransitionShow.shareDefaultProps,\n  duration: 250,\n  buttons: []\n};\n\n\nActionSheet.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\n\nActionSheet.show = (options = {}, callback) => {\n  apiInstance.show(options, callback);\n};\n\n\nfunction Button(props) {\n  const {name, index, cancel, destroy, callback} = props;\n  let classes = classNames('action-sheet-item', {\n    'action-sheet-item-cancel': cancel,\n    'action-sheet-item-destroy': destroy\n  });\n\n  return (\n    <li className={classes} onClick={() => callback(index)}>\n      <button>{name}</button>\n    </li>\n  );\n}\n\nButton.propTypes = {\n  name: PropTypes.string,\n  index: PropTypes.number,\n  cancel: PropTypes.bool,\n  destroy: PropTypes.bool,\n  callback: PropTypes.func\n};\n\nButton.defaultProps = {\n  callback() {}\n};\n\n\n\nclass ApiContainer extends Component {\n  state = {};\n\n  render() {\n    return (<ActionSheet {...this.state} _hide={this.hide} />);\n  }\n\n  show(options = {}, callback) {\n    let nextState = {\n      ...options,\n      callback,\n      show: true\n    };\n\n    this.setState(nextState);\n  }\n\n  hide = () => {\n    let nextState = {...this.state, show: false};\n\n    this.setState(nextState);\n  }\n}\n\n\napiInstance = createInstance(ApiContainer);\n"
   },
   {
     "__docId__": 1,
@@ -25,7 +25,7 @@
     "importPath": "daifee-react-component/src/ActionSheet/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 12,
     "undocument": true,
     "type": {
       "types": [
@@ -46,7 +46,7 @@
     "importPath": "daifee-react-component/src/ActionSheet/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 12,
+    "lineNumber": 13,
     "undocument": true,
     "params": [],
     "return": {
@@ -68,8 +68,8 @@
     "export": true,
     "importPath": "daifee-react-component/src/ActionSheet/index.js",
     "importStyle": "ActionSheet",
-    "description": "ActionSheet 组件",
-    "lineNumber": 34,
+    "description": "ActionSheet 组件\n动画效果使用 `Popup` 组件 {@link Popup}",
+    "lineNumber": 30,
     "unknown": [
       {
         "tagName": "@description",
@@ -86,66 +86,6 @@
         "optional": false,
         "name": "props",
         "description": "传入组件的属性"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "boolean"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.show",
-        "description": "是否显示"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.zIndex",
-        "description": "z-index 值"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.duration",
-        "description": "过渡持续时间。单位：ms"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.timingFunction",
-        "description": "动画类型"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.style",
-        "description": "传入自定义 style 值"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.className",
-        "description": "传入自定义 class"
       },
       {
         "nullable": null,
@@ -238,7 +178,7 @@
     "importPath": "daifee-react-component/src/ActionSheet/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 119,
+    "lineNumber": 96,
     "undocument": true,
     "params": [
       {
@@ -268,7 +208,7 @@
     "importPath": "daifee-react-component/src/ActionSheet/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 147,
+    "lineNumber": 124,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -285,7 +225,7 @@
     "longname": "src/ActionSheet/index.js~ApiContainer#render",
     "access": null,
     "description": null,
-    "lineNumber": 150,
+    "lineNumber": 127,
     "undocument": true,
     "params": [],
     "return": {
@@ -305,7 +245,7 @@
     "longname": "src/ActionSheet/index.js~ApiContainer#show",
     "access": null,
     "description": null,
-    "lineNumber": 154,
+    "lineNumber": 131,
     "undocument": true,
     "params": [
       {
@@ -1287,6 +1227,72 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "src/Popup/index.js",
+    "memberof": null,
+    "longname": "src/Popup/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport TransitionShow from '../TransitionShow';\nimport './style';\n\n/**\n * 抽屉，从视口某个方向（direction:top/bottom/left/right）弹出一个“层”\n * 方向是上或下，width=100%;height=auto;max-height:100%;\n * 方向是左或右，width=auto;max-width=100%;height=100%;\n * 可以通过自定义 className 重置\n * @param {object} props 传入组件的属性，部分属性继承自 {@link sharePropTypes}\n * @param {string} props.direction 抽屉从这个方向弹出：[top|bottom|left|right]\n * @param {PropTypes.node} props.children 子组件（抽屉装的内容）\n */\nexport default function Popup(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    direction,\n    children,\n    ...others\n  } = props;\n  let classes = classNames('popup', {\n    '_user': className\n  });\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('popup')}\n      duration={duration}>\n      <div className={classes} style={style} {...others}>\n        <div\n          className={classNames('popup-main', `popup-main-${direction}`)}\n          style={style}>\n          {children}\n        </div>\n      </div>\n    </TransitionShow>\n  );\n}\n\nPopup.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  direction: PropTypes.oneOf(['left', 'right', 'top', 'bottom']).isRequired,\n  children: PropTypes.node.isRequired\n};\n\nPopup.defaultProps = {\n  ...TransitionShow.shareDefaultProps\n};\n"
+  },
+  {
+    "__docId__": 52,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Popup",
+    "memberof": "src/Popup/index.js",
+    "longname": "src/Popup/index.js~Popup",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Popup/index.js",
+    "importStyle": "Popup",
+    "description": "抽屉，从视口某个方向（direction:top/bottom/left/right）弹出一个“层”\n方向是上或下，width=100%;height=auto;max-height:100%;\n方向是左或右，width=auto;max-width=100%;height=100%;\n可以通过自定义 className 重置",
+    "lineNumber": 17,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "传入组件的属性，部分属性继承自 {@link sharePropTypes}"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.direction",
+        "description": "抽屉从这个方向弹出：[top|bottom|left|right]"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "PropTypes.node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.children",
+        "description": "子组件（抽屉装的内容）"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 53,
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "src/TabBar/TabBar.js",
     "memberof": null,
     "longname": "src/TabBar/TabBar.js",
@@ -1296,7 +1302,7 @@
     "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport TabBarItem from './TabBarItem';\n\nexport default function TabBar(props) {\n  const {\n    barColor,\n    lineColor,\n    color,\n    selectedColor,\n    translucent,\n    children,\n    className,\n    ...others\n  } = props;\n  let classes = classNames('tab-bar', {\n    '_user': className,\n    'tab-bar-translucent': translucent\n  });\n  let barStyle = {\n    backgroundColor: barColor\n  };\n  let lineStyle = {\n    backgroundColor: lineColor\n  };\n\n  return (\n    <div className={classes} {...others}>\n      <div className={classNames('tab-bar-body')}>\n        {children}\n      </div>\n      <footer style={barStyle}>\n        <div style={lineStyle} />\n        <ul>{children.map((child, index) => {\n          let props = {...child.props};\n          delete props.children;\n\n          return (\n            <Button\n              key={index}\n              color={color}\n              selectedColor={selectedColor}\n              {...props} />\n          );\n        })}</ul>\n      </footer>\n    </div>\n  );\n}\n\nTabBar.propTypes = {\n  barColor: PropTypes.string,  // 导航条颜色\n  lineColor: PropTypes.string,  // 线条颜色\n  color: PropTypes.string,  // tab 内容验证\n  selectedColor: PropTypes.string,  // tab 内容选中状态颜色\n  translucent: PropTypes.bool  // 是否半透明\n};\n\nTabBar.defaultProps = {\n  barColor: '#f7f7fa',\n  lineColor: '#979797',\n  color: '#888',\n  selectedColor: '#09bb07',\n  translucent: false\n};\n\nTabBar.Item = TabBarItem;\n\n\nfunction Button(props) {\n  const {\n    // from TabBar\n    color, selectedColor,\n    // from TabBarItem\n    selected, icon, selectedIcon, title, badge, onClick, className, ...others\n  } = props;\n  let classes = classNames('tab-bar-item', {\n    '_user': className,\n    'tab-bar-item-selected': selected\n  });\n  let iconClass = (selected && selectedIcon) ? selectedIcon : icon;\n  let style = {\n    color: (selected ? selectedColor : color)\n  };\n\n  return (\n    <li className={classes} onClick={onClick} {...others}>\n      <div className={classNames('tab-bar-item-label')}>\n        <i className={iconClass} style={style} />\n        {typeof badge !== 'undefined' ? (<span>{badge}</span>) : null}\n      </div>\n      <div className={classNames('tab-bar-item-title')} style={style}>\n        {title}\n      </div>\n    </li>\n  );\n}\n\nButton.propTypes = {\n  // from TabBar\n  color: TabBar.propTypes.color,\n  selectedColor: TabBar.propTypes.selectedColor,\n  // from TabBarItem 不包含 children\n  ...TabBarItem.propTypes\n};\n"
   },
   {
-    "__docId__": 52,
+    "__docId__": 54,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1326,7 +1332,7 @@
     "generator": false
   },
   {
-    "__docId__": 53,
+    "__docId__": 55,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1356,7 +1362,7 @@
     "generator": false
   },
   {
-    "__docId__": 54,
+    "__docId__": 56,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1369,7 +1375,7 @@
     "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n\nexport default function TabBarItem(props) {\n  const {selected, children} = props;\n  let classes = classNames('tab-bar-body-item', {\n    'tab-bar-body-item-selected': selected\n  });\n\n  return (\n    <div className={classes}>{children}</div>\n  );\n}\n\nTabBarItem.propTypes = {\n  children: PropTypes.node,\n  selected: PropTypes.bool,\n  icon: PropTypes.string,\n  selectedIcon: PropTypes.string,\n  title: PropTypes.string,\n  badge: PropTypes.oneOfType([\n    PropTypes.string,\n    PropTypes.number\n  ]),\n  onClick: PropTypes.func,\n  className: PropTypes.string\n};\n"
   },
   {
-    "__docId__": 55,
+    "__docId__": 57,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1399,7 +1405,7 @@
     "generator": false
   },
   {
-    "__docId__": 56,
+    "__docId__": 58,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1412,7 +1418,7 @@
     "content": "import './style';\n\nexport TabBar from './TabBar';\nexport TabBarItem from './TabBarItem';\n"
   },
   {
-    "__docId__": 57,
+    "__docId__": 59,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1425,7 +1431,7 @@
     "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames, createInstance} from '../utils';\nimport {\n  IconAttention,\n  IconLoading\n} from '../Icon';\nimport './style';\nimport TransitionShow from '../TransitionShow';\n\nlet apiInstance = null;\nlet timer = null;\n\nexport default function Toast(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    icon,\n    content,\n    ...others\n  } = props;\n  let classes = classNames('toast', {_user: className});\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('toast')}\n      duration={duration}>\n      <div className={classes} style={style} {...others} >\n        <div>\n          <div>\n            {matchIcon(icon)}\n            <p>{content}</p>\n          </div>\n        </div>\n      </div>\n    </TransitionShow>\n  );\n}\n\n\nToast.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  icon: PropTypes.string,\n  content: PropTypes.string\n};\n\nToast.defaultProps = TransitionShow.shareDefaultProps;\n\n\nToast.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\nToast.show = (icon, content, options, timeout) => {\n  apiInstance.show(icon, content, options, timeout);\n};\n\nToast.hide = () => {\n  apiInstance.hide();\n};\n\nToast.showLoading = (content, options) => {\n  apiInstance.showLoading(content, options);\n};\n\nToast.hideLoading = () => {\n  apiInstance.hideLoading();\n};\n\n\nfunction matchIcon(name) {\n  switch (name) {\n    case 'loading':\n      return (<IconLoading />);\n    case 'attention':\n      return (<IconAttention />);\n    default:\n      return null;\n  }\n}\n\n\n/**\n * 提供接口\n */\n\nclass ApiContainer extends Component {\n  state = {};\n\n  render() {\n    return (<Toast {...this.state} />);\n  }\n\n  show(icon, content, options = {}, timeout = 2200) {\n    let nexState = {\n      ...this.state,\n      ...options,\n      icon,\n      content,\n      show: true\n    };\n    this.setState(nexState);\n\n    // 如果 icon != loading 定时隐藏\n    clearTimeout(timer);\n    if (icon === 'loading') return;\n    timer = setTimeout(() => {\n      this.hide();\n    }, timeout);\n  }\n\n  hide() {\n    let nexState = {...this.state, show: false};\n    this.setState(nexState);\n  }\n\n  showLoading(content = '加载中…', options) {\n    this.show('loading', content, options);\n  }\n\n  hideLoading() {\n    this.hide();\n  }\n}\n\napiInstance = createInstance(ApiContainer);\n"
   },
   {
-    "__docId__": 58,
+    "__docId__": 60,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1446,7 +1452,7 @@
     }
   },
   {
-    "__docId__": 59,
+    "__docId__": 61,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1467,7 +1473,7 @@
     }
   },
   {
-    "__docId__": 60,
+    "__docId__": 62,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1497,7 +1503,7 @@
     "generator": false
   },
   {
-    "__docId__": 61,
+    "__docId__": 63,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1527,7 +1533,7 @@
     "generator": false
   },
   {
-    "__docId__": 62,
+    "__docId__": 64,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1546,7 +1552,7 @@
     ]
   },
   {
-    "__docId__": 63,
+    "__docId__": 65,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1566,7 +1572,7 @@
     "generator": false
   },
   {
-    "__docId__": 64,
+    "__docId__": 66,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1612,7 +1618,7 @@
     "generator": false
   },
   {
-    "__docId__": 65,
+    "__docId__": 67,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1627,7 +1633,7 @@
     "generator": false
   },
   {
-    "__docId__": 66,
+    "__docId__": 68,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1658,7 +1664,7 @@
     "generator": false
   },
   {
-    "__docId__": 67,
+    "__docId__": 69,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1673,7 +1679,7 @@
     "generator": false
   },
   {
-    "__docId__": 68,
+    "__docId__": 70,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1683,10 +1689,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\n\n/**\n * TransitionShow 使子组件实现简单的“显示和隐藏”过渡动画\n * @param {object} props 传入组件的参数\n * @param {boolean} props.show=false 是否显示子组件（children）\n * @param {string} props.transitionName 实现过渡动画的 className\n * @param {number} props.duration 过渡动画持续时间\n * @param {PropTypes.node} props.children 子组件\n * @return {PropTypes.element} React element\n *\n * @example\n * function Dialog(props) {\n *   let {show, duration} = props;\n *\n *   return (\n *     <TranstionShow show={show} transitionName='dialog'>\n *       <div>啥班</div>\n *     </TransitionShow>\n *   );\n * }\n */\nexport default function TransitionShow(props) {\n  let {show, transitionName, duration, children} = props;\n\n  return (\n    <ReactCSSTransitionGroup\n      component={EmptyContainer}\n      transitionName={transitionName}\n      transitionEnterTimeout={duration}\n      transitionLeaveTimeout={duration}>\n      {show ? children : null}\n    </ReactCSSTransitionGroup>\n  );\n}\n\nTransitionShow.propTypes = {\n  show: PropTypes.bool,\n  transitionName: PropTypes.string.isRequired,\n  duration: PropTypes.number.isRequired,\n  children: PropTypes.node\n};\n\nTransitionShow.defaultProps = {\n  show: false\n};\n\n\n/**\n * TransitionShow 子组件要定义的属性\n * @type {Object}\n */\nTransitionShow.sharePropTypes = {\n  show: TransitionShow.propTypes.show,\n  duration: TransitionShow.propTypes.duration,\n  zIndex: PropTypes.number,\n  timingFunction: PropTypes.string,\n  style: PropTypes.object,  // 通过 style 定义动画 duration/zIndex/timgFunction\n  className: PropTypes.string  // 用户自定义 class，所有组件都提供的属性\n};\n\n/**\n * TranstionShow 子组件要定义的默认属性\n * @type {Object}\n */\nTransitionShow.shareDefaultProps = {\n  duration: 80,\n  zIndex: 9999,\n  timingFunction: 'ease-in',\n  style: {}\n};\n\n\n\n\nfunction EmptyContainer(props) {\n  return props.children[0] || null;\n}\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\n\n/**\n * TransitionShow 使子组件实现简单的“显示和隐藏”过渡动画\n * @param {object} props 传入组件的参数\n * @param {boolean} props.show=false 是否显示子组件（children）\n * @param {string} props.transitionName 实现过渡动画的 className\n * @param {number} props.duration 过渡动画持续时间\n * @param {PropTypes.node} props.children 子组件\n * @return {PropTypes.element} React element\n *\n * @example\n * function Dialog(props) {\n *   let {show, duration} = props;\n *\n *   return (\n *     <TranstionShow show={show} transitionName='dialog'>\n *       <div>啥班</div>\n *     </TransitionShow>\n *   );\n * }\n */\nexport default function TransitionShow(props) {\n  let {show, transitionName, duration, children} = props;\n\n  return (\n    <ReactCSSTransitionGroup\n      component={EmptyContainer}\n      transitionName={transitionName}\n      transitionEnterTimeout={duration}\n      transitionLeaveTimeout={duration}>\n      {show ? children : null}\n    </ReactCSSTransitionGroup>\n  );\n}\n\nTransitionShow.propTypes = {\n  show: PropTypes.bool,\n  transitionName: PropTypes.string.isRequired,\n  duration: PropTypes.number.isRequired,\n  children: PropTypes.node\n};\n\nTransitionShow.defaultProps = {\n  show: false\n};\n\n\n\n/**\n * TransitionShow 子组件需要定义的属性\n * @type {object}\n * @property {boolean} show 显示（true）或 隐藏（false）\n * @property {number} duration 过渡动画持续时间，单位：ms\n * @property {number} zIndex 组件的 z-index 值\n * @property {string} timingFunction 过渡动画类型，CSS3 动画\n * @property {object} style 组件内联样式\n * @property {string} className 自定义 class\n */\nexport const sharePropTypes = TransitionShow.sharePropTypes = {\n  show: TransitionShow.propTypes.show,\n  duration: TransitionShow.propTypes.duration,\n  zIndex: PropTypes.number,\n  timingFunction: PropTypes.string,\n  style: PropTypes.object,  // 通过 style 定义动画 duration/zIndex/timgFunction\n  className: PropTypes.string  // 用户自定义 class，所有组件都提供的属性\n};\n\n/**\n * TransitionShow 子组件需要定义的属性 默认值\n * @type {Object}\n */\nexport const shareDefaultProps = TransitionShow.shareDefaultProps = {\n  duration: 80,\n  zIndex: 9999,\n  timingFunction: 'ease',\n  style: {}\n};\n\n\n\n\nfunction EmptyContainer(props) {\n  return props.children[0] || null;\n}\n"
   },
   {
-    "__docId__": 69,
+    "__docId__": 71,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1767,7 +1773,115 @@
     "generator": false
   },
   {
-    "__docId__": 70,
+    "__docId__": 72,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "sharePropTypes",
+    "memberof": "src/TransitionShow.js",
+    "longname": "src/TransitionShow.js~sharePropTypes",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/TransitionShow.js",
+    "importStyle": "{sharePropTypes}",
+    "description": "TransitionShow 子组件需要定义的属性",
+    "lineNumber": 63,
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "show",
+        "description": "显示（true）或 隐藏（false）"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "duration",
+        "description": "过渡动画持续时间，单位：ms"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "zIndex",
+        "description": "组件的 z-index 值"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timingFunction",
+        "description": "过渡动画类型，CSS3 动画"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "style",
+        "description": "组件内联样式"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "className",
+        "description": "自定义 class"
+      }
+    ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 73,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "shareDefaultProps",
+    "memberof": "src/TransitionShow.js",
+    "longname": "src/TransitionShow.js~shareDefaultProps",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/TransitionShow.js",
+    "importStyle": "{shareDefaultProps}",
+    "description": "TransitionShow 子组件需要定义的属性 默认值",
+    "lineNumber": 76,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 74,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1779,7 +1893,7 @@
     "importPath": "daifee-react-component/src/TransitionShow.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 79,
+    "lineNumber": 86,
     "undocument": true,
     "params": [
       {
@@ -1797,7 +1911,7 @@
     "generator": false
   },
   {
-    "__docId__": 71,
+    "__docId__": 75,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1810,7 +1924,7 @@
     "content": "/**\n * 配置文件\n */\n\n\n/**\n * @type {object} 配置数据对象\n * @property {string} config.namespace='daifee-rc' 用于 css 的命名空间，\n * 如要修改，必须同时修改 ./variables.scss 文件的 $namespace\n */\nconst config = {\n  namespace: 'daifee-rc'\n};\n\nexport default config;\n\n"
   },
   {
-    "__docId__": 72,
+    "__docId__": 76,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1847,7 +1961,7 @@
     }
   },
   {
-    "__docId__": 73,
+    "__docId__": 77,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1857,10 +1971,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import './style';\n\nexport {\n  IconAttention,\n  IconLoading\n} from './Icon';\n\nexport {\n  Cell,\n  CellBody,\n  CellFooter,\n  CellHeader,\n  Cells,\n  CellsTitle,\n  CellsTips\n} from './Cell';\n\nexport Button from './Button';\nexport Mask from './Mask';\nexport Toast from './Toast';\nexport Dialog from './Dialog';\nexport Notification from './Notification';\nexport ActionSheet from './ActionSheet';\nexport {\n  TabBar,\n  TabBarItem\n} from './TabBar';\n"
+    "content": "import './style';\n\nexport {\n  IconAttention,\n  IconLoading\n} from './Icon';\n\nexport {\n  Cell,\n  CellBody,\n  CellFooter,\n  CellHeader,\n  Cells,\n  CellsTitle,\n  CellsTips\n} from './Cell';\n\nexport Button from './Button';\nexport Mask from './Mask';\nexport Toast from './Toast';\nexport Dialog from './Dialog';\nexport Notification from './Notification';\nexport ActionSheet from './ActionSheet';\nexport {\n  TabBar,\n  TabBarItem\n} from './TabBar';\nexport Popup from './Popup';\n"
   },
   {
-    "__docId__": 74,
+    "__docId__": 78,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1873,7 +1987,7 @@
     "content": "import config from './config';\nimport React from 'react';\nimport {render} from 'react-dom';\n\nconst {namespace} = config;\nconst hasOwn = {}.hasOwnProperty;\n\n/**\n * 包装返回 className\n * @param  {string|object} args 要被包装的 className\n * 所有 className 都回被加上项目的 namespace 前缀。\n * 如果参数是对象，则其属性是 class 名，值为 true 则该 class 名被返回。\n * 如果参数的属性是 `_user` 则直接返回其值，不作包装\n * @return {string}         一个或多个 class。例如：\"class1 class2 class3\"\n *\n * @example\n * let classes = classNames('dialog', {\n *   'dialog-btn': false,\n *   'dialog-title': true,\n *   '_user': 'user-class'\n * });\n * console.log(classes);\n * // 假设 namespace='rd'\n * // output: \"rc-dialog rc-dialog-title user-class\"\n */\nexport function classNames(...args) {\n  let classes = [];\n  let arg, argType, key;\n\n  for (let i = 0, len = args.length; i < len; i++) {\n    arg = args[i];\n    argType = typeof arg;\n\n    if (!arg) continue;\n\n    if (argType === 'string' || argType === 'number') {\n      prePush(classes, arg);\n    } else if (Array.isArray(arg)) {\n      classes.push(classNames.apply(null, arg));\n    } else if (argType === 'object') {\n      for (key in arg) {\n        if (!hasOwn.call(arg, key) || !arg[key]) continue;\n\n        // 用户传入的\n        if (key === '_user') {\n          classes.push(arg[key]);\n        } else {\n          prePush(classes, key);\n        }\n      }\n    }\n  }\n\n  return classes.join(' ');\n}\n\nfunction prePush(arr, value) {\n  value = `${namespace}-${value}`;\n  return arr.push(value);\n}\n\n\n/**\n * 根据传入的 Component 创建一个实例，并渲染到 container\n * @param  {Component} Component React 组件\n * @param  {?dom} container 实例将渲染到该 dom 节点，\n * 如果缺少，内部创建 dom 节点。\n * @return {PropTypes.element}           Component 的实例\n */\nexport function createInstance(Component, container) {\n  if (!container) {\n    container = createContainer();\n  }\n\n  return render(<Component />, container);\n}\n\n/**\n * 创建一个 dom 节点，div.${namespace}-apicontainer\n * @return {dom} 节点\n */\nfunction createContainer() {\n  let div = document.createElement('div');\n  div.className = classNames('api-container');\n  document.body.appendChild(div);\n\n  return div;\n}\n\n\n"
   },
   {
-    "__docId__": 75,
+    "__docId__": 79,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1894,7 +2008,7 @@
     }
   },
   {
-    "__docId__": 76,
+    "__docId__": 80,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1915,7 +2029,7 @@
     }
   },
   {
-    "__docId__": 77,
+    "__docId__": 81,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1955,7 +2069,7 @@
     "generator": false
   },
   {
-    "__docId__": 78,
+    "__docId__": 82,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1991,7 +2105,7 @@
     "generator": false
   },
   {
-    "__docId__": 79,
+    "__docId__": 83,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2037,7 +2151,7 @@
     "generator": false
   },
   {
-    "__docId__": 80,
+    "__docId__": 84,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2062,7 +2176,7 @@
     "generator": false
   },
   {
-    "__docId__": 82,
+    "__docId__": 86,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2075,7 +2189,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 83,
+    "__docId__": 87,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2088,7 +2202,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 84,
+    "__docId__": 88,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2101,7 +2215,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 85,
+    "__docId__": 89,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2114,7 +2228,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 86,
+    "__docId__": 90,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2127,7 +2241,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 87,
+    "__docId__": 91,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2140,7 +2254,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 88,
+    "__docId__": 92,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2153,7 +2267,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 89,
+    "__docId__": 93,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2166,7 +2280,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 90,
+    "__docId__": 94,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2179,7 +2293,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 91,
+    "__docId__": 95,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2192,7 +2306,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 92,
+    "__docId__": 96,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2205,7 +2319,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 93,
+    "__docId__": 97,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2218,7 +2332,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 94,
+    "__docId__": 98,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2231,7 +2345,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 95,
+    "__docId__": 99,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2244,7 +2358,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 96,
+    "__docId__": 100,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2257,7 +2371,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 97,
+    "__docId__": 101,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2270,7 +2384,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 98,
+    "__docId__": 102,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2283,7 +2397,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 99,
+    "__docId__": 103,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2296,7 +2410,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 100,
+    "__docId__": 104,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2309,7 +2423,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 101,
+    "__docId__": 105,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2322,7 +2436,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 102,
+    "__docId__": 106,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2335,7 +2449,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 103,
+    "__docId__": 107,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2348,7 +2462,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 104,
+    "__docId__": 108,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2361,7 +2475,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 105,
+    "__docId__": 109,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2374,7 +2488,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 106,
+    "__docId__": 110,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2387,7 +2501,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 107,
+    "__docId__": 111,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2400,7 +2514,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 108,
+    "__docId__": 112,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2413,7 +2527,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 109,
+    "__docId__": 113,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2426,7 +2540,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 110,
+    "__docId__": 114,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2439,7 +2553,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 111,
+    "__docId__": 115,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2452,7 +2566,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 112,
+    "__docId__": 116,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2465,7 +2579,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 113,
+    "__docId__": 117,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2478,7 +2592,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 114,
+    "__docId__": 118,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2491,7 +2605,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 115,
+    "__docId__": 119,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2504,7 +2618,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 116,
+    "__docId__": 120,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2517,7 +2631,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 117,
+    "__docId__": 121,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2530,7 +2644,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 118,
+    "__docId__": 122,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2543,7 +2657,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 119,
+    "__docId__": 123,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2556,7 +2670,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 120,
+    "__docId__": 124,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2569,7 +2683,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 121,
+    "__docId__": 125,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2582,7 +2696,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 122,
+    "__docId__": 126,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2595,7 +2709,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 123,
+    "__docId__": 127,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2608,7 +2722,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 124,
+    "__docId__": 128,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2621,7 +2735,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 125,
+    "__docId__": 129,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2634,7 +2748,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 126,
+    "__docId__": 130,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2647,7 +2761,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 127,
+    "__docId__": 131,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2660,7 +2774,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 128,
+    "__docId__": 132,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2673,7 +2787,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 130,
+    "__docId__": 134,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2686,7 +2800,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 131,
+    "__docId__": 135,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2699,7 +2813,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 132,
+    "__docId__": 136,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2712,7 +2826,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 133,
+    "__docId__": 137,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2725,7 +2839,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 134,
+    "__docId__": 138,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2738,7 +2852,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 135,
+    "__docId__": 139,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2751,7 +2865,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 136,
+    "__docId__": 140,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2764,7 +2878,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 137,
+    "__docId__": 141,
     "kind": "external",
     "static": true,
     "variation": null,

@@ -35,6 +35,8 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TransitionShow">TransitionShow</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-classNames">classNames</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createInstance">createInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-shareDefaultProps">shareDefaultProps</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-sharePropTypes">sharePropTypes</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-config">config</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">ActionSheet</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ActionSheet">ActionSheet</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Button</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Button">Button</a></span></span></li>
@@ -50,6 +52,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-IconLoading">IconLoading</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Mask</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Mask">Mask</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Notification</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Notification">Notification</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Popup</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Popup">Popup</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">TabBar</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TabBar">TabBar</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TabBarItem">TabBarItem</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Toast</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Toast">Toast</a></span></span></li>
@@ -109,11 +112,18 @@ TransitionShow.defaultProps = {
 };
 
 
+
 /**
- * TransitionShow &#x5B50;&#x7EC4;&#x4EF6;&#x8981;&#x5B9A;&#x4E49;&#x7684;&#x5C5E;&#x6027;
- * @type {Object}
+ * TransitionShow &#x5B50;&#x7EC4;&#x4EF6;&#x9700;&#x8981;&#x5B9A;&#x4E49;&#x7684;&#x5C5E;&#x6027;
+ * @type {object}
+ * @property {boolean} show &#x663E;&#x793A;&#xFF08;true&#xFF09;&#x6216; &#x9690;&#x85CF;&#xFF08;false&#xFF09;
+ * @property {number} duration &#x8FC7;&#x6E21;&#x52A8;&#x753B;&#x6301;&#x7EED;&#x65F6;&#x95F4;&#xFF0C;&#x5355;&#x4F4D;&#xFF1A;ms
+ * @property {number} zIndex &#x7EC4;&#x4EF6;&#x7684; z-index &#x503C;
+ * @property {string} timingFunction &#x8FC7;&#x6E21;&#x52A8;&#x753B;&#x7C7B;&#x578B;&#xFF0C;CSS3 &#x52A8;&#x753B;
+ * @property {object} style &#x7EC4;&#x4EF6;&#x5185;&#x8054;&#x6837;&#x5F0F;
+ * @property {string} className &#x81EA;&#x5B9A;&#x4E49; class
  */
-TransitionShow.sharePropTypes = {
+export const sharePropTypes = TransitionShow.sharePropTypes = {
   show: TransitionShow.propTypes.show,
   duration: TransitionShow.propTypes.duration,
   zIndex: PropTypes.number,
@@ -123,13 +133,13 @@ TransitionShow.sharePropTypes = {
 };
 
 /**
- * TranstionShow &#x5B50;&#x7EC4;&#x4EF6;&#x8981;&#x5B9A;&#x4E49;&#x7684;&#x9ED8;&#x8BA4;&#x5C5E;&#x6027;
+ * TransitionShow &#x5B50;&#x7EC4;&#x4EF6;&#x9700;&#x8981;&#x5B9A;&#x4E49;&#x7684;&#x5C5E;&#x6027; &#x9ED8;&#x8BA4;&#x503C;
  * @type {Object}
  */
-TransitionShow.shareDefaultProps = {
+export const shareDefaultProps = TransitionShow.shareDefaultProps = {
   duration: 80,
   zIndex: 9999,
-  timingFunction: &apos;ease-in&apos;,
+  timingFunction: &apos;ease&apos;,
   style: {}
 };
 

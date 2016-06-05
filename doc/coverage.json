@@ -1,7 +1,7 @@
 {
-  "coverage": "28.57%",
-  "expectCount": 21,
-  "actualCount": 6,
+  "coverage": "37.5%",
+  "expectCount": 24,
+  "actualCount": 9,
   "files": {
     "src/ActionSheet/index.js": {
       "expectCount": 1,
@@ -97,6 +97,11 @@
         20
       ]
     },
+    "src/Popup/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
     "src/TabBar/TabBar.js": {
       "expectCount": 1,
       "actualCount": 0,
@@ -119,8 +124,8 @@
       ]
     },
     "src/TransitionShow.js": {
-      "expectCount": 1,
-      "actualCount": 1,
+      "expectCount": 3,
+      "actualCount": 3,
       "undocumentLines": []
     },
     "src/utils.js": {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/Notification/index.js | API Document</title>
+  <title data-ice="title">src/Popup/index.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -60,131 +60,70 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/Notification/index.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/Popup/index.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, {
-  Component,
   PropTypes
 } from &apos;react&apos;;
-import ReactCSSTransitionGroup from &apos;react-addons-css-transition-group&apos;;
-import {classNames, createInstance} from &apos;../utils&apos;;
+import {classNames} from &apos;../utils&apos;;
+import TransitionShow from &apos;../TransitionShow&apos;;
 import &apos;./style&apos;;
 
-let apiInstance = null;
-// Notification &#x663E;&#x793A;&#x548C;&#x9690;&#x85CF;&#x52A8;&#x753B;&#x6301;&#x7EED;&#x65F6;&#x95F4; &#x6BEB;&#x79D2;
-// container &#x548C; item &#x90FD;&#x9700;&#x8981;&#x8BBE;&#x7F6E; duration&#xFF0C;&#x800C;&#x4E14;&#x5FC5;&#x987B;&#x76F8;&#x540C;
-// &#x6240;&#x4EE5;&#x4E0D;&#x80FD;&#x4E3A; item &#x81EA;&#x5B9A;&#x4E49; duration
-let duration = 150;
-let id = 0;
-function getId() {
-  return id++;
-}
-
-
-export default function Notification(props) {
-  let {type, content, timingFunction, className, style, ...others} = props;
-  let classes = classNames(&apos;notification&apos;, `notification-${type}`, {
-    _user: className
+/**
+ * &#x62BD;&#x5C49;&#xFF0C;&#x4ECE;&#x89C6;&#x53E3;&#x67D0;&#x4E2A;&#x65B9;&#x5411;&#xFF08;direction:top/bottom/left/right&#xFF09;&#x5F39;&#x51FA;&#x4E00;&#x4E2A;&#x201C;&#x5C42;&#x201D;
+ * &#x65B9;&#x5411;&#x662F;&#x4E0A;&#x6216;&#x4E0B;&#xFF0C;width=100%;height=auto;max-height:100%;
+ * &#x65B9;&#x5411;&#x662F;&#x5DE6;&#x6216;&#x53F3;&#xFF0C;width=auto;max-width=100%;height=100%;
+ * &#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x81EA;&#x5B9A;&#x4E49; className &#x91CD;&#x7F6E;
+ * @param {object} props &#x4F20;&#x5165;&#x7EC4;&#x4EF6;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x90E8;&#x5206;&#x5C5E;&#x6027;&#x7EE7;&#x627F;&#x81EA; {@link sharePropTypes}
+ * @param {string} props.direction &#x62BD;&#x5C49;&#x4ECE;&#x8FD9;&#x4E2A;&#x65B9;&#x5411;&#x5F39;&#x51FA;&#xFF1A;[top|bottom|left|right]
+ * @param {PropTypes.node} props.children &#x5B50;&#x7EC4;&#x4EF6;&#xFF08;&#x62BD;&#x5C49;&#x88C5;&#x7684;&#x5185;&#x5BB9;&#xFF09;
+ */
+export default function Popup(props) {
+  let {
+    show,
+    zIndex,
+    duration,
+    timingFunction,
+    style,
+    className,
+    direction,
+    children,
+    ...others
+  } = props;
+  let classes = classNames(&apos;popup&apos;, {
+    &apos;_user&apos;: className
   });
   style = {
     ...style,
+    zIndex,
     transitionDuration: (duration + &apos;ms&apos;),
     transitionTimingFunction: timingFunction
   };
 
   return (
-    &lt;li className={classes} style={style} {...others}&gt;
-      &lt;span&gt;{content}&lt;/span&gt;
-    &lt;/li&gt;
+    &lt;TransitionShow
+      show={show}
+      transitionName={classNames(&apos;popup&apos;)}
+      duration={duration}&gt;
+      &lt;div className={classes} style={style} {...others}&gt;
+        &lt;div
+          className={classNames(&apos;popup-main&apos;, `popup-main-${direction}`)}
+          style={style}&gt;
+          {children}
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/TransitionShow&gt;
   );
 }
 
-Notification.propTypes = {
-  type: PropTypes.oneOf([&apos;default&apos;, &apos;info&apos;, &apos;success&apos;, &apos;warning&apos;, &apos;danger&apos;]),
-  content: PropTypes.string.isRequired,
-  timingFunction: PropTypes.string,
-  className: PropTypes.string,
-  style: PropTypes.object
+Popup.propTypes = {
+  ...TransitionShow.sharePropTypes,
+  direction: PropTypes.oneOf([&apos;left&apos;, &apos;right&apos;, &apos;top&apos;, &apos;bottom&apos;]).isRequired,
+  children: PropTypes.node.isRequired
 };
 
-Notification.defaultProps = {
-  type: &apos;default&apos;,
-  timingFunction: &apos;ease-in&apos;
+Popup.defaultProps = {
+  ...TransitionShow.shareDefaultProps
 };
-
-
-Notification.show = (content, type, options) =&gt; {
-  apiInstance.show(content, type, options);
-};
-
-Notification.getInstance = (container) =&gt; {
-  return createInstance(Notifications, container);
-};
-
-
-
-class Notifications extends Component {
-  state = {
-    zIndex: 9999,
-    notifications: []
-  };
-
-  render() {
-    const {
-      zIndex,
-      notifications
-    } = this.state;
-    let classes = classNames(&apos;notification-container&apos;);
-    let style = {
-      zIndex
-    };
-
-    return (
-      &lt;ReactCSSTransitionGroup
-        component=&apos;ul&apos;
-        transitionName={classNames(&apos;notification&apos;)}
-        transitionEnterTimeout={duration}
-        transitionLeaveTimeout={duration}
-        className={classes}
-        style={style}&gt;
-        {notifications.map((item) =&gt; {
-          const {id, ...others} = item;
-          return (&lt;Notification key={id} {...others} /&gt;);
-        })}
-      &lt;/ReactCSSTransitionGroup&gt;
-    );
-  }
-
-  // zIndex, timeout
-  show(content, type, options = {}) {
-    let [...notifications] = this.state.notifications;
-    // others &#x8D4B;&#x503C;&#x5230; notification
-    let {timeout, zIndex, ...others} = options;
-    let id = getId();
-    let notification = {id, type, content, ...others};
-
-    notifications.unshift(notification);
-
-    let nextState = {zIndex, notifications};
-
-    this.setState(nextState);
-
-    setTimeout(() =&gt; {
-      this.hide(id);
-    }, (timeout || 2000));
-  }
-
-  hide(id) {
-    let notifications = this.state.notifications.filter((item) =&gt; {
-      return id !== item.id;
-    });
-    let nextState = {...this.state, notifications};
-
-    this.setState(nextState);
-  }
-}
-
-
-apiInstance = createInstance(Notifications);
 </code></pre>
 
 </div>

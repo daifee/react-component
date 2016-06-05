@@ -84,6 +84,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "daifee-react-component/src/popup/index.js~popup",
+    "function/index.html#static-function-Popup",
+    "<span>Popup</span> <span class=\"search-result-import-path\">daifee-react-component/src/Popup/index.js</span>",
+    "function"
+  ],
+  [
     "daifee-react-component/src/tabbar/tabbar.js~tabbar",
     "function/index.html#static-function-TabBar",
     "<span>TabBar</span> <span class=\"search-result-import-path\">daifee-react-component/src/TabBar/TabBar.js</span>",
@@ -124,6 +130,18 @@ window.esdocSearchIndex = [
     "function/index.html#static-function-createInstance",
     "<span>createInstance</span> <span class=\"search-result-import-path\">daifee-react-component/src/utils.js</span>",
     "function"
+  ],
+  [
+    "daifee-react-component/src/transitionshow.js~sharedefaultprops",
+    "variable/index.html#static-variable-shareDefaultProps",
+    "<span>shareDefaultProps</span> <span class=\"search-result-import-path\">daifee-react-component/src/TransitionShow.js</span>",
+    "variable"
+  ],
+  [
+    "daifee-react-component/src/transitionshow.js~shareproptypes",
+    "variable/index.html#static-variable-sharePropTypes",
+    "<span>sharePropTypes</span> <span class=\"search-result-import-path\">daifee-react-component/src/TransitionShow.js</span>",
+    "variable"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~array",
@@ -549,6 +567,12 @@ window.esdocSearchIndex = [
     "src/notification/index.js",
     "file/src/Notification/index.js.html",
     "src/Notification/index.js",
+    "file"
+  ],
+  [
+    "src/popup/index.js",
+    "file/src/Popup/index.js.html",
+    "src/Popup/index.js",
     "file"
   ],
   [
