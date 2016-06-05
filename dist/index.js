@@ -773,7 +773,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * 抽屉，从视口某个方向（direction:top/bottom/left/right）弹出一个“层”
 	 * 方向是上或下，width=100%;height=auto;max-height:100%;
 	 * 方向是左或右，width=auto;max-width=100%;height=100%;
-	 * 可以通过 class 重置
+	 * 可以通过自定义 className 重置
 	 * @param {object} props 传入组件的属性，部分属性继承自 {@link sharePropTypes}
 	 * @param {string} props.direction 抽屉从这个方向弹出：[top|bottom|left|right]
 	 * @param {PropTypes.node} props.children 子组件（抽屉装的内容）
