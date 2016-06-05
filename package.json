@@ -19,7 +19,7 @@
     "clear": "rm -rf ./dist",
     "prepublish": "npm run test",
     "postpublish": "git push --all",
-    "preversion": "npm run test && npm run build && git commit -am 'builded'"
+    "preversion": "npm run test && npm run build && git commit -m 'builded' ./dist"
   },
   "keywords": [
     "daifee-react-component",
