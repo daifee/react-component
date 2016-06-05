@@ -3,7 +3,6 @@
 $hr-color: #ddd;
 
 $selector: '.#{$namespace}-action-sheet';
-$selector-main: '.#{$namespace}-action-sheet-main';
 
 @mixin hr() {
   content: ' ';
@@ -17,46 +16,21 @@ $selector-main: '.#{$namespace}-action-sheet-main';
 }
 
 #{$selector} {
-  &-api-container {
-    position: absolute;
-    left: -9999px;
-    top: -9999px;
-    width: 0;
-    height: 0;
+
+  > header {
+    padding: 0 16px;
+    line-height: 44px;
+    position: relative;
+    color: #888;
+
+    &:after {
+      @include hr();
+    }
   }
 
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: $mask-bg;
-  transition-property: background-color;
-
-  &-main {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    transform: translate3d(0, 0%, 0);
-    transition-property: transform;
-
-    > header {
-      padding: 0 16px;
-      line-height: 44px;
-      position: relative;
-      color: #888;
-
-      &:after {
-        @include hr();
-      }
-    }
-
-    >ol {
-      margin: 0;
-      padding: 0;
-    }
+  >ol {
+    margin: 0;
+    padding: 0;
   }
 
   &-item {
@@ -100,36 +74,4 @@ $selector-main: '.#{$namespace}-action-sheet-main';
     }
   }
 
-
-  &-enter {
-    background-color: $mask-bg-transparent;
-
-    > #{$selector-main} {
-      transform: translate3d(0, 100%, 0);
-    }
-
-    &-active {
-      background-color: $mask-bg;
-
-      > #{$selector-main} {
-        transform: translate3d(0, 0%, 0);
-      }
-    }
-  }
-
-  &-leave {
-    background-color: $mask-bg;
-
-    > #{$selector-main} {
-      transform: translate3d(0, 0%, 0);
-    }
-
-    &-active {
-      background-color: $mask-bg-transparent;
-
-      > #{$selector-main} {
-        transform: translate3d(0, 100%, 0);
-      }
-    }
-  }
 }

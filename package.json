@@ -18,7 +18,7 @@
     "build:development": "NODE_ENV=development webpack --progress --colors",
     "clear": "rm -rf ./dist",
     "prepublish": "npm run test && npm run build",
-    "postpublish": "git push --tags",
+    "postpublish": "git push --all",
     "preversion": "npm run test"
   },
   "keywords": [

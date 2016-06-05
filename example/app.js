@@ -11,6 +11,7 @@ import DialogPage from './DialogPage';
 import NotificationPage from './NotificationPage';
 import ActionSheetPage from './ActionSheetPage';
 import TabBarPage from './TabBarPage';
+import PopupPage from './PopupPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path='/notification' component={NotificationPage} />
       <Route path='/actionsheet' component={ActionSheetPage} />
       <Route path='/tabbar' component={TabBarPage} />
+      <Route path='/popup' component={PopupPage} />
     </Router>
   );
 }

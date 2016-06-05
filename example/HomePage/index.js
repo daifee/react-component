@@ -22,7 +22,8 @@ export default class HomePage extends Component {
       {name: 'Dialog', href: '#dialog'},
       {name: 'Notification', href: '#notification'},
       {name: 'ActionSheet', href: '#actionsheet'},
-      {name: 'TabBar', href: '#tabbar'}
+      {name: 'TabBar', href: '#tabbar'},
+      {name: 'Popup', href: '#popup'}
     ]
   };
 

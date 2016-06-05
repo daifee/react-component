@@ -5,6 +5,7 @@ import React, {
 import './style';
 import {classNames, createInstance} from '../utils';
 import TransitionShow from '../TransitionShow';
+import Popup from '../Popup';
 
 let apiInstance;
 
@@ -15,13 +16,8 @@ function getId() {
 
 /**
  * ActionSheet 组件
+ * 动画效果使用 `Popup` 组件 {@link Popup}
  * @param {object} props 传入组件的属性
- * @param {boolean} props.show 是否显示
- * @param {number} props.zIndex z-index 值
- * @param {number} props.duration 过渡持续时间。单位：ms
- * @param {string} props.timingFunction 动画类型
- * @param {object} props.style 传入自定义 style 值
- * @param {string} props.className 传入自定义 class
  * @param {array} props.buttons 定义本组件的按钮，数组值作为按钮名
  * @param {number} props.cancelButtonIndex 第几个是"取消"按钮，会附加一个 class
  * @param {number} props.destroyButtonIndex 第几个是“危险”按钮，会附加一个 class
@@ -33,58 +29,39 @@ function getId() {
  */
 export default function ActionSheet(props) {
   let {
-    show,
-    zIndex,
-    duration,
-    timingFunction,
-    style,
-    className,
     buttons,
     cancelButtonIndex,
     destroyButtonIndex,
     title,
     callback,
     onClick,
-    _hide,
-    ...others
+    _hide
   } = props;
-  let classes = classNames('action-sheet', {_user: className});
   typeof cancelButtonIndex === 'undefined' && (cancelButtonIndex = buttons.length - 1);
-  style = {
-    ...style,
-    zIndex,
-    transitionDuration: (duration + 'ms'),
-    transitionTimingFunction: timingFunction
-  };
+
 
   return (
-    <TransitionShow
-      show={show}
-      transitionName={classNames('action-sheet')}
-      duration={duration}>
-      <div
-        className={classes}
-        style={style}
-        {...others}
-        onClick={(e) => {
-          _hide && _hide();
-          onClick && onClick(e);
-        }}>
-        <div className={classNames('action-sheet-main')} style={style}>
-          {title ? (<header>{title}</header>) : null}
-          <ol>{buttons.map((action, index) => {
-            return (
-              <Button
-                key={getId()}
-                name={action}
-                index={index}
-                cancel={cancelButtonIndex === index}
-                destroy={destroyButtonIndex === index}
-                callback={callback} />);
-          })}</ol>
-        </div>
+    <Popup
+      {...props}
+      direction='bottom'
+      onClick={(e) => {
+        _hide && _hide();
+        onClick && onClick(e);
+      }}>
+      <div className={classNames('action-sheet')}>
+        {title ? (<header>{title}</header>) : null}
+        <ol>{buttons.map((button, index) => {
+          return (
+            <Button
+              key={getId()}
+              name={button}
+              index={index}
+              cancel={cancelButtonIndex === index}
+              destroy={destroyButtonIndex === index}
+              callback={callback} />);
+        })}</ol>
       </div>
-    </TransitionShow>
+    </Popup>
   );
 }
 

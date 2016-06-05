@@ -49,11 +49,18 @@ TransitionShow.defaultProps = {
 };
 
 
+
 /**
- * TransitionShow 子组件要定义的属性
- * @type {Object}
+ * TransitionShow 子组件需要定义的属性
+ * @type {object}
+ * @property {boolean} show 显示（true）或 隐藏（false）
+ * @property {number} duration 过渡动画持续时间，单位：ms
+ * @property {number} zIndex 组件的 z-index 值
+ * @property {string} timingFunction 过渡动画类型，CSS3 动画
+ * @property {object} style 组件内联样式
+ * @property {string} className 自定义 class
  */
-TransitionShow.sharePropTypes = {
+export const sharePropTypes = TransitionShow.sharePropTypes = {
   show: TransitionShow.propTypes.show,
   duration: TransitionShow.propTypes.duration,
   zIndex: PropTypes.number,
@@ -63,13 +70,13 @@ TransitionShow.sharePropTypes = {
 };
 
 /**
- * TranstionShow 子组件要定义的默认属性
+ * TransitionShow 子组件需要定义的属性 默认值
  * @type {Object}
  */
-TransitionShow.shareDefaultProps = {
+export const shareDefaultProps = TransitionShow.shareDefaultProps = {
   duration: 80,
   zIndex: 9999,
-  timingFunction: 'ease-in',
+  timingFunction: 'ease',
   style: {}
 };
 

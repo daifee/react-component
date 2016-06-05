@@ -25,3 +25,4 @@ export {
   TabBar,
   TabBarItem
 } from './TabBar';
+export Popup from './Popup';
