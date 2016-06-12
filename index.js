@@ -1,4 +1,3 @@
-import './dist/index.min.css';
-import * as components from './dist/index.min.js';
-
-export {...components};
+// 使用 CommonJS 模块加载器
+require('./dist/index.min.css');
+module.exports = require('./dist/index.min.js');
