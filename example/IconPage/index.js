@@ -4,9 +4,11 @@ import React, {
 import {
   IconAttention,
   IconLoading,
+  IconCheck,
   Cell,
   CellBody,
   CellHeader,
+  CellFooter,
   Cells,
   CellsTitle
 } from 'daifee-react-component';
@@ -40,6 +42,18 @@ export default class IconPage extends Component {
               <IconLoading className='custom-loading' />
               <IconLoading scale={0.8} />
             </CellBody>
+          </Cell>
+
+          <Cell>
+            <CellBody>
+              <IconCheck />
+              <IconCheck />
+              <IconCheck size='60px' />
+            </CellBody>
+          </Cell>
+          <Cell access={true}>
+            <CellBody>选中了我</CellBody>
+            <CellFooter><IconCheck size='20px' /></CellFooter>
           </Cell>
         </Cells>
       </Page>

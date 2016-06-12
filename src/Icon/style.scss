@@ -12,6 +12,7 @@ $selector-attention: '.#{$namespace}-icon-attention';
   position: relative;
   background-color: red;
   border-radius: 50%;
+  vertical-align: middle;
 
   &:after, &:before {
     display: block;
@@ -58,6 +59,7 @@ $keyframes-loading: '#{$namespace}-icon-loading';
   width: 34px;
   height: 34px;
   animation: #{$namespace}icon-loading 1s infinite linear;
+  vertical-align: middle;
 
   &-leaf {
     position: absolute;
@@ -187,4 +189,42 @@ $keyframes-loading: '#{$namespace}-icon-loading';
 /**
  * END IconLoading
  */
+
+
+
+
+/**
+ * BEGIN IconCheck
+ */
+$selector-check: '.#{$namespace}-icon-check';
+
+
+#{$selector-check} {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  // background-color: #ddd;
+
+  &:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-40deg);
+    content: ' ';
+    display: inline-block;
+    width: 70%;
+    height: 27%;
+    // transform: rotate(-40deg);
+    border: 0.1em solid #04be02;
+    border-top: none;
+    border-right: none;
+  }
+}
+
+/**
+ * END IconCheck
+ */
+
+
+
 

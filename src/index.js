@@ -2,7 +2,8 @@ import './style';
 
 export {
   IconAttention,
-  IconLoading
+  IconLoading,
+  IconCheck,
 } from './Icon';
 
 export {
