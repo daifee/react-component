@@ -14,7 +14,8 @@ $selector-cell: '.#{$namespace}-cell';
 }
 
 #{$selector} {
-  display: block;
+  display: inline-block;
+  vertical-align: middle;
   appearance: none;
   position: relative;
   width: 52px;

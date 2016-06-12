@@ -28,3 +28,4 @@ export {
 } from './TabBar';
 export Popup from './Popup';
 export Switch from './Switch';
+export Checkbox from './Checkbox';

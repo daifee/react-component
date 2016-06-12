@@ -1,0 +1,32 @@
+@import '../variables';
+
+$selector: '.#{$namespace}-checkbox';
+
+#{$selector} {
+  margin: 0;
+  appearance: none;
+  outline: none;
+  vertical-align: middle;
+  border: 2px solid #c9c9c9;
+  background-color: transparent;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+
+  &:after {
+    border-color: transparent;
+    top: 45%;
+    width: 54%;
+    height: 20%;
+    border-width: 0.14rem;
+  }
+
+  &:checked {
+    background-color: #04be02;
+    border-color: #04be02;
+
+    &:after {
+      border-color: #fff;
+    }
+  }
+}

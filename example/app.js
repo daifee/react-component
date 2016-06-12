@@ -13,6 +13,7 @@ import ActionSheetPage from './ActionSheetPage';
 import TabBarPage from './TabBarPage';
 import PopupPage from './PopupPage';
 import SwitchPage from './SwitchPage';
+import CheckboxPage from './CheckboxPage';
 
 const list = [
   {name: 'Button', href: '#button'},
@@ -25,7 +26,8 @@ const list = [
   {name: 'ActionSheet', href: '#actionsheet'},
   {name: 'TabBar', href: '#tabbar'},
   {name: 'Popup', href: '#popup'},
-  {name: 'Switch', href: '#switch'}
+  {name: 'Switch', href: '#switch'},
+  {name: 'Checkbox', href: '#checkbox'}
 ];
 
 function App() {
@@ -43,6 +45,7 @@ function App() {
       <Route path='/tabbar' component={TabBarPage} />
       <Route path='/popup' component={PopupPage} />
       <Route path='/switch' component={SwitchPage} />
+      <Route path='/checkbox' component={CheckboxPage} />
     </Router>
   );
 }
