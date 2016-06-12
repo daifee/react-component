@@ -3,7 +3,7 @@ import './style';
 export {
   IconAttention,
   IconLoading,
-  IconCheck,
+  IconCheck
 } from './Icon';
 
 export {

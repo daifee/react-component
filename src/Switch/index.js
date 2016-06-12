@@ -27,7 +27,8 @@ export default function Switch(props) {
 
 Switch.propTypes = {
   checked: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  className: PropTypes.string
 };
 
 Switch.defaultProps = {

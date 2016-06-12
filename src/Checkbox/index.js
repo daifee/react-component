@@ -29,7 +29,8 @@ export default function Checkbox(props) {
 
 Checkbox.propTypes = {
   checked: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  className: PropTypes.string
 };
 
 Checkbox.defaultProps = {
