@@ -3,6 +3,11 @@ const process = require('process');
 const ROOT_PATH = process.cwd();
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const filename = {
+  js: process.env.NODE_ENV === 'production' ? './index.min.js' : './index.js',
+  css: process.env.NODE_ENV === 'production' ? './index.min.css' : './index.css'
+};
 
 module.exports = {
   devtool: 'source-map',
@@ -12,7 +17,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(ROOT_PATH, 'dist'),
-    filename: (process.env.NODE_ENV === 'production' ? './index.min.js' : './index.js'),
+    filename: filename.js,
     library: 'DaifeeReactComponent',
     libraryTarget: 'umd'
   },
@@ -57,7 +62,7 @@ module.exports = {
       },
       {
         test: /.scss$/,
-        loader: 'style!css!postcss!sass'
+        loader: ExtractTextPlugin.extract('style', 'css!postcss!sass')
       },
       {
         test: /\.(eot|ttf|woff|svg)$/,
@@ -69,7 +74,8 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-    })
+    }),
+    new ExtractTextPlugin(filename.css)
   ],
   postcss: [autoprefixer]
 };
