@@ -26,3 +26,4 @@ export {
   TabBarItem
 } from './TabBar';
 export Popup from './Popup';
+export Switch from './Switch';

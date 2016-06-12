@@ -1,0 +1,67 @@
+@import '../variables';
+
+$selector: '.#{$namespace}-switch';
+$selector-cell: '.#{$namespace}-cell';
+
+// 让 cell 单行高度保持为 44px
+#{$selector-cell} {
+  &-header > #{$selector},
+  &-body > #{$selector},
+  &-footer > #{$selector} {
+    margin-top: -4px;
+    margin-bottom: -4px;
+  }
+}
+
+#{$selector} {
+  display: block;
+  appearance: none;
+  position: relative;
+  width: 52px;
+  height: 32px;
+  border: 1px solid #dfdfdf;
+  outline: none;
+  border-radius: 16px;
+  box-sizing: border-box;
+  background-color: #dfdfdf;
+  border: none;
+  margin: 0;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    height: 30px;
+    width: 50px;
+    background-color: #fdfdfd;
+    border-radius: 15px;
+    transition: transform .3s;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    height: 30px;
+    width: 30px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.4);
+    border-radius: 15px;
+    transition: transform .3s;
+  }
+
+  &:checked {
+    border-color: #04be02;
+    background-color: #04be02;
+
+    &:before {
+      transform: scale(0);
+    }
+
+    &:after {
+      transform: translateX(20px);
+    }
+  }
+}

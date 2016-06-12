@@ -12,26 +12,12 @@ import Page from '../components/Page';
 
 
 export default class HomePage extends Component {
-  state = {
-    components: [
-      {name: 'Button', href: '#button'},
-      {name: 'Cell', href: '#cell'},
-      {name: 'Icon', href: '#icon'},
-      {name: 'Mask', href: '#mask'},
-      {name: 'Toast', href: '#toast'},
-      {name: 'Dialog', href: '#dialog'},
-      {name: 'Notification', href: '#notification'},
-      {name: 'ActionSheet', href: '#actionsheet'},
-      {name: 'TabBar', href: '#tabbar'},
-      {name: 'Popup', href: '#popup'}
-    ]
-  };
 
   // methods
   render() {
-    let {components} = this.state;
+    let {list} = this.props.route;
 
-    components.sort((left, right) => {
+    list.sort((left, right) => {
       return left.name > right.name;
     });
 
@@ -40,7 +26,7 @@ export default class HomePage extends Component {
         title='React Component'
         subTitle='组件化开发'>
         <CellsTitle>Component</CellsTitle>
-        <Cells arrow={true}>{components.map((item, index) => {
+        <Cells arrow={true}>{list.map((item, index) => {
           return (
             <Cell key={index} access={true} href={item.href}>
               <CellBody>{item.name}</CellBody>
