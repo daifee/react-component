@@ -22,7 +22,7 @@ export default class CellPage extends Component {
     let {vip} = this.state;
     //
     return (
-      <Page title='Cell'>
+      <Page title='Checkbox'>
         <Cells>
           <Cell>
             <CellHeader><Checkbox checked={vip} onChange={this.change} /></CellHeader>

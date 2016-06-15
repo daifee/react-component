@@ -14,6 +14,7 @@ import TabBarPage from './TabBarPage';
 import PopupPage from './PopupPage';
 import SwitchPage from './SwitchPage';
 import CheckboxPage from './CheckboxPage';
+import ScrollViewPage from './ScrollViewPage';
 
 const list = [
   {name: 'Button', href: '#button'},
@@ -27,7 +28,8 @@ const list = [
   {name: 'TabBar', href: '#tabbar'},
   {name: 'Popup', href: '#popup'},
   {name: 'Switch', href: '#switch'},
-  {name: 'Checkbox', href: '#checkbox'}
+  {name: 'Checkbox', href: '#checkbox'},
+  {name: 'ScrollView', href: '#scrollview'}
 ];
 
 function App() {
@@ -46,6 +48,7 @@ function App() {
       <Route path='/popup' component={PopupPage} />
       <Route path='/switch' component={SwitchPage} />
       <Route path='/checkbox' component={CheckboxPage} />
+      <Route path='/scrollview' component={ScrollViewPage} />
     </Router>
   );
 }

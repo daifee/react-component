@@ -1,0 +1,8 @@
+@import '../variables';
+
+$selector: '.#{$namespace}-scroll-view';
+
+#{$selector} {
+  overflow: hidden;
+  position: relative;
+}

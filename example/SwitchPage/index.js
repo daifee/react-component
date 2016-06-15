@@ -22,7 +22,7 @@ export default class CellPage extends Component {
     let {vip} = this.state;
     //
     return (
-      <Page title='Cell'>
+      <Page title='Switch'>
         <Cells>
           <Cell>
             <CellBody>vip</CellBody>
