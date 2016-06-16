@@ -1,8 +1,33 @@
 @import '../variables';
 
 $selector: '.#{$namespace}-list-view';
+$refresh-height: 50px;
 
 #{$selector} {
 
+  > div {
+    position: relative;
+    // width: 100%;
+    // height: 100%;
+  }
 
+  &-refresh {
+    position: absolute;
+    top: -$refresh-height;
+    width: 100%;
+
+    & > p {
+      height: $refresh-height;
+      line-height: $refresh-height;
+      text-align: center;
+      margin: 0;
+    }
+  }
+
+  &-load-more > p {
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    margin: 0;
+  }
 }
