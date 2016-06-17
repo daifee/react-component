@@ -16,6 +16,10 @@ import SwitchPage from './SwitchPage';
 import CheckboxPage from './CheckboxPage';
 import ScrollViewPage from './ScrollViewPage';
 import ListViewPage from './ListViewPage';
+import FastClick from 'fastclick';
+
+// fastclick
+FastClick.attach(document.body);
 
 const list = [
   {name: 'Button', href: '#button'},

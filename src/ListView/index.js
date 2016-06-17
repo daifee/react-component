@@ -69,10 +69,12 @@ export default class ListView extends Component {
       renderRefresh,
       renderLoadMore,
       className,
-      onLoadMore,
       ...others
     } = this.props;
     let classes = classNames('list-view', {_user: className});
+
+    delete others.loadMoreAction;
+    delete others.refreshAction;
 
     return (
       <ScrollView
@@ -215,14 +217,14 @@ export default class ListView extends Component {
    * @return {[type]} [description]
    */
   noMore() {
-    this.changeLoadMore('end')
+    this.changeLoadMore('end');
   }
   /**
    * 加载更多，遇到失败，`changeLoadMore('fail')` 的别名
    * @return {[type]} [description]
    */
   loadMoreFailed() {
-    this.changeLoadMore('fail')
+    this.changeLoadMore('fail');
   }
   /**
    * 正在加载更多，`changeLoadMore('loading')` 的别名

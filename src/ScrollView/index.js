@@ -69,7 +69,7 @@ export default class ScrollView extends Component {
 
     wrapper.addEventListener('touchmove', (e) => {
       e.preventDefault();
-    })
+    });
   }
 }
 
