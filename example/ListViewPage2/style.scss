@@ -1,0 +1,29 @@
+
+
+html, body {
+  height: 100%;
+}
+
+.main {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+
+  .refresh {
+    width: 64px;
+    height: 64px;
+    line-height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: blue;
+    color: #fff;
+  }
+}
+
+.daifee-rc-scroll-view-scroller {
+  padding: 0 16px;
+}

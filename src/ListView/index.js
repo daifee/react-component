@@ -5,7 +5,7 @@ import React, {
 import {classNames} from '../utils';
 import './style';
 import ScrollView from '../ScrollView';
-
+import Abstract from './ListView';
 
 /**
  * 一个内置“下拉刷新”和“加载更多”的 ListView。**开箱即用**
@@ -46,6 +46,8 @@ export default class ListView extends Component {
     renderRefresh: renderRefresh,
     renderLoadMore: renderLoadMore
   };
+
+  static ListView = Abstract;
 
   state = {
     // normal | active | loading
