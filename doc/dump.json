@@ -641,6 +641,74 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "src/Checkbox/index.js",
+    "memberof": null,
+    "longname": "src/Checkbox/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport {IconCheck} from '../Icon';\nimport './style';\n\n/**\n * 选择框\n * 所有 checkbox 都有效\n * @param {object} props 传入组件的属性\n * @property {boolean} props.checked 是否选中状态\n * @property {boolean} props.disabled 是否禁止操作（当为 true 不会触发 onChange）\n */\nexport default function Checkbox(props) {\n  let {checked, disabled, className, ...others} = props;\n  className += ' ' + IconCheck.className;\n  let classes = classNames('checkbox', {_user: className});\n\n  return (\n    <input\n      className={classes}\n      type='checkbox'\n      checked={checked}\n      disabled={disabled}\n      {...others} />\n  );\n}\n\nCheckbox.propTypes = {\n  checked: PropTypes.bool.isRequired,\n  disabled: PropTypes.bool,\n  className: PropTypes.string\n};\n\nCheckbox.defaultProps = {\n  checked: false,\n  disabled: false\n};\n"
+  },
+  {
+    "__docId__": 26,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Checkbox",
+    "memberof": "src/Checkbox/index.js",
+    "longname": "src/Checkbox/index.js~Checkbox",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Checkbox/index.js",
+    "importStyle": "Checkbox",
+    "description": "选择框\n所有 checkbox 都有效",
+    "lineNumber": 15,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "传入组件的属性"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.checked",
+        "description": "是否选中状态"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.disabled",
+        "description": "是否禁止操作（当为 true 不会触发 onChange）"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 27,
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "src/Dialog/index.js",
     "memberof": null,
     "longname": "src/Dialog/index.js",
@@ -650,7 +718,7 @@
     "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames, createInstance} from '../utils';\nimport TransitionShow from '../TransitionShow';\nimport './style';\n\nlet apiInstance = null;\n\n\nexport default function Dialog(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    title,\n    content,\n    buttons,\n    _hide,\n    ...others\n  } = props;\n  let classes = classNames('dialog', {_user: className});\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('dialog')}\n      duration={duration}>\n      <div className={classes} style={style} {...others}>\n        <div>\n          <header><strong>{title}</strong></header>\n          <p>{content}</p>\n          <footer>{buttons.map((button, index) => {\n            return (<Button {...button} key={index} _hide={_hide} />);\n          })}</footer>\n        </div>\n      </div>\n    </TransitionShow>\n  );\n}\n\nDialog.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  title: PropTypes.string,\n  content: PropTypes.string,\n  buttons: PropTypes.array,  // [{text: '', onClik: () => {}}]\n  _hide: PropTypes.func\n};\n\nDialog.defaultProps = {\n  ...TransitionShow.shareDefaultProps,\n  buttons: []\n};\n\nDialog.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\nDialog.show = (title, content, buttons, options) => {\n  apiInstance.show(title, content, buttons, options);\n};\n\n\n\nfunction Button(props) {\n  let {text, onClick, _hide, ...others} = props;\n  return (\n    <button\n      {...others}\n      onClick={(e) => {\n        _hide && _hide();\n        onClick && onClick(e);\n      }}>\n      {text}\n    </button>\n  );\n}\n\nButton.propTypes = {\n  text: PropTypes.string,\n  onClick: PropTypes.func,\n  _hide: PropTypes.func\n};\n\n\nclass ApiContainer extends Component {\n  state = {};\n\n  render() {\n    return (<Dialog {...this.state} _hide={this.hide} />);\n  }\n\n  show(title, content, buttons, options) {\n    let nextState = {\n      ...options,\n      title,\n      content,\n      buttons,\n      show: true\n    };\n\n    this.setState(nextState);\n  }\n\n  hide = () => {\n    let nextState = {...this.state, show: false};\n    this.setState(nextState);\n  };\n}\n\napiInstance = createInstance(ApiContainer);\n\n"
   },
   {
-    "__docId__": 26,
+    "__docId__": 28,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -671,7 +739,7 @@
     }
   },
   {
-    "__docId__": 27,
+    "__docId__": 29,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -701,7 +769,7 @@
     "generator": false
   },
   {
-    "__docId__": 28,
+    "__docId__": 30,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -731,7 +799,7 @@
     "generator": false
   },
   {
-    "__docId__": 29,
+    "__docId__": 31,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -751,7 +819,7 @@
     ]
   },
   {
-    "__docId__": 30,
+    "__docId__": 32,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -771,7 +839,7 @@
     "generator": false
   },
   {
-    "__docId__": 31,
+    "__docId__": 33,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -811,7 +879,7 @@
     "generator": false
   },
   {
-    "__docId__": 32,
+    "__docId__": 34,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -824,7 +892,7 @@
     "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n\nexport default function IconAttention(props) {\n  const {size, className, ...others} = props;\n  let classes = classNames('icon-attention', {'_user': className});\n  let style = {\n    height: size,\n    width: size,\n    fontSize: size\n  };\n\n  return (\n    <i className={classes} style={style} {...others} />\n  );\n}\n\nIconAttention.propTypes = {\n  size: PropTypes.string,\n  className: PropTypes.string\n};\n\nIconAttention.defaultProps = {\n  size: '40px'\n};\n"
   },
   {
-    "__docId__": 33,
+    "__docId__": 35,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -854,7 +922,75 @@
     "generator": false
   },
   {
-    "__docId__": 34,
+    "__docId__": 36,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Icon/IconCheck.js",
+    "memberof": null,
+    "longname": "src/Icon/IconCheck.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n/**\n * 自定义 Icon\n * @param {object} props 传入组件的属性\n * @property {string} props.size 大小\n * @property {string} props.className 自定义 class\n */\nexport default function IconCheck(props) {\n  const {size, className, ...others} = props;\n  let classes = classNames('icon-check', {'_user': className});\n  let style = {\n    height: size,\n    width: size,\n    fontSize: size\n  };\n\n  return (\n    <i className={classes} style={style} {...others} />\n  );\n}\n\n/**\n * 其他元素可以直接使用这个 class\n * @type {[type]}\n */\nIconCheck.className = classNames('icon-check');\n\n\nIconCheck.propTypes = {\n  size: PropTypes.string,\n  className: PropTypes.string\n};\n\nIconCheck.defaultProps = {\n  size: '40px'\n};\n"
+  },
+  {
+    "__docId__": 37,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "IconCheck",
+    "memberof": "src/Icon/IconCheck.js",
+    "longname": "src/Icon/IconCheck.js~IconCheck",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Icon/IconCheck.js",
+    "importStyle": "IconCheck",
+    "description": "自定义 Icon",
+    "lineNumber": 12,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "传入组件的属性"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.size",
+        "description": "大小"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.className",
+        "description": "自定义 class"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 38,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -867,7 +1003,7 @@
     "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nconst count = 12;\nconst opacityUnit = 1 / (count + 13);\n\n\nexport default function IconLoading(props) {\n  const {className, scale, ...others} = props;\n  let classes = classNames('icon-loading', {_user: className});\n  let leafs = [];\n  let cl, rotate, style;\n\n  for (let i = 0; i < count; i++) {\n    cl = classNames('icon-loading-leaf', `icon-loading-leaf-${i}`);\n    rotate = i * 30;\n    style = {\n      transform: (`rotate(${rotate}deg)`),\n      opacity: (1 - opacityUnit * i)\n    };\n    leafs.push((<i key={i} className={cl} style={style} />));\n  }\n\n  //\n  style = {\n    transform: (`scale(${scale})`)\n  };\n\n  //\n  return (\n    <div className={classes} style={style} {...others}>{leafs}</div>\n  );\n}\n\nIconLoading.propTypes = {\n  scale: PropTypes.number,\n  className: PropTypes.string\n};\nIconLoading.defaultProps = {\n  scale: 1\n};\n\n\n"
   },
   {
-    "__docId__": 35,
+    "__docId__": 39,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -888,7 +1024,7 @@
     }
   },
   {
-    "__docId__": 36,
+    "__docId__": 40,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -909,7 +1045,7 @@
     }
   },
   {
-    "__docId__": 37,
+    "__docId__": 41,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -939,7 +1075,7 @@
     "generator": false
   },
   {
-    "__docId__": 38,
+    "__docId__": 42,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -949,10 +1085,469 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import './style';\nexport IconAttention from './IconAttention';\nexport IconLoading from './IconLoading';\n\n"
+    "content": "import './style';\nexport IconAttention from './IconAttention';\nexport IconLoading from './IconLoading';\nexport IconCheck from './IconCheck';\n\n"
   },
   {
-    "__docId__": 39,
+    "__docId__": 43,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/ListView/index.js",
+    "memberof": null,
+    "longname": "src/ListView/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\nimport ScrollView from '../ScrollView';\n\n\n/**\n * ListView 提供“下拉刷新”和“加载更多”功能的列表\n * @param {array} data 列表内容数据\n * @param {function} renderRow 返回每一行的视图，参数是：`data[index], index`\n * @param {function} shouldRefreshIscroller 根据 data 和 nextData 判断是否更新 iscroller。\n * @param {function} renderRefresh “下拉刷新”的交互视图，参数是：`refreshState`\n * @param {number} offsetRefresh 下拉距离超过该值，且 `refreshState === 'normal'`，会\n * 触发 `onReadyRefresh()`\n * @param {string} refreshState “下拉刷新”的状态，除了用于渲染 `renderRefresh()`，\n * 内部也用于控制触发 `onNormalRefresh()` `onReadyRefresh()` `onRefresh`\n * 其值只能是：`none | normal | ready | loading`\n * @param {function} onNormalRefresh 此时应该将 `refreshState` 设置为 `normal`\n * @param {function} onReadyRefresh 此时应该将 `refreshState` 设置为 `ready`\n * @param {function} onRefresh 此时应该将 `refreshState` 设置为 `loading`\n * @param {function} renderLoadMore “加载更多”的交互视图，参数是：`loadMoreState`\n * @param {number} offsetLoadMore 最后一条数据距离底部小于该值，\n * 且 `loadMoreState !== (loading | end)` 会触发 `onLoadMore()`\n * @param {string} loadMoreState “加载更多”的状态，除了用于渲染，还用于内部控制触发 `onLoadMore`\n * @param {function} onLoadMore 此时应该加载“更多数据”\n * @param {string} className 自定义 class\n *\n */\nexport default class ListView extends Component {\n  static propTypes = {\n    data: PropTypes.array.isRequired,\n    renderRow: PropTypes.func.isRequired,\n    shouldRefreshIscroller: PropTypes.func.isRequired,\n    renderRefresh: PropTypes.func,\n    offsetRefresh: PropTypes.number,\n    refreshState: PropTypes.oneOf(['none', 'normal', 'ready', 'loading']),\n    onNormalRefresh: PropTypes.func,\n    onReadyRefresh: PropTypes.func,\n    onRefresh: PropTypes.func,\n    renderLoadMore: PropTypes.func,\n    offsetLoadMore: PropTypes.number,\n    loadMoreState: PropTypes.oneOf(['none', 'normal', 'loading', 'end', 'fail']),\n    onLoadMore: PropTypes.func,\n    className: PropTypes.string\n  };\n\n  static defaultProps = {\n    offsetRefresh: 60,\n    offsetLoadMore: 6,\n    refreshState: 'none',\n    loadMoreState: 'none',\n    renderRefresh: renderRefresh,\n    renderLoadMore: renderLoadMore\n  };\n\n  // iscroll 实例\n  iscroller = null;\n\n  scrollToTop() {\n    this.iscroller.scrollTo(0, 0, 600);\n  }\n\n  // 点击按钮刷新，需要滚动到顶部\n  scrollToRefresh() {\n    this.iscroller.offsetY = this.props.offsetRefresh;\n    this.scrollToTop();\n  }\n\n  _refreshIscroller = () => {\n    this.iscroller.refresh();\n  };\n\n  _onLoadMore = () => {\n    let {loadMoreState, onLoadMore} = this.props;\n\n    console.log(1);\n\n    if (loadMoreState === 'loading' || loadMoreState === 'end') {\n      return;\n    }\n\n    onLoadMore();\n  };\n\n  render() {\n    let {\n      data,\n      renderRow,\n      renderRefresh,\n      refreshState,\n      renderLoadMore,\n      loadMoreState,\n      className,\n      shouldRefreshIscroller,\n      ...others\n    } = this.props;\n    let classes = classNames('list-view', {_user: className});\n\n    // TODO delete 多余的 props\n\n    return (\n      <ScrollView\n        ref='scrollView'\n        className={classes}\n        height='100%'\n        width='100%'\n        {...others}>\n        <div className={classNames('list-view-refresh')}>\n          {renderRefresh(refreshState)}\n        </div>\n        <List\n          data={data}\n          shouldRefreshIscroller={shouldRefreshIscroller}\n          refreshIscroller={this._refreshIscroller}>\n          <div className={classNames('list-view-list')}>\n            {data.map(renderRow)}\n          </div>\n        </List>\n        <div\n          className={classNames('list-view-load-more')}\n          onClick={this._onLoadMore}>\n          {renderLoadMore(loadMoreState)}\n        </div>\n      </ScrollView>\n    );\n  }\n\n  componentDidMount() {\n    this.iscroller = this.refs.scrollView.iscroller;\n\n    this._bindLoadMore();\n    this._bindRefresh();\n\n    // 刷新 iscroller，每次 data 变化都要在 List 组件内执行这个刷新\n    this._refreshIscroller();\n    // 如果 refreshState=loading 需要设置 iscroller.offsetY\n    this._updateOffsetY();\n  }\n\n  componentDidUpdate() {\n    this._updateOffsetY();\n  }\n\n  _updateOffsetY() {\n    let {offsetRefresh, refreshState} = this.props;\n\n    this.iscroller.offsetY = refreshState === 'loading' ? offsetRefresh : 0;\n  }\n\n  _bindLoadMore() {\n    let {offsetLoadMore} = this.props;\n    let iscroller = this.iscroller;\n\n    iscroller.on('scroll', () => {\n      // 判断距离\n      if (iscroller.maxScrollY - iscroller.y > offsetLoadMore) {\n        this._onLoadMore();\n      }\n    });\n  }\n\n  _bindRefresh() {\n    let {\n      offsetRefresh,\n      onReadyRefresh,\n      onNormalRefresh,\n      onRefresh\n    } = this.props;\n    let iscroller = this.iscroller;\n\n    iscroller.on('scroll', () => {\n      let {refreshState} = this.props;\n      let y = iscroller.y;\n\n      if (y < 0 || refreshState === 'loading') {\n        return;\n      }\n\n      // 下拉距离超过 offsetRefresh 激活状态\n      if (iscroller.y > offsetRefresh) {\n        refreshState !== 'ready' && onReadyRefresh();\n      } else {\n        refreshState !== 'normal' && onNormalRefresh();\n      }\n    });\n\n    iscroller.on('touchEnd', () => {\n      let {refreshState} = this.props;\n\n      if (refreshState !== 'ready') {\n        return;\n      }\n\n      onRefresh();\n    });\n  }\n}\n\n\n// 这一切都是为了调用 this.props.refreshIscroller();\nclass List extends Component {\n  static propTypes = {\n    data: PropTypes.array.isRequired,\n    shouldRefreshIscroller: PropTypes.func.isRequired,\n    refreshIscroller: PropTypes.func.isRequired,\n    children: PropTypes.node.isRequired\n  };\n\n  shouldComponentUpdate(nextProps) {\n    return this.props.shouldRefreshIscroller(this.props.data, nextProps.data);\n  }\n\n  render() {\n    let {children} = this.props;\n\n    return children.length === 0 ? null : children;\n  }\n\n  componentDidUpdate() {\n    // 为了调用这个方法才抽象出 List 组件的\n    this.props.refreshIscroller();\n  }\n}\n\n\n\nfunction renderRefresh(status) {\n  switch (status) {\n    case 'none':\n      return null;\n    case 'normal':\n      return (<p>下拉刷新</p>);\n    case 'ready':\n      return (<p>松手即可刷新</p>);\n    case 'loading':\n      return (<p>加载中...</p>);\n  }\n\n  return null;\n}\n\n\nfunction renderLoadMore(status) {\n  switch (status) {\n    case 'none':\n      return null;\n    case 'normal':\n      return (<p>点击，加载更多</p>);\n    case 'loading':\n      return (<p>加载中...</p>);\n    case 'end':\n      return (<p>没有数据了</p>);\n    case 'fail':\n      return (<p>加载失败，请点击重新加载</p>);\n  }\n\n  return null;\n}\n"
+  },
+  {
+    "__docId__": 44,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "ListView",
+    "memberof": "src/ListView/index.js",
+    "longname": "src/ListView/index.js~ListView",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/ListView/index.js",
+    "importStyle": "ListView",
+    "description": "ListView 提供“下拉刷新”和“加载更多”功能的列表",
+    "lineNumber": 32,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "列表内容数据"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "renderRow",
+        "description": "返回每一行的视图，参数是：`data[index], index`"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "shouldRefreshIscroller",
+        "description": "根据 data 和 nextData 判断是否更新 iscroller。"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "renderRefresh",
+        "description": "“下拉刷新”的交互视图，参数是：`refreshState`"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "offsetRefresh",
+        "description": "下拉距离超过该值，且 `refreshState === 'normal'`，会\n触发 `onReadyRefresh()`"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "refreshState",
+        "description": "“下拉刷新”的状态，除了用于渲染 `renderRefresh()`，\n内部也用于控制触发 `onNormalRefresh()` `onReadyRefresh()` `onRefresh`\n其值只能是：`none | normal | ready | loading`"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "onNormalRefresh",
+        "description": "此时应该将 `refreshState` 设置为 `normal`"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "onReadyRefresh",
+        "description": "此时应该将 `refreshState` 设置为 `ready`"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "onRefresh",
+        "description": "此时应该将 `refreshState` 设置为 `loading`"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "renderLoadMore",
+        "description": "“加载更多”的交互视图，参数是：`loadMoreState`"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "offsetLoadMore",
+        "description": "最后一条数据距离底部小于该值，\n且 `loadMoreState !== (loading | end)` 会触发 `onLoadMore()`"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "loadMoreState",
+        "description": "“加载更多”的状态，除了用于渲染，还用于内部控制触发 `onLoadMore`"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "onLoadMore",
+        "description": "此时应该加载“更多数据”"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "className",
+        "description": "自定义 class"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 45,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "scrollToTop",
+    "memberof": "src/ListView/index.js~ListView",
+    "longname": "src/ListView/index.js~ListView#scrollToTop",
+    "access": null,
+    "description": null,
+    "lineNumber": 62,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 46,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "scrollToRefresh",
+    "memberof": "src/ListView/index.js~ListView",
+    "longname": "src/ListView/index.js~ListView#scrollToRefresh",
+    "access": null,
+    "description": null,
+    "lineNumber": 67,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 47,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "src/ListView/index.js~ListView",
+    "longname": "src/ListView/index.js~ListView#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 88,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 48,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "componentDidMount",
+    "memberof": "src/ListView/index.js~ListView",
+    "longname": "src/ListView/index.js~ListView#componentDidMount",
+    "access": null,
+    "description": null,
+    "lineNumber": 131,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 49,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "iscroller",
+    "memberof": "src/ListView/index.js~ListView",
+    "longname": "src/ListView/index.js~ListView#iscroller",
+    "access": null,
+    "description": null,
+    "lineNumber": 132,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 50,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "componentDidUpdate",
+    "memberof": "src/ListView/index.js~ListView",
+    "longname": "src/ListView/index.js~ListView#componentDidUpdate",
+    "access": null,
+    "description": null,
+    "lineNumber": 143,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 51,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "_updateOffsetY",
+    "memberof": "src/ListView/index.js~ListView",
+    "longname": "src/ListView/index.js~ListView#_updateOffsetY",
+    "access": null,
+    "description": null,
+    "lineNumber": 147,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 52,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "_bindLoadMore",
+    "memberof": "src/ListView/index.js~ListView",
+    "longname": "src/ListView/index.js~ListView#_bindLoadMore",
+    "access": null,
+    "description": null,
+    "lineNumber": 153,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 53,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "_bindRefresh",
+    "memberof": "src/ListView/index.js~ListView",
+    "longname": "src/ListView/index.js~ListView#_bindRefresh",
+    "access": null,
+    "description": null,
+    "lineNumber": 165,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 54,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "List",
+    "memberof": "src/ListView/index.js",
+    "longname": "src/ListView/index.js~List",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/ListView/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 204,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 55,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "shouldComponentUpdate",
+    "memberof": "src/ListView/index.js~List",
+    "longname": "src/ListView/index.js~List#shouldComponentUpdate",
+    "access": null,
+    "description": null,
+    "lineNumber": 212,
+    "undocument": true,
+    "params": [
+      {
+        "name": "nextProps",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 56,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "src/ListView/index.js~List",
+    "longname": "src/ListView/index.js~List#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 216,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 57,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "componentDidUpdate",
+    "memberof": "src/ListView/index.js~List",
+    "longname": "src/ListView/index.js~List#componentDidUpdate",
+    "access": null,
+    "description": null,
+    "lineNumber": 222,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 58,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "renderRefresh",
+    "memberof": "src/ListView/index.js",
+    "longname": "src/ListView/index.js~renderRefresh",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/ListView/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 230,
+    "undocument": true,
+    "params": [
+      {
+        "name": "status",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 59,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "renderLoadMore",
+    "memberof": "src/ListView/index.js",
+    "longname": "src/ListView/index.js~renderLoadMore",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/ListView/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 246,
+    "undocument": true,
+    "params": [
+      {
+        "name": "status",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 60,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -965,7 +1560,7 @@
     "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\nimport TransitionShow from '../TransitionShow';\n\nexport default function Mask(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    transparent,\n    ...others\n  } = props;\n  let classes = classNames('mask', {\n    _user: className,\n    'mask-transparent': transparent\n  });\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('mask')}\n      duration={duration}>\n      <div className={classes} {...others} style={style} />\n    </TransitionShow>\n  );\n}\n\nMask.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  transparent: PropTypes.bool\n};\n\nMask.defaultProps = TransitionShow.shareDefaultProps;\n"
   },
   {
-    "__docId__": 40,
+    "__docId__": 61,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -995,7 +1590,7 @@
     "generator": false
   },
   {
-    "__docId__": 41,
+    "__docId__": 62,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1008,7 +1603,7 @@
     "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\nimport {classNames, createInstance} from '../utils';\nimport './style';\n\nlet apiInstance = null;\n// Notification 显示和隐藏动画持续时间 毫秒\n// container 和 item 都需要设置 duration，而且必须相同\n// 所以不能为 item 自定义 duration\nlet duration = 150;\nlet id = 0;\nfunction getId() {\n  return id++;\n}\n\n\nexport default function Notification(props) {\n  let {type, content, timingFunction, className, style, ...others} = props;\n  let classes = classNames('notification', `notification-${type}`, {\n    _user: className\n  });\n  style = {\n    ...style,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <li className={classes} style={style} {...others}>\n      <span>{content}</span>\n    </li>\n  );\n}\n\nNotification.propTypes = {\n  type: PropTypes.oneOf(['default', 'info', 'success', 'warning', 'danger']),\n  content: PropTypes.string.isRequired,\n  timingFunction: PropTypes.string,\n  className: PropTypes.string,\n  style: PropTypes.object\n};\n\nNotification.defaultProps = {\n  type: 'default',\n  timingFunction: 'ease-in'\n};\n\n\nNotification.show = (content, type, options) => {\n  apiInstance.show(content, type, options);\n};\n\nNotification.getInstance = (container) => {\n  return createInstance(Notifications, container);\n};\n\n\n\nclass Notifications extends Component {\n  state = {\n    zIndex: 9999,\n    notifications: []\n  };\n\n  render() {\n    const {\n      zIndex,\n      notifications\n    } = this.state;\n    let classes = classNames('notification-container');\n    let style = {\n      zIndex\n    };\n\n    return (\n      <ReactCSSTransitionGroup\n        component='ul'\n        transitionName={classNames('notification')}\n        transitionEnterTimeout={duration}\n        transitionLeaveTimeout={duration}\n        className={classes}\n        style={style}>\n        {notifications.map((item) => {\n          const {id, ...others} = item;\n          return (<Notification key={id} {...others} />);\n        })}\n      </ReactCSSTransitionGroup>\n    );\n  }\n\n  // zIndex, timeout\n  show(content, type, options = {}) {\n    let [...notifications] = this.state.notifications;\n    // others 赋值到 notification\n    let {timeout, zIndex, ...others} = options;\n    let id = getId();\n    let notification = {id, type, content, ...others};\n\n    notifications.unshift(notification);\n\n    let nextState = {zIndex, notifications};\n\n    this.setState(nextState);\n\n    setTimeout(() => {\n      this.hide(id);\n    }, (timeout || 2000));\n  }\n\n  hide(id) {\n    let notifications = this.state.notifications.filter((item) => {\n      return id !== item.id;\n    });\n    let nextState = {...this.state, notifications};\n\n    this.setState(nextState);\n  }\n}\n\n\napiInstance = createInstance(Notifications);\n"
   },
   {
-    "__docId__": 42,
+    "__docId__": 63,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1029,7 +1624,7 @@
     }
   },
   {
-    "__docId__": 43,
+    "__docId__": 64,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1050,7 +1645,7 @@
     }
   },
   {
-    "__docId__": 44,
+    "__docId__": 65,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1071,7 +1666,7 @@
     }
   },
   {
-    "__docId__": 45,
+    "__docId__": 66,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1094,7 +1689,7 @@
     "generator": false
   },
   {
-    "__docId__": 46,
+    "__docId__": 67,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1124,7 +1719,7 @@
     "generator": false
   },
   {
-    "__docId__": 47,
+    "__docId__": 68,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1144,7 +1739,7 @@
     ]
   },
   {
-    "__docId__": 48,
+    "__docId__": 69,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1164,7 +1759,7 @@
     "generator": false
   },
   {
-    "__docId__": 49,
+    "__docId__": 70,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1201,7 +1796,7 @@
     "generator": false
   },
   {
-    "__docId__": 50,
+    "__docId__": 71,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1223,7 +1818,7 @@
     "generator": false
   },
   {
-    "__docId__": 51,
+    "__docId__": 72,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1236,7 +1831,7 @@
     "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport TransitionShow from '../TransitionShow';\nimport './style';\n\n/**\n * 抽屉，从视口某个方向（direction:top/bottom/left/right）弹出一个“层”\n * 方向是上或下，width=100%;height=auto;max-height:100%;\n * 方向是左或右，width=auto;max-width=100%;height=100%;\n * 可以通过自定义 className 重置\n * @param {object} props 传入组件的属性，部分属性继承自 {@link sharePropTypes}\n * @param {string} props.direction 抽屉从这个方向弹出：[top|bottom|left|right]\n * @param {PropTypes.node} props.children 子组件（抽屉装的内容）\n */\nexport default function Popup(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    direction,\n    children,\n    ...others\n  } = props;\n  let classes = classNames('popup', {\n    '_user': className\n  });\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('popup')}\n      duration={duration}>\n      <div className={classes} style={style} {...others}>\n        <div\n          className={classNames('popup-main', `popup-main-${direction}`)}\n          style={style}>\n          {children}\n        </div>\n      </div>\n    </TransitionShow>\n  );\n}\n\nPopup.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  direction: PropTypes.oneOf(['left', 'right', 'top', 'bottom']).isRequired,\n  children: PropTypes.node.isRequired\n};\n\nPopup.defaultProps = {\n  ...TransitionShow.shareDefaultProps\n};\n"
   },
   {
-    "__docId__": 52,
+    "__docId__": 73,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1289,7 +1884,247 @@
     "generator": false
   },
   {
-    "__docId__": 53,
+    "__docId__": 74,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/ScrollView/index.js",
+    "memberof": null,
+    "longname": "src/ScrollView/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport IScroll from 'xiscroll';\nimport {classNames} from '../utils';\nimport './style';\n\n/**\n * ScrollView 将 IScroll 包装为 React Component\n * `instance.iscroller` 是 `IScroll` 实例\n * @param {object} props 传入组件的 props\n * @property {string} props.className 自定义 class\n * @property {PtopTypes.node} props.children 子组件\n * @property {object} props.iscrollOptions IScroll 的配置\n * @property {string} props.width 组件的宽度，默认：100%\n * @property {string} props.height 组件的高度，默认：300px\n * @property {object} props.style 样式，在这里定义的 width, height 会被上面属性覆盖\n */\nexport default class ScrollView extends Component {\n  static propTypes = {\n    className: PropTypes.string,\n    children: PropTypes.node,\n    iscrollOptions: PropTypes.object,\n    width: PropTypes.string,\n    height: PropTypes.string,\n    style: PropTypes.object\n  };\n\n  static defaultProps = {\n    width: '100%',\n    height: '300px'\n  };\n\n  // IScroll 实例\n  iscroller = null;\n\n  render() {\n    let {\n      className,\n      children,\n      width,\n      height,\n      style,\n      ...others\n    } = this.props;\n    let classes = classNames('scroll-view', {_user: className});\n    style = {...style, width, height};\n\n    return (\n      <div ref='wrapper' className={classes} style={style} {...others}>\n        <div className={classNames('scroll-view-scroller')}>\n          {children}\n        </div>\n      </div>\n    );\n  }\n\n  componentDidMount() {\n    let {\n      iscrollOptions\n    } = this.props;\n    let {wrapper} = this.refs;\n    this.iscroller = new IScroll(wrapper, {\n      probeType: 2,\n      mouseWheel: true,\n      ...iscrollOptions\n    });\n\n    wrapper.addEventListener('touchmove', (e) => {\n      e.preventDefault();\n    });\n  }\n}\n\n\n"
+  },
+  {
+    "__docId__": 75,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "ScrollView",
+    "memberof": "src/ScrollView/index.js",
+    "longname": "src/ScrollView/index.js~ScrollView",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/ScrollView/index.js",
+    "importStyle": "ScrollView",
+    "description": "ScrollView 将 IScroll 包装为 React Component\n`instance.iscroller` 是 `IScroll` 实例",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "传入组件的 props"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.className",
+        "description": "自定义 class"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "PtopTypes.node"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.children",
+        "description": "子组件"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.iscrollOptions",
+        "description": "IScroll 的配置"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.width",
+        "description": "组件的宽度，默认：100%"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.height",
+        "description": "组件的高度，默认：300px"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.style",
+        "description": "样式，在这里定义的 width, height 会被上面属性覆盖"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 76,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "src/ScrollView/index.js~ScrollView",
+    "longname": "src/ScrollView/index.js~ScrollView#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 38,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 77,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "componentDidMount",
+    "memberof": "src/ScrollView/index.js~ScrollView",
+    "longname": "src/ScrollView/index.js~ScrollView#componentDidMount",
+    "access": null,
+    "description": null,
+    "lineNumber": 59,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 78,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "iscroller",
+    "memberof": "src/ScrollView/index.js~ScrollView",
+    "longname": "src/ScrollView/index.js~ScrollView#iscroller",
+    "access": null,
+    "description": null,
+    "lineNumber": 64,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 79,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Select/index.js",
+    "memberof": null,
+    "longname": "src/Select/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": ""
+  },
+  {
+    "__docId__": 80,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Switch/index.js",
+    "memberof": null,
+    "longname": "src/Switch/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\n\n/**\n * 开关（其实就是将 checkbox 改了样式）\n * 所有 checkbox 都有效\n * @param {object} props 传入组件的属性\n * @property {boolean} props.checked 是否选中状态\n * @property {boolean} props.disabled 是否禁止操作（当为 true 不会触发 onChange）\n */\nexport default function Switch(props) {\n  let {checked, disabled, className, ...others} = props;\n  let classes = classNames('switch', {_user: className});\n\n  return (\n    <input\n      className={classes}\n      type='checkbox'\n      checked={checked}\n      disabled={disabled}\n      {...others} />\n  );\n}\n\nSwitch.propTypes = {\n  checked: PropTypes.bool.isRequired,\n  disabled: PropTypes.bool,\n  className: PropTypes.string\n};\n\nSwitch.defaultProps = {\n  checked: false,\n  disabled: false\n};\n"
+  },
+  {
+    "__docId__": 81,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Switch",
+    "memberof": "src/Switch/index.js",
+    "longname": "src/Switch/index.js~Switch",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Switch/index.js",
+    "importStyle": "Switch",
+    "description": "开关（其实就是将 checkbox 改了样式）\n所有 checkbox 都有效",
+    "lineNumber": 14,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "传入组件的属性"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.checked",
+        "description": "是否选中状态"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.disabled",
+        "description": "是否禁止操作（当为 true 不会触发 onChange）"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 82,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1302,7 +2137,7 @@
     "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport TabBarItem from './TabBarItem';\n\nexport default function TabBar(props) {\n  const {\n    barColor,\n    lineColor,\n    color,\n    selectedColor,\n    translucent,\n    children,\n    className,\n    ...others\n  } = props;\n  let classes = classNames('tab-bar', {\n    '_user': className,\n    'tab-bar-translucent': translucent\n  });\n  let barStyle = {\n    backgroundColor: barColor\n  };\n  let lineStyle = {\n    backgroundColor: lineColor\n  };\n\n  return (\n    <div className={classes} {...others}>\n      <div className={classNames('tab-bar-body')}>\n        {children}\n      </div>\n      <footer style={barStyle}>\n        <div style={lineStyle} />\n        <ul>{children.map((child, index) => {\n          let props = {...child.props};\n          delete props.children;\n\n          return (\n            <Button\n              key={index}\n              color={color}\n              selectedColor={selectedColor}\n              {...props} />\n          );\n        })}</ul>\n      </footer>\n    </div>\n  );\n}\n\nTabBar.propTypes = {\n  barColor: PropTypes.string,  // 导航条颜色\n  lineColor: PropTypes.string,  // 线条颜色\n  color: PropTypes.string,  // tab 内容验证\n  selectedColor: PropTypes.string,  // tab 内容选中状态颜色\n  translucent: PropTypes.bool  // 是否半透明\n};\n\nTabBar.defaultProps = {\n  barColor: '#f7f7fa',\n  lineColor: '#979797',\n  color: '#888',\n  selectedColor: '#09bb07',\n  translucent: false\n};\n\nTabBar.Item = TabBarItem;\n\n\nfunction Button(props) {\n  const {\n    // from TabBar\n    color, selectedColor,\n    // from TabBarItem\n    selected, icon, selectedIcon, title, badge, onClick, className, ...others\n  } = props;\n  let classes = classNames('tab-bar-item', {\n    '_user': className,\n    'tab-bar-item-selected': selected\n  });\n  let iconClass = (selected && selectedIcon) ? selectedIcon : icon;\n  let style = {\n    color: (selected ? selectedColor : color)\n  };\n\n  return (\n    <li className={classes} onClick={onClick} {...others}>\n      <div className={classNames('tab-bar-item-label')}>\n        <i className={iconClass} style={style} />\n        {typeof badge !== 'undefined' ? (<span>{badge}</span>) : null}\n      </div>\n      <div className={classNames('tab-bar-item-title')} style={style}>\n        {title}\n      </div>\n    </li>\n  );\n}\n\nButton.propTypes = {\n  // from TabBar\n  color: TabBar.propTypes.color,\n  selectedColor: TabBar.propTypes.selectedColor,\n  // from TabBarItem 不包含 children\n  ...TabBarItem.propTypes\n};\n"
   },
   {
-    "__docId__": 54,
+    "__docId__": 83,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1332,7 +2167,7 @@
     "generator": false
   },
   {
-    "__docId__": 55,
+    "__docId__": 84,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1362,7 +2197,7 @@
     "generator": false
   },
   {
-    "__docId__": 56,
+    "__docId__": 85,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1375,7 +2210,7 @@
     "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n\nexport default function TabBarItem(props) {\n  const {selected, children} = props;\n  let classes = classNames('tab-bar-body-item', {\n    'tab-bar-body-item-selected': selected\n  });\n\n  return (\n    <div className={classes}>{children}</div>\n  );\n}\n\nTabBarItem.propTypes = {\n  children: PropTypes.node,\n  selected: PropTypes.bool,\n  icon: PropTypes.string,\n  selectedIcon: PropTypes.string,\n  title: PropTypes.string,\n  badge: PropTypes.oneOfType([\n    PropTypes.string,\n    PropTypes.number\n  ]),\n  onClick: PropTypes.func,\n  className: PropTypes.string\n};\n"
   },
   {
-    "__docId__": 57,
+    "__docId__": 86,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1405,7 +2240,7 @@
     "generator": false
   },
   {
-    "__docId__": 58,
+    "__docId__": 87,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1418,7 +2253,7 @@
     "content": "import './style';\n\nexport TabBar from './TabBar';\nexport TabBarItem from './TabBarItem';\n"
   },
   {
-    "__docId__": 59,
+    "__docId__": 88,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1431,7 +2266,7 @@
     "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames, createInstance} from '../utils';\nimport {\n  IconAttention,\n  IconLoading\n} from '../Icon';\nimport './style';\nimport TransitionShow from '../TransitionShow';\n\nlet apiInstance = null;\nlet timer = null;\n\nexport default function Toast(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    icon,\n    content,\n    ...others\n  } = props;\n  let classes = classNames('toast', {_user: className});\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('toast')}\n      duration={duration}>\n      <div className={classes} style={style} {...others} >\n        <div>\n          <div>\n            {matchIcon(icon)}\n            <p>{content}</p>\n          </div>\n        </div>\n      </div>\n    </TransitionShow>\n  );\n}\n\n\nToast.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  icon: PropTypes.string,\n  content: PropTypes.string\n};\n\nToast.defaultProps = TransitionShow.shareDefaultProps;\n\n\nToast.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\nToast.show = (icon, content, options, timeout) => {\n  apiInstance.show(icon, content, options, timeout);\n};\n\nToast.hide = () => {\n  apiInstance.hide();\n};\n\nToast.showLoading = (content, options) => {\n  apiInstance.showLoading(content, options);\n};\n\nToast.hideLoading = () => {\n  apiInstance.hideLoading();\n};\n\n\nfunction matchIcon(name) {\n  switch (name) {\n    case 'loading':\n      return (<IconLoading />);\n    case 'attention':\n      return (<IconAttention />);\n    default:\n      return null;\n  }\n}\n\n\n/**\n * 提供接口\n */\n\nclass ApiContainer extends Component {\n  state = {};\n\n  render() {\n    return (<Toast {...this.state} />);\n  }\n\n  show(icon, content, options = {}, timeout = 2200) {\n    let nexState = {\n      ...this.state,\n      ...options,\n      icon,\n      content,\n      show: true\n    };\n    this.setState(nexState);\n\n    // 如果 icon != loading 定时隐藏\n    clearTimeout(timer);\n    if (icon === 'loading') return;\n    timer = setTimeout(() => {\n      this.hide();\n    }, timeout);\n  }\n\n  hide() {\n    let nexState = {...this.state, show: false};\n    this.setState(nexState);\n  }\n\n  showLoading(content = '加载中…', options) {\n    this.show('loading', content, options);\n  }\n\n  hideLoading() {\n    this.hide();\n  }\n}\n\napiInstance = createInstance(ApiContainer);\n"
   },
   {
-    "__docId__": 60,
+    "__docId__": 89,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1452,7 +2287,7 @@
     }
   },
   {
-    "__docId__": 61,
+    "__docId__": 90,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1473,7 +2308,7 @@
     }
   },
   {
-    "__docId__": 62,
+    "__docId__": 91,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1503,7 +2338,7 @@
     "generator": false
   },
   {
-    "__docId__": 63,
+    "__docId__": 92,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1533,7 +2368,7 @@
     "generator": false
   },
   {
-    "__docId__": 64,
+    "__docId__": 93,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1552,7 +2387,7 @@
     ]
   },
   {
-    "__docId__": 65,
+    "__docId__": 94,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1572,7 +2407,7 @@
     "generator": false
   },
   {
-    "__docId__": 66,
+    "__docId__": 95,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1618,7 +2453,7 @@
     "generator": false
   },
   {
-    "__docId__": 67,
+    "__docId__": 96,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1633,7 +2468,7 @@
     "generator": false
   },
   {
-    "__docId__": 68,
+    "__docId__": 97,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1664,7 +2499,7 @@
     "generator": false
   },
   {
-    "__docId__": 69,
+    "__docId__": 98,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1679,7 +2514,7 @@
     "generator": false
   },
   {
-    "__docId__": 70,
+    "__docId__": 99,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1692,7 +2527,7 @@
     "content": "import React, {\n  PropTypes\n} from 'react';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\n\n/**\n * TransitionShow 使子组件实现简单的“显示和隐藏”过渡动画\n * @param {object} props 传入组件的参数\n * @param {boolean} props.show=false 是否显示子组件（children）\n * @param {string} props.transitionName 实现过渡动画的 className\n * @param {number} props.duration 过渡动画持续时间\n * @param {PropTypes.node} props.children 子组件\n * @return {PropTypes.element} React element\n *\n * @example\n * function Dialog(props) {\n *   let {show, duration} = props;\n *\n *   return (\n *     <TranstionShow show={show} transitionName='dialog'>\n *       <div>啥班</div>\n *     </TransitionShow>\n *   );\n * }\n */\nexport default function TransitionShow(props) {\n  let {show, transitionName, duration, children} = props;\n\n  return (\n    <ReactCSSTransitionGroup\n      component={EmptyContainer}\n      transitionName={transitionName}\n      transitionEnterTimeout={duration}\n      transitionLeaveTimeout={duration}>\n      {show ? children : null}\n    </ReactCSSTransitionGroup>\n  );\n}\n\nTransitionShow.propTypes = {\n  show: PropTypes.bool,\n  transitionName: PropTypes.string.isRequired,\n  duration: PropTypes.number.isRequired,\n  children: PropTypes.node\n};\n\nTransitionShow.defaultProps = {\n  show: false\n};\n\n\n\n/**\n * TransitionShow 子组件需要定义的属性\n * @type {object}\n * @property {boolean} show 显示（true）或 隐藏（false）\n * @property {number} duration 过渡动画持续时间，单位：ms\n * @property {number} zIndex 组件的 z-index 值\n * @property {string} timingFunction 过渡动画类型，CSS3 动画\n * @property {object} style 组件内联样式\n * @property {string} className 自定义 class\n */\nexport const sharePropTypes = TransitionShow.sharePropTypes = {\n  show: TransitionShow.propTypes.show,\n  duration: TransitionShow.propTypes.duration,\n  zIndex: PropTypes.number,\n  timingFunction: PropTypes.string,\n  style: PropTypes.object,  // 通过 style 定义动画 duration/zIndex/timgFunction\n  className: PropTypes.string  // 用户自定义 class，所有组件都提供的属性\n};\n\n/**\n * TransitionShow 子组件需要定义的属性 默认值\n * @type {Object}\n */\nexport const shareDefaultProps = TransitionShow.shareDefaultProps = {\n  duration: 80,\n  zIndex: 9999,\n  timingFunction: 'ease',\n  style: {}\n};\n\n\n\n\nfunction EmptyContainer(props) {\n  return props.children[0] || null;\n}\n"
   },
   {
-    "__docId__": 71,
+    "__docId__": 100,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1773,7 +2608,7 @@
     "generator": false
   },
   {
-    "__docId__": 72,
+    "__docId__": 101,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1858,7 +2693,7 @@
     }
   },
   {
-    "__docId__": 73,
+    "__docId__": 102,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1881,7 +2716,7 @@
     }
   },
   {
-    "__docId__": 74,
+    "__docId__": 103,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1911,7 +2746,7 @@
     "generator": false
   },
   {
-    "__docId__": 75,
+    "__docId__": 104,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1924,7 +2759,7 @@
     "content": "/**\n * 配置文件\n */\n\n\n/**\n * @type {object} 配置数据对象\n * @property {string} config.namespace='daifee-rc' 用于 css 的命名空间，\n * 如要修改，必须同时修改 ./variables.scss 文件的 $namespace\n */\nconst config = {\n  namespace: 'daifee-rc'\n};\n\nexport default config;\n\n"
   },
   {
-    "__docId__": 76,
+    "__docId__": 105,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1961,7 +2796,7 @@
     }
   },
   {
-    "__docId__": 77,
+    "__docId__": 106,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1971,10 +2806,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import './style';\n\nexport {\n  IconAttention,\n  IconLoading\n} from './Icon';\n\nexport {\n  Cell,\n  CellBody,\n  CellFooter,\n  CellHeader,\n  Cells,\n  CellsTitle,\n  CellsTips\n} from './Cell';\n\nexport Button from './Button';\nexport Mask from './Mask';\nexport Toast from './Toast';\nexport Dialog from './Dialog';\nexport Notification from './Notification';\nexport ActionSheet from './ActionSheet';\nexport {\n  TabBar,\n  TabBarItem\n} from './TabBar';\nexport Popup from './Popup';\n"
+    "content": "import './style';\n\nexport {\n  IconAttention,\n  IconLoading,\n  IconCheck\n} from './Icon';\n\nexport {\n  Cell,\n  CellBody,\n  CellFooter,\n  CellHeader,\n  Cells,\n  CellsTitle,\n  CellsTips\n} from './Cell';\n\nexport Button from './Button';\nexport Mask from './Mask';\nexport Toast from './Toast';\nexport Dialog from './Dialog';\nexport Notification from './Notification';\nexport ActionSheet from './ActionSheet';\nexport {\n  TabBar,\n  TabBarItem\n} from './TabBar';\nexport Popup from './Popup';\nexport Switch from './Switch';\nexport Checkbox from './Checkbox';\nexport ScrollView from './ScrollView';\nexport ListView from './ListView';\n"
   },
   {
-    "__docId__": 78,
+    "__docId__": 107,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1987,7 +2822,7 @@
     "content": "import config from './config';\nimport React from 'react';\nimport {render} from 'react-dom';\n\nconst {namespace} = config;\nconst hasOwn = {}.hasOwnProperty;\n\n/**\n * 包装返回 className\n * @param  {string|object} args 要被包装的 className\n * 所有 className 都回被加上项目的 namespace 前缀。\n * 如果参数是对象，则其属性是 class 名，值为 true 则该 class 名被返回。\n * 如果参数的属性是 `_user` 则直接返回其值，不作包装\n * @return {string}         一个或多个 class。例如：\"class1 class2 class3\"\n *\n * @example\n * let classes = classNames('dialog', {\n *   'dialog-btn': false,\n *   'dialog-title': true,\n *   '_user': 'user-class'\n * });\n * console.log(classes);\n * // 假设 namespace='rd'\n * // output: \"rc-dialog rc-dialog-title user-class\"\n */\nexport function classNames(...args) {\n  let classes = [];\n  let arg, argType, key;\n\n  for (let i = 0, len = args.length; i < len; i++) {\n    arg = args[i];\n    argType = typeof arg;\n\n    if (!arg) continue;\n\n    if (argType === 'string' || argType === 'number') {\n      prePush(classes, arg);\n    } else if (Array.isArray(arg)) {\n      classes.push(classNames.apply(null, arg));\n    } else if (argType === 'object') {\n      for (key in arg) {\n        if (!hasOwn.call(arg, key) || !arg[key]) continue;\n\n        // 用户传入的\n        if (key === '_user') {\n          classes.push(arg[key]);\n        } else {\n          prePush(classes, key);\n        }\n      }\n    }\n  }\n\n  return classes.join(' ');\n}\n\nfunction prePush(arr, value) {\n  value = `${namespace}-${value}`;\n  return arr.push(value);\n}\n\n\n/**\n * 根据传入的 Component 创建一个实例，并渲染到 container\n * @param  {Component} Component React 组件\n * @param  {?dom} container 实例将渲染到该 dom 节点，\n * 如果缺少，内部创建 dom 节点。\n * @return {PropTypes.element}           Component 的实例\n */\nexport function createInstance(Component, container) {\n  if (!container) {\n    container = createContainer();\n  }\n\n  return render(<Component />, container);\n}\n\n/**\n * 创建一个 dom 节点，div.${namespace}-apicontainer\n * @return {dom} 节点\n */\nfunction createContainer() {\n  let div = document.createElement('div');\n  div.className = classNames('api-container');\n  document.body.appendChild(div);\n\n  return div;\n}\n\n\n"
   },
   {
-    "__docId__": 79,
+    "__docId__": 108,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -2008,7 +2843,7 @@
     }
   },
   {
-    "__docId__": 80,
+    "__docId__": 109,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -2029,7 +2864,7 @@
     }
   },
   {
-    "__docId__": 81,
+    "__docId__": 110,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2069,7 +2904,7 @@
     "generator": false
   },
   {
-    "__docId__": 82,
+    "__docId__": 111,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2105,7 +2940,7 @@
     "generator": false
   },
   {
-    "__docId__": 83,
+    "__docId__": 112,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2151,7 +2986,7 @@
     "generator": false
   },
   {
-    "__docId__": 84,
+    "__docId__": 113,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2176,7 +3011,7 @@
     "generator": false
   },
   {
-    "__docId__": 86,
+    "__docId__": 115,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2189,7 +3024,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 87,
+    "__docId__": 116,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2202,7 +3037,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 88,
+    "__docId__": 117,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2215,7 +3050,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 89,
+    "__docId__": 118,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2228,7 +3063,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 90,
+    "__docId__": 119,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2241,7 +3076,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 91,
+    "__docId__": 120,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2254,7 +3089,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 92,
+    "__docId__": 121,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2267,7 +3102,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 93,
+    "__docId__": 122,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2280,7 +3115,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 94,
+    "__docId__": 123,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2293,7 +3128,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 95,
+    "__docId__": 124,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2306,7 +3141,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 96,
+    "__docId__": 125,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2319,7 +3154,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 97,
+    "__docId__": 126,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2332,7 +3167,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 98,
+    "__docId__": 127,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2345,7 +3180,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 99,
+    "__docId__": 128,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2358,7 +3193,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 100,
+    "__docId__": 129,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2371,7 +3206,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 101,
+    "__docId__": 130,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2384,7 +3219,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 102,
+    "__docId__": 131,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2397,7 +3232,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 103,
+    "__docId__": 132,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2410,7 +3245,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 104,
+    "__docId__": 133,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2423,7 +3258,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 105,
+    "__docId__": 134,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2436,7 +3271,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 106,
+    "__docId__": 135,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2449,7 +3284,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 107,
+    "__docId__": 136,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2462,7 +3297,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 108,
+    "__docId__": 137,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2475,7 +3310,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 109,
+    "__docId__": 138,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2488,7 +3323,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 110,
+    "__docId__": 139,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2501,7 +3336,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 111,
+    "__docId__": 140,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2514,7 +3349,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 112,
+    "__docId__": 141,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2527,7 +3362,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 113,
+    "__docId__": 142,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2540,7 +3375,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 114,
+    "__docId__": 143,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2553,7 +3388,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 115,
+    "__docId__": 144,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2566,7 +3401,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 116,
+    "__docId__": 145,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2579,7 +3414,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 117,
+    "__docId__": 146,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2592,7 +3427,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 118,
+    "__docId__": 147,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2605,7 +3440,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 119,
+    "__docId__": 148,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2618,7 +3453,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 120,
+    "__docId__": 149,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2631,7 +3466,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 121,
+    "__docId__": 150,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2644,7 +3479,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 122,
+    "__docId__": 151,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2657,7 +3492,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 123,
+    "__docId__": 152,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2670,7 +3505,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 124,
+    "__docId__": 153,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2683,7 +3518,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 125,
+    "__docId__": 154,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2696,7 +3531,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 126,
+    "__docId__": 155,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2709,7 +3544,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 127,
+    "__docId__": 156,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2722,7 +3557,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 128,
+    "__docId__": 157,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2735,7 +3570,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 129,
+    "__docId__": 158,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2748,7 +3583,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 130,
+    "__docId__": 159,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2761,7 +3596,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 131,
+    "__docId__": 160,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2774,7 +3609,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 132,
+    "__docId__": 161,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2787,7 +3622,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 134,
+    "__docId__": 163,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2800,7 +3635,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 135,
+    "__docId__": 164,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2813,7 +3648,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 136,
+    "__docId__": 165,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2826,7 +3661,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 137,
+    "__docId__": 166,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2839,7 +3674,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 138,
+    "__docId__": 167,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2852,7 +3687,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 139,
+    "__docId__": 168,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2865,7 +3700,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 140,
+    "__docId__": 169,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2878,7 +3713,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 141,
+    "__docId__": 170,
     "kind": "external",
     "static": true,
     "variation": null,

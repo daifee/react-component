@@ -63,6 +63,7 @@ export default class ListView extends Component {
     this.iscroller.scrollTo(0, 0, 600);
   }
 
+  // 点击按钮刷新，需要滚动到顶部
   scrollToRefresh() {
     this.iscroller.offsetY = this.props.offsetRefresh;
     this.scrollToTop();
@@ -119,7 +120,6 @@ export default class ListView extends Component {
           </div>
         </List>
         <div
-          ref='more'
           className={classNames('list-view-load-more')}
           onClick={this._onLoadMore}>
           {renderLoadMore(loadMoreState)}
@@ -131,14 +131,12 @@ export default class ListView extends Component {
   componentDidMount() {
     this.iscroller = this.refs.scrollView.iscroller;
 
-    this.refs.more.onclick = function () {
-      console.warn('click more');
-    }
-
     this._bindLoadMore();
     this._bindRefresh();
 
+    // 刷新 iscroller，每次 data 变化都要在 List 组件内执行这个刷新
     this._refreshIscroller();
+    // 如果 refreshState=loading 需要设置 iscroller.offsetY
     this._updateOffsetY();
   }
 

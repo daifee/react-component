@@ -54,6 +54,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "daifee-react-component/src/checkbox/index.js~checkbox",
+    "function/index.html#static-function-Checkbox",
+    "<span>Checkbox</span> <span class=\"search-result-import-path\">daifee-react-component/src/Checkbox/index.js</span>",
+    "function"
+  ],
+  [
     "daifee-react-component/src/dialog/index.js~dialog",
     "function/index.html#static-function-Dialog",
     "<span>Dialog</span> <span class=\"search-result-import-path\">daifee-react-component/src/Dialog/index.js</span>",
@@ -66,10 +72,22 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "daifee-react-component/src/icon/iconcheck.js~iconcheck",
+    "function/index.html#static-function-IconCheck",
+    "<span>IconCheck</span> <span class=\"search-result-import-path\">daifee-react-component/src/Icon/IconCheck.js</span>",
+    "function"
+  ],
+  [
     "daifee-react-component/src/icon/iconloading.js~iconloading",
     "function/index.html#static-function-IconLoading",
     "<span>IconLoading</span> <span class=\"search-result-import-path\">daifee-react-component/src/Icon/IconLoading.js</span>",
     "function"
+  ],
+  [
+    "daifee-react-component/src/listview/index.js~listview",
+    "class/src/ListView/index.js~ListView.html",
+    "<span>ListView</span> <span class=\"search-result-import-path\">daifee-react-component/src/ListView/index.js</span>",
+    "class"
   ],
   [
     "daifee-react-component/src/mask/index.js~mask",
@@ -87,6 +105,18 @@ window.esdocSearchIndex = [
     "daifee-react-component/src/popup/index.js~popup",
     "function/index.html#static-function-Popup",
     "<span>Popup</span> <span class=\"search-result-import-path\">daifee-react-component/src/Popup/index.js</span>",
+    "function"
+  ],
+  [
+    "daifee-react-component/src/scrollview/index.js~scrollview",
+    "class/src/ScrollView/index.js~ScrollView.html",
+    "<span>ScrollView</span> <span class=\"search-result-import-path\">daifee-react-component/src/ScrollView/index.js</span>",
+    "class"
+  ],
+  [
+    "daifee-react-component/src/switch/index.js~switch",
+    "function/index.html#static-function-Switch",
+    "<span>Switch</span> <span class=\"search-result-import-path\">daifee-react-component/src/Switch/index.js</span>",
     "function"
   ],
   [
@@ -534,6 +564,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/checkbox/index.js",
+    "file/src/Checkbox/index.js.html",
+    "src/Checkbox/index.js",
+    "file"
+  ],
+  [
     "src/dialog/index.js",
     "file/src/Dialog/index.js.html",
     "src/Dialog/index.js",
@@ -543,6 +579,12 @@ window.esdocSearchIndex = [
     "src/icon/iconattention.js",
     "file/src/Icon/IconAttention.js.html",
     "src/Icon/IconAttention.js",
+    "file"
+  ],
+  [
+    "src/icon/iconcheck.js",
+    "file/src/Icon/IconCheck.js.html",
+    "src/Icon/IconCheck.js",
     "file"
   ],
   [
@@ -556,6 +598,48 @@ window.esdocSearchIndex = [
     "file/src/Icon/index.js.html",
     "src/Icon/index.js",
     "file"
+  ],
+  [
+    "src/listview/index.js",
+    "file/src/ListView/index.js.html",
+    "src/ListView/index.js",
+    "file"
+  ],
+  [
+    "src/listview/index.js~listview#componentdidmount",
+    "class/src/ListView/index.js~ListView.html#instance-method-componentDidMount",
+    "src/ListView/index.js~ListView#componentDidMount",
+    "method"
+  ],
+  [
+    "src/listview/index.js~listview#componentdidupdate",
+    "class/src/ListView/index.js~ListView.html#instance-method-componentDidUpdate",
+    "src/ListView/index.js~ListView#componentDidUpdate",
+    "method"
+  ],
+  [
+    "src/listview/index.js~listview#iscroller",
+    "class/src/ListView/index.js~ListView.html#instance-member-iscroller",
+    "src/ListView/index.js~ListView#iscroller",
+    "member"
+  ],
+  [
+    "src/listview/index.js~listview#render",
+    "class/src/ListView/index.js~ListView.html#instance-method-render",
+    "src/ListView/index.js~ListView#render",
+    "method"
+  ],
+  [
+    "src/listview/index.js~listview#scrolltorefresh",
+    "class/src/ListView/index.js~ListView.html#instance-method-scrollToRefresh",
+    "src/ListView/index.js~ListView#scrollToRefresh",
+    "method"
+  ],
+  [
+    "src/listview/index.js~listview#scrolltotop",
+    "class/src/ListView/index.js~ListView.html#instance-method-scrollToTop",
+    "src/ListView/index.js~ListView#scrollToTop",
+    "method"
   ],
   [
     "src/mask/index.js",
@@ -573,6 +657,42 @@ window.esdocSearchIndex = [
     "src/popup/index.js",
     "file/src/Popup/index.js.html",
     "src/Popup/index.js",
+    "file"
+  ],
+  [
+    "src/scrollview/index.js",
+    "file/src/ScrollView/index.js.html",
+    "src/ScrollView/index.js",
+    "file"
+  ],
+  [
+    "src/scrollview/index.js~scrollview#componentdidmount",
+    "class/src/ScrollView/index.js~ScrollView.html#instance-method-componentDidMount",
+    "src/ScrollView/index.js~ScrollView#componentDidMount",
+    "method"
+  ],
+  [
+    "src/scrollview/index.js~scrollview#iscroller",
+    "class/src/ScrollView/index.js~ScrollView.html#instance-member-iscroller",
+    "src/ScrollView/index.js~ScrollView#iscroller",
+    "member"
+  ],
+  [
+    "src/scrollview/index.js~scrollview#render",
+    "class/src/ScrollView/index.js~ScrollView.html#instance-method-render",
+    "src/ScrollView/index.js~ScrollView#render",
+    "method"
+  ],
+  [
+    "src/select/index.js",
+    "file/src/Select/index.js.html",
+    "src/Select/index.js",
+    "file"
+  ],
+  [
+    "src/switch/index.js",
+    "file/src/Switch/index.js.html",
+    "src/Switch/index.js",
     "file"
   ],
   [

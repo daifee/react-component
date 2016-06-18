@@ -1,14 +1,14 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 105,
+  "end": 142,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 5,
+      "line": 6,
       "column": 0
     }
   },
@@ -178,6 +178,72 @@
         "value": "./IconLoading",
         "rawValue": "./IconLoading",
         "raw": "'./IconLoading'"
+      }
+    },
+    {
+      "type": "ExportNamedDeclaration",
+      "start": 104,
+      "end": 140,
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 0
+        },
+        "end": {
+          "line": 4,
+          "column": 36
+        }
+      },
+      "specifiers": [
+        {
+          "type": "Identifier",
+          "start": 111,
+          "end": 120,
+          "loc": {
+            "start": {
+              "line": 4,
+              "column": 7
+            },
+            "end": {
+              "line": 4,
+              "column": 16
+            }
+          },
+          "exported": {
+            "type": "Identifier",
+            "start": 111,
+            "end": 120,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 7
+              },
+              "end": {
+                "line": 4,
+                "column": 16
+              }
+            },
+            "name": "IconCheck"
+          }
+        }
+      ],
+      "source": {
+        "type": "Literal",
+        "start": 126,
+        "end": 139,
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 22
+          },
+          "end": {
+            "line": 4,
+            "column": 35
+          }
+        },
+        "value": "./IconCheck",
+        "rawValue": "./IconCheck",
+        "raw": "'./IconCheck'"
       }
     }
   ]

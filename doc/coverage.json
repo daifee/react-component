@@ -1,7 +1,7 @@
 {
-  "coverage": "37.5%",
-  "expectCount": 24,
-  "actualCount": 9,
+  "coverage": "36.84%",
+  "expectCount": 38,
+  "actualCount": 14,
   "files": {
     "src/ActionSheet/index.js": {
       "expectCount": 1,
@@ -62,6 +62,11 @@
         6
       ]
     },
+    "src/Checkbox/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
     "src/Dialog/index.js": {
       "expectCount": 1,
       "actualCount": 0,
@@ -76,11 +81,28 @@
         7
       ]
     },
+    "src/Icon/IconCheck.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
     "src/Icon/IconLoading.js": {
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
         10
+      ]
+    },
+    "src/ListView/index.js": {
+      "expectCount": 7,
+      "actualCount": 1,
+      "undocumentLines": [
+        131,
+        143,
+        132,
+        88,
+        67,
+        62
       ]
     },
     "src/Mask/index.js": {
@@ -98,6 +120,20 @@
       ]
     },
     "src/Popup/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/ScrollView/index.js": {
+      "expectCount": 4,
+      "actualCount": 1,
+      "undocumentLines": [
+        59,
+        64,
+        38
+      ]
+    },
+    "src/Switch/index.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
