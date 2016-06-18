@@ -19,7 +19,7 @@ function findData(page, count) {
 
   for (; start < end; start++) {
     result.push({
-      id: start,
+      id: start + '' + radom,
       text: ('daifee: ' + start + ' - ' + radom)
     });
   }
@@ -38,30 +38,58 @@ function getData(page, count) {
   });
 }
 
+// 渲染每一行
+function renderRow(row, index) {
+  return (<div key={row.id}>{row.text}</div>);
+}
+
+function shouldRefreshIscroller(data, nextData) {
+  let result = false;
+
+  if (data.length !== nextData.length) {
+    result = true;
+  } else {
+    for (var i = 0, len = data.length; i < len; i++) {
+      if (data[i].id !== nextData[i].id) {
+        result = true;
+        break;
+      }
+    }
+  }
+
+  return result;
+}
+
 
 export default class ListViewPage extends Component {
   state = {
     page: 0,
     count: 60,
     refreshNum: 0,
-    data: []
+    data: [],
+    refreshState: 'normal',
+    loadMoreState: 'normal'
   };
 
   listView = null;
 
   render() {
-    let {data} = this.state;
+    let {data, refreshState, loadMoreState} = this.state;
 
     return (
       <div className='main'>
         <ListView
           ref='listView'
+          shouldRefreshIscroller={shouldRefreshIscroller}
           data={data}
-          renderRow={this.renderRow}
-          loadMoreAction={this.loadMoreAction}
-          refreshAction={this.refreshAction}
+          renderRow={renderRow}
+          refreshState={refreshState}
+          onNormalRefresh={this.onNormalRefresh}
+          onReadyRefresh={this.onReadyRefresh}
+          onRefresh={this.onRefresh}
+          loadMoreState={loadMoreState}
+          onLoadMore={this.onLoadMore}
           iscrollOptions={{
-            click: true,
             scrollbars: true
           }} />
 
@@ -78,68 +106,79 @@ export default class ListViewPage extends Component {
     this.loadMoreAction();
   }
 
-  componentDidUpdate() {
-    // ListView 更新后，必须执行这个方法
-    this.listView.refreshIscroller();
-  }
+  onNormalRefresh = () => {
+    this.setState({...this.state, refreshState: 'normal'});
+  };
 
-  // 渲染每一行
-  renderRow(row, index) {
-    return (<div key={row.id}>{row.text}</div>);
-  }
+  onReadyRefresh = () => {
+    this.setState({...this.state, refreshState: 'ready'});
+  };
+
+  onRefresh = () => {
+    this.refreshAction();
+  };
+
+  onLoadMore = () => {
+    this.loadMoreAction();
+  };
+
+
 
 
   // 加载更多数据（分页）
   loadMoreAction = () => {
-    let {page, count, data} = this.state;
+    let {page, count, data, loadMoreState} = this.state;
     page++;
 
     // 状态：加载中
-    this.listView.loadingMore();
+    loadMoreState = 'loading';
+    this.setState({...this.state, loadMoreState});
 
     getData(page, count)
       .then((resData) => {
         if (resData.length < count) {
-          // 状态：没有更多
-          this.listView.noMore();
+          loadMoreState = 'end';
         } else {
-          // 状态：成功加载
-          this.listView.succeedLoadMore();
+          loadMoreState = 'normal';
         }
 
         data = data.concat(resData);
-        this.setState({...this.state, page, data});
+        this.setState({...this.state, page, data, loadMoreState});
       });
   };
 
   // 刷新数据
   refreshAction = () => {
-    let {count} = this.state;
+    let {count, refreshState, loadMoreState} = this.state;
     let page = 1;
 
     // 记录刷新次数
     radom++;
 
     // 状态：刷新中
-    this.listView.refreshing();
+    refreshState = 'loading';
+    loadMoreState = 'none';
+    this.setState({...this.state, refreshState, loadMoreState});
 
     getData(page, count)
       .then((resData) => {
         let data = resData;
         // 改变 loadMore 状态
         if (data.length < count) {
-          this.listView.noMore();
+          loadMoreState = 'end';
         } else {
-          this.listView.succeedLoadMore();
+          loadMoreState = 'normal';
         }
 
         // 状态：更新结束
-        this.listView.refreshed();
-        this.setState({...this.state, page, data});
+        refreshState = 'normal';
+        this.setState({...this.state, page, data, refreshState, loadMoreState});
+        this.listView.scrollToTop();
       });
   };
 
   clickRefresh = () => {
-    this.listView.refresh();
+    this.refreshAction();
+    this.listView.scrollToRefresh();
   };
 }

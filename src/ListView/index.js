@@ -5,78 +5,100 @@ import React, {
 import {classNames} from '../utils';
 import './style';
 import ScrollView from '../ScrollView';
-import Abstract from './ListView';
+
 
 /**
- * 一个内置“下拉刷新”和“加载更多”的 ListView。**开箱即用**
- * 本组件不是 stateless component:
- *   * refresh “下拉刷新”状态
- *   * loadMore “加载更多”状态
- * @param {array} data 列表数据
- * @param {function} renderRow 渲染列表的每一行，参数为 (data[index], index)
- * renderRow(data[index], index) @return PropTypes.node
- * @param {function} renderRefresh 渲染 UI（下拉刷新），参数是 `refresh`
- * renderRefresh(refresh) @return PropTypes.node
- * @param {function} renderLoadMore 渲染 UI（加载更多），参数是 `loadMore`
- * @param {function} loadMoreAction 加载更多的动作（数据请求）。
- * @param {function} refreshAction 刷新的动作（数据请求）。
- * @param {string} className 自定义样式
- * @param {number} offsetRefresh 下拉超出 npx 可激活刷新
- * @param {number} offsetLoadMore 上拉超出 npx 执行 `loadMoreAction`
+ * ListView 提供“下拉刷新”和“加载更多”功能的列表
+ * @param {array} data 列表内容数据
+ * @param {function} renderRow 返回每一行的视图，参数是：`data[index], index`
+ * @param {function} shouldRefreshIscroller 根据 data 和 nextData 判断是否更新 iscroller。
+ * @param {function} renderRefresh “下拉刷新”的交互视图，参数是：`refreshState`
+ * @param {number} offsetRefresh 下拉距离超过该值，且 `refreshState === 'normal'`，会
+ * 触发 `onReadyRefresh()`
+ * @param {string} refreshState “下拉刷新”的状态，除了用于渲染 `renderRefresh()`，
+ * 内部也用于控制触发 `onNormalRefresh()` `onReadyRefresh()` `onRefresh`
+ * 其值只能是：`none | normal | ready | loading`
+ * @param {function} onNormalRefresh 此时应该将 `refreshState` 设置为 `normal`
+ * @param {function} onReadyRefresh 此时应该将 `refreshState` 设置为 `ready`
+ * @param {function} onRefresh 此时应该将 `refreshState` 设置为 `loading`
+ * @param {function} renderLoadMore “加载更多”的交互视图，参数是：`loadMoreState`
+ * @param {number} offsetLoadMore 最后一条数据距离底部小于该值，
+ * 且 `loadMoreState !== (loading | end)` 会触发 `onLoadMore()`
+ * @param {string} loadMoreState “加载更多”的状态，除了用于渲染，还用于内部控制触发 `onLoadMore`
+ * @param {function} onLoadMore 此时应该加载“更多数据”
+ * @param {string} className 自定义 class
  *
- * @example
- * 产看 example/ListViewPage
  */
 export default class ListView extends Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
     renderRow: PropTypes.func.isRequired,
+    shouldRefreshIscroller: PropTypes.func.isRequired,
     renderRefresh: PropTypes.func,
-    renderLoadMore: PropTypes.func,
-    loadMoreAction: PropTypes.func,
-    refreshAction: PropTypes.func,
-    className: PropTypes.string,
     offsetRefresh: PropTypes.number,
-    offsetLoadMore: PropTypes.number
+    refreshState: PropTypes.oneOf(['none', 'normal', 'ready', 'loading']),
+    onNormalRefresh: PropTypes.func,
+    onReadyRefresh: PropTypes.func,
+    onRefresh: PropTypes.func,
+    renderLoadMore: PropTypes.func,
+    offsetLoadMore: PropTypes.number,
+    loadMoreState: PropTypes.oneOf(['none', 'normal', 'loading', 'end', 'fail']),
+    onLoadMore: PropTypes.func,
+    className: PropTypes.string
   };
 
   static defaultProps = {
     offsetRefresh: 60,
-    offsetLoadMore: 10,
+    offsetLoadMore: 6,
+    refreshState: 'none',
+    loadMoreState: 'none',
     renderRefresh: renderRefresh,
     renderLoadMore: renderLoadMore
   };
 
-  static ListView = Abstract;
-
-  state = {
-    // normal | active | loading
-    refresh: 'normal',
-    // none | normal | loading | end | fail
-    loadMore: 'none'
-  };
-
-  // IScroller 实例
+  // iscroll 实例
   iscroller = null;
 
-  onLoadMore = () => {
-    this._loadMoreAction();
+  scrollToTop() {
+    this.iscroller.scrollTo(0, 0, 600);
+  }
+
+  scrollToRefresh() {
+    this.iscroller.offsetY = this.props.offsetRefresh;
+    this.scrollToTop();
+  }
+
+  _refreshIscroller = () => {
+    this.iscroller.refresh();
+  };
+
+  _onLoadMore = () => {
+    let {loadMoreState, onLoadMore} = this.props;
+
+    console.log(1);
+
+    if (loadMoreState === 'loading' || loadMoreState === 'end') {
+      return;
+    }
+
+    onLoadMore();
   };
 
   render() {
-    let {refresh, loadMore} = this.state;
     let {
       data,
       renderRow,
       renderRefresh,
+      refreshState,
       renderLoadMore,
+      loadMoreState,
       className,
+      shouldRefreshIscroller,
       ...others
     } = this.props;
     let classes = classNames('list-view', {_user: className});
 
-    delete others.loadMoreAction;
-    delete others.refreshAction;
+    // TODO delete 多余的 props
 
     return (
       <ScrollView
@@ -86,13 +108,21 @@ export default class ListView extends Component {
         width='100%'
         {...others}>
         <div className={classNames('list-view-refresh')}>
-          {renderRefresh(refresh)}
+          {renderRefresh(refreshState)}
         </div>
-        {data.map(renderRow)}
+        <List
+          data={data}
+          shouldRefreshIscroller={shouldRefreshIscroller}
+          refreshIscroller={this._refreshIscroller}>
+          <div className={classNames('list-view-list')}>
+            {data.map(renderRow)}
+          </div>
+        </List>
         <div
+          ref='more'
           className={classNames('list-view-load-more')}
-          onClick={this.onLoadMore}>
-          {renderLoadMore(loadMore)}
+          onClick={this._onLoadMore}>
+          {renderLoadMore(loadMoreState)}
         </div>
       </ScrollView>
     );
@@ -101,171 +131,111 @@ export default class ListView extends Component {
   componentDidMount() {
     this.iscroller = this.refs.scrollView.iscroller;
 
-    this._handlerRefresh();
-    this._handlerLoadMore();
-  }
-
-  // 包装 loadMoreAction
-  // 避免用户连续点击、下拉造成重复请求
-  _loadMoreAction() {
-    let {loadMore} = this.state;
-    let {loadMoreAction} = this.props;
-    if (loadMore === 'normal' || loadMore === 'fail') {
-      loadMoreAction();
+    this.refs.more.onclick = function () {
+      console.warn('click more');
     }
+
+    this._bindLoadMore();
+    this._bindRefresh();
+
+    this._refreshIscroller();
+    this._updateOffsetY();
   }
 
-  /**
-   * 包装 refreshAction 避免重复请求
-   * @param  {boolean} ignore 忽略 active 和 loading 状态
-   * @return {[type]}        [description]
-   */
-  _refreshAction(ignore) {
-    let {refreshAction} = this.props;
-    let {refresh} = this.state;
-
-    if (ignore || refresh === 'active' || refresh === 'loading') {
-      this.changeRefresh('loading');
-      refreshAction();
-    }
+  componentDidUpdate() {
+    this._updateOffsetY();
   }
 
-  // 绑定“下拉刷新”的交互事件
-  _handlerRefresh() {
-    let {offsetRefresh} = this.props;
+  _updateOffsetY() {
+    let {offsetRefresh, refreshState} = this.props;
 
-    this.iscroller.on('scroll', () => {
-      let {refresh} = this.state;
-      let y = this.iscroller.y;
+    this.iscroller.offsetY = refreshState === 'loading' ? offsetRefresh : 0;
+  }
 
-      if (refresh === 'loading' || y < 0) {
+  _bindLoadMore() {
+    let {offsetLoadMore} = this.props;
+    let iscroller = this.iscroller;
+
+    iscroller.on('scroll', () => {
+      // 判断距离
+      if (iscroller.maxScrollY - iscroller.y > offsetLoadMore) {
+        this._onLoadMore();
+      }
+    });
+  }
+
+  _bindRefresh() {
+    let {
+      offsetRefresh,
+      onReadyRefresh,
+      onNormalRefresh,
+      onRefresh
+    } = this.props;
+    let iscroller = this.iscroller;
+
+    iscroller.on('scroll', () => {
+      let {refreshState} = this.props;
+      let y = iscroller.y;
+
+      if (y < 0 || refreshState === 'loading') {
         return;
       }
 
       // 下拉距离超过 offsetRefresh 激活状态
-      if (this.iscroller.y > offsetRefresh) {
-        this.changeRefresh('active');
+      if (iscroller.y > offsetRefresh) {
+        refreshState !== 'ready' && onReadyRefresh();
       } else {
-        this.changeRefresh('normal');
+        refreshState !== 'normal' && onNormalRefresh();
       }
     });
 
-    this.iscroller.on('touchEnd', () => {
-      this._refreshAction();
-    });
-  }
+    iscroller.on('touchEnd', () => {
+      let {refreshState} = this.props;
 
-  // 绑定“上拉加载更多”的交互事件
-  _handlerLoadMore() {
-    let {offsetLoadMore} = this.props;
-
-    this.iscroller.on('scroll', () => {
-      // 判断距离
-      if (this.iscroller.maxScrollY - this.iscroller.y > offsetLoadMore) {
-        this._loadMoreAction();
+      if (refreshState !== 'ready') {
+        return;
       }
+
+      onRefresh();
     });
-  }
-
-  /**
-   * 改变“下拉刷新”组件的状态
-   * @param  {string} refresh 同 this.state.refresh
-   * @return {[type]}         [description]
-   */
-  changeRefresh(refresh) {
-    let nextState = {...this.state, refresh};
-    this.setState(nextState);
-
-    if (this.iscroller) {
-      let {offsetRefresh} = this.props;
-      this.iscroller.offsetY = refresh === 'loading' ? offsetRefresh : 0;
-    }
-  }
-  /**
-   * 执行刷新，`changeRefresh('loading')` 的别名
-   * @return {[type]} [description]
-   */
-  refreshing() {
-    this.changeRefresh('loading');
-  }
-  /**
-   * 完成刷新，`changeRefresh('normal')` 的别名
-   * @return {[type]} [description]
-   */
-  refreshed() {
-    this.changeRefresh('normal');
-    this.iscroller.scrollTo(0, 0, 600);
-  }
-
-
-  /**
-   * 改变“加载更多”组件的状态
-   * @param  {string} loadMore 同 this.state.loadMore
-   * @return {[type]}          [description]
-   */
-  changeLoadMore(loadMore) {
-    let nextState = {...this.state, loadMore};
-    this.setState(nextState);
-  }
-  /**
-   * 成功加载更多，`changeLoadMore('normal')` 的别名
-   * @return {[type]} [description]
-   */
-  succeedLoadMore() {
-    this.changeLoadMore('normal');
-  }
-  /**
-   * 已加载全部内容，`changeLoadMore('end')` 的别名
-   * @return {[type]} [description]
-   */
-  noMore() {
-    this.changeLoadMore('end');
-  }
-  /**
-   * 加载更多，遇到失败，`changeLoadMore('fail')` 的别名
-   * @return {[type]} [description]
-   */
-  loadMoreFailed() {
-    this.changeLoadMore('fail');
-  }
-  /**
-   * 正在加载更多，`changeLoadMore('loading')` 的别名
-   * @return {[type]} [description]
-   */
-  loadingMore() {
-    this.changeLoadMore('loading');
-  }
-
-
-
-  /**
-   * 刷新 IScroll 实例
-   * 当 ListView 的内容发生变化，应该执行改方法
-   * @return {[type]} [description]
-   */
-  refreshIscroller() {
-    this.iscroller.refresh();
-  }
-
-  /**
-   * 自定义刷新按钮可以调用本方法
-   */
-  refresh() {
-    let {refresh} = this.state;
-    if (refresh === 'loading') {
-      return;
-    }
-
-    this._refreshAction(true);
-    this.iscroller.scrollTo(0, 0, 600);
   }
 }
 
+
+// 这一切都是为了调用 this.props.refreshIscroller();
+class List extends Component {
+  static propTypes = {
+    data: PropTypes.array.isRequired,
+    shouldRefreshIscroller: PropTypes.func.isRequired,
+    refreshIscroller: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired
+  };
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.shouldRefreshIscroller(this.props.data, nextProps.data);
+  }
+
+  render() {
+    let {children} = this.props;
+
+    return children.length === 0 ? null : children;
+  }
+
+  componentDidUpdate() {
+    // 为了调用这个方法才抽象出 List 组件的
+    this.props.refreshIscroller();
+  }
+}
+
+
+
 function renderRefresh(status) {
   switch (status) {
+    case 'none':
+      return null;
     case 'normal':
       return (<p>下拉刷新</p>);
-    case 'active':
+    case 'ready':
       return (<p>松手即可刷新</p>);
     case 'loading':
       return (<p>加载中...</p>);
@@ -291,4 +261,3 @@ function renderLoadMore(status) {
 
   return null;
 }
-

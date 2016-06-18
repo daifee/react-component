@@ -15,7 +15,7 @@ import PopupPage from './PopupPage';
 import SwitchPage from './SwitchPage';
 import CheckboxPage from './CheckboxPage';
 import ScrollViewPage from './ScrollViewPage';
-import ListViewPage from './ListViewPage2';
+import ListViewPage from './ListViewPage';
 import FastClick from 'fastclick';
 
 // fastclick
