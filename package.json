@@ -71,6 +71,6 @@
     "react": "^15.1.0",
     "react-addons-css-transition-group": "^15.1.0",
     "react-dom": "^15.1.0",
-    "xiscroll": "^5.2.0"
+    "xiscroll": "^5.2.1"
   }
 }
