@@ -16,6 +16,8 @@ import SwitchPage from './SwitchPage';
 import CheckboxPage from './CheckboxPage';
 import ScrollViewPage from './ScrollViewPage';
 import ListViewPage from './ListViewPage';
+import SelectPage from './SelectPage';
+
 import FastClick from 'fastclick';
 
 // fastclick
@@ -35,7 +37,8 @@ const list = [
   {name: 'Switch', href: '#switch'},
   {name: 'Checkbox', href: '#checkbox'},
   {name: 'ScrollView', href: '#scrollview'},
-  {name: 'ListView', href: '#listview'}
+  {name: 'ListView', href: '#listview'},
+  {name: 'Select', href: '#select'}
 ];
 
 function App() {
@@ -56,6 +59,7 @@ function App() {
       <Route path='/checkbox' component={CheckboxPage} />
       <Route path='/scrollview' component={ScrollViewPage} />
       <Route path='/listview' component={ListViewPage} />
+      <Route path='/select' component={SelectPage} />
     </Router>
   );
 }

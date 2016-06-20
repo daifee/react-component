@@ -31,3 +31,4 @@ export Switch from './Switch';
 export Checkbox from './Checkbox';
 export ScrollView from './ScrollView';
 export ListView from './ListView';
+export Select from './Select';
