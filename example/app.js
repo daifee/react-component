@@ -17,6 +17,7 @@ import CheckboxPage from './CheckboxPage';
 import ScrollViewPage from './ScrollViewPage';
 import ListViewPage from './ListViewPage';
 import SelectPage from './SelectPage';
+import DatePickerPage from './DatePickerPage';
 
 import FastClick from 'fastclick';
 
@@ -38,7 +39,8 @@ const list = [
   {name: 'Checkbox', href: '#checkbox'},
   {name: 'ScrollView', href: '#scrollview'},
   {name: 'ListView', href: '#listview'},
-  {name: 'Select', href: '#select'}
+  {name: 'Select', href: '#select'},
+  {name: 'DatePicker', href: '#datepicker'}
 ];
 
 function App() {
@@ -60,6 +62,7 @@ function App() {
       <Route path='/scrollview' component={ScrollViewPage} />
       <Route path='/listview' component={ListViewPage} />
       <Route path='/select' component={SelectPage} />
+      <Route path='/datepicker' component={DatePickerPage} />
     </Router>
   );
 }

@@ -8,7 +8,6 @@ import Popup from '../Popup';
 import './style';
 
 
-
 /**
  *
  * title
@@ -17,9 +16,9 @@ import './style';
  * monthOptions
  * dateOptions
  *
- * selectedYear
- * selectedMonth
- * selectedDate
+ * selectedYearIndex
+ * selectedMonthIndex
+ * selectedDateIndex
  *
  * onChange
  * onConfirm
@@ -29,11 +28,11 @@ export default function DatePicker(props) {
   let {
     title,
     yearOptions,
-    selectedYear,
+    selectedYearIndex,
     monthOptions,
-    selectedMonth,
+    selectedMonthIndex,
     dateOptions,
-    selectedDate,
+    selectedDateIndex,
     onChange,
     onConfirm,
     onCancel,
@@ -41,36 +40,35 @@ export default function DatePicker(props) {
     ...others
   } = props;
   let classes = classNames('date-picker', {_user: className});
-  let selectedYearIndex = 0;
-  let selectedMonthIndex = 0;
-  let selectedDateIndex = 0;
-
-  yearOptions.map(() => {
-
-  });
 
 
   return (
-    <Popup className={classes}>
-      <div>
-        <button>取消</button>
+    <div className={classes}>
+      <div className={classNames('date-picker-header')}>
+        <button onClick={onCancel}>取消</button>
         <em>{title}</em>
-        <button>确定</button>
+        <button onClick={onConfirm}>确定</button>
       </div>
-      <div>
+      <div className={classNames('date-picker-body')}>
         <Select
           options={yearOptions}
-          selectedIndex={0}
-          onChange={onChange} />
+          selectedIndex={selectedYearIndex}
+          onChange={(selectedYearIndex) => {
+            onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
+          }} />
         <Select
           options={monthOptions}
-          selectedIndex={0}
-          onChange={onChange} />
+          selectedIndex={selectedMonthIndex}
+          onChange={(selectedMonthIndex) => {
+            onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
+          }} />
         <Select
           options={dateOptions}
-          selectedIndex={0}
-          onChange={onChange} />
+          selectedIndex={selectedDateIndex}
+          onChange={(selectedDateIndex) => {
+            onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
+          }} />
       </div>
-    </Popup>
+    </div>
   );
 }

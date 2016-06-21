@@ -18,11 +18,14 @@ export default class Select extends Component {
     selectedIndex: PropTypes.number,
     onChange: PropTypes.func,
     className: PropTypes.string,
-    style: PropTypes.object
+    style: PropTypes.object,
+    iscrollOptions: PropTypes.object
   };
 
   static defaultProps = {
-    selectedIndex: 0
+    selectedIndex: 0,
+    style: {},
+    iscrollOptions: {}
   };
 
   iscroller = null;
@@ -42,7 +45,7 @@ export default class Select extends Component {
     options = options.concat(['', '', '']);
 
     return (
-      <div ref='wrapper' className={classes} style={style}>
+      <div ref='wrapper' className={classes} style={style} {...others}>
         <ul className={classNames('select-options')}>
           {options.map((option, index) => {
             let name = typeof option === 'object' ? option.name : option;
@@ -66,7 +69,8 @@ export default class Select extends Component {
     } = this.props;
     let {wrapper} = this.refs;
     this.iscroller = new IScroll(wrapper, {
-      probeType: 2
+      probeType: 2,
+      ...iscrollOptions
     });
 
     this.iscroller.on('scrollEnd', () => {

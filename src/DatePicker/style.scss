@@ -1,2 +1,53 @@
+@import '../variables';
+
+
+$selector: '.#{$namespace}-date-picker';
+$size: 44px;
+
+#{$selector} {
+  background-color: #fff;
+
+  &-header {
+    font-size: 18px;
+    height: $size;
+    line-height: $size;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background-image: linear-gradient(to bottom, #e0e0e0, #e0e0e0, transparent, transparent);
+    background-color: #f8f8f8;
+    background-position: bottom;
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+
+    em {
+      flex-grow: 1;
+      font-style: normal;
+      color: #999;
+    }
+
+    button {
+      display: inline-block;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      width: $size * 2;
+      height: $size;
+      line-height: $size;
+      padding: 0;
+      font-size: 18px;
+      color: #666;
+    }
+  }
+
+  &-body {
+    display: flex;
+    align-items: center;
+
+    > div {
+      flex-grow: 1;
+    }
+  }
+}
 
 
