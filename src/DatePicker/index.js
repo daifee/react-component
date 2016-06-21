@@ -7,22 +7,23 @@ import Select from '../Select';
 import Popup from '../Popup';
 import './style';
 
-
 /**
- *
- * title
- *
- * yearOptions
- * monthOptions
- * dateOptions
- *
- * selectedYearIndex
- * selectedMonthIndex
- * selectedDateIndex
- *
- * onChange
- * onConfirm
- * onCancel
+ * DatePicker 组件(stateless component)
+ * @param {object} props 传入组件的属性
+ * @property {string} props.title 标题
+ * @property {array} props.yearOptions “年”选项，对应 `Select` 组件的 `options` 属性
+ * @property {number} props.selectedYearIndex 选中的“年”对应的索引，对应 `Select` 组
+ * 件的 `selectedIndex` 属性
+ * @property {array} props.monthOptions “月”选项，对应 `Select` 组件的 `options` 属性
+ * @property {number} props.selectedMonthIndex 选中的“年”对应的索引，对应 `Select` 组
+ * 件的 `selectedIndex` 属性
+ * @property {array} props.dateOptions “日”选项，对应 `Select` 组件的 `options` 属性
+ * @property {number} props.selectedDateIndex 选中的“年”对应的索引，对应 `Select` 组
+ * 件的 `selectedIndex` 属性
+ * @property {function} props.onChange 选项发生变化调用
+ * @property {function} props.onConfirm 用户点击“确认”按钮
+ * @property {function} props.onCancel 用户点击“取消”按钮
+ * @property {string} props.className 自定义样式
  */
 export default function DatePicker(props) {
   let {
