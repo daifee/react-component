@@ -25,7 +25,76 @@ import './style';
  * @property {function} props.onCancel 用户点击“取消”按钮
  * @property {string} props.className 自定义样式
  */
-export default function DatePicker(props) {
+export default class DatePicker extends Component {
+
+  render() {
+    let {
+      title,
+      yearOptions,
+      selectedYearIndex,
+      monthOptions,
+      selectedMonthIndex,
+      dateOptions,
+      selectedDateIndex,
+      onChange,
+      onConfirm,
+      onCancel,
+      className,
+      ...others
+    } = this.props;
+    let classes = classNames('date-picker', {_user: className});
+
+    return (
+      <div className={classes}>
+        <div className={classNames('date-picker-header')}>
+          <button onClick={onCancel}>取消</button>
+          <em>{title}</em>
+          <button onClick={onConfirm}>确定</button>
+        </div>
+        <div className={classNames('date-picker-body')}>
+          <Select
+            key='year'
+            options={yearOptions}
+            selectedMonthIndex={selectedMonthIndex}
+            selectedIndex={selectedYearIndex}
+            onChange={this.changeYear} />
+          <Select
+            key='month'
+            options={monthOptions}
+            selectedIndex={selectedMonthIndex}
+            onChange={this.changeMonth} />
+          <Select
+            key='date'
+            options={dateOptions}
+            selectedIndex={selectedDateIndex}
+            onChange={this.changeDate} />
+        </div>
+      </div>
+    );
+  }
+
+  changeDate = (selectedDateIndex) => {
+    let {selectedYearIndex, selectedMonthIndex, onChange} = this.props;
+    onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
+  };
+
+  changeMonth = (selectedMonthIndex) => {
+    let {selectedYearIndex, selectedDateIndex, onChange} = this.props;
+    onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
+  };
+
+  changeYear = (selectedYearIndex) => {
+    let {selectedMonthIndex, selectedDateIndex, onChange} = this.props;
+    onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
+  };
+}
+
+
+
+
+
+/*
+function DatePickerless(props) {
   let {
     title,
     yearOptions,
@@ -42,6 +111,8 @@ export default function DatePicker(props) {
   } = props;
   let classes = classNames('date-picker', {_user: className});
 
+  // 1 selectedMonthIndex 初始值为 5
+  console.warn(selectedMonthIndex, selectedDateIndex);
 
   return (
     <div className={classes}>
@@ -54,22 +125,27 @@ export default function DatePicker(props) {
         <Select
           options={yearOptions}
           selectedIndex={selectedYearIndex}
-          onChange={(selectedYearIndex) => {
+          onChange={function (selectedYearIndex) {
             onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
           }} />
         <Select
           options={monthOptions}
           selectedIndex={selectedMonthIndex}
-          onChange={(selectedMonthIndex) => {
+          onChange={function (selectedMonthIndex) {
+            // 2. 将 selectedMonthIndex 设置为 11，并更新本组件
             onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
           }} />
         <Select
           options={dateOptions}
           selectedIndex={selectedDateIndex}
-          onChange={(selectedDateIndex) => {
+          onChange={function (selectedDateIndex) {
+            // 3. selectedMonthIndex 已经由 5 -> 11，但执行 onChange()
+            // 本作用域内的 selectedMonthIndex 还是 5。
+            console.warn(selectedMonthIndex, selectedDateIndex);
             onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
           }} />
       </div>
     </div>
   );
 }
+*/

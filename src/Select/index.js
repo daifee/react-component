@@ -49,7 +49,7 @@ export default class Select extends Component {
         <ul className={classNames('select-options')}>
           {options.map((option, index) => {
             let name = typeof option === 'object' ? option.name : option;
-            let key = index + '' + name;
+            let key = index + '@-@' + name;
 
             return (<li key={key} style={optionStyle}>{name}</li>);
           })}
@@ -64,8 +64,7 @@ export default class Select extends Component {
   componentDidMount() {
     let {
       iscrollOptions,
-      onChange,
-      selectedIndex
+      onChange
     } = this.props;
     let {wrapper} = this.refs;
     this.iscroller = new IScroll(wrapper, {
@@ -95,12 +94,27 @@ export default class Select extends Component {
       return newY;
     };
 
-
-    // 定位到指定的 selectIndex
-    this.iscroller.scrollTo(0, (-selectedIndex * height));
+    this.resetPosition();
 
     wrapper.addEventListener('touchmove', (e) => {
       e.preventDefault();
     });
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.options.length !== this.props.options;
+  }
+
+  componentDidUpdate() {
+    this.iscroller.refresh();
+    this.resetPosition();
+  }
+
+  resetPosition() {
+    let {
+      selectedIndex
+    } = this.props;
+    // 定位到指定的 selectIndex
+    this.iscroller.scrollTo(0, (-selectedIndex * height));
   }
 }
