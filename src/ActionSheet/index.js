@@ -35,20 +35,24 @@ export default function ActionSheet(props) {
     title,
     callback,
     onClick,
-    _hide
+    className,
+    _hide,
+    ...others
   } = props;
+  let classes = classNames('action-sheet', {_user: className});
   typeof cancelButtonIndex === 'undefined' && (cancelButtonIndex = buttons.length - 1);
 
 
   return (
     <Popup
-      {...props}
       direction='bottom'
       onClick={(e) => {
         _hide && _hide();
         onClick && onClick(e);
-      }}>
-      <div className={classNames('action-sheet')}>
+      }}
+      className={classes}
+      {...others}>
+      <div className={classNames('action-sheet-main')}>
         {title ? (<header>{title}</header>) : null}
         <ol>{buttons.map((button, index) => {
           return (

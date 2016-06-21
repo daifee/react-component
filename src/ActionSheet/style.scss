@@ -15,22 +15,25 @@ $selector: '.#{$namespace}-action-sheet';
   transform: scaleY(.5);
 }
 
+
 #{$selector} {
 
-  > header {
-    padding: 0 16px;
-    line-height: 44px;
-    position: relative;
-    color: #888;
+  &-main {
+    > header {
+      padding: 0 16px;
+      line-height: 44px;
+      position: relative;
+      color: #888;
 
-    &:after {
-      @include hr();
+      &:after {
+        @include hr();
+      }
     }
-  }
 
-  >ol {
-    margin: 0;
-    padding: 0;
+    >ol {
+      margin: 0;
+      padding: 0;
+    }
   }
 
   &-item {
