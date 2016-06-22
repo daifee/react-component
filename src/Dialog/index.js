@@ -8,6 +8,53 @@ import './style';
 
 let apiInstance = null;
 
+export default function Dialog(props) {
+  let {title, content, buttons, className, ...others} = props;
+  let classes = classNames('dialog', {_user: className});
+
+  return (
+    <div className={classes} {...others}>
+      <div>
+        <header><strong>{title}</strong></header>
+        <p>{content}</p>
+        <footer>{buttons.map((button, index) => {
+          return (<Button key={index} {...button} />);
+        })}</footer>
+      </div>
+    </div>
+  );
+}
+
+Dialog.propTypes = {
+  title: PropTypes.string,
+  content: PropTypes.string,
+  buttons: PropTypes.array.isRequired,  // [{text: '', onClik: () => {}}]
+  className: PropTypes.string
+};
+
+Dialog.defaultProps = {
+  buttons: []
+};
+
+Dialog.getInstance = (container) => {
+  return createInstance(ApiContainer, container);
+};
+
+Dialog.show = (options) => {
+  apiInstance.show(title, content, buttons, options);
+};
+
+
+class ApiContainer extends Component {
+
+  render() {
+
+
+  }
+}
+
+
+
 
 export default function Dialog(props) {
   let {

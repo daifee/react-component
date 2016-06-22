@@ -103,3 +103,25 @@ export default class DialogPage extends Component {
 * 某些组件为了方便使用，提供静态方法作为直接调用的接口。
 * 定义组件时用到的 props 必须在 propTypes 声明，可以向组件传递任意 props。
 
+
+
+## TODO
+
+> 重新定义组件开发原则，用于 v2.0.0 版
+
+**组件开发元素：**
+
+* 根据性质，将组件区分为“UI 组件”和“API 组件”
+* “UI 组件”首选封装为 stateless component
+* “UI 组件”应该尽量使使用者方便（即参数简单）
+* “UI 组件”只负责渲染父组件传递的 `props`，不能有 `state`，不应该有动画
+* “API 组件”都是 state component，拥有 `state` 属性
+* “API 组件”提供接口方法给外部控制 `state`
+* “API 组件”的接口方法应该尽量定义在对应的“UI 组件”的静态方法
+* “API 组件”默认渲染在“全局（单页面）”的节点，也可自定义节点
+
+**动画：**
+
+* 淡入淡出 fadeInAndOut
+* 弹出 Popup
+
