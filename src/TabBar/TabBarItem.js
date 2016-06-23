@@ -6,12 +6,12 @@ import {classNames} from '../utils';
 
 export default function TabBarItem(props) {
   const {selected, children} = props;
-  let classes = classNames('tab-bar-body-item', {
+  let className = classNames('tab-bar-body-item', {
     'tab-bar-body-item-selected': selected
   });
 
   return (
-    <div className={classes}>{children}</div>
+    <div className={className}>{children}</div>
   );
 }
 

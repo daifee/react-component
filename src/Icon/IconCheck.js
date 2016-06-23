@@ -4,35 +4,40 @@ import React, {
 import {classNames} from '../utils';
 
 /**
- * 自定义 Icon
- * @param {object} props 传入组件的属性
- * @property {string} props.size 大小
- * @property {string} props.className 自定义 class
+ * IconCheck UI
+ * @param {object} props see IconCheck.propTypes
  */
 export default function IconCheck(props) {
-  const {size, className, ...others} = props;
-  let classes = classNames('icon-check', {'_user': className});
-  let style = {
+  const {size, className, style, ...others} = props;
+  className = classNames('icon-check', {'_user': className});
+  style = {
+    ...style,
     height: size,
     width: size,
     fontSize: size
   };
 
   return (
-    <i className={classes} style={style} {...others} />
+    <i className={className} style={style} {...others} />
   );
 }
 
 /**
  * 其他元素可以直接使用这个 class
- * @type {[type]}
+ * @type {string}
  */
 IconCheck.className = classNames('icon-check');
 
 
+/**
+ * props
+ * @type {Object}
+ * size: 大小
+ */
 IconCheck.propTypes = {
   size: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 
 IconCheck.defaultProps = {

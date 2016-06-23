@@ -57,7 +57,7 @@ Fade.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func
-  ]).isRequired,
+  ]),
   className: PropTypes.string,
   style: PropTypes.object,
   children: PropTypes.node

@@ -6,30 +6,28 @@ import {classNames} from '../utils';
 import './style';
 import ScrollView from '../ScrollView';
 
-
 /**
- * ListView 提供“下拉刷新”和“加载更多”功能的列表
- * @param {array} data 列表内容数据
- * @param {function} renderRow 返回每一行的视图，参数是：`data[index], index`
- * @param {function} shouldRefreshIscroller 根据 data 和 nextData 判断是否更新 iscroller。
- * @param {function} renderRefresh “下拉刷新”的交互视图，参数是：`refreshState`
- * @param {number} offsetRefresh 下拉距离超过该值，且 `refreshState === 'normal'`，会
- * 触发 `onReadyRefresh()`
- * @param {string} refreshState “下拉刷新”的状态，除了用于渲染 `renderRefresh()`，
- * 内部也用于控制触发 `onNormalRefresh()` `onReadyRefresh()` `onRefresh`
- * 其值只能是：`none | normal | ready | loading`
- * @param {function} onNormalRefresh 此时应该将 `refreshState` 设置为 `normal`
- * @param {function} onReadyRefresh 此时应该将 `refreshState` 设置为 `ready`
- * @param {function} onRefresh 此时应该将 `refreshState` 设置为 `loading`
- * @param {function} renderLoadMore “加载更多”的交互视图，参数是：`loadMoreState`
- * @param {number} offsetLoadMore 最后一条数据距离底部小于该值，
- * 且 `loadMoreState !== (loading | end)` 会触发 `onLoadMore()`
- * @param {string} loadMoreState “加载更多”的状态，除了用于渲染，还用于内部控制触发 `onLoadMore`
- * @param {function} onLoadMore 此时应该加载“更多数据”
- * @param {string} className 自定义 class
- *
+ * ListView UI
+ * @param {object} props see static propTypes
  */
 export default class ListView extends Component {
+
+  /**
+   * props
+   * @type {Object}
+   * data: 数据
+   * renderRow: 渲染每行数据，参数是 [data[index], index]
+   * shouldRefreshIscroller: 是否需要 refresh iscroll，参数是 [props.data, nextProps.data]
+   * renderRefresh: 渲染下拉刷新交互组件，参数是 [refreshState]
+   * offsetRefresh: 下拉距离超过该值，应该改变 refreshState
+   * refreshState: 下拉刷新状态
+   * onNormalRefresh: 告知父组件应该将 refreshState 设置为 normal
+   * onReadyRefresh: 告知父组件应该将 refreshState 设置为 ready
+   * onRefresh: 告知父组件应该将 refreshState 设置为 loading
+   * renderLoadMore: 渲染加载更多的交互组件
+   * offsetLoadMore: ListView 底部距离视口距离小于该值，应该改变 loadMoreState
+   * onLoadMore: 告知父组件应该将 loadMoreState 设置为 loading
+   */
   static propTypes = {
     data: PropTypes.array.isRequired,
     renderRow: PropTypes.func.isRequired,
@@ -97,14 +95,12 @@ export default class ListView extends Component {
       shouldRefreshIscroller,
       ...others
     } = this.props;
-    let classes = classNames('list-view', {_user: className});
-
-    // TODO delete 多余的 props
+    className = classNames('list-view', {_user: className});
 
     return (
       <ScrollView
         ref='scrollView'
-        className={classes}
+        className={className}
         height='100%'
         width='100%'
         {...others}>

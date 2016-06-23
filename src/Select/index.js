@@ -7,45 +7,52 @@ import IScroll from 'xiscroll';
 import './style';
 
 const height = 34;
+const maskStyle = {height: (height * 3 + 'px')};
+const optionStyle = {
+  height: (height + 'px'),
+  lineHeight: (height + 'px')
+};
 
 /**
- * options
- * selectedIndex
+ * Select UI
+ * @param {object} props see static propTypes
  */
 export default class Select extends Component {
+  /**
+   * props
+   * @type {Object}
+   * options: 选项
+   * selectedIndex: 选中项的索引
+   * onChange: 监听 selectedIndex 改变，参数是 [selectedIndex]
+   * iscrollOptions: 配置 iscroll
+   */
   static propTypes = {
     options: PropTypes.array.isRequired,
     selectedIndex: PropTypes.number,
     onChange: PropTypes.func,
+    iscrollOptions: PropTypes.object,
     className: PropTypes.string,
-    style: PropTypes.object,
-    iscrollOptions: PropTypes.object
+    style: PropTypes.object
   };
 
   static defaultProps = {
-    selectedIndex: 0,
-    style: {},
-    iscrollOptions: {}
+    selectedIndex: 0
   };
 
+  // iscroll 实例
   iscroller = null;
 
 
   render() {
     let {options, className, style, ...others} = this.props;
-    let classes = classNames('select', {_user: className});
-    let optionStyle = {
-      height: (height + 'px'),
-      lineHeight: (height + 'px')
-    };
-    let maskStyle = {height: (height * 3 + 'px')};
-    style = {...style, height: (height * 7 + 'px')};
 
-    options = ['', '', ''].concat(options);
-    options = options.concat(['', '', '']);
+    className = classNames('select', {_user: className});
+    style = {...style, height: (height * 7 + 'px')};
+    // fill
+    options = ['', '', ''].concat(options).concat(['', '', '']);
 
     return (
-      <div ref='wrapper' className={classes} style={style} {...others}>
+      <div ref='wrapper' className={className} style={style} {...others}>
         <ul className={classNames('select-options')}>
           {options.map((option, index) => {
             let name = typeof option === 'object' ? option.name : option;
@@ -68,7 +75,7 @@ export default class Select extends Component {
     } = this.props;
     let {wrapper} = this.refs;
     this.iscroller = new IScroll(wrapper, {
-      probeType: 2,
+      probeType: 2,  // 默认值
       ...iscrollOptions
     });
 
@@ -96,13 +103,14 @@ export default class Select extends Component {
 
     this.resetPosition();
 
+    // 阻止默认事件
     wrapper.addEventListener('touchmove', (e) => {
       e.preventDefault();
     });
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.options.length !== this.props.options;
+    return true;
   }
 
   componentDidUpdate() {
@@ -111,9 +119,7 @@ export default class Select extends Component {
   }
 
   resetPosition() {
-    let {
-      selectedIndex
-    } = this.props;
+    let {selectedIndex} = this.props;
     // 定位到指定的 selectIndex
     this.iscroller.scrollTo(0, (-selectedIndex * height));
   }

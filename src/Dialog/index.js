@@ -25,15 +25,9 @@ Button.propTypes = {
   text: PropTypes.string,
 };
 
-
 /**
- * 对话框 UI
- * @param {object} props 传入组件的 props
- * @property {string} props.title 对话框的 title
- * @property {string} props.content 对话框内容
- * @property {array} props.buttons 按钮组
- * @property {object} props.buttons[i] 按钮 see `Button`
- * ...others
+ * Dialog UI
+ * @param {object} props see Dialog.propTypes
  */
 export default function Dialog(props) {
   let {title, content, buttons, className, ...others} = props;
@@ -43,7 +37,7 @@ export default function Dialog(props) {
     <div className={className} {...others}>
       <div>
         <header><strong>{title}</strong></header>
-        <p>{content}</p>
+        <div className={classNames('dialog-body')}>{content}</div>
         <footer>{buttons.map((button, index) => {
           return (<Button key={index} {...button} />);
         })}</footer>
@@ -52,22 +46,30 @@ export default function Dialog(props) {
   );
 }
 
+/**
+ * props
+ * @type {Object}
+ * title: 标题
+ * content: 内容
+ * buttons: 按钮组
+ */
 Dialog.propTypes = {
   title: PropTypes.string,
-  content: PropTypes.string,
-  buttons: PropTypes.array.isRequired,  // [{text: '', onClik: () => {}}]
+  content: PropTypes.node,
+  buttons: PropTypes.array,  // [{text: '', onClik: () => {}}]
 };
 
 Dialog.defaultProps = {
   buttons: []
 };
 
+
 Dialog.getInstance = (container) => {
   return createInstance(ApiContainer, container);
 };
 
-Dialog.show = (props, animation) => {
-  apiInstance.show(props, animation);
+Dialog.show = (props, fadeProps) => {
+  apiInstance.show(props, fadeProps);
 };
 
 
@@ -77,7 +79,6 @@ Dialog.show = (props, animation) => {
  */
 class ApiContainer extends Component {
   state = {
-    props: {},
     fadeProps: {
       show: false
     }
@@ -99,7 +100,7 @@ class ApiContainer extends Component {
 
     let nextState = {
       props: {...this.state.props, ...props},
-      fadeProps: {...this.fadeProps, ...fadeProps, show: true}
+      fadeProps: {...this.state.fadeProps, ...fadeProps, show: true}
     };
 
     this.setState(nextState);
@@ -108,7 +109,7 @@ class ApiContainer extends Component {
   hide() {
     let nextState = {
       ...this.state,
-      fadeProps: {...this.fadeProps, show: false}
+      fadeProps: {...this.state.fadeProps, show: false}
     };
     this.setState(nextState);
   }

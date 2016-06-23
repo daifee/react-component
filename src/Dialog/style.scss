@@ -33,7 +33,7 @@ $selector: '.#{$namespace}-dialog';
     padding: 1.2em $content-gap .5em;
   }
 
-  p {
+  &-body {
     font-size: 15px;
     padding: 0 $content-gap;
   }

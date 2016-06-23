@@ -7,23 +7,23 @@ import {classNames} from '../utils';
 import './style';
 
 /**
- * ScrollView 将 IScroll 包装为 React Component
- * `instance.iscroller` 是 `IScroll` 实例
- * @param {object} props 传入组件的 props
- * @property {string} props.className 自定义 class
- * @property {PtopTypes.node} props.children 子组件
- * @property {object} props.iscrollOptions IScroll 的配置
- * @property {string} props.width 组件的宽度，默认：100%
- * @property {string} props.height 组件的高度，默认：300px
- * @property {object} props.style 样式，在这里定义的 width, height 会被上面属性覆盖
+ * ScrollView UI
+ * @param {object} props see static propTypes
  */
 export default class ScrollView extends Component {
+  /**
+   * props
+   * @type {Object}
+   * iscrollOptions: 配置 iscroll
+   * width: 定义组件宽度
+   * height: 定义组件高度
+   */
   static propTypes = {
-    className: PropTypes.string,
-    children: PropTypes.node,
     iscrollOptions: PropTypes.object,
     width: PropTypes.string,
     height: PropTypes.string,
+    className: PropTypes.string,
+    children: PropTypes.node,
     style: PropTypes.object
   };
 
@@ -37,18 +37,18 @@ export default class ScrollView extends Component {
 
   render() {
     let {
-      className,
-      children,
       width,
       height,
+      className,
+      children,
       style,
       ...others
     } = this.props;
-    let classes = classNames('scroll-view', {_user: className});
+    className = classNames('scroll-view', {_user: className});
     style = {...style, width, height};
 
     return (
-      <div ref='wrapper' className={classes} style={style} {...others}>
+      <div ref='wrapper' className={className} style={style} {...others}>
         <div className={classNames('scroll-view-scroller')}>
           {children}
         </div>

@@ -4,8 +4,12 @@ import React, {
 import {classNames} from '../utils';
 import TabBarItem from './TabBarItem';
 
+/**
+ * TabBar UI
+ * @param {object} props see TabBar.propTypes
+ */
 export default function TabBar(props) {
-  const {
+  let {
     barColor,
     lineColor,
     color,
@@ -15,7 +19,7 @@ export default function TabBar(props) {
     className,
     ...others
   } = props;
-  let classes = classNames('tab-bar', {
+  let className = classNames('tab-bar', {
     '_user': className,
     'tab-bar-translucent': translucent
   });
@@ -27,7 +31,7 @@ export default function TabBar(props) {
   };
 
   return (
-    <div className={classes} {...others}>
+    <div className={className} {...others}>
       <div className={classNames('tab-bar-body')}>
         {children}
       </div>
@@ -35,7 +39,6 @@ export default function TabBar(props) {
         <div style={lineStyle} />
         <ul>{children.map((child, index) => {
           let props = {...child.props};
-          delete props.children;
 
           return (
             <Button
@@ -50,12 +53,20 @@ export default function TabBar(props) {
   );
 }
 
+/**
+ * props
+ * @type {Object}
+ * barColor: 导航条颜色
+ * lineColor: 线条颜色
+ * color: tab 内容颜色
+ * translucent: 是否半透明
+ */
 TabBar.propTypes = {
-  barColor: PropTypes.string,  // 导航条颜色
-  lineColor: PropTypes.string,  // 线条颜色
-  color: PropTypes.string,  // tab 内容验证
-  selectedColor: PropTypes.string,  // tab 内容选中状态颜色
-  translucent: PropTypes.bool  // 是否半透明
+  barColor: PropTypes.string,
+  lineColor: PropTypes.string,
+  color: PropTypes.string,
+  selectedColor: PropTypes.string,
+  translucent: PropTypes.bool
 };
 
 TabBar.defaultProps = {
@@ -70,13 +81,13 @@ TabBar.Item = TabBarItem;
 
 
 function Button(props) {
-  const {
+  let {
     // from TabBar
     color, selectedColor,
     // from TabBarItem
     selected, icon, selectedIcon, title, badge, onClick, className, ...others
   } = props;
-  let classes = classNames('tab-bar-item', {
+  className = classNames('tab-bar-item', {
     '_user': className,
     'tab-bar-item-selected': selected
   });
@@ -86,7 +97,7 @@ function Button(props) {
   };
 
   return (
-    <li className={classes} onClick={onClick} {...others}>
+    <li className={className} onClick={onClick} {...others}>
       <div className={classNames('tab-bar-item-label')}>
         <i className={iconClass} style={style} />
         {typeof badge !== 'undefined' ? (<span>{badge}</span>) : null}
