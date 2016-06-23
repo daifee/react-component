@@ -7,12 +7,8 @@ import ChildContainer from '../ChildContainer';
 import './style';
 
 /**
- * 抽屉（弹层）UI 封装动画
- * @param {object} props 传入组件的 props
- * @property {boolean} props.show 是否显示状态
- * @property {number} props.duration 动画持续时间
- * @property {string} props.timingFunction 动画类型
- * @property {string} props.direction 弹出方向
+ * 弹出层（抽屉）动画组件
+ * @param {object} props see Popup.propTypes
  */
 export default function Popup(props) {
   let {
@@ -34,7 +30,7 @@ export default function Popup(props) {
 
   return (
     <ReactCSSTransitionGroup
-      COMPONENT={ChildContainer}
+      component={ChildContainer}
       transitionName={classNames('popup')}
       transitionEnterTimeout={duration}
       transitionLeaveTimeout={duration}>
@@ -51,12 +47,22 @@ export default function Popup(props) {
   );
 }
 
+/**
+ * 定义属性类型
+ * @type {Object}
+ * show: 是否显示
+ * duration: 动画持续时间
+ * timingFunction: 动画类型
+ * direction: 从哪个方向出现
+ */
 Popup.propTypes = {
   show: PropTypes.bool.isRequired,
   duration: PropTypes.number.isRequired,
   timingFunction: PropTypes.string.isRequired,
   direction: PropTypes.oneOf(['left', 'right', 'top', 'bottom']).isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 
 Popup.defaultProps = {

@@ -14,23 +14,6 @@ $selector: '.#{$namespace}-dialog';
   height: 100%;
   text-align: center;
   background-color: $mask-bg;
-  transition-property: opacity;
-
-  &-enter {
-    opacity: .3;
-
-    &-active {
-      opacity: 1;
-    }
-  }
-
-  &-leave {
-    opacity: 1;
-
-    &-active {
-      opacity: .3;
-    }
-  }
 
   // main
   > div {

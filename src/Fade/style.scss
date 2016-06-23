@@ -1,0 +1,23 @@
+@import '../variables';
+
+$selector: '.#{$namespace}-fade';
+
+#{$selector} {
+  transition-property: opacity;
+
+  &-enter {
+    opacity: .3;
+
+    &-active {
+      opacity: 1;
+    }
+  }
+
+  &-leave {
+    opacity: 1;
+
+    &-active {
+      opacity: .3;
+    }
+  }
+}
