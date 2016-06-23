@@ -3,11 +3,40 @@ import React, {
   PropTypes
 } from 'react';
 import {classNames, createInstance} from '../utils';
-import TransitionShow from '../TransitionShow';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import ChildContainer from '../ChildContainer';
 import './style';
 
 let apiInstance = null;
 
+/**
+ * 对话框按钮
+ * @param {object} props 传统组件的 props
+ * @property {string} props.text [description]
+ * ...others
+ */
+function Button(props) {
+  let {text, ...others} = props;
+  return (
+    <button {...others}>{text}</button>
+  );
+}
+
+Button.propTypes = {
+  text: PropTypes.string,
+};
+
+
+/**
+ * 对话框 UI
+ * @param {object} props 传入组件的 props
+ * @property {string} props.title 对话框的 title
+ * @property {string} props.content 对话框内容
+ * @property {array} props.buttons 按钮组
+ * @property {object} props.buttons[i] 按钮 see `Button`
+ * @property {string} props.className 自定义样式
+ * ...others
+ */
 export default function Dialog(props) {
   let {title, content, buttons, className, ...others} = props;
   let classes = classNames('dialog', {_user: className});
@@ -40,130 +69,84 @@ Dialog.getInstance = (container) => {
   return createInstance(ApiContainer, container);
 };
 
-Dialog.show = (options) => {
-  apiInstance.show(title, content, buttons, options);
+Dialog.show = (props, animation) => {
+  apiInstance.show(props, animation);
 };
 
 
+/**
+ * 为 Dialog 组件提供 API 交互
+ */
 class ApiContainer extends Component {
-
-  render() {
-
-
-  }
-}
-
-
-
-
-export default function Dialog(props) {
-  let {
-    show,
-    zIndex,
-    duration,
-    timingFunction,
-    style,
-    className,
-    title,
-    content,
-    buttons,
-    _hide,
-    ...others
-  } = props;
-  let classes = classNames('dialog', {_user: className});
-  style = {
-    ...style,
-    zIndex,
-    transitionDuration: (duration + 'ms'),
-    transitionTimingFunction: timingFunction
+  // 默认值
+  static animation = {
+    duration: 80,
+    timingFunction: 'ease'
   };
 
-  return (
-    <TransitionShow
-      show={show}
-      transitionName={classNames('dialog')}
-      duration={duration}>
-      <div className={classes} style={style} {...others}>
-        <div>
-          <header><strong>{title}</strong></header>
-          <p>{content}</p>
-          <footer>{buttons.map((button, index) => {
-            return (<Button {...button} key={index} _hide={_hide} />);
-          })}</footer>
-        </div>
-      </div>
-    </TransitionShow>
-  );
-}
-
-Dialog.propTypes = {
-  ...TransitionShow.sharePropTypes,
-  title: PropTypes.string,
-  content: PropTypes.string,
-  buttons: PropTypes.array,  // [{text: '', onClik: () => {}}]
-  _hide: PropTypes.func
-};
-
-Dialog.defaultProps = {
-  ...TransitionShow.shareDefaultProps,
-  buttons: []
-};
-
-Dialog.getInstance = (container) => {
-  return createInstance(ApiContainer, container);
-};
-
-Dialog.show = (title, content, buttons, options) => {
-  apiInstance.show(title, content, buttons, options);
-};
-
-
-
-function Button(props) {
-  let {text, onClick, _hide, ...others} = props;
-  return (
-    <button
-      {...others}
-      onClick={(e) => {
-        _hide && _hide();
-        onClick && onClick(e);
-      }}>
-      {text}
-    </button>
-  );
-}
-
-Button.propTypes = {
-  text: PropTypes.string,
-  onClick: PropTypes.func,
-  _hide: PropTypes.func
-};
-
-
-class ApiContainer extends Component {
-  state = {};
+  state = {
+    show: false,
+    animation: ApiContainer.animation,
+    props: {}
+  };
 
   render() {
-    return (<Dialog {...this.state} _hide={this.hide} />);
+    let {show, props, animation} = this.state;
+    let {duration, timingFunction} = animation;
+    let style = {
+      ...props.style,
+      transitionDuration: (duration + 'ms'),
+      transitionTimingFunction: timingFunction
+    };
+
+    return (
+      <ReactCSSTransitionGroup
+        component={ChildContainer}
+        transitionName={classNames('dialog')}
+        transitionEnterTimeout={duration}
+        transitionLeaveTimeout={duration}>
+        {show ? (<Dialog {...props} style={style} />) : null}
+      </ReactCSSTransitionGroup>
+    );
   }
 
-  show(title, content, buttons, options) {
+  show(props, animation) {
+    // decorate
+    props = this._decorateProps(props);
+    animation = {...ApiContainer.animation, ...animation};
+
     let nextState = {
-      ...options,
-      title,
-      content,
-      buttons,
+      props: {...this.state.props, ...props},
+      animation: {...this.state.animation, ...animation},
       show: true
     };
 
     this.setState(nextState);
   }
 
-  hide = () => {
+  _decorateProps(props) {
+    if (!props.buttons) {
+      return props;
+    }
+
+    props.buttons.map((button) => {
+      let onClick = button.onClick;
+      button.onClick = (e) => {
+        onClick && onClick(e);
+        this.hide();
+      };
+    });
+
+    return props;
+  }
+
+  hide() {
     let nextState = {...this.state, show: false};
     this.setState(nextState);
   };
 }
 
 apiInstance = createInstance(ApiContainer);
+
+
 
