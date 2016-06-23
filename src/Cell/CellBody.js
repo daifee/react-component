@@ -3,17 +3,24 @@ import React, {
 } from 'react';
 import {classNames} from '../utils';
 
-
+/**
+ * CellBody UI
+ * @param {object} props see CellBody.propTypes
+ */
 export default function CellBody(props) {
-  const {className, children, ...others} = props;
-  const classes = classNames('cell-body', {_user: className});
+  let {className, children, ...others} = props;
+  className = classNames('cell-body', {_user: className});
 
   return (
-    <div {...others} className={classes}>{children}</div>
+    <div {...others} className={className}>{children}</div>
   );
 }
 
+/**
+ * CellBody 的 props
+ * @type {Object}
+ */
 CellBody.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string
 };

@@ -3,27 +3,47 @@ import React, {
 } from 'react';
 import {classNames} from '../utils';
 
+/**
+ * Cell UI
+ * @param {object} props see Cell.propTypes
+ */
 export default function Cell(props) {
-  const {children, className, component, access, arrow, ...others} = props;
-  const {href} = others;
-  const Component = href ? 'a' : (component ? component : 'div');
-  const classes = classNames('cell', {
+  let {children, className, href, access, arrow, ...others} = props;
+  className = classNames('cell', {
     'cell-access': access,
     'cell-arrow': arrow,
     _user: className
   });
 
+  if (href) {
+    props.component = 'a';
+  }
 
   return (
-    <Component {...others} className={classes}>{children}</Component>
+    <props.component {...others} className={className}>
+      {children}
+    </props.component>
   );
 }
 
+/**
+ * Cell 的 props
+ * @type {Object}
+ * component: 渲染的组件
+ * href: 超链接
+ * access: 是否有交互状态
+ * arrow: 是否有箭头
+ *
+ */
 Cell.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
   component: PropTypes.string,
   href: PropTypes.string,
   access: PropTypes.bool,
-  arrow: PropTypes.bool
+  arrow: PropTypes.bool,
+  children: PropTypes.node,
+  className: PropTypes.string
+};
+
+Cell.defaultProps = {
+  component: 'dev'
 };

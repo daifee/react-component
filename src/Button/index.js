@@ -1,8 +1,3 @@
-/**
- * Button Component
- * @module src/Button
- */
-
 import React, {
   PropTypes
 } from 'react';
@@ -11,40 +6,42 @@ import './style';
 
 
 /**
- * 输出
- * @param {Object} props 传入的 props
- * @param {String} props.type 按钮类型
+ * Button UI
+ * @param {object} props see Button.propTypes
  */
 export default function Button(props) {
-  const {children, className, type, disabled, onTouchStart, ...others} = props;
-  const {href} = others;
-  const classes = classNames('btn', {
+  let {type, disabled, href, children, className, ...others} = props;
+  className = classNames('btn', {
     '_user': className,
     [`btn-${type}`]: true,
     'btn-disabled': disabled
   });
-  const Component = href ? 'a' : 'button';
+  let Component = href ? 'a' : 'button';
 
   return (
     <Component
-      className={classes}
-      {...others}
-      onTouchStart={(e) => {
-        disabled && e.preventDefault();
-        onTouchStart && onTouchStart(e);
-      }}>
+      className={className}
+      disabled={disabled}
+      href={href}
+      {...others}>
       {children}
     </Component>
   );
 }
 
+/**
+ * Button 的 props
+ * @type {Object}
+ * type: 按钮类型
+ * disable: 是否禁用？如果定义了 href 属性，此属性无效
+ * href: 超链接，使用 <a />
+ */
 Button.propTypes = {
   type: PropTypes.oneOf(['default', 'primary', 'warn']),
   disabled: PropTypes.bool,
   href: PropTypes.string,
   children: PropTypes.node,
-  className: PropTypes.string,
-  onTouchStart: PropTypes.func
+  className: PropTypes.string
 };
 
 Button.defaultProps = {

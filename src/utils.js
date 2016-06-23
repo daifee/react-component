@@ -63,7 +63,7 @@ function prePush(arr, value) {
 /**
  * 根据传入的 Component 创建一个实例，并渲染到 container
  * @param  {Component} Component React 组件
- * @param  {?dom} container 实例将渲染到该 dom 节点，
+ * @param  {node} container 实例将渲染到该 dom 节点，
  * 如果缺少，内部创建 dom 节点。
  * @return {PropTypes.element}           Component 的实例
  */

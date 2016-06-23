@@ -3,16 +3,24 @@ import React, {
 } from 'react';
 import {classNames} from '../utils';
 
+/**
+ * CellHeader UI
+ * @param {object} props see CellHeader.propTypes
+ */
 export default function CellHeader(props) {
-  const {className, children, ...others} = props;
-  const classes = classNames('cell-header', {'_user': className});
+  let {className, children, ...others} = props;
+  className = classNames('cell-header', {_user: className});
 
   return (
-    <div className={classes} {...others}>{children}</div>
+    <div {...others} className={className}>{children}</div>
   );
-};
+}
 
+/**
+ * CellHeader 的 props
+ * @type {Object}
+ */
 CellHeader.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string
 };

@@ -3,16 +3,24 @@ import React, {
 } from 'react';
 import {classNames} from '../utils';
 
-export default function CellsTips(props) {
-  const {className, children, ...others} = props;
-  const classes = classNames('cells-tips', {_user: className});
+/**
+ * CellTips UI
+ * @param {object} props see CellTips.propTypes
+ */
+export default function CellTips(props) {
+  let {className, children, ...others} = props;
+  className = classNames('cell-tips', {_user: className});
 
   return (
-    <div className={classes} {...others}>{children}</div>
+    <div {...others} className={className}>{children}</div>
   );
-};
+}
 
-CellsTips.propTypes = {
-  children: PropTypes.node.isRequired,
+/**
+ * CellTips 的 props
+ * @type {Object}
+ */
+CellTips.propTypes = {
+  children: PropTypes.node,
   className: PropTypes.string
 };

@@ -3,22 +3,24 @@ import React, {
 } from 'react';
 import {classNames} from '../utils';
 
+/**
+ * Cells UI
+ * @param {object} props see Cells.propTypes
+ */
 export default function Cells(props) {
-  const {children, className, access, arrow, ...others} = props;
-  const classes = classNames('cells', {
-    'cells-access': access,
-    'cells-arrow': arrow,
-    _user: className
-  });
+  let {className, children, ...others} = props;
+  className = classNames('cells', {_user: className});
 
   return (
-    <div className={classes} {...others}>{children}</div>
+    <div {...others} className={className}>{children}</div>
   );
-};
+}
 
+/**
+ * Cells 的 props
+ * @type {Object}
+ */
 Cells.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  access: PropTypes.bool,
-  arrow: PropTypes.bool
+  children: PropTypes.node,
+  className: PropTypes.string
 };

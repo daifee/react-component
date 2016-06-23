@@ -3,17 +3,24 @@ import React, {
 } from 'react';
 import {classNames} from '../utils';
 
+/**
+ * CellFooter UI
+ * @param {object} props see CellFooter.propTypes
+ */
 export default function CellFooter(props) {
-  const {className, children, ...others} = props;
-  const classes = classNames('cell-footer', {_user: className});
+  let {className, children, ...others} = props;
+  className = classNames('cell-footer', {_user: className});
 
   return (
-    <div {...others} className={classes}>{children}</div>
+    <div {...others} className={className}>{children}</div>
   );
 }
 
+/**
+ * CellFooter 的 props
+ * @type {Object}
+ */
 CellFooter.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string
 };
-

@@ -86,22 +86,6 @@ $selector-cells: '.#{$namespace}-cells';
     padding: 0 $gap;
     font-size: $font-size-1;
   }
-
-  &-access {
-    > #{$selector} {
-      &:active {
-        background-color: $active-color;
-      }
-    }
-  }
-
-  &-arrow {
-    > #{$selector} {
-      &:after {
-        @include arrow();
-      }
-    }
-  }
 }
 
 

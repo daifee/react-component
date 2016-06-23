@@ -18,22 +18,20 @@ $selector: '.#{$namespace}-action-sheet';
 
 #{$selector} {
 
-  &-main {
-    > header {
-      padding: 0 16px;
-      line-height: 44px;
-      position: relative;
-      color: #888;
+  > header {
+    padding: 0 16px;
+    line-height: 44px;
+    position: relative;
+    color: #888;
 
-      &:after {
-        @include hr();
-      }
+    &:after {
+      @include hr();
     }
+  }
 
-    >ol {
-      margin: 0;
-      padding: 0;
-    }
+  >ol {
+    margin: 0;
+    padding: 0;
   }
 
   &-item {

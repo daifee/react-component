@@ -3,16 +3,24 @@ import React, {
 } from 'react';
 import {classNames} from '../utils';
 
-export default function CellsTitle(props) {
-  const {className, children, ...others} = props;
-  const classes = classNames('cells-title', {_user: className});
+/**
+ * CellTitle UI
+ * @param {object} props see CellTitle.propTypes
+ */
+export default function CellTitle(props) {
+  let {className, children, ...others} = props;
+  className = classNames('cell-title', {_user: className});
 
   return (
-    <div className={classes} {...others}>{children}</div>
+    <div {...others} className={className}>{children}</div>
   );
-};
+}
 
-CellsTitle.propTypes = {
-  children: PropTypes.node.isRequired,
+/**
+ * CellTitle 的 props
+ * @type {Object}
+ */
+CellTitle.propTypes = {
+  children: PropTypes.node,
   className: PropTypes.string
 };
