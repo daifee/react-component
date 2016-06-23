@@ -154,6 +154,14 @@ class ApiContainer extends Component {
 
     this.setState(nextState);
   }
+
+  _decorateProps(props) {
+    let callback = props.callback;
+    props.callback = (index) => {
+      callback && callback(index);
+      this.hide();
+    };
+  }
 }
 
 

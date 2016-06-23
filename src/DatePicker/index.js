@@ -8,119 +8,32 @@ import Popup from '../Popup';
 import './style';
 
 let apiInstance;
+const now = new Date();
 
-/**
- * DatePicker 组件(stateless component)
- * @param {object} props 传入组件的属性
- * @property {string} props.title 标题
- * @property {array} props.yearOptions “年”选项，对应 `Select` 组件的 `options` 属性
- * @property {number} props.selectedYearIndex 选中的“年”对应的索引，对应 `Select` 组
- * 件的 `selectedIndex` 属性
- * @property {array} props.monthOptions “月”选项，对应 `Select` 组件的 `options` 属性
- * @property {number} props.selectedMonthIndex 选中的“年”对应的索引，对应 `Select` 组
- * 件的 `selectedIndex` 属性
- * @property {array} props.dateOptions “日”选项，对应 `Select` 组件的 `options` 属性
- * @property {number} props.selectedDateIndex 选中的“年”对应的索引，对应 `Select` 组
- * 件的 `selectedIndex` 属性
- * @property {function} props.onChange 选项发生变化调用
- * @property {function} props.onConfirm 用户点击“确认”按钮
- * @property {function} props.onCancel 用户点击“取消”按钮
- * @property {string} props.className 自定义样式
- */
 export default class DatePicker extends Component {
   static propTypes = {
     title: PropTypes.string,
-    yearOptions: PropTypes.array.isRequired,
-    selectedYearIndex: PropTypes.number,
-    monthOptions: PropTypes.array.isRequired,
-    selectedMonthIndex: PropTypes.number,
-    dateOptions: PropTypes.array.isRequired,
-    selectedDateIndex: PropTypes.number,
+    minDate: PropTypes.object,
+    maxDate: PropTypes.object,
+    selectedDate: PropTypes.object,
     onChange: PropTypes.func,
     onConfirm: PropTypes.func,
     onCancel: PropTypes.func,
     className: PropTypes.string
   };
 
-  static getInstance = (container) => {
-    return createInstance(ApiContainer, container);
-  };
-
-  static show = (options) => {
-    apiInstance.show(options);
-  };
-
-  render() {
-    let {
-      title,
-      yearOptions,
-      selectedYearIndex,
-      monthOptions,
-      selectedMonthIndex,
-      dateOptions,
-      selectedDateIndex,
-      onConfirm,
-      onCancel,
-      className,
-      ...others
-    } = this.props;
-    let classes = classNames('date-picker', {_user: className});
-
-    return (
-      <div className={classes} {...others}>
-        <div className={classNames('date-picker-header')}>
-          <button onClick={onCancel}>取消</button>
-          <em>{title}</em>
-          <button onClick={onConfirm}>确定</button>
-        </div>
-        <div className={classNames('date-picker-body')}>
-          <Select
-            key='year'
-            options={yearOptions}
-            selectedMonthIndex={selectedMonthIndex}
-            selectedIndex={selectedYearIndex}
-            onChange={this.changeYear} />
-          <Select
-            key='month'
-            options={monthOptions}
-            selectedIndex={selectedMonthIndex}
-            onChange={this.changeMonth} />
-          <Select
-            key='date'
-            options={dateOptions}
-            selectedIndex={selectedDateIndex}
-            onChange={this.changeDate} />
-        </div>
-      </div>
-    );
-  }
-
-  changeDate = (selectedDateIndex) => {
-    let {selectedYearIndex, selectedMonthIndex, onChange} = this.props;
-    onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
-  };
-
-  changeMonth = (selectedMonthIndex) => {
-    let {selectedYearIndex, selectedDateIndex, onChange} = this.props;
-    onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
-  };
-
-  changeYear = (selectedYearIndex) => {
-    let {selectedMonthIndex, selectedDateIndex, onChange} = this.props;
-    onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
-  };
-}
-
-
-// 当前时间
-const now = new Date();
-
-class ApiContainer extends Component {
-  state = {
-    show: false,
+  static defaultProps = {
     minDate: now,
     maxDate: now,
     selectedDate: now
+  };
+
+  static getInstance = (container) {
+    return createInstance(ApiContainer, container);
+  };
+
+  static show = (props, popupProps) => {
+    apiInstance.show(props, popupProps);
   };
 
   // 方便 _onChange()
@@ -128,43 +41,52 @@ class ApiContainer extends Component {
   monthOptions = [];
   dateOptions = [];
 
-  _onChange = (yearIndex, monthIndex, dateIndex) => {
-    let {selectedDate, onChange} = this.state;
-    let year = this.yearOptions[yearIndex].value;
-    let month = this.monthOptions[monthIndex].value;
-    let date = this.dateOptions[dateIndex].value;
-
-    // change
-    selectedDate = new Date();
-    selectedDate.setFullYear(year);
-    selectedDate.setMonth(month - 1);
-    selectedDate.setDate(date);
-
-    let newState = {...this.state, selectedDate};
-
-    this.setState(newState);
-
-    onChange && (onChange(selectedDate));
-  };
-
-  _onConfirm = () => {
-    let {selectedDate, onConfirm} = this.state;
-
-    this.hide();
-
-    onConfirm && onConfirm(selectedDate);
-  };
-
-  _onCancel = () => {
-    let {onCancel} = this.state;
-
-    this.hide();
+  _cancel = () => {
+    let {onCancel} = this.props;
 
     onCancel && onCancel();
   };
 
+  _confirm = () => {
+    let {onConfirm} = this.props;
+
+    onConfirm && onConfirm();
+  };
+
+  _changeYear = (yearIndex) => {
+    let {selectedDate} = this.props;
+    let year = this.yearOptions[yearIndex].value;
+    let newDate = copyDate(selectedDate);
+    newDate.setFullYear(year);
+
+    this._change(newDate);
+  };
+
+  _changeMonth = (monthIndex) => {
+    let {selectedDate} = this.props;
+    let month = this.monthOptions[monthIndex].value;
+    let newDate = copyDate(selectedDate);
+    newDate.setMonth(month - 1);  // 纠正之前的 +1
+
+    this._change(newDate);
+  };
+
+  _changeDate = (dateIndex) => {
+    let {selectedDate} = this.props;
+    let date = this.dateOptions[dateIndex].value;
+    let newDate = copyDate(selectedDate);
+    newDate.setDate(date);
+
+    this._change(newDate);
+  };
+
+  change(selectedDate) {
+    let {onChange} = this.props;
+    onChange && onChange(selectedDate);
+  }
+
   render() {
-    let {title, show, className, ...others} = this.state;
+    let {title, className, ...others} = this.props;
     let yearOptions = this.yearOptions = this.getYearOptions();
     let selectedYearIndex = this.getSelectedYearIndex(yearOptions);
     let monthOptions = this.monthOptions = this.getMonthOptions();
@@ -172,54 +94,36 @@ class ApiContainer extends Component {
     let dateOptions = this.dateOptions = this.getDateOptions();
     let selectedDateIndex = this.getSelectedDateIndex(dateOptions);
 
-    delete others.minDate;
-    delete others.maxDate;
-    delete others.selectedDate;
-    delete others.onChange;
-    delete others.onConfirm;
-    delete others.onCancel;
+    className = classNames('date-picker', {_user: className});
 
     return (
-      <Popup
-        show={show}
-        className={className}
-        direction='bottom'
-        duration={6050}
-        {...others}>
-        <DatePicker
-          title={title}
-          yearOptions={yearOptions}
-          selectedYearIndex={selectedYearIndex}
-          monthOptions={monthOptions}
-          selectedMonthIndex={selectedMonthIndex}
-          dateOptions={dateOptions}
-          selectedDateIndex={selectedDateIndex}
-          onChange={this._onChange}
-          onConfirm={this._onConfirm}
-          onCancel={this._onCancel} />
-      </Popup>
+      <div className={className} {...others}>
+        <div className={classNames('date-picker-header')}>
+          <button onClick={this._cancel}>取消</button>
+          <em>{title}</em>
+          <button onClick={this._confirm}>确定</button>
+        </div>
+        <div className={classNames('date-picker-body')}>
+          <Select
+            key='year'
+            options={yearOptions}
+            selectedIndex={selectedYearIndex}
+            onChange={this._changeYear} />
+          <Select
+            key='month'
+            options={monthOptions}
+            selectedIndex={selectedMonthIndex}
+            onChange={this._changeMonth} />
+          <Select
+            key='date'
+            options={dateOptions}
+            selectedIndex={selectedDateIndex}
+            onChange={this._changeDate} />
+        </div>
+      </div>
     );
   }
 
-  show(options) {
-    let newState = {...this.state, ...options, show: true};
-    let time = newState.selectedDate.getTime();
-
-    if (time < newState.minDate.getTime()) {
-      newState.selectedDate = newState.minDate;
-    }
-
-    if (time > newState.maxDate.getTime()) {
-      newState.selectedDate = newState.maxDate;
-    }
-
-    this.setState(newState);
-  }
-
-  hide() {
-    let newState = {...this.state, show: false};
-    this.setState(newState);
-  }
 
   getYearOptions() {
     let {minDate, maxDate} = this.state;
@@ -279,6 +183,8 @@ class ApiContainer extends Component {
 
 }
 
+
+
 // 返回 option.value === value 的索引
 function indexOfOptions(options, value) {
   let result = -1;
@@ -332,63 +238,68 @@ function isSameYearMonth(date1, date2) {
   return isSameYear(date1, date2) && date1.getMonth() === date2.getMonth();
 }
 
+// copy Date 实例
+function copyDate(date) {
+  let newDate = new Date(date.getTime());
+
+  return newDate;
+}
+
+
+
+class ApiContainer extends Component {
+  state = {
+    popupProps: {
+      show: false
+    }
+  };
+
+  render() {
+    let {props, popupProps} = this.state;
+
+    return (
+      <Popup {...popupProps}>
+        <DatePicker {...props} />
+      </Popup>
+    );
+  }
+
+  show(props, popupProps) {
+    props = this._decorateProps(props);
+
+    let nextState = {
+      props: {...this.state.props, ...props},
+      popupProps: {...this.state.popupProps, ...popupProps, show: true}
+    };
+
+    this.setState(nextState);
+  }
+
+  hide() {
+    let nextState = {
+      props: {...props},
+      popupProps: {...popupProps, show: false}
+    };
+
+    this.setState(nextState);
+  }
+
+  _decorateProps(props) {
+    let onCancel = props.onCancel;
+    let onConfirm = props.onConfirm;
+
+    props.onCancel = () => {
+      onCancel && onCancel();
+      this.hide();
+    };
+
+    props.onConfirm = (date) => {
+      onConfirm && onConfirm(date);
+      this.hide();
+    };
+  }
+}
+
+
 
 apiInstance = createInstance(ApiContainer);
-
-// 这是一个扯淡的 wenti
-/*
-function DatePickerless(props) {
-  let {
-    title,
-    yearOptions,
-    selectedYearIndex,
-    monthOptions,
-    selectedMonthIndex,
-    dateOptions,
-    selectedDateIndex,
-    onChange,
-    onConfirm,
-    onCancel,
-    className,
-    ...others
-  } = props;
-  let classes = classNames('date-picker', {_user: className});
-
-  // 1 selectedMonthIndex 初始值为 5
-  console.warn(selectedMonthIndex, selectedDateIndex);
-
-  return (
-    <div className={classes}>
-      <div className={classNames('date-picker-header')}>
-        <button onClick={onCancel}>取消</button>
-        <em>{title}</em>
-        <button onClick={onConfirm}>确定</button>
-      </div>
-      <div className={classNames('date-picker-body')}>
-        <Select
-          options={yearOptions}
-          selectedIndex={selectedYearIndex}
-          onChange={function (selectedYearIndex) {
-            onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
-          }} />
-        <Select
-          options={monthOptions}
-          selectedIndex={selectedMonthIndex}
-          onChange={function (selectedMonthIndex) {
-            // 2. 将 selectedMonthIndex 设置为 11，并更新本组件
-            onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
-          }} />
-        <Select
-          options={dateOptions}
-          selectedIndex={selectedDateIndex}
-          onChange={function (selectedDateIndex) {
-            // 3. selectedMonthIndex 已经由 5 -> 11，但执行 onChange()
-            // 本作用域内的 selectedMonthIndex 还是 5。
-            console.warn(selectedMonthIndex, selectedDateIndex);
-            onChange(selectedYearIndex, selectedMonthIndex, selectedDateIndex);
-          }} />
-      </div>
-    </div>
-  );
-}
-*/
