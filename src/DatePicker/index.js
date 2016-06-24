@@ -28,7 +28,7 @@ export default class DatePicker extends Component {
     selectedDate: now
   };
 
-  static getInstance = (container) {
+  static getInstance = (container) => {
     return createInstance(ApiContainer, container);
   };
 
@@ -277,8 +277,8 @@ class ApiContainer extends Component {
 
   hide() {
     let nextState = {
-      props: {...props},
-      popupProps: {...popupProps, show: false}
+      ...this.state,
+      popupProps: {...this.state.popupProps, show: false}
     };
 
     this.setState(nextState);

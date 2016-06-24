@@ -8,7 +8,7 @@ import {classNames} from '../utils';
  * @param {object} props see IconCheck.propTypes
  */
 export default function IconCheck(props) {
-  const {size, className, style, ...others} = props;
+  let {size, className, style, ...others} = props;
   className = classNames('icon-check', {'_user': className});
   style = {
     ...style,

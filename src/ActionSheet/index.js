@@ -30,12 +30,14 @@ function Button(props) {
 /**
  * 传入 Button 的属性
  * @type {Object}
+ * index: 索引
  * children: 按钮（button）内容
  * cancel: 是取消按钮？
  * destroy: 是销毁按钮？
  * callback: 点击 action 按钮的回调，参数为对应的 action 索引
  */
 Button.propTypes = {
+  index: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
   cancel: PropTypes.bool,
   destroy: PropTypes.bool,
@@ -61,7 +63,7 @@ export default function ActionSheet(props) {
 
 
   return (
-    <div className={className}>
+    <div className={className} {...others}>
       {title ? (<header>{title}</header>) : null}
       <ol>{actions.map((content, index) => {
         return (
@@ -148,8 +150,8 @@ class ApiContainer extends Component {
 
   hide() {
     let nextState = {
-      props: {...props},
-      popupProps: {...popupProps, show: false}
+      ...this.state,
+      popupProps: {...this.state.popupProps, show: false}
     };
 
     this.setState(nextState);

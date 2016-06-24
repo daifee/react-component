@@ -19,7 +19,7 @@ export default function TabBar(props) {
     className,
     ...others
   } = props;
-  let className = classNames('tab-bar', {
+  className = classNames('tab-bar', {
     '_user': className,
     'tab-bar-translucent': translucent
   });

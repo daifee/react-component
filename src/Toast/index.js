@@ -93,7 +93,7 @@ class ApiContainer extends Component {
 
   show(props, fadeProps, time) {
     let nextState = {
-      props: {...this.state.props}
+      props: {...this.state.props},
       fadeProps: {...this.state.fadeProps, show: true}
     };
     this.setState(nextState);
@@ -102,7 +102,7 @@ class ApiContainer extends Component {
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
         this.hide();
-      }, time)
+      }, time);
     }
   }
 

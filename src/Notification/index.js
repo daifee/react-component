@@ -17,7 +17,7 @@ export default function Notification(props) {
   let {className, content, ...others} = props;
   className = classNames('notification', {_user: className});
 
-  return (<div className={className} {...content}>{content}</div>);
+  return (<div className={className} {...content} {...others}>{content}</div>);
 }
 
 Notification.propTypes = {
@@ -30,7 +30,7 @@ Notification.show = (props, time) => {
 };
 
 Notification.getInstance = (container) => {
-  return createInstance(Notifications, container);
+  return createInstance(ApiContainer, container);
 };
 
 
@@ -94,4 +94,4 @@ class ApiContainer extends Component {
 }
 
 
-apiInstance = createInstance(Notifications);
+apiInstance = createInstance(ApiContainer);

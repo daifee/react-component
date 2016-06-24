@@ -23,7 +23,7 @@ function Button(props) {
 }
 
 Button.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.string
 };
 
 /**
@@ -37,11 +37,11 @@ export default function Dialog(props) {
   return (
     <Mask>
       <div className={className} {...others}>
-          <header><strong>{title}</strong></header>
-          <div className={classNames('dialog-body')}>{content}</div>
-          <footer>{buttons.map((button, index) => {
-            return (<Button key={index} {...button} />);
-          })}</footer>
+        <header><strong>{title}</strong></header>
+        <div className={classNames('dialog-body')}>{content}</div>
+        <footer>{buttons.map((button, index) => {
+          return (<Button key={index} {...button} />);
+        })}</footer>
       </div>
     </Mask>
   );
@@ -58,7 +58,8 @@ Dialog.propTypes = {
   title: PropTypes.string,
   content: PropTypes.node,
   buttons: PropTypes.array,  // [{text: '', onClik: () => {}}]
-  maskProps: PropTypes.shape(Mask.propTypes)
+  maskProps: PropTypes.shape(Mask.propTypes),
+  className: PropTypes.string
 };
 
 Dialog.defaultProps = {

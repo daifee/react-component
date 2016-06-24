@@ -8,7 +8,7 @@ import {classNames} from '../utils';
  * @param {object} props see IconLoading.propTypes
  */
 export default function IconLoading(props) {
-  let {className, scale, className, style, ...others} = props;
+  let {scale, className, style, ...others} = props;
   let leafs = createLeafs();
   className = classNames('icon-loading', {_user: className});
   style = {
