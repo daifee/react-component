@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 import {classNames, createInstance} from '../utils';
 import Fade from '../Fade';
+import Mask from '../Mask';
 import './style';
 
 let apiInstance = null;
@@ -34,15 +35,15 @@ export default function Dialog(props) {
   className = classNames('dialog', {_user: className});
 
   return (
-    <div className={className} {...others}>
-      <div>
-        <header><strong>{title}</strong></header>
-        <div className={classNames('dialog-body')}>{content}</div>
-        <footer>{buttons.map((button, index) => {
-          return (<Button key={index} {...button} />);
-        })}</footer>
+    <Mask>
+      <div className={className} {...others}>
+          <header><strong>{title}</strong></header>
+          <div className={classNames('dialog-body')}>{content}</div>
+          <footer>{buttons.map((button, index) => {
+            return (<Button key={index} {...button} />);
+          })}</footer>
       </div>
-    </div>
+    </Mask>
   );
 }
 
@@ -57,10 +58,12 @@ Dialog.propTypes = {
   title: PropTypes.string,
   content: PropTypes.node,
   buttons: PropTypes.array,  // [{text: '', onClik: () => {}}]
+  maskProps: PropTypes.shape(Mask.propTypes)
 };
 
 Dialog.defaultProps = {
-  buttons: []
+  buttons: [],
+  maskProps: Mask.defaultProps
 };
 
 

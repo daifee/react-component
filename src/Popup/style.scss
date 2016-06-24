@@ -5,6 +5,7 @@ $selector-main: '#{$selector}-main';
 
 #{$selector} {
   position: fixed;
+  z-index: $z-index-popup;
   left: 0;
   top: 0;
   width: 100%;
