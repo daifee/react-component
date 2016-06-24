@@ -4,53 +4,29 @@ import React, {
 } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {classNames, createInstance} from '../utils';
+import ChildContainer from '../ChildContainer';
 import './style';
 
 let apiInstance = null;
-// Notification 显示和隐藏动画持续时间 毫秒
-// container 和 item 都需要设置 duration，而且必须相同
-// 所以不能为 item 自定义 duration
-let duration = 150;
-let id = 0;
-function getId() {
-  return id++;
-}
 
-
+/**
+ * Notification UI
+ * @param {object} props see Notification.propTypes
+ */
 export default function Notification(props) {
-  let {type, content, timingFunction, className, style, ...others} = props;
-  let classes = classNames('notification', `notification-${type}`, {
-    _user: className
-  });
-  style = {
-    ...style,
-    transitionDuration: (duration + 'ms'),
-    transitionTimingFunction: timingFunction
-  };
+  let {className, content, ...others} = props;
+  className = classNames('notification', {_user: className});
 
-  return (
-    <li className={classes} style={style} {...others}>
-      <span>{content}</span>
-    </li>
-  );
+  return (<div className={className} {...content}>{content}</div>);
 }
 
 Notification.propTypes = {
-  type: PropTypes.oneOf(['default', 'info', 'success', 'warning', 'danger']),
-  content: PropTypes.string.isRequired,
-  timingFunction: PropTypes.string,
   className: PropTypes.string,
-  style: PropTypes.object
+  content: PropTypes.node
 };
 
-Notification.defaultProps = {
-  type: 'default',
-  timingFunction: 'ease-in'
-};
-
-
-Notification.show = (content, type, options) => {
-  apiInstance.show(content, type, options);
+Notification.show = (props, time) => {
+  apiInstance.show(props, time);
 };
 
 Notification.getInstance = (container) => {
@@ -58,63 +34,60 @@ Notification.getInstance = (container) => {
 };
 
 
+//
+const duration = 200;
+const timingFunction = 'ease';
+// ID 生成器
+function getId() {
+  return getId.id++;
+}
+getId._id = 0;
 
-class Notifications extends Component {
+class ApiContainer extends Component {
   state = {
-    zIndex: 9999,
     notifications: []
   };
 
   render() {
-    const {
-      zIndex,
-      notifications
-    } = this.state;
-    let classes = classNames('notification-container');
-    let style = {
-      zIndex
-    };
+    let {notifications} = this.state;
 
     return (
       <ReactCSSTransitionGroup
-        component='ul'
+        component={ChildContainer}
         transitionName={classNames('notification')}
         transitionEnterTimeout={duration}
-        transitionLeaveTimeout={duration}
-        className={classes}
-        style={style}>
+        transitionLeaveTimeout={duration}>
         {notifications.map((item) => {
-          const {id, ...others} = item;
-          return (<Notification key={id} {...others} />);
+          let {_id, style, ...others} = item;
+          style = {
+            ...style,
+            transitionDuration: (duration + 'ms'),
+            transitionTimingFunction: timingFunction
+          };
+          return (<Notification key={_id} {...others} />);
         })}
       </ReactCSSTransitionGroup>
     );
   }
 
-  // zIndex, timeout
-  show(content, type, options = {}) {
+  show(props, time = 3000) {
+    props['_id'] = getId();
+
     let [...notifications] = this.state.notifications;
-    // others 赋值到 notification
-    let {timeout, zIndex, ...others} = options;
-    let id = getId();
-    let notification = {id, type, content, ...others};
-
-    notifications.unshift(notification);
-
-    let nextState = {zIndex, notifications};
-
+    notifications = notifications.push(props);
+    let nextState = {notifications};
     this.setState(nextState);
 
     setTimeout(() => {
-      this.hide(id);
-    }, (timeout || 2000));
+      this._hide(props['_id']);
+    }, time);
   }
 
-  hide(id) {
+  _hide(id) {
     let notifications = this.state.notifications.filter((item) => {
-      return id !== item.id;
+      return id !== item['_id'];
     });
-    let nextState = {...this.state, notifications};
+    let nextState = {notifications};
 
     this.setState(nextState);
   }

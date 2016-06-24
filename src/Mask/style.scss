@@ -9,41 +9,5 @@ $selector: '.#{$namespace}-mask';
   top: 0;
   left: 0;
   background-color: $mask-bg;
-  transition-property: background-color;
-
-  &-enter {
-    background-color: $mask-bg-transparent;
-
-    &-active {
-      background-color: $mask-bg;
-    }
-  }
-
-  &-leave {
-    background-color: $mask-bg;
-
-    &-active {
-      background-color: $mask-bg-transparent;
-    }
-  }
-
-  &-transparent {
-    background-color: $mask-bg-transparent;;
-
-    &-enter {
-      background-color: $mask-bg-transparent;;
-
-      &-active {
-        background-color: $mask-bg-transparent;;
-      }
-    }
-
-    &-leave {
-      background-color: $mask-bg-transparent;;
-      &-active {
-        background-color: $mask-bg-transparent;;
-      }
-    }
-  }
 }
 
