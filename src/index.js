@@ -33,3 +33,4 @@ export ScrollView from './ScrollView';
 export ListView from './ListView';
 export Select from './Select';
 export DatePicker from './DatePicker';
+export Page from './Page';

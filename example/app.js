@@ -68,4 +68,33 @@ function App() {
 }
 
 
+
+export default class HomePage extends Component {
+
+  // methods
+  render() {
+    let {list} = this.props.route;
+
+    list.sort((left, right) => {
+      return left.name > right.name;
+    });
+
+    return (
+      <Page
+        title='React Component'
+        subTitle='组件化开发'>
+        <CellsTitle>Component</CellsTitle>
+        <Cells arrow={true}>{list.map((item, index) => {
+          return (
+            <Cell key={index} access={true} href={item.href}>
+              <CellBody>{item.name}</CellBody>
+            </Cell>
+          );
+        })}</Cells>
+      </Page>
+    );
+  }
+}
+
+
 ReactDOM.render((<App />), document.getElementById('app'));
