@@ -124,6 +124,10 @@ ActionSheet.show = (props, popupProps) => {
 
 class ApiContainer extends Component {
   state = {
+    props: {
+      actions: [],
+      callback: () => {}
+    },
     popupProps: {
       show: false
     }

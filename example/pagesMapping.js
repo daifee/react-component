@@ -2,8 +2,10 @@
 import ActionSheet from './pages/ActionSheet.js';
 
 
-export default = [
+const mapping = [
   
   {name: 'ActionSheet', component: ActionSheet}
   
 ];
+
+export default mapping;

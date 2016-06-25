@@ -7,11 +7,12 @@
     "url": "https://github.com/daifee/react-component.git"
   },
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --progress --colors --host 0.0.0.0 --port 8082  --config ./webpack.config.dev.js",
+    "refreshPages": "node ./example/createPagesMapping.js",
+    "start": "npm run refreshPages && webpack-dev-server --hot --inline --progress --colors --host 0.0.0.0 --port 8082  --config ./webpack.config.dev.js",
     "test": "npm run lint && mocha --require ./test/setup.js --compilers js:babel-core/register --recursive",
     "lint": "eslint src/",
     "lint:watch": "esw -w src/",
-    "esdoc": "esdoc -c esdoc.json",
+    "doc": "esdoc -c esdoc.json",
     "build": "npm run clear && npm run build:development && npm run build:production",
     "build:production": "NODE_ENV=production webpack -p --progress --colors",
     "build:development": "NODE_ENV=development webpack --progress --colors",

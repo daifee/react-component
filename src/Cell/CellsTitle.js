@@ -9,7 +9,7 @@ import {classNames} from '../utils';
  */
 export default function CellTitle(props) {
   let {className, children, ...others} = props;
-  className = classNames('cell-title', {_user: className});
+  className = classNames('cells-title', {_user: className});
 
   return (
     <div {...others} className={className}>{children}</div>

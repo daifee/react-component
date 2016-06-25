@@ -2,8 +2,10 @@
 import <%- page %> from './pages/<%- page %>.js';
 <% }) %>
 
-export default = [
+const mapping = [
   <% pages.forEach(function (page) { %>
   {name: '<%- page %>', component: <%- page %>}
   <% }) %>
 ];
+
+export default mapping;

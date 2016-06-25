@@ -22,7 +22,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss', '.css'],
     alias: {
-      'daifee-react-component': '../../src'
+      'daifee-react-component': path.resolve(ROOT_PATH, 'src')
     }
   },
   module: {

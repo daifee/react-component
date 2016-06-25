@@ -14,15 +14,12 @@ export default function Cell(props) {
     'cell-arrow': arrow,
     _user: className
   });
-
-  if (href) {
-    props.component = 'a';
-  }
+  let Component = href ? 'a' : props.component;
 
   return (
-    <props.component {...others} className={className}>
+    <Component {...others} href={href} className={className}>
       {children}
-    </props.component>
+    </Component>
   );
 }
 

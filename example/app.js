@@ -1,100 +1,63 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, hashHistory} from 'react-router';
-import HomePage from './HomePage';
-import ButtonPage from './ButtonPage';
-import CellPage from './CellPage';
-import IconPage from './IconPage';
-import MaskPage from './MaskPage';
-import ToastPage from './ToastPage';
-import DialogPage from './DialogPage';
-import NotificationPage from './NotificationPage';
-import ActionSheetPage from './ActionSheetPage';
-import TabBarPage from './TabBarPage';
-import PopupPage from './PopupPage';
-import SwitchPage from './SwitchPage';
-import CheckboxPage from './CheckboxPage';
-import ScrollViewPage from './ScrollViewPage';
-import ListViewPage from './ListViewPage';
-import SelectPage from './SelectPage';
-import DatePickerPage from './DatePickerPage';
-
+import pagesMapping from './pagesMapping';
+import {
+  Page,
+  CellsTitle,
+  Cells,
+  Cell,
+  CellBody
+} from 'daifee-react-component';
 import FastClick from 'fastclick';
+import './style';
 
 // fastclick
 FastClick.attach(document.body);
 
-const list = [
-  {name: 'Button', href: '#button'},
-  {name: 'Cell', href: '#cell'},
-  {name: 'Icon', href: '#icon'},
-  {name: 'Mask', href: '#mask'},
-  {name: 'Toast', href: '#toast'},
-  {name: 'Dialog', href: '#dialog'},
-  {name: 'Notification', href: '#notification'},
-  {name: 'ActionSheet', href: '#actionsheet'},
-  {name: 'TabBar', href: '#tabbar'},
-  {name: 'Popup', href: '#popup'},
-  {name: 'Switch', href: '#switch'},
-  {name: 'Checkbox', href: '#checkbox'},
-  {name: 'ScrollView', href: '#scrollview'},
-  {name: 'ListView', href: '#listview'},
-  {name: 'Select', href: '#select'},
-  {name: 'DatePicker', href: '#datepicker'}
-];
+// 定义路由
+function Routes() {
+  let routes = pagesMapping.map((page, index) => {
+    return (<Route key={index} path={page.name} component={page.component} />);
+  });
 
-function App() {
+  routes.unshift(<IndexRoute key={pagesMapping.length} component={Home}/>);
+
   return (
     <Router history={hashHistory}>
-      <Route path='/' component={HomePage} list={list} />
-      <Route path='/button' component={ButtonPage} />
-      <Route path='/cell' component={CellPage} />
-      <Route path='/icon' component={IconPage} />
-      <Route path='/mask' component={MaskPage} />
-      <Route path='/toast' component={ToastPage} />
-      <Route path='/dialog' component={DialogPage} />
-      <Route path='/notification' component={NotificationPage} />
-      <Route path='/actionsheet' component={ActionSheetPage} />
-      <Route path='/tabbar' component={TabBarPage} />
-      <Route path='/popup' component={PopupPage} />
-      <Route path='/switch' component={SwitchPage} />
-      <Route path='/checkbox' component={CheckboxPage} />
-      <Route path='/scrollview' component={ScrollViewPage} />
-      <Route path='/listview' component={ListViewPage} />
-      <Route path='/select' component={SelectPage} />
-      <Route path='/datepicker' component={DatePickerPage} />
+      <Route path='/' component={App}>
+        {routes}
+      </Route>
     </Router>
   );
 }
 
+// app
+function App(props) {
+  document.title = props.children.type.name;
 
-
-export default class HomePage extends Component {
-
-  // methods
-  render() {
-    let {list} = this.props.route;
-
-    list.sort((left, right) => {
-      return left.name > right.name;
-    });
-
-    return (
-      <Page
-        title='React Component'
-        subTitle='组件化开发'>
-        <CellsTitle>Component</CellsTitle>
-        <Cells arrow={true}>{list.map((item, index) => {
-          return (
-            <Cell key={index} access={true} href={item.href}>
-              <CellBody>{item.name}</CellBody>
-            </Cell>
-          );
-        })}</Cells>
-      </Page>
-    );
-  }
+  return (
+    <Page.Scene>
+      {React.cloneElement(props.children, {key: props.location.pathname})}
+    </Page.Scene>
+  );
 }
 
+// 首页
+function Home() {
+  return (
+    <Page>
+      <h1>Components</h1>
+      <CellsTitle>Components</CellsTitle>
+      <Cells>{pagesMapping.map((page, index) => {
+        return (
+          <Cell key={index} arrow={true} access={true} href={'#' + page.name}>
+            <CellBody>{page.name}</CellBody>
+          </Cell>
+        );
+      })}</Cells>
+    </Page>
+  );
+}
 
-ReactDOM.render((<App />), document.getElementById('app'));
+ReactDOM.render((<Routes />), document.getElementById('app'));

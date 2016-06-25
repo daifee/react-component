@@ -7,7 +7,7 @@ import {
   IconAttention,
   IconLoading
 } from '../Icon';
-import Fade from '../fade';
+import Fade from '../Fade';
 import './style';
 
 let apiInstance = null;
@@ -34,7 +34,7 @@ Toast.propTypes = {
 };
 
 Toast.defaultProps = {
-  icon: ''
+  icon: null
 };
 
 Toast.getInstance = (container) => {
@@ -76,6 +76,9 @@ function mapIcon(name) {
 
 class ApiContainer extends Component {
   state = {
+    props: {
+      content: ''
+    },
     fadeProps: {
       show: false
     }

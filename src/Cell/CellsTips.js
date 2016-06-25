@@ -9,7 +9,7 @@ import {classNames} from '../utils';
  */
 export default function CellTips(props) {
   let {className, children, ...others} = props;
-  className = classNames('cell-tips', {_user: className});
+  className = classNames('cells-tips', {_user: className});
 
   return (
     <div {...others} className={className}>{children}</div>

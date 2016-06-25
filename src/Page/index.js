@@ -7,8 +7,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './style';
 
 
-const timeout = 500;
-const duration = 300;
+const timeout = 50000;
+const duration = 30000;
 const timingFunction = 'ease';
 
 /**
@@ -46,13 +46,17 @@ Page.Scene = Scene;
  * @param {object} props see Scene.propTypes
  */
 function Scene(props) {
+  let {className, children, ...others} = props;
+  className = classNames('page-scene', {_user: className});
+
   return (
     <ReactCSSTransitionGroup
-      component={ChildContainer}
+      component='div'
       transitionName={classNames('page')}
       transitionEnterTimeout={timeout}
-      transitionLeaveTimeout={timeout}>
-      {props.children}
+      transitionLeaveTimeout={timeout}
+      className={className}>
+      {children}
     </ReactCSSTransitionGroup>
   );
 }
@@ -62,5 +66,6 @@ function Scene(props) {
  * @type {Object}
  */
 Scene.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string
 };
