@@ -144,6 +144,8 @@ class ApiContainer extends Component {
   }
 
   show(props, popupProps) {
+    props = this._decorateProps(props);
+
     let nextState = {
       props: {...this.state.props, ...props},
       popupProps: {...this.state.popupProps, ...popupProps, show: true}
@@ -167,6 +169,8 @@ class ApiContainer extends Component {
       callback && callback(index);
       this.hide();
     };
+
+    return props;
   }
 }
 
