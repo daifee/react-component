@@ -8,13 +8,14 @@ import {classNames} from '../utils';
  * @param {object} props see Cell.propTypes
  */
 export default function Cell(props) {
-  let {children, className, href, access, arrow, ...others} = props;
+  let {children, className, href, access, arrow, component, ...others} = props;
   className = classNames('cell', {
     'cell-access': access,
     'cell-arrow': arrow,
     _user: className
   });
-  let Component = href ? 'a' : props.component;
+
+  let Component = component ? component : (href ? 'a' : 'div');
 
   return (
     <Component {...others} href={href} className={className}>
@@ -33,7 +34,10 @@ export default function Cell(props) {
  *
  */
 Cell.propTypes = {
-  component: PropTypes.string,
+  component: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   href: PropTypes.string,
   access: PropTypes.bool,
   arrow: PropTypes.bool,
@@ -41,6 +45,3 @@ Cell.propTypes = {
   className: PropTypes.string
 };
 
-Cell.defaultProps = {
-  component: 'dev'
-};

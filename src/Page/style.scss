@@ -2,19 +2,78 @@
 
 $selector: '.#{$namespace}-page';
 
-@mixin hide() {
-  opacity: 0.2;
+@mixin transform-leave() {
+  opacity: 0.01;
   transform: translate3d(100%, 0, 0);
 }
 
-@mixin show() {
+@mixin transform-enter() {
   opacity: 1;
   transform: translate3d(0%, 0, 0);
+}
+
+@mixin opacity-leave() {
+  opacity: 0.01;
+}
+
+@mixin opacity-enter() {
+  opacity: 1;
 }
 
 #{$selector}-scene {
   position: relative;
   height: 100%;
+
+  // push
+  &-push-enter {
+    @include transform-leave();
+
+    &-active {
+      @include transform-enter();
+    }
+  }
+
+  &-push-leave {
+    @include opacity-enter();
+
+    &-active {
+      @include opacity-leave();
+    }
+  }
+
+  // pop
+  &-pop-enter {
+    @include opacity-leave();
+
+    &-active {
+      @include opacity-enter();
+    }
+  }
+
+  &-pop-leave {
+    @include transform-enter();
+
+    &-active {
+      @include transform-leave();
+    }
+  }
+
+  // replace  与 push 相同
+  &-replace-enter {
+    @include transform-leave();
+
+    &-active {
+      @include transform-enter();
+    }
+  }
+
+  &-replace-leave {
+    @include opacity-enter();
+
+    &-active {
+      @include opacity-leave();
+    }
+  }
 }
 
 #{$selector} {
@@ -24,21 +83,4 @@ $selector: '.#{$namespace}-page';
   min-width: 100%;
   min-height: 100%;
   transition-property: opacity, transform;
-  transform: translate3d(0%, 0, 0);
-
-  &-enter {
-    @include hide();
-
-    &-active {
-      @include show();
-    }
-  }
-
-  &-leave {
-    @include show();
-
-    &-active {
-      @include hide();
-    }
-  }
 }

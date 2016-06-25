@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, IndexRoute, hashHistory} from 'react-router';
+import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import pagesMapping from './pagesMapping';
 import {
   Page,
@@ -34,11 +34,12 @@ function Routes() {
 
 // app
 function App(props) {
+  let {location, children} = props;
   document.title = props.children.type.name;
 
   return (
-    <Page.Scene>
-      {React.cloneElement(props.children, {key: props.location.pathname})}
+    <Page.Scene action={location.action}>
+      {React.cloneElement(children, {key: location.pathname})}
     </Page.Scene>
   );
 }
@@ -51,7 +52,12 @@ function Home() {
       <CellsTitle>Components</CellsTitle>
       <Cells>{pagesMapping.map((page, index) => {
         return (
-          <Cell key={index} arrow={true} access={true} href={'#' + page.name}>
+          <Cell
+            key={index}
+            arrow={true}
+            access={true}
+            component={Link}
+            to={'/' + page.name}>
             <CellBody>{page.name}</CellBody>
           </Cell>
         );

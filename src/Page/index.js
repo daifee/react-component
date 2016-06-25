@@ -7,12 +7,13 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './style';
 
 
-const timeout = 50000;
-const duration = 30000;
+const timeout = 500;
+const duration = 400;
 const timingFunction = 'ease';
 
 /**
  * Page UI
+ * 应该用于单页应用，配合 react-router 使用
  * @param {object} props see Page.propTypes
  */
 export default function Page(props) {
@@ -43,16 +44,21 @@ Page.Scene = Scene;
 
 /**
  * Scene 过场动画
+ * 根据 react-router 的 location.action 定义不同的过场动画
+ *   * PUSH
+ *   * POP
+ *   * REPLACE
  * @param {object} props see Scene.propTypes
  */
 function Scene(props) {
-  let {className, children, ...others} = props;
+  let {className, children, action, ...others} = props;
   className = classNames('page-scene', {_user: className});
+  action = action.toLowerCase();
 
   return (
     <ReactCSSTransitionGroup
       component='div'
-      transitionName={classNames('page')}
+      transitionName={classNames(`page-scene-${action}`)}
       transitionEnterTimeout={timeout}
       transitionLeaveTimeout={timeout}
       className={className}>
@@ -66,6 +72,11 @@ function Scene(props) {
  * @type {Object}
  */
 Scene.propTypes = {
+  action: PropTypes.oneOf(['push', 'pop', 'replace', 'PUSH', 'POP', 'REPLACE']),
   children: PropTypes.node,
   className: PropTypes.string
+};
+
+Scene.defaultProps = {
+  action: 'push'
 };
