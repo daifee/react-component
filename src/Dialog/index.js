@@ -31,11 +31,11 @@ Button.propTypes = {
  * @param {object} props see Dialog.propTypes
  */
 export default function Dialog(props) {
-  let {title, content, buttons, className, ...others} = props;
+  let {title, content, buttons, className, maskProps, ...others} = props;
   className = classNames('dialog', {_user: className});
 
   return (
-    <Mask>
+    <Mask {...maskProps}>
       <div className={className} {...others}>
         <header><strong>{title}</strong></header>
         <div className={classNames('dialog-body')}>{content}</div>

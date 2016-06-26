@@ -9,6 +9,8 @@ import Checkbox from './pages/Checkbox.js';
 
 import DatePicker from './pages/DatePicker.js';
 
+import Dialog from './pages/Dialog.js';
+
 import Switch from './pages/Switch.js';
 
 
@@ -23,6 +25,8 @@ const mapping = [
   {name: 'Checkbox', component: Checkbox},
   
   {name: 'DatePicker', component: DatePicker},
+  
+  {name: 'Dialog', component: Dialog},
   
   {name: 'Switch', component: Switch},
   
