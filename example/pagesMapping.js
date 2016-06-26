@@ -17,6 +17,8 @@ import Icon from './pages/Icon.js';
 
 import ListView from './pages/ListView.js';
 
+import Mask from './pages/Mask.js';
+
 import Switch from './pages/Switch.js';
 
 
@@ -39,6 +41,8 @@ const mapping = [
   {name: 'Icon', component: Icon},
   
   {name: 'ListView', component: ListView},
+  
+  {name: 'Mask', component: Mask},
   
   {name: 'Switch', component: Switch},
   
