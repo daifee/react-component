@@ -25,6 +25,8 @@ import Page from './pages/Page.js';
 
 import Popup from './pages/Popup.js';
 
+import ScrollView from './pages/ScrollView.js';
+
 import Switch from './pages/Switch.js';
 
 
@@ -55,6 +57,8 @@ const mapping = [
   {name: 'Page', component: Page},
   
   {name: 'Popup', component: Popup},
+  
+  {name: 'ScrollView', component: ScrollView},
   
   {name: 'Switch', component: Switch},
   

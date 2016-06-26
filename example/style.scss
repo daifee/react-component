@@ -24,3 +24,29 @@ h1 {
 .wrap {
   padding: 0 16px;
 }
+
+.scroll-horizontal {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 100%;
+  padding: 10px;
+  white-space: nowrap;
+  box-sizing: border-box;
+
+  > li {
+    box-sizing: border-box;
+    display: inline-block;
+    height: 100px;
+    width: 100px;
+    line-height: 100px;
+    text-align: center;
+    border: 1px solid #eee;
+    margin-left: 10px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
