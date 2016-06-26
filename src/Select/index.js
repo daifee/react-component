@@ -74,39 +74,42 @@ export default class Select extends Component {
       onChange
     } = this.props;
     let {wrapper} = this.refs;
-    this.iscroller = new IScroll(wrapper, {
-      probeType: 2,  // 默认值
-      ...iscrollOptions
-    });
+    // fuck a bug
+    setTimeout(() => {
+      this.iscroller = new IScroll(wrapper, {
+        probeType: 2,  // 默认值
+        ...iscrollOptions
+      });
 
-    this.iscroller.on('scrollEnd', () => {
-      let index = Math.abs(this.iscroller.y / height);
-      onChange && onChange(index);
-    });
+      this.iscroller.on('scrollEnd', () => {
+        let index = Math.abs(this.iscroller.y / height);
+        onChange && onChange(index);
+      });
 
-    // 通过 hookNewY 修改滚动位置
-    this.iscroller.hookNewY = (newY) => {
-      // Math.ceil(-8.74) = -8
-      // 所以已经 -1 了
-      let index = Math.ceil(newY / height);
+      // 通过 hookNewY 修改滚动位置
+      this.iscroller.hookNewY = (newY) => {
+        // Math.ceil(-8.74) = -8
+        // 所以已经 -1 了
+        let index = Math.ceil(newY / height);
 
-      if (Math.abs(this.iscroller.distY) > (height / 2)) {
-        if (this.iscroller.directionY === 1) {
-          index -= 1;
+        if (Math.abs(this.iscroller.distY) > (height / 2)) {
+          if (this.iscroller.directionY === 1) {
+            index -= 1;
+          }
         }
-      }
 
-      newY = index * height;
+        newY = index * height;
 
-      return newY;
-    };
+        return newY;
+      };
 
-    this.resetPosition();
+      this.resetPosition();
 
-    // 阻止默认事件
-    wrapper.addEventListener('touchmove', (e) => {
-      e.preventDefault();
-    });
+      // 阻止默认事件
+      wrapper.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+      });
+    }, 0);
   }
 
   shouldComponentUpdate(nextProps) {

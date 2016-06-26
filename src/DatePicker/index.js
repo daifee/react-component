@@ -64,9 +64,18 @@ export default class DatePicker extends Component {
 
   _changeMonth = (monthIndex) => {
     let {selectedDate} = this.props;
-    let month = this.monthOptions[monthIndex].value;
+    let month = this.monthOptions[monthIndex].value - 1;  // 纠正 getMonth() 的 +1
     let newDate = copyDate(selectedDate);
-    newDate.setMonth(month - 1);  // 纠正之前的 +1
+    newDate.setMonth(month);
+
+    // 当前 3-31
+    // 调动月份，值为2，上面结果变为 3-2
+    // 所以这里要校正
+    if (newDate.getMonth() > month) {
+      newDate.setDate(1);
+      newDate.setMonth(month);
+      newDate.setDate(getLastDate(newDate));
+    }
 
     this._change(newDate);
   };
@@ -257,12 +266,6 @@ class ApiContainer extends Component {
   render() {
     let {props, popupProps} = this.state;
 
-    // fix a bug for iscroll
-    // iscroll 初始化需要大量计算，堵塞
-    popupProps.className = classNames('popup-enter', {
-      _user: popupProps.className
-    });
-
     return (
       <Popup {...popupProps}>
         <DatePicker {...props} />
@@ -293,14 +296,30 @@ class ApiContainer extends Component {
   _decorateProps(props) {
     let onCancel = props.onCancel;
     let onConfirm = props.onConfirm;
+    let onChange = props.onChange;
 
-    props.onCancel = () => {
-      onCancel && onCancel();
+    props.onChange = (selectedDate) => {
+      onChange && onChange(onChange);
+
+      // update state.props
+      let nextState = {
+        ...this.state,
+        props: {
+          ...this.state.props,
+          selectedDate
+        }
+      };
+
+      this.setState(nextState);
+    };
+
+    props.onCancel = (selectedDate) => {
+      onCancel && onCancel(selectedDate);
       this.hide();
     };
 
-    props.onConfirm = (date) => {
-      onConfirm && onConfirm(date);
+    props.onConfirm = (selectedDate) => {
+      onConfirm && onConfirm(selectedDate);
       this.hide();
     };
 
