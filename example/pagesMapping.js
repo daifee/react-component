@@ -5,6 +5,12 @@ import Button from './pages/Button.js';
 
 import Cell from './pages/Cell.js';
 
+import Checkbox from './pages/Checkbox.js';
+
+import DatePicker from './pages/DatePicker.js';
+
+import Switch from './pages/Switch.js';
+
 
 const mapping = [
   
@@ -13,6 +19,12 @@ const mapping = [
   {name: 'Button', component: Button},
   
   {name: 'Cell', component: Cell},
+  
+  {name: 'Checkbox', component: Checkbox},
+  
+  {name: 'DatePicker', component: DatePicker},
+  
+  {name: 'Switch', component: Switch},
   
 ];
 

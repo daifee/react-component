@@ -42,15 +42,15 @@ export default class DatePicker extends Component {
   dateOptions = [];
 
   _cancel = () => {
-    let {onCancel} = this.props;
+    let {onCancel, selectedDate} = this.props;
 
-    onCancel && onCancel();
+    onCancel && onCancel(selectedDate);
   };
 
   _confirm = () => {
-    let {onConfirm} = this.props;
+    let {onConfirm, selectedDate} = this.props;
 
-    onConfirm && onConfirm();
+    onConfirm && onConfirm(selectedDate);
   };
 
   _changeYear = (yearIndex) => {
@@ -80,7 +80,7 @@ export default class DatePicker extends Component {
     this._change(newDate);
   };
 
-  change(selectedDate) {
+  _change(selectedDate) {
     let {onChange} = this.props;
     onChange && onChange(selectedDate);
   }
@@ -126,7 +126,7 @@ export default class DatePicker extends Component {
 
 
   getYearOptions() {
-    let {minDate, maxDate} = this.state;
+    let {minDate, maxDate} = this.props;
     let min = minDate.getFullYear();
     let max = maxDate.getFullYear();
     let result = formatOptions(min, max, '年');
@@ -135,14 +135,14 @@ export default class DatePicker extends Component {
   }
 
   getSelectedYearIndex(options) {
-    let {selectedDate} = this.state;
+    let {selectedDate} = this.props;
     let result = indexOfOptions(options, selectedDate.getFullYear());
 
     return result;
   }
 
   getMonthOptions() {
-    let {minDate, maxDate, selectedDate} = this.state;
+    let {minDate, maxDate, selectedDate} = this.props;
     let min = 1;
     let max = 12;
 
@@ -155,14 +155,14 @@ export default class DatePicker extends Component {
   }
 
   getSelectedMonthIndex(options) {
-    let {selectedDate} = this.state;
+    let {selectedDate} = this.props;
     let result = indexOfOptions(options, getMonth(selectedDate));
 
     return result;
   }
 
   getDateOptions() {
-    let {minDate, maxDate, selectedDate} = this.state;
+    let {minDate, maxDate, selectedDate} = this.props;
     let min = 1;
     let max = getLastDate(selectedDate);
 
@@ -175,7 +175,7 @@ export default class DatePicker extends Component {
   }
 
   getSelectedDateIndex(options) {
-    let {selectedDate} = this.state;
+    let {selectedDate} = this.props;
     let result = indexOfOptions(options, selectedDate.getDate());
 
     return result;
@@ -257,6 +257,12 @@ class ApiContainer extends Component {
   render() {
     let {props, popupProps} = this.state;
 
+    // fix a bug for iscroll
+    // iscroll 初始化需要大量计算，堵塞
+    popupProps.className = classNames('popup-enter', {
+      _user: popupProps.className
+    });
+
     return (
       <Popup {...popupProps}>
         <DatePicker {...props} />
@@ -297,6 +303,8 @@ class ApiContainer extends Component {
       onConfirm && onConfirm(date);
       this.hide();
     };
+
+    return props;
   }
 }
 
