@@ -11,6 +11,8 @@ import DatePicker from './pages/DatePicker.js';
 
 import Dialog from './pages/Dialog.js';
 
+import Fade from './pages/Fade.js';
+
 import Switch from './pages/Switch.js';
 
 
@@ -27,6 +29,8 @@ const mapping = [
   {name: 'DatePicker', component: DatePicker},
   
   {name: 'Dialog', component: Dialog},
+  
+  {name: 'Fade', component: Fade},
   
   {name: 'Switch', component: Switch},
   

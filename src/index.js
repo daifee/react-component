@@ -34,3 +34,4 @@ export ListView from './ListView';
 export Select from './Select';
 export DatePicker from './DatePicker';
 export Page from './Page';
+export Fade from './Fade';
