@@ -45,3 +45,7 @@ Cell.propTypes = {
   className: PropTypes.string
 };
 
+Cell.defaultProps = {
+  access: true,
+  arrwo: true
+};

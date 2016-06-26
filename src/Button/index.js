@@ -37,7 +37,7 @@ export default function Button(props) {
  * href: 超链接，使用 <a />
  */
 Button.propTypes = {
-  type: PropTypes.oneOf(['default', 'primary', 'warn']),
+  type: PropTypes.oneOf(['default', 'primary', 'warning']),
   disabled: PropTypes.bool,
   href: PropTypes.string,
   children: PropTypes.node,

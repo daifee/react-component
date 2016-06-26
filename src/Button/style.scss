@@ -71,7 +71,7 @@ $selector-disabled: '.#{$namespace}-btn-disabled';
     }
   }
 
-  &-warn {
+  &-warning {
     background-color: $warn-color;
 
     &:not(#{$selector-disabled}):active {
