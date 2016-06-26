@@ -59,13 +59,15 @@ export default function ScrollViewPage() {
       <br />
       <br />
 
+      <h2>Horizontal</h2>
       <ScrollView
+        className='scroll-horizontal'
         height='114px'
         iscrollOptions={{
           scrollY: false,
           scrollX: true
         }}>
-        <ul className='scroll-horizontal'>
+        <ul>
           <li>1</li>
           <li>2</li>
           <li>3</li>
