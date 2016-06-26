@@ -13,6 +13,10 @@ import Dialog from './pages/Dialog.js';
 
 import Fade from './pages/Fade.js';
 
+import Icon from './pages/Icon.js';
+
+import ListView from './pages/ListView.js';
+
 import Switch from './pages/Switch.js';
 
 
@@ -31,6 +35,10 @@ const mapping = [
   {name: 'Dialog', component: Dialog},
   
   {name: 'Fade', component: Fade},
+  
+  {name: 'Icon', component: Icon},
+  
+  {name: 'ListView', component: ListView},
   
   {name: 'Switch', component: Switch},
   

@@ -54,6 +54,9 @@ export default class ListView extends Component {
     renderLoadMore: renderLoadMore
   };
 
+  static renderRefresh = renderRefresh;
+  static renderLoadMore = renderLoadMore;
+
   // iscroll 实例
   iscroller = null;
 
@@ -73,8 +76,6 @@ export default class ListView extends Component {
 
   _onLoadMore = () => {
     let {loadMoreState, onLoadMore} = this.props;
-
-    console.log(1);
 
     if (loadMoreState === 'loading' || loadMoreState === 'end') {
       return;
@@ -216,8 +217,9 @@ class List extends Component {
   }
 
   componentDidUpdate() {
+    let {refreshIscroller} = this.props;
     // 为了调用这个方法才抽象出 List 组件的
-    this.props.refreshIscroller();
+    refreshIscroller();
   }
 }
 
