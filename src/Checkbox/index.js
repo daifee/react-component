@@ -7,6 +7,7 @@ import './style';
 
 /**
  * Checkbox
+ * 渲染 <input type="checkbox" />
  * @param {object} props see Checkbox.propTypes
  */
 export default function Checkbox(props) {
