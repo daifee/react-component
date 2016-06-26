@@ -19,6 +19,12 @@ import ListView from './pages/ListView.js';
 
 import Mask from './pages/Mask.js';
 
+import Notification from './pages/Notification.js';
+
+import Page from './pages/Page.js';
+
+import Popup from './pages/Popup.js';
+
 import Switch from './pages/Switch.js';
 
 
@@ -43,6 +49,12 @@ const mapping = [
   {name: 'ListView', component: ListView},
   
   {name: 'Mask', component: Mask},
+  
+  {name: 'Notification', component: Notification},
+  
+  {name: 'Page', component: Page},
+  
+  {name: 'Popup', component: Popup},
   
   {name: 'Switch', component: Switch},
   

@@ -10,7 +10,7 @@ $selector: '.#{$namespace}-notification';
   height: 60px;
   overflow: hidden;
   background-color: rgba(0, 0, 0, .7);
-  transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, 0%, 0);
   transition-property: transform;
 
   &-enter {

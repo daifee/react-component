@@ -54,8 +54,6 @@ function Home() {
         return (
           <Cell
             key={index}
-            arrow={true}
-            access={true}
             component={Link}
             to={'/' + page.name}>
             <CellBody>{page.name}</CellBody>

@@ -41,7 +41,7 @@ const timingFunction = 'ease';
 function getId() {
   return getId.id++;
 }
-getId._id = 0;
+getId.id = 0;
 
 class ApiContainer extends Component {
   state = {
@@ -50,22 +50,22 @@ class ApiContainer extends Component {
 
   render() {
     let {notifications} = this.state;
+    let children = notifications.map((item) => {
+      let {_id, style, ...others} = item;
+      style = {
+        ...style,
+        transitionDuration: (duration + 'ms'),
+        transitionTimingFunction: timingFunction
+      };
+      return (<Notification key={_id} {...others} />);
+    });
 
     return (
       <ReactCSSTransitionGroup
-        component={ChildContainer}
         transitionName={classNames('notification')}
         transitionEnterTimeout={duration}
         transitionLeaveTimeout={duration}>
-        {notifications.map((item) => {
-          let {_id, style, ...others} = item;
-          style = {
-            ...style,
-            transitionDuration: (duration + 'ms'),
-            transitionTimingFunction: timingFunction
-          };
-          return (<Notification key={_id} {...others} />);
-        })}
+        {children}
       </ReactCSSTransitionGroup>
     );
   }
@@ -74,7 +74,7 @@ class ApiContainer extends Component {
     props['_id'] = getId();
 
     let [...notifications] = this.state.notifications;
-    notifications = notifications.push(props);
+    notifications.push(props);
     let nextState = {notifications};
     this.setState(nextState);
 

@@ -47,5 +47,5 @@ Cell.propTypes = {
 
 Cell.defaultProps = {
   access: true,
-  arrwo: true
+  arrow: true
 };
