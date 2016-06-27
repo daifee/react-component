@@ -2,7 +2,6 @@ import React, {
   PropTypes
 } from 'react';
 import {classNames} from '../utils';
-import ChildContainer from '../ChildContainer';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './style';
 
@@ -61,7 +60,8 @@ function Scene(props) {
       transitionName={classNames(`page-scene-${action}`)}
       transitionEnterTimeout={timeout}
       transitionLeaveTimeout={timeout}
-      className={className}>
+      className={className}
+      {...others}>
       {children}
     </ReactCSSTransitionGroup>
   );

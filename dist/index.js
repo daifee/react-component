@@ -1028,7 +1028,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;/*! iScroll v5.2.0 ~ (c) 2008-2016 Matteo Spinelli ~ http://cubiq.org/license */
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*! iScroll v5.2.2 ~ (c) 2008-2016 Matteo Spinelli ~ http://cubiq.org/license */
 	(function (window, document, Math) {
 	var rAF = window.requestAnimationFrame	||
 		window.webkitRequestAnimationFrame	||
@@ -1429,7 +1429,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	IScroll.prototype = {
-		version: '5.2.0',
+		version: '5.2.2',
 	
 		_init: function () {
 			this._initEvents();
@@ -1719,7 +1719,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	// INSERT POINT: _end
 			if (this.hookNewY) {
 				newY = this.hookNewY(newY);
-				time === 0 && (time = 10);
+				// 移动一段距离后，300ms 再松手，time=0，无法触发 scrollEnd 事件
+				if (time <= 0) {
+					time = 10;
+				}
 			}
 	
 			if ( newX != this.x || newY != this.y ) {
@@ -2667,7 +2670,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				if ( now >= destTime ) {
 					that.isAnimating = false;
 					that._translate(destX, destY);
-	
+					
 					if ( !that.resetPosition(that.options.bounceTime) ) {
 						that._execEvent('scrollEnd');
 					}

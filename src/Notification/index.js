@@ -84,7 +84,6 @@ class ApiContainer extends Component {
         </ReactCSSTransitionGroup>
       </Popup>
     );
-
   }
 
   show(props, popupProps, time = 4000) {

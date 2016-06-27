@@ -39,4 +39,4 @@ Checkbox.propTypes = {
 
 Checkbox.defaultProps = {
   className: ''
-}
+};
