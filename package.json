@@ -20,7 +20,8 @@
     "prepublish": "npm run test",
     "postpublish": "git push --all",
     "preversion": "npm run test && npm run build && git commit -m 'builded' ./dist",
-    "build:demos": "webpack --propress --colors --config ./website/webpack.config.demos.js"
+    "build:demos": "webpack --propress --colors --config ./website/webpack.config.demos.js",
+    "build:demos-externals": "webpack --propress --colors --config ./website/webpack.config.demos-externals.js"
   },
   "keywords": [
     "daifee-react-component",
@@ -74,6 +75,6 @@
     "react": "^15.1.0",
     "react-addons-css-transition-group": "^15.1.0",
     "react-dom": "^15.1.0",
-    "xiscroll": "^5.2.1"
+    "xiscroll": "^5.2.3"
   }
 }
