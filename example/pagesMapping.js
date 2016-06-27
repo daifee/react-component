@@ -1,6 +1,8 @@
 
 import ActionSheet from './pages/ActionSheet.js';
 
+import ApiContainer from './pages/ApiContainer.js';
+
 import Button from './pages/Button.js';
 
 import Cell from './pages/Cell.js';
@@ -31,10 +33,16 @@ import Select from './pages/Select.js';
 
 import Switch from './pages/Switch.js';
 
+import TabBar from './pages/TabBar.js';
+
+import Toast from './pages/Toast.js';
+
 
 const mapping = [
   
   {name: 'ActionSheet', component: ActionSheet},
+  
+  {name: 'ApiContainer', component: ApiContainer},
   
   {name: 'Button', component: Button},
   
@@ -65,6 +73,10 @@ const mapping = [
   {name: 'Select', component: Select},
   
   {name: 'Switch', component: Switch},
+  
+  {name: 'TabBar', component: TabBar},
+  
+  {name: 'Toast', component: Toast},
   
 ];
 

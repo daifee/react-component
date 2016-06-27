@@ -18,7 +18,7 @@ export default function Toast(props) {
 
   return (
     <div className={className} {...others}>
-      {typeof icon === 'string' ? mapIcon(icon) : icon}
+      {icon ? <div>{mapIcon(icon)}</div> : null}
       <p>{content}</p>
     </div>
   );
@@ -33,9 +33,6 @@ Toast.propTypes = {
   className: PropTypes.string
 };
 
-Toast.defaultProps = {
-  icon: null
-};
 
 Toast.getInstance = (container) => {
   createInstance(ApiContainer, container);
@@ -58,14 +55,14 @@ Toast.hideLoading = () => {
 };
 
 
-function mapIcon(name) {
-  switch (name) {
+function mapIcon(icon) {
+  switch (icon) {
     case 'loading':
       return (<IconLoading />);
     case 'attention':
       return (<IconAttention />);
     default:
-      return null;
+      return icon;
   }
 }
 
@@ -96,7 +93,7 @@ class ApiContainer extends Component {
 
   show(props, fadeProps, time) {
     let nextState = {
-      props: {...this.state.props},
+      props: {...this.state.props, ...props},
       fadeProps: {...this.state.fadeProps, show: true}
     };
     this.setState(nextState);

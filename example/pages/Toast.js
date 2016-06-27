@@ -26,7 +26,7 @@ export default class ToastPage extends Component {
       <Page>
         <h1>Toast</h1>
         <Cells>
-          <Cell>
+          <Cell arrow={false}>
             <CellBody>loading</CellBody>
             <CellFooter>
               <Switch
@@ -37,7 +37,7 @@ export default class ToastPage extends Component {
             </CellFooter>
           </Cell>
 
-          <Cell>
+          <Cell arrow={false}>
             <CellBody>attention</CellBody>
             <CellFooter>
               <Switch
@@ -48,7 +48,7 @@ export default class ToastPage extends Component {
             </CellFooter>
           </Cell>
 
-          <Cell>
+          <Cell arrow={false}>
             <CellBody>tips</CellBody>
             <CellFooter>
               <Switch
@@ -60,12 +60,17 @@ export default class ToastPage extends Component {
           </Cell>
         </Cells>
 
-        <Button onClick={() => {
-          Toast.show({
-            icon: 'attention',
-            content: 'API 调用'
-          }, {}, 2000);
-        }}>调用接口</Button>
+        <br />
+        <br />
+
+        <div className='wrap'>
+          <Button onClick={() => {
+            Toast.show({
+              icon: 'attention',
+              content: 'API 调用'
+            }, {}, 3000);
+          }}>调用接口</Button>
+        </div>
 
         {loading ? (
           <Toast
@@ -81,7 +86,6 @@ export default class ToastPage extends Component {
 
         {tips ? (
           <Toast
-            icon='tips'
             content='我没有 icon' />
         ) : null}
       </Page>

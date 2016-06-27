@@ -20,6 +20,11 @@ export default function Notification(props) {
   return (<div className={className} {...content} {...others}>{content}</div>);
 }
 
+/**
+ * props
+ * @type {Object}
+ * content: 通知内容（不限于文本）
+ */
 Notification.propTypes = {
   className: PropTypes.string,
   content: PropTypes.node
@@ -35,7 +40,7 @@ Notification.getInstance = (container) => {
 
 
 //
-const duration = 200;
+const duration = 300;
 const timingFunction = 'ease';
 // ID 生成器
 function getId() {
@@ -64,7 +69,7 @@ class ApiContainer extends Component {
         transitionDuration: (duration + 'ms'),
         transitionTimingFunction: timingFunction
       };
-      return (<Notification key={_id} {...others} />);
+      return (<Notification key={_id} style={style} {...others} />);
     });
 
     return (
@@ -82,7 +87,7 @@ class ApiContainer extends Component {
 
   }
 
-  show(props, popupProps, time = 3000) {
+  show(props, popupProps, time = 4000) {
     props['_id'] = getId();
     let notification = [props];
 

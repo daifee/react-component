@@ -7,24 +7,22 @@ $selector: '.#{$namespace}-toast';
   z-index: $z-index-toast;
   top: 50%;
   left: 50%;
+  max-width: 80%;
   min-width: 7.6em;
-  height: 7.6em;
   transform: translate3d(-50%, -50%, 0);
   background-color: rgba(40, 40, 40, .7);
   border-radius: 5px;
   text-align: center;
 
-  // 为了内容垂直居中
+  padding: 16px 8px;
+
   > div {
-    position: relative;
-    top: 50%;
-    transform: translate3d(0, -50%, 0);
+    margin-bottom: 16px;
   }
 
   // content
-  p {
-    margin-top: 10px;
-    font-size: 16px;
+  > p {
+    margin: 0;
     color: #fff;
   }
 }

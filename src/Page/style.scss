@@ -81,6 +81,9 @@ $selector: '.#{$namespace}-page';
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
   transition-property: opacity, transform;
 }
