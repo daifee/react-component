@@ -47,6 +47,12 @@ module.exports = {
         commonjs2: 'react-addons-css-transition-group',
         commonjs: 'react-addons-css-transition-group',
         amd: 'react-addons-css-transition-group'
+      },
+      'xiscroll': {
+        root: 'IScroll',
+        commonjs2: 'xiscroll',
+        commonjs: 'xiscroll',
+        amd: 'xiscroll'
       }
     }
   ],
