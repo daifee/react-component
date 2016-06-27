@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {classNames, createInstance} from '../utils';
-import ChildContainer from '../ChildContainer';
+import Popup from '../Popup';
 import './style';
 
 let apiInstance = null;
@@ -45,12 +45,19 @@ getId.id = 0;
 
 class ApiContainer extends Component {
   state = {
-    notifications: []
+    popupProps: {
+      show: false,
+      className: classNames('notification-popup'),
+      direction: 'top'
+    },
+    notification: []  // 永远只有一个值的数组
   };
 
+  timer = null;
+
   render() {
-    let {notifications} = this.state;
-    let children = notifications.map((item) => {
+    let {notification, popupProps} = this.state;
+    let children = notification.map((item) => {
       let {_id, style, ...others} = item;
       style = {
         ...style,
@@ -59,38 +66,49 @@ class ApiContainer extends Component {
       };
       return (<Notification key={_id} {...others} />);
     });
-    let className = classNames('notifications-container');
 
     return (
-      <ReactCSSTransitionGroup
-        component='div'
-        className={className}
-        transitionName={className}
-        transitionEnterTimeout={duration}
-        transitionLeaveTimeout={duration}>
-        {children}
-      </ReactCSSTransitionGroup>
+      <Popup {...popupProps}>
+        <ReactCSSTransitionGroup
+          component='div'
+          className={classNames('notification-container')}
+          transitionName={classNames('notification')}
+          transitionEnterTimeout={duration}
+          transitionLeaveTimeout={duration}>
+          {children}
+        </ReactCSSTransitionGroup>
+      </Popup>
     );
+
   }
 
-  show(props, time = 3000) {
+  show(props, popupProps, time = 3000) {
     props['_id'] = getId();
+    let notification = [props];
 
-    let [...notifications] = this.state.notifications;
-    notifications.push(props);
-    let nextState = {notifications};
+    let nextState = {
+      notification,
+      popupProps: {
+        ...this.state.popupProps,
+        show: true
+      }
+    };
     this.setState(nextState);
 
-    setTimeout(() => {
-      this._hide(props['_id']);
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this._hide();
     }, time);
   }
 
-  _hide(id) {
-    let notifications = this.state.notifications.filter((item) => {
-      return id !== item['_id'];
-    });
-    let nextState = {notifications};
+  _hide() {
+    let nextState = {
+      ...this.state,
+      popupProps: {
+        ...this.state.popupProps,
+        show: false
+      }
+    };
 
     this.setState(nextState);
   }

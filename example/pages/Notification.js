@@ -14,7 +14,12 @@ export default function NotificationPage() {
       <div className='wrap'>
         <Button onClick={() => {
           Notification.show({
-            content: Date.now()
+            content: (Math.random() * 1000).toString(),
+            style: {
+              height: '60px',
+              lineHeight: '60px',
+              textAlign: 'center'
+            }
           });
         }}>notify</Button>
       </div>
