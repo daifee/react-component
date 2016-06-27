@@ -331,7 +331,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    container = createContainer();
 	  }
 	
-	  return (0, _reactDom.render)(_react2.default.createElement(Component, null), container);
+	  return (0, _reactDom.render)(_react2.default.createElement(Component, {
+	    __self: this
+	  }), container);
 	}
 	
 	/**
@@ -407,15 +409,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      component: _ChildContainer2.default,
 	      transitionName: (0, _utils.classNames)('popup'),
 	      transitionEnterTimeout: duration,
-	      transitionLeaveTimeout: duration },
+	      transitionLeaveTimeout: duration, __self: this
+	    },
 	    show ? _react2.default.createElement(
 	      'div',
-	      _extends({ className: className, style: style }, others),
+	      _extends({ className: className, style: style }, others, {
+	        __self: this
+	      }),
 	      _react2.default.createElement(
 	        'div',
 	        {
 	          className: (0, _utils.classNames)('popup-main', 'popup-main-' + direction),
-	          style: style },
+	          style: style, __self: this
+	        },
 	        children
 	      )
 	    ) : null
@@ -513,10 +519,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      component: _ChildContainer2.default,
 	      transitionName: (0, _utils.classNames)('fade'),
 	      transitionEnterTimeout: duration,
-	      transitionLeaveTimeout: duration },
+	      transitionLeaveTimeout: duration, __self: this
+	    },
 	    show ? _react2.default.createElement(
 	      props.component,
-	      _extends({ style: style, className: className }, others),
+	      _extends({ style: style, className: className }, others, {
+	        __self: this
+	      }),
 	      children
 	    ) : null
 	  );
@@ -638,7 +647,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className }, others),
+	    _extends({ className: className }, others, {
+	      __self: this
+	    }),
 	    children
 	  );
 	}
@@ -740,10 +751,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      return _react2.default.createElement(
 	        'div',
-	        _extends({ ref: 'wrapper', className: className, style: style }, others),
+	        _extends({ ref: 'wrapper', className: className, style: style }, others, {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: (0, _utils.classNames)('scroll-view-scroller') },
+	          { className: (0, _utils.classNames)('scroll-view-scroller'), __self: this
+	          },
 	          children
 	        )
 	      );
@@ -864,6 +878,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(Select, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      var _props = this.props;
 	      var options = _props.options;
 	      var className = _props.className;
@@ -878,29 +894,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      return _react2.default.createElement(
 	        'div',
-	        _extends({ ref: 'wrapper', className: className, style: style }, others),
+	        _extends({ ref: 'wrapper', className: className, style: style }, others, {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          'ul',
-	          { className: (0, _utils.classNames)('select-options') },
+	          { className: (0, _utils.classNames)('select-options'), __self: this
+	          },
 	          options.map(function (option, index) {
 	            var name = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) === 'object' ? option.name : option;
 	            var key = index + '@-@' + name;
 	
 	            return _react2.default.createElement(
 	              'li',
-	              { key: key, style: optionStyle },
+	              { key: key, style: optionStyle, __self: _this2
+	              },
 	              name
 	            );
 	          })
 	        ),
-	        _react2.default.createElement('div', { style: maskStyle, className: (0, _utils.classNames)('select-mask-top') }),
-	        _react2.default.createElement('div', { style: maskStyle, className: (0, _utils.classNames)('select-mask-bottom') })
+	        _react2.default.createElement('div', { style: maskStyle, className: (0, _utils.classNames)('select-mask-top'), __self: this
+	        }),
+	        _react2.default.createElement('div', { style: maskStyle, className: (0, _utils.classNames)('select-mask-bottom'), __self: this
+	        })
 	      );
 	    }
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var _props2 = this.props;
 	      var iscrollOptions = _props2.iscrollOptions;
@@ -909,22 +931,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // fuck a bug
 	
 	      setTimeout(function () {
-	        _this2.iscroller = new _xiscroll2.default(wrapper, _extends({
+	        _this3.iscroller = new _xiscroll2.default(wrapper, _extends({
 	          probeType: 2 }, iscrollOptions));
 	
-	        _this2.iscroller.on('scrollEnd', function () {
-	          var index = Math.abs(_this2.iscroller.y / height);
+	        _this3.iscroller.on('scrollEnd', function () {
+	          var index = Math.abs(_this3.iscroller.y / height);
 	          onChange && onChange(index);
 	        });
 	
 	        // 通过 hookNewY 修改滚动位置
-	        _this2.iscroller.hookNewY = function (newY) {
+	        _this3.iscroller.hookNewY = function (newY) {
 	          // Math.ceil(-8.74) = -8
 	          // 所以已经 -1 了
 	          var index = Math.ceil(newY / height);
 	
-	          if (Math.abs(_this2.iscroller.distY) > height / 2) {
-	            if (_this2.iscroller.directionY === 1) {
+	          if (Math.abs(_this3.iscroller.distY) > height / 2) {
+	            if (_this3.iscroller.directionY === 1) {
 	              index -= 1;
 	            }
 	          }
@@ -934,7 +956,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return newY;
 	        };
 	
-	        _this2.resetPosition();
+	        _this3.resetPosition();
 	
 	        // 阻止默认事件
 	        wrapper.addEventListener('touchmove', function (e) {
@@ -1008,7 +1030,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    { className: className },
+	    { className: className, __self: this
+	    },
 	    children
 	  );
 	}
@@ -1090,10 +1113,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    'li',
 	    { className: className, onClick: function onClick() {
 	        return callback(index);
-	      } },
+	      }, __self: this
+	    },
 	    _react2.default.createElement(
 	      'button',
-	      null,
+	      {
+	        __self: this
+	      },
 	      children
 	    )
 	  );
@@ -1121,6 +1147,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {object} props see ActionSheet.propTypes
 	 */
 	function ActionSheet(props) {
+	  var _this = this;
+	
 	  var title = props.title;
 	  var actions = props.actions;
 	  var callback = props.callback;
@@ -1135,15 +1163,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className }, others),
+	    _extends({ className: className }, others, {
+	      __self: this
+	    }),
 	    title ? _react2.default.createElement(
 	      'header',
-	      null,
+	      {
+	        __self: this
+	      },
 	      title
 	    ) : null,
 	    _react2.default.createElement(
 	      'ol',
-	      null,
+	      {
+	        __self: this
+	      },
 	      actions.map(function (content, index) {
 	        return _react2.default.createElement(
 	          Button,
@@ -1152,7 +1186,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            index: index,
 	            cancel: cancelIndex === index,
 	            destroy: destroyIndex === index,
-	            callback: callback },
+	            callback: callback, __self: _this
+	          },
 	          content
 	        );
 	      })
@@ -1203,7 +1238,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function ApiContainer() {
 	    var _Object$getPrototypeO;
 	
-	    var _temp, _this, _ret;
+	    var _temp, _this2, _ret;
 	
 	    _classCallCheck(this, ApiContainer);
 	
@@ -1211,7 +1246,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key] = arguments[_key];
 	    }
 	
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+	    return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this2), _this2.state = {
 	      props: {
 	        actions: [],
 	        callback: function callback() {}
@@ -1219,7 +1254,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      popupProps: {
 	        show: false
 	      }
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }, _temp), _possibleConstructorReturn(_this2, _ret);
 	  }
 	
 	  _createClass(ApiContainer, [{
@@ -1232,8 +1267,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      return _react2.default.createElement(
 	        _Popup2.default,
-	        popupProps,
-	        _react2.default.createElement(ActionSheet, props)
+	        _extends({}, popupProps, {
+	          __self: this
+	        }),
+	        _react2.default.createElement(ActionSheet, _extends({}, props, {
+	          __self: this
+	        }))
 	      );
 	    }
 	  }, {
@@ -1260,12 +1299,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '_decorateProps',
 	    value: function _decorateProps(props) {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var callback = props.callback;
 	      props.callback = function (index) {
 	        callback && callback(index);
-	        _this2.hide();
+	        _this3.hide();
 	      };
 	
 	      return props;
@@ -1331,7 +1370,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      className: className,
 	      disabled: disabled,
 	      href: href
-	    }, others),
+	    }, others, {
+	      __self: this
+	    }),
 	    children
 	  );
 	}
@@ -1403,7 +1444,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    Component,
-	    _extends({}, others, { href: href, className: className }),
+	    _extends({}, others, { href: href, className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -1469,7 +1511,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({}, others, { className: className }),
+	    _extends({}, others, { className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -1521,7 +1564,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({}, others, { className: className }),
+	    _extends({}, others, { className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -1573,7 +1617,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({}, others, { className: className }),
+	    _extends({}, others, { className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -1625,7 +1670,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({}, others, { className: className }),
+	    _extends({}, others, { className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -1677,7 +1723,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({}, others, { className: className }),
+	    _extends({}, others, { className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -1729,7 +1776,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({}, others, { className: className }),
+	    _extends({}, others, { className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -1842,7 +1890,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    type: 'checkbox',
 	    checked: checked,
 	    disabled: disabled
-	  }, others));
+	  }, others, {
+	    __self: this
+	  }));
 	}
 	
 	/**
@@ -1998,44 +2048,55 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      return _react2.default.createElement(
 	        'div',
-	        _extends({ className: className }, others),
+	        _extends({ className: className }, others, {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: (0, _utils.classNames)('date-picker-header') },
+	          { className: (0, _utils.classNames)('date-picker-header'), __self: this
+	          },
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this._cancel },
+	            { onClick: this._cancel, __self: this
+	            },
 	            '取消'
 	          ),
 	          _react2.default.createElement(
 	            'em',
-	            null,
+	            {
+	              __self: this
+	            },
 	            title
 	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this._confirm },
+	            { onClick: this._confirm, __self: this
+	            },
 	            '确定'
 	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: (0, _utils.classNames)('date-picker-body') },
+	          { className: (0, _utils.classNames)('date-picker-body'), __self: this
+	          },
 	          _react2.default.createElement(_Select2.default, {
 	            key: 'year',
 	            options: yearOptions,
 	            selectedIndex: selectedYearIndex,
-	            onChange: this._changeYear }),
+	            onChange: this._changeYear, __self: this
+	          }),
 	          _react2.default.createElement(_Select2.default, {
 	            key: 'month',
 	            options: monthOptions,
 	            selectedIndex: selectedMonthIndex,
-	            onChange: this._changeMonth }),
+	            onChange: this._changeMonth, __self: this
+	          }),
 	          _react2.default.createElement(_Select2.default, {
 	            key: 'date',
 	            options: dateOptions,
 	            selectedIndex: selectedDateIndex,
-	            onChange: this._changeDate })
+	            onChange: this._changeDate, __self: this
+	          })
 	        )
 	      );
 	    }
@@ -2240,8 +2301,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      return _react2.default.createElement(
 	        _Popup2.default,
-	        popupProps,
-	        _react2.default.createElement(DatePicker, props)
+	        _extends({}, popupProps, {
+	          __self: this
+	        }),
+	        _react2.default.createElement(DatePicker, _extends({}, props, {
+	          __self: this
+	        }))
 	      );
 	    }
 	  }, {
@@ -2363,7 +2428,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'button',
-	    others,
+	    _extends({}, others, {
+	      __self: this
+	    }),
 	    text
 	  );
 	}
@@ -2377,6 +2444,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {object} props see Dialog.propTypes
 	 */
 	function Dialog(props) {
+	  var _this = this;
+	
 	  var title = props.title;
 	  var content = props.content;
 	  var buttons = props.buttons;
@@ -2389,29 +2458,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    _Mask2.default,
-	    maskProps,
+	    _extends({}, maskProps, {
+	      __self: this
+	    }),
 	    _react2.default.createElement(
 	      'div',
-	      _extends({ className: className }, others),
+	      _extends({ className: className }, others, {
+	        __self: this
+	      }),
 	      _react2.default.createElement(
 	        'header',
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          'strong',
-	          null,
+	          {
+	            __self: this
+	          },
 	          title
 	        )
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { className: (0, _utils.classNames)('dialog-body') },
+	        { className: (0, _utils.classNames)('dialog-body'), __self: this
+	        },
 	        content
 	      ),
 	      _react2.default.createElement(
 	        'footer',
-	        null,
+	        {
+	          __self: this
+	        },
 	        buttons.map(function (button, index) {
-	          return _react2.default.createElement(Button, _extends({ key: index }, button));
+	          return _react2.default.createElement(Button, _extends({ key: index }, button, {
+	            __self: _this
+	          }));
 	        })
 	      )
 	    )
@@ -2456,7 +2538,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function ApiContainer() {
 	    var _Object$getPrototypeO;
 	
-	    var _temp, _this, _ret;
+	    var _temp, _this2, _ret;
 	
 	    _classCallCheck(this, ApiContainer);
 	
@@ -2464,11 +2546,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key] = arguments[_key];
 	    }
 	
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+	    return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this2), _this2.state = {
 	      fadeProps: {
 	        show: false
 	      }
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }, _temp), _possibleConstructorReturn(_this2, _ret);
 	  }
 	
 	  _createClass(ApiContainer, [{
@@ -2481,8 +2563,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      return _react2.default.createElement(
 	        _Fade2.default,
-	        fadeProps,
-	        _react2.default.createElement(Dialog, props)
+	        _extends({}, fadeProps, {
+	          __self: this
+	        }),
+	        _react2.default.createElement(Dialog, _extends({}, props, {
+	          __self: this
+	        }))
 	      );
 	    }
 	  }, {
@@ -2509,7 +2595,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '_decorateProps',
 	    value: function _decorateProps(props) {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      if (!props.buttons) {
 	        return props;
@@ -2519,7 +2605,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var onClick = button.onClick;
 	        button.onClick = function (e) {
 	          onClick && onClick(e);
-	          _this2.hide();
+	          _this3.hide();
 	        };
 	      });
 	
@@ -2574,7 +2660,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    fontSize: size
 	  });
 	
-	  return _react2.default.createElement('i', _extends({ className: className, style: style }, others));
+	  return _react2.default.createElement('i', _extends({ className: className, style: style }, others, {
+	    __self: this
+	  }));
 	}
 	
 	/**
@@ -2640,7 +2728,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    fontSize: size
 	  });
 	
-	  return _react2.default.createElement('i', _extends({ className: className, style: style }, others));
+	  return _react2.default.createElement('i', _extends({ className: className, style: style }, others, {
+	    __self: this
+	  }));
 	}
 	
 	/**
@@ -2707,7 +2797,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className, style: style }, others),
+	    _extends({ className: className, style: style }, others, {
+	      __self: this
+	    }),
 	    leafs
 	  );
 	}
@@ -2743,7 +2835,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      transform: 'rotate(' + rotate + 'deg)',
 	      opacity: 1 - opacityUnit * i
 	    };
-	    leafs.push(_react2.default.createElement('i', { key: i, className: className, style: style }));
+	    leafs.push(_react2.default.createElement('i', { key: i, className: className, style: style, __self: this
+	    }));
 	  }
 	
 	  return leafs;
@@ -2879,10 +2972,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	          className: className,
 	          height: '100%',
 	          width: '100%'
-	        }, others),
+	        }, others, {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: (0, _utils.classNames)('list-view-refresh') },
+	          { className: (0, _utils.classNames)('list-view-refresh'), __self: this
+	          },
 	          renderRefresh(refreshState)
 	        ),
 	        _react2.default.createElement(
@@ -2890,10 +2986,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	          {
 	            data: data,
 	            shouldRefreshIscroller: shouldRefreshIscroller,
-	            refreshIscroller: this._refreshIscroller },
+	            refreshIscroller: this._refreshIscroller, __self: this
+	          },
 	          _react2.default.createElement(
 	            'div',
-	            { className: (0, _utils.classNames)('list-view-list') },
+	            { className: (0, _utils.classNames)('list-view-list'), __self: this
+	            },
 	            data.map(renderRow)
 	          )
 	        ),
@@ -2901,7 +2999,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          'div',
 	          {
 	            className: (0, _utils.classNames)('list-view-load-more'),
-	            onClick: this._onLoadMore },
+	            onClick: this._onLoadMore, __self: this
+	          },
 	          renderLoadMore(loadMoreState)
 	        )
 	      );
@@ -3077,19 +3176,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	    case 'normal':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '下拉刷新'
 	      );
 	    case 'ready':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '松手即可刷新'
 	      );
 	    case 'loading':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '加载中...'
 	      );
 	  }
@@ -3104,25 +3209,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	    case 'normal':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '点击，加载更多'
 	      );
 	    case 'loading':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '加载中...'
 	      );
 	    case 'end':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '没有数据了'
 	      );
 	    case 'fail':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '加载失败，请点击重新加载'
 	      );
 	  }
@@ -3188,7 +3301,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className }, content, others),
+	    _extends({ className: className }, content, others, {
+	      __self: this
+	    }),
 	    content
 	  );
 	}
@@ -3247,6 +3362,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(ApiContainer, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      var _state = this.state;
 	      var notification = _state.notification;
 	      var popupProps = _state.popupProps;
@@ -3261,12 +3378,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	          transitionDuration: duration + 'ms',
 	          transitionTimingFunction: timingFunction
 	        });
-	        return _react2.default.createElement(Notification, _extends({ key: _id, style: style }, others));
+	        return _react2.default.createElement(Notification, _extends({ key: _id, style: style }, others, {
+	          __self: _this2
+	        }));
 	      });
 	
 	      return _react2.default.createElement(
 	        _Popup2.default,
-	        popupProps,
+	        _extends({}, popupProps, {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          _reactAddonsCssTransitionGroup2.default,
 	          {
@@ -3274,7 +3395,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            className: (0, _utils.classNames)('notification-container'),
 	            transitionName: (0, _utils.classNames)('notification'),
 	            transitionEnterTimeout: duration,
-	            transitionLeaveTimeout: duration },
+	            transitionLeaveTimeout: duration, __self: this
+	          },
 	          children
 	        )
 	      );
@@ -3282,7 +3404,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'show',
 	    value: function show(props, popupProps) {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var time = arguments.length <= 2 || arguments[2] === undefined ? 4000 : arguments[2];
 	
@@ -3299,7 +3421,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      clearTimeout(this.timer);
 	      this.timer = setTimeout(function () {
-	        _this2._hide();
+	        _this3._hide();
 	      }, time);
 	    }
 	  }, {
@@ -3374,7 +3496,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className, style: style }, others),
+	    _extends({ className: className, style: style }, others, {
+	      __self: this
+	    }),
 	    children
 	  );
 	}
@@ -3418,7 +3542,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      transitionEnterTimeout: timeout,
 	      transitionLeaveTimeout: timeout,
 	      className: className
-	    }, others),
+	    }, others, {
+	      __self: this
+	    }),
 	    children
 	  );
 	}
@@ -3477,7 +3603,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return _react2.default.createElement('input', _extends({
 	    className: className,
 	    type: 'checkbox'
-	  }, others));
+	  }, others, {
+	    __self: this
+	  }));
 	}
 	
 	/**
@@ -3521,6 +3649,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {object} props see TabBar.propTypes
 	 */
 	function TabBar(props) {
+	  var _this = this;
+	
 	  var barColor = props.barColor;
 	  var lineColor = props.lineColor;
 	  var color = props.color;
@@ -3544,19 +3674,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className }, others),
+	    _extends({ className: className }, others, {
+	      __self: this
+	    }),
 	    _react2.default.createElement(
 	      'div',
-	      { className: (0, _utils.classNames)('tab-bar-body') },
+	      { className: (0, _utils.classNames)('tab-bar-body'), __self: this
+	      },
 	      children
 	    ),
 	    _react2.default.createElement(
 	      'footer',
-	      { style: barStyle },
-	      _react2.default.createElement('div', { style: lineStyle }),
+	      { style: barStyle, __self: this
+	      },
+	      _react2.default.createElement('div', { style: lineStyle, __self: this
+	      }),
 	      _react2.default.createElement(
 	        'ul',
-	        null,
+	        {
+	          __self: this
+	        },
 	        children.map(function (child, index) {
 	          var props = _extends({}, child.props);
 	
@@ -3564,7 +3701,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            key: index,
 	            color: color,
 	            selectedColor: selectedColor
-	          }, props));
+	          }, props, {
+	            __self: _this
+	          }));
 	        })
 	      )
 	    )
@@ -3598,13 +3737,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	TabBar.Item = _TabBarItem2.default;
 	
 	function Button(props) {
-	  var
-	  // from TabBar
-	  color = props.color;
+	  var color = props.color;
 	  var selectedColor = props.selectedColor;
-	  var
-	  // from TabBarItem
-	  selected = props.selected;
+	  var selected = props.selected;
 	  var icon = props.icon;
 	  var selectedIcon = props.selectedIcon;
 	  var title = props.title;
@@ -3625,20 +3760,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'li',
-	    _extends({ className: className, onClick: onClick }, others),
+	    _extends({ className: className, onClick: onClick }, others, {
+	      __self: this
+	    }),
 	    _react2.default.createElement(
 	      'div',
-	      { className: (0, _utils.classNames)('tab-bar-item-label') },
-	      _react2.default.createElement('i', { className: iconClass, style: style }),
+	      { className: (0, _utils.classNames)('tab-bar-item-label'), __self: this
+	      },
+	      _react2.default.createElement('i', { className: iconClass, style: style, __self: this
+	      }),
 	      typeof badge !== 'undefined' ? _react2.default.createElement(
 	        'span',
-	        null,
+	        {
+	          __self: this
+	        },
 	        badge
 	      ) : null
 	    ),
 	    _react2.default.createElement(
 	      'div',
-	      { className: (0, _utils.classNames)('tab-bar-item-title'), style: style },
+	      { className: (0, _utils.classNames)('tab-bar-item-title'), style: style, __self: this
+	      },
 	      title
 	    )
 	  );
@@ -3729,15 +3871,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className }, others),
+	    _extends({ className: className }, others, {
+	      __self: this
+	    }),
 	    icon ? _react2.default.createElement(
 	      'div',
-	      null,
+	      {
+	        __self: this
+	      },
 	      mapIcon(icon)
 	    ) : null,
 	    _react2.default.createElement(
 	      'p',
-	      null,
+	      {
+	        __self: this
+	      },
 	      content
 	    )
 	  );
@@ -3772,9 +3920,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	function mapIcon(icon) {
 	  switch (icon) {
 	    case 'loading':
-	      return _react2.default.createElement(_Icon.IconLoading, null);
+	      return _react2.default.createElement(_Icon.IconLoading, {
+	        __self: this
+	      });
 	    case 'attention':
-	      return _react2.default.createElement(_Icon.IconAttention, null);
+	      return _react2.default.createElement(_Icon.IconAttention, {
+	        __self: this
+	      });
 	    default:
 	      return icon;
 	  }
@@ -3818,8 +3970,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      return _react2.default.createElement(
 	        _Fade2.default,
-	        fadeProps,
-	        _react2.default.createElement(Toast, props)
+	        _extends({}, fadeProps, {
+	          __self: this
+	        }),
+	        _react2.default.createElement(Toast, _extends({}, props, {
+	          __self: this
+	        }))
 	      );
 	    }
 	  }, {

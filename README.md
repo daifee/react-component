@@ -125,3 +125,10 @@ export default class DialogPage extends Component {
 * 淡入淡出 fadeInAndOut
 * 弹出 Popup
 
+
+## 踩到的坑
+
+
+### addComponentAsRefTo Invariant Violation
+
+竟然是 `react-with-addons` 与 `react-dom` 加载顺序的问题 http://stackoverflow.com/questions/28519287/what-does-only-a-reactowner-can-have-refs-mean
