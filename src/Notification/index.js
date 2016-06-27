@@ -59,10 +59,13 @@ class ApiContainer extends Component {
       };
       return (<Notification key={_id} {...others} />);
     });
+    let className = classNames('notifications-container');
 
     return (
       <ReactCSSTransitionGroup
-        transitionName={classNames('notification')}
+        component='div'
+        className={className}
+        transitionName={className}
         transitionEnterTimeout={duration}
         transitionLeaveTimeout={duration}>
         {children}
