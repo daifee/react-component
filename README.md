@@ -1,5 +1,6 @@
 # Daifee-React-Component
 
+用 React 封装一套常用组件
 
 所有组件都是 stateless 组件，但为方便，某些组件提供 API 调用方式的静态方法。
 
