@@ -16,12 +16,13 @@
     "build": "npm run clear && npm run build:development && npm run build:production",
     "build:production": "NODE_ENV=production webpack -p --progress --colors",
     "build:development": "NODE_ENV=development webpack --progress --colors",
+    "build:website": "npm run doc && npm run build:website-demos && npm run build:website-demos-externals",
+    "build:website-demos": "webpack --propress --colors --config ./website/webpack.config.demos.js",
+    "build:website-demos-externals": "webpack --propress --colors --config ./website/webpack.config.demos-externals.js",
     "clear": "rm -rf ./dist",
     "prepublish": "npm run test",
     "postpublish": "git push --all",
-    "preversion": "npm run test && npm run build && git commit -m 'builded' ./dist",
-    "build:demos": "webpack --propress --colors --config ./website/webpack.config.demos.js",
-    "build:demos-externals": "webpack --propress --colors --config ./website/webpack.config.demos-externals.js"
+    "preversion": "npm run test && npm run build && git commit -m 'builded' ./dist"
   },
   "keywords": [
     "daifee-react-component",
