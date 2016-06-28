@@ -1,0 +1,9 @@
+src
+doc
+example
+.babelrc
+.eslintrc
+.travis.yml
+esdoc.json
+webpack.config.js
+webpack.config.dev.js

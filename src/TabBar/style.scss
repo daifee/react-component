@@ -1,0 +1,100 @@
+@import '../variables';
+
+$tabBarHeight: 55px;
+
+$selector: '.#{$namespace}-tab-bar';
+
+#{$selector} {
+  /**
+   * TabBar
+   */
+  position: relative;
+  height: 100%;
+
+  &-body {
+    box-sizing: border-box;
+    height: 100%;
+    padding-bottom: $tabBarHeight;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  > footer {
+    position: absolute;
+    bottom: 0;
+    height: $tabBarHeight;
+    width: 100%;
+    overflow: hidden;
+
+    // line
+    > div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      transform: scaleY(.5);
+    }
+
+    // item-list
+    >ul {
+      display: flex;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  &-translucent {
+
+  }
+
+  &-body-item {
+    display: none;
+
+    &-selected {
+      display: block;
+    }
+  }
+
+  &-item {
+    overflow: hidden;
+    flex-grow: 1;
+    text-align: center;
+    list-style: none;
+
+    &-label {
+      display: inline-block;
+      position: relative;
+      margin-top: 5px;
+
+      > i {
+        font-size: 28px;
+      }
+
+      > span {
+        position: absolute;
+        top: 0;
+        right: 8px;
+        transform: translateX(100%);
+        background-color: red;
+        color: #fff;
+        text-align: center;
+        border-radius: 16px;
+        height: 16px;
+        min-width: 16px;
+        line-height: 16px;
+        font-size: 12px;
+        padding: 0 3px;
+        box-sizing: border-box;
+      }
+    }
+
+    &-title {
+      font-size: 12px;
+    }
+
+    &-selected {
+
+    }
+  }
+}

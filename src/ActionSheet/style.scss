@@ -1,0 +1,79 @@
+@import '../variables';
+
+$hr-color: #ddd;
+
+$selector: '.#{$namespace}-action-sheet';
+
+@mixin hr() {
+  content: ' ';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: $hr-color;
+  transform: scaleY(.5);
+}
+
+
+#{$selector} {
+
+  > header {
+    padding: 0 16px;
+    line-height: 44px;
+    position: relative;
+    color: #888;
+
+    &:after {
+      @include hr();
+    }
+  }
+
+  >ol {
+    margin: 0;
+    padding: 0;
+  }
+
+  &-item {
+    list-style: none;
+    position: relative;
+    text-align: center;
+
+    &:after {
+      @include hr();
+    }
+
+    &:last-child {
+      border-top: 4px solid #eee;
+
+      &:after {
+        content: none;
+      }
+    }
+
+    > button {
+      border: none;
+      outline: none;
+      padding: 0;
+      margin: 0;
+      display: block;
+      width: 100%;
+      background-color: transparent;
+      line-height: 44px;
+      font-size: 18px;
+
+      &:active {
+        background-color: #eee;
+      }
+    }
+
+    &-cancel > button {
+      color: #888;
+    }
+
+    &-destroy > button {
+      color: red;
+    }
+  }
+
+}

@@ -1,0 +1,60 @@
+@import '../variables';
+
+$selector: '.#{$namespace}-select';
+
+#{$selector} {
+  position: relative;
+  overflow: hidden;
+
+  &-options {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #fff;
+
+    > li {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      font-size: 16px;
+      color: #000;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &-mask-top, &-mask-bottom {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+
+    &:after {
+      position: absolute;
+      z-index: 3;
+      content: ' ';
+      width: 100%;
+      height: 1px;
+      background-color: #d0d0d0;
+    }
+  }
+
+  &-mask-top {
+    top: 0;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.6));
+
+    &:after {
+      bottom: 0;
+    }
+  }
+
+  &-mask-bottom {
+    bottom: 0;
+    background-image: linear-gradient(to top, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.6));
+
+    &:after {
+      top: 0;
+    }
+  }
+}

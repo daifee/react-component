@@ -1,0 +1,82 @@
+@import '../variables';
+
+$bg-color: #fff;
+$hr-color: #d5d5d5;
+$content-gap: 20px;
+
+$selector: '.#{$namespace}-dialog';
+
+#{$selector} {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  min-width: 80%;
+  max-width: 400px;
+  transform: translate3d(-50%, -50%, 0);
+  background-color: $bg-color;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+
+  header {
+    font-size: 17px;
+    padding: 1.2em $content-gap .5em;
+  }
+
+  &-body {
+    font-size: 15px;
+    padding: 0 $content-gap;
+  }
+
+  footer {
+    display: flex;
+    position: relative;
+    margin-top: $content-gap;
+    height: 42px;
+    line-height: 42px;
+
+    &:before {
+      content: ' ';
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      right: 0;
+      font-size: 0;
+      height: 1px;
+      transform: scaleY(.5);
+      background-color: $hr-color;
+    }
+
+    button {
+      position: relative;
+      flex-grow: 1;
+      border: none;
+      outline: none;
+      background-color: $bg-color;
+      font-size: 17px;
+
+      &:active {
+        background-color: #eee;
+      }
+
+      &:before {
+        content: ' ';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        font-size: 0;
+        width: 1px;
+        background-color: $hr-color;
+        transform: scaleX(.5);
+      }
+
+      &:first-child {
+        &:before {
+          content: none;
+        }
+      }
+    }
+  }
+}

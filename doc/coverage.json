@@ -1,0 +1,190 @@
+{
+  "coverage": "50.94%",
+  "expectCount": 53,
+  "actualCount": 27,
+  "files": {
+    "src/ActionSheet/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Button/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Cell/Cell.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Cell/CellBody.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Cell/CellFooter.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Cell/CellHeader.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Cell/CellsTips.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Cell/CellsTitle.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Cell/Cells.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Checkbox/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/ChildContainer.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/DatePicker/index.js": {
+      "expectCount": 8,
+      "actualCount": 0,
+      "undocumentLines": [
+        13,
+        173,
+        153,
+        186,
+        166,
+        146,
+        137,
+        97
+      ]
+    },
+    "src/Dialog/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Fade/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Icon/IconAttention.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Icon/IconCheck.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Icon/IconLoading.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/ListView/index.js": {
+      "expectCount": 7,
+      "actualCount": 1,
+      "undocumentLines": [
+        128,
+        140,
+        129,
+        87,
+        68,
+        63
+      ]
+    },
+    "src/Mask/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Notification/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Page/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Popup/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/ScrollView/index.js": {
+      "expectCount": 4,
+      "actualCount": 1,
+      "undocumentLines": [
+        59,
+        64,
+        38
+      ]
+    },
+    "src/Select/index.js": {
+      "expectCount": 7,
+      "actualCount": 1,
+      "undocumentLines": [
+        71,
+        119,
+        79,
+        46,
+        124,
+        115
+      ]
+    },
+    "src/Switch/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/TabBar/TabBar.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/TabBar/TabBarItem.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "src/Toast/index.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        15
+      ]
+    },
+    "src/utils.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/config.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    }
+  }
+}

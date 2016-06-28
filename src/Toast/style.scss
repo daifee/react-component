@@ -1,0 +1,28 @@
+@import '../variables';
+
+$selector: '.#{$namespace}-toast';
+
+#{$selector} {
+  position: fixed;
+  z-index: $z-index-toast;
+  top: 50%;
+  left: 50%;
+  max-width: 80%;
+  min-width: 7.6em;
+  transform: translate3d(-50%, -50%, 0);
+  background-color: rgba(40, 40, 40, .7);
+  border-radius: 5px;
+  text-align: center;
+
+  padding: 16px 8px;
+
+  > div {
+    margin-bottom: 16px;
+  }
+
+  // content
+  > p {
+    margin: 0;
+    color: #fff;
+  }
+}
