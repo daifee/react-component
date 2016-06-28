@@ -597,7 +597,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	exports.default = ChildContainer;
-	//
+	// 给 ReactCSSTransitionGroup 用
 
 	function ChildContainer(props) {
 	  return props.children[0] ? props.children[0] : null;
