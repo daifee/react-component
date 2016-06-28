@@ -36,21 +36,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "daifee-react-component/src/cell/cellstips.js~celltips",
+    "function/index.html#static-function-CellTips",
+    "<span>CellTips</span> <span class=\"search-result-import-path\">daifee-react-component/src/Cell/CellsTips.js</span>",
+    "function"
+  ],
+  [
+    "daifee-react-component/src/cell/cellstitle.js~celltitle",
+    "function/index.html#static-function-CellTitle",
+    "<span>CellTitle</span> <span class=\"search-result-import-path\">daifee-react-component/src/Cell/CellsTitle.js</span>",
+    "function"
+  ],
+  [
     "daifee-react-component/src/cell/cells.js~cells",
     "function/index.html#static-function-Cells",
     "<span>Cells</span> <span class=\"search-result-import-path\">daifee-react-component/src/Cell/Cells.js</span>",
-    "function"
-  ],
-  [
-    "daifee-react-component/src/cell/cellstips.js~cellstips",
-    "function/index.html#static-function-CellsTips",
-    "<span>CellsTips</span> <span class=\"search-result-import-path\">daifee-react-component/src/Cell/CellsTips.js</span>",
-    "function"
-  ],
-  [
-    "daifee-react-component/src/cell/cellstitle.js~cellstitle",
-    "function/index.html#static-function-CellsTitle",
-    "<span>CellsTitle</span> <span class=\"search-result-import-path\">daifee-react-component/src/Cell/CellsTitle.js</span>",
     "function"
   ],
   [
@@ -60,9 +60,27 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "daifee-react-component/src/childcontainer.js~childcontainer",
+    "function/index.html#static-function-ChildContainer",
+    "<span>ChildContainer</span> <span class=\"search-result-import-path\">daifee-react-component/src/ChildContainer.js</span>",
+    "function"
+  ],
+  [
+    "daifee-react-component/src/datepicker/index.js~datepicker",
+    "class/src/DatePicker/index.js~DatePicker.html",
+    "<span>DatePicker</span> <span class=\"search-result-import-path\">daifee-react-component/src/DatePicker/index.js</span>",
+    "class"
+  ],
+  [
     "daifee-react-component/src/dialog/index.js~dialog",
     "function/index.html#static-function-Dialog",
     "<span>Dialog</span> <span class=\"search-result-import-path\">daifee-react-component/src/Dialog/index.js</span>",
+    "function"
+  ],
+  [
+    "daifee-react-component/src/fade/index.js~fade",
+    "function/index.html#static-function-Fade",
+    "<span>Fade</span> <span class=\"search-result-import-path\">daifee-react-component/src/Fade/index.js</span>",
     "function"
   ],
   [
@@ -102,6 +120,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "daifee-react-component/src/page/index.js~page",
+    "function/index.html#static-function-Page",
+    "<span>Page</span> <span class=\"search-result-import-path\">daifee-react-component/src/Page/index.js</span>",
+    "function"
+  ],
+  [
     "daifee-react-component/src/popup/index.js~popup",
     "function/index.html#static-function-Popup",
     "<span>Popup</span> <span class=\"search-result-import-path\">daifee-react-component/src/Popup/index.js</span>",
@@ -111,6 +135,12 @@ window.esdocSearchIndex = [
     "daifee-react-component/src/scrollview/index.js~scrollview",
     "class/src/ScrollView/index.js~ScrollView.html",
     "<span>ScrollView</span> <span class=\"search-result-import-path\">daifee-react-component/src/ScrollView/index.js</span>",
+    "class"
+  ],
+  [
+    "daifee-react-component/src/select/index.js~select",
+    "class/src/Select/index.js~Select.html",
+    "<span>Select</span> <span class=\"search-result-import-path\">daifee-react-component/src/Select/index.js</span>",
     "class"
   ],
   [
@@ -138,12 +168,6 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "daifee-react-component/src/transitionshow.js~transitionshow",
-    "function/index.html#static-function-TransitionShow",
-    "<span>TransitionShow</span> <span class=\"search-result-import-path\">daifee-react-component/src/TransitionShow.js</span>",
-    "function"
-  ],
-  [
     "daifee-react-component/src/utils.js~classnames",
     "function/index.html#static-function-classNames",
     "<span>classNames</span> <span class=\"search-result-import-path\">daifee-react-component/src/utils.js</span>",
@@ -160,18 +184,6 @@ window.esdocSearchIndex = [
     "function/index.html#static-function-createInstance",
     "<span>createInstance</span> <span class=\"search-result-import-path\">daifee-react-component/src/utils.js</span>",
     "function"
-  ],
-  [
-    "daifee-react-component/src/transitionshow.js~sharedefaultprops",
-    "variable/index.html#static-variable-shareDefaultProps",
-    "<span>shareDefaultProps</span> <span class=\"search-result-import-path\">daifee-react-component/src/TransitionShow.js</span>",
-    "variable"
-  ],
-  [
-    "daifee-react-component/src/transitionshow.js~shareproptypes",
-    "variable/index.html#static-variable-sharePropTypes",
-    "<span>sharePropTypes</span> <span class=\"search-result-import-path\">daifee-react-component/src/TransitionShow.js</span>",
-    "variable"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~array",
@@ -570,9 +582,69 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/childcontainer.js",
+    "file/src/ChildContainer.js.html",
+    "src/ChildContainer.js",
+    "file"
+  ],
+  [
+    "src/datepicker/index.js",
+    "file/src/DatePicker/index.js.html",
+    "src/DatePicker/index.js",
+    "file"
+  ],
+  [
+    "src/datepicker/index.js~datepicker#getdateoptions",
+    "class/src/DatePicker/index.js~DatePicker.html#instance-method-getDateOptions",
+    "src/DatePicker/index.js~DatePicker#getDateOptions",
+    "method"
+  ],
+  [
+    "src/datepicker/index.js~datepicker#getmonthoptions",
+    "class/src/DatePicker/index.js~DatePicker.html#instance-method-getMonthOptions",
+    "src/DatePicker/index.js~DatePicker#getMonthOptions",
+    "method"
+  ],
+  [
+    "src/datepicker/index.js~datepicker#getselecteddateindex",
+    "class/src/DatePicker/index.js~DatePicker.html#instance-method-getSelectedDateIndex",
+    "src/DatePicker/index.js~DatePicker#getSelectedDateIndex",
+    "method"
+  ],
+  [
+    "src/datepicker/index.js~datepicker#getselectedmonthindex",
+    "class/src/DatePicker/index.js~DatePicker.html#instance-method-getSelectedMonthIndex",
+    "src/DatePicker/index.js~DatePicker#getSelectedMonthIndex",
+    "method"
+  ],
+  [
+    "src/datepicker/index.js~datepicker#getselectedyearindex",
+    "class/src/DatePicker/index.js~DatePicker.html#instance-method-getSelectedYearIndex",
+    "src/DatePicker/index.js~DatePicker#getSelectedYearIndex",
+    "method"
+  ],
+  [
+    "src/datepicker/index.js~datepicker#getyearoptions",
+    "class/src/DatePicker/index.js~DatePicker.html#instance-method-getYearOptions",
+    "src/DatePicker/index.js~DatePicker#getYearOptions",
+    "method"
+  ],
+  [
+    "src/datepicker/index.js~datepicker#render",
+    "class/src/DatePicker/index.js~DatePicker.html#instance-method-render",
+    "src/DatePicker/index.js~DatePicker#render",
+    "method"
+  ],
+  [
     "src/dialog/index.js",
     "file/src/Dialog/index.js.html",
     "src/Dialog/index.js",
+    "file"
+  ],
+  [
+    "src/fade/index.js",
+    "file/src/Fade/index.js.html",
+    "src/Fade/index.js",
     "file"
   ],
   [
@@ -654,6 +726,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/page/index.js",
+    "file/src/Page/index.js.html",
+    "src/Page/index.js",
+    "file"
+  ],
+  [
     "src/popup/index.js",
     "file/src/Popup/index.js.html",
     "src/Popup/index.js",
@@ -690,6 +768,42 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/select/index.js~select#componentdidmount",
+    "class/src/Select/index.js~Select.html#instance-method-componentDidMount",
+    "src/Select/index.js~Select#componentDidMount",
+    "method"
+  ],
+  [
+    "src/select/index.js~select#componentdidupdate",
+    "class/src/Select/index.js~Select.html#instance-method-componentDidUpdate",
+    "src/Select/index.js~Select#componentDidUpdate",
+    "method"
+  ],
+  [
+    "src/select/index.js~select#iscroller",
+    "class/src/Select/index.js~Select.html#instance-member-iscroller",
+    "src/Select/index.js~Select#iscroller",
+    "member"
+  ],
+  [
+    "src/select/index.js~select#render",
+    "class/src/Select/index.js~Select.html#instance-method-render",
+    "src/Select/index.js~Select#render",
+    "method"
+  ],
+  [
+    "src/select/index.js~select#resetposition",
+    "class/src/Select/index.js~Select.html#instance-method-resetPosition",
+    "src/Select/index.js~Select#resetPosition",
+    "method"
+  ],
+  [
+    "src/select/index.js~select#shouldcomponentupdate",
+    "class/src/Select/index.js~Select.html#instance-method-shouldComponentUpdate",
+    "src/Select/index.js~Select#shouldComponentUpdate",
+    "method"
+  ],
+  [
     "src/switch/index.js",
     "file/src/Switch/index.js.html",
     "src/Switch/index.js",
@@ -717,12 +831,6 @@ window.esdocSearchIndex = [
     "src/toast/index.js",
     "file/src/Toast/index.js.html",
     "src/Toast/index.js",
-    "file"
-  ],
-  [
-    "src/transitionshow.js",
-    "file/src/TransitionShow.js.html",
-    "src/TransitionShow.js",
     "file"
   ],
   [

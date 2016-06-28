@@ -10,163 +10,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport './style';\nimport {classNames, createInstance} from '../utils';\nimport TransitionShow from '../TransitionShow';\nimport Popup from '../Popup';\n\nlet apiInstance;\n\nlet id = 0;\nfunction getId() {\n  return id++;\n}\n\n/**\n * ActionSheet 组件\n * 动画效果使用 `Popup` 组件 {@link Popup}\n * @param {object} props 传入组件的属性\n * @param {array} props.buttons 定义本组件的按钮，数组值作为按钮名\n * @param {number} props.cancelButtonIndex 第几个是\"取消\"按钮，会附加一个 class\n * @param {number} props.destroyButtonIndex 第几个是“危险”按钮，会附加一个 class\n * @param {string} props.title 显示的组件title\n * @param {function} props.callback 点击按钮后调用的 callback，按钮索引作为参数\n * @param {function} props.onClick 组件被点击后被调用。\n * @param {function} props._hide 组件点击后被调用（请用 onClick 代替）\n * @description 除了上面说明的属性，还可以定义任何 React 组件有效的属性。\n */\nexport default function ActionSheet(props) {\n  let {\n    buttons,\n    cancelButtonIndex,\n    destroyButtonIndex,\n    title,\n    callback,\n    onClick,\n    _hide\n  } = props;\n  typeof cancelButtonIndex === 'undefined' && (cancelButtonIndex = buttons.length - 1);\n\n\n  return (\n    <Popup\n      {...props}\n      direction='bottom'\n      onClick={(e) => {\n        _hide && _hide();\n        onClick && onClick(e);\n      }}>\n      <div className={classNames('action-sheet')}>\n        {title ? (<header>{title}</header>) : null}\n        <ol>{buttons.map((button, index) => {\n          return (\n            <Button\n              key={getId()}\n              name={button}\n              index={index}\n              cancel={cancelButtonIndex === index}\n              destroy={destroyButtonIndex === index}\n              callback={callback} />);\n        })}</ol>\n      </div>\n    </Popup>\n  );\n}\n\nActionSheet.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  buttons: PropTypes.array,\n  cancelButtonIndex: PropTypes.number,\n  destroyButtonIndex: PropTypes.number,\n  title: PropTypes.string,\n  callback: PropTypes.func,\n  onClick: PropTypes.func,\n  _hide: PropTypes.func\n};\n\nActionSheet.defaultProps = {\n  ...TransitionShow.shareDefaultProps,\n  duration: 250,\n  buttons: []\n};\n\n\nActionSheet.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\n\nActionSheet.show = (options = {}, callback) => {\n  apiInstance.show(options, callback);\n};\n\n\nfunction Button(props) {\n  const {name, index, cancel, destroy, callback} = props;\n  let classes = classNames('action-sheet-item', {\n    'action-sheet-item-cancel': cancel,\n    'action-sheet-item-destroy': destroy\n  });\n\n  return (\n    <li className={classes} onClick={() => callback(index)}>\n      <button>{name}</button>\n    </li>\n  );\n}\n\nButton.propTypes = {\n  name: PropTypes.string,\n  index: PropTypes.number,\n  cancel: PropTypes.bool,\n  destroy: PropTypes.bool,\n  callback: PropTypes.func\n};\n\nButton.defaultProps = {\n  callback() {}\n};\n\n\n\nclass ApiContainer extends Component {\n  state = {};\n\n  render() {\n    return (<ActionSheet {...this.state} _hide={this.hide} />);\n  }\n\n  show(options = {}, callback) {\n    let nextState = {\n      ...options,\n      callback,\n      show: true\n    };\n\n    this.setState(nextState);\n  }\n\n  hide = () => {\n    let nextState = {...this.state, show: false};\n\n    this.setState(nextState);\n  }\n}\n\n\napiInstance = createInstance(ApiContainer);\n"
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport './style';\nimport {classNames, createInstance} from '../utils';\nimport Popup from '../Popup';\n\nlet apiInstance;\n\n\n/**\n * action 按钮\n * @param {object} props see Button.propTypes\n */\nfunction Button(props) {\n  const {index, children, cancel, destroy, callback} = props;\n  let className = classNames('action-sheet-item', {\n    'action-sheet-item-cancel': cancel,\n    'action-sheet-item-destroy': destroy\n  });\n\n  return (\n    <li className={className} onClick={() => callback(index)}>\n      <button>{children}</button>\n    </li>\n  );\n}\n\n/**\n * 传入 Button 的属性\n * @type {Object}\n * index: 索引\n * children: 按钮（button）内容\n * cancel: 是取消按钮？\n * destroy: 是销毁按钮？\n * callback: 点击 action 按钮的回调，参数为对应的 action 索引\n */\nButton.propTypes = {\n  index: PropTypes.number.isRequired,\n  children: PropTypes.node.isRequired,\n  cancel: PropTypes.bool,\n  destroy: PropTypes.bool,\n  callback: PropTypes.func.isRequired\n};\n\n/**\n * ActionSheet UI\n * @param {object} props see ActionSheet.propTypes\n */\nexport default function ActionSheet(props) {\n  let {\n    title,\n    actions,\n    callback,\n    cancelIndex,\n    destroyIndex,\n    className,\n    ...others\n  } = props;\n  className = classNames('action-sheet', {_user: className});\n  typeof cancelIndex === 'undefined' && (cancelIndex = actions.length - 1);\n\n\n  return (\n    <div className={className} {...others}>\n      {title ? (<header>{title}</header>) : null}\n      <ol>{actions.map((content, index) => {\n        return (\n          <Button\n            key={index}\n            index={index}\n            cancel={cancelIndex === index}\n            destroy={destroyIndex === index}\n            callback={callback}>\n            {content}\n          </Button>\n        );\n      })}</ol>\n    </div>\n  );\n}\n\n/**\n * ActionSheet 的 props\n * @type {Object}\n * title: 标题\n * actions: 多个动作 action[0] === PropTypes.node\n * callback: 点击动作后的回调\n * cancelIndex: “取消动作”的索引\n * destroyIndex: “销毁动作”的索引\n */\nActionSheet.propTypes = {\n  title: PropTypes.node,\n  actions: PropTypes.array.isRequired,\n  callback: PropTypes.func.isRequired,\n  cancelIndex: PropTypes.number,\n  destroyIndex: PropTypes.number,\n  className: PropTypes.string\n};\n\n/**\n * 创建 ActionSheet 的 ApiContainer 实例\n * @param  {node} container {@see createInstance}\n * @return {PropTypes.element}           React elment 对象\n */\nActionSheet.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\n/**\n * 显示全局ActionSheet\n * @param  {object} props      see ActionSheet.propTypes\n * @param  {object} popupProps {@see Popup}\n * @return {[type]}            [description]\n */\nActionSheet.show = (props, popupProps) => {\n  apiInstance.show(props, popupProps);\n};\n\n\n\n\n\nclass ApiContainer extends Component {\n  state = {\n    props: {\n      actions: [],\n      callback: () => {}\n    },\n    popupProps: {\n      show: false\n    }\n  };\n\n  render() {\n    let {props, popupProps} = this.state;\n\n    return (\n      <Popup {...popupProps}>\n        <ActionSheet {...props} />\n      </Popup>\n    );\n  }\n\n  show(props, popupProps) {\n    props = this._decorateProps(props);\n\n    let nextState = {\n      props: {...this.state.props, ...props},\n      popupProps: {...this.state.popupProps, ...popupProps, show: true}\n    };\n\n    this.setState(nextState);\n  }\n\n  hide() {\n    let nextState = {\n      ...this.state,\n      popupProps: {...this.state.popupProps, show: false}\n    };\n\n    this.setState(nextState);\n  }\n\n  _decorateProps(props) {\n    let callback = props.callback;\n    props.callback = (index) => {\n      callback && callback(index);\n      this.hide();\n    };\n\n    return props;\n  }\n}\n\n\napiInstance = createInstance(ApiContainer);\n"
   },
   {
     "__docId__": 1,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "id",
-    "memberof": "src/ActionSheet/index.js",
-    "longname": "src/ActionSheet/index.js~id",
-    "access": null,
-    "export": false,
-    "importPath": "daifee-react-component/src/ActionSheet/index.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 12,
-    "undocument": true,
-    "type": {
-      "types": [
-        "number"
-      ]
-    }
-  },
-  {
-    "__docId__": 2,
-    "kind": "function",
-    "static": true,
-    "variation": null,
-    "name": "getId",
-    "memberof": "src/ActionSheet/index.js",
-    "longname": "src/ActionSheet/index.js~getId",
-    "access": null,
-    "export": false,
-    "importPath": "daifee-react-component/src/ActionSheet/index.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 13,
-    "undocument": true,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "generator": false
-  },
-  {
-    "__docId__": 3,
-    "kind": "function",
-    "static": true,
-    "variation": null,
-    "name": "ActionSheet",
-    "memberof": "src/ActionSheet/index.js",
-    "longname": "src/ActionSheet/index.js~ActionSheet",
-    "access": null,
-    "export": true,
-    "importPath": "daifee-react-component/src/ActionSheet/index.js",
-    "importStyle": "ActionSheet",
-    "description": "ActionSheet 组件\n动画效果使用 `Popup` 组件 {@link Popup}",
-    "lineNumber": 30,
-    "unknown": [
-      {
-        "tagName": "@description",
-        "tagValue": "除了上面说明的属性，还可以定义任何 React 组件有效的属性。"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props",
-        "description": "传入组件的属性"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "array"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.buttons",
-        "description": "定义本组件的按钮，数组值作为按钮名"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.cancelButtonIndex",
-        "description": "第几个是\"取消\"按钮，会附加一个 class"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.destroyButtonIndex",
-        "description": "第几个是“危险”按钮，会附加一个 class"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.title",
-        "description": "显示的组件title"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "function"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.callback",
-        "description": "点击按钮后调用的 callback，按钮索引作为参数"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "function"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.onClick",
-        "description": "组件被点击后被调用。"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "function"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props._hide",
-        "description": "组件点击后被调用（请用 onClick 代替）"
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "generator": false
-  },
-  {
-    "__docId__": 4,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -177,15 +24,18 @@
     "export": false,
     "importPath": "daifee-react-component/src/ActionSheet/index.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 96,
-    "undocument": true,
+    "description": "action 按钮",
+    "lineNumber": 16,
     "params": [
       {
-        "name": "props",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see Button.propTypes"
       }
     ],
     "return": {
@@ -196,7 +46,40 @@
     "generator": false
   },
   {
-    "__docId__": 5,
+    "__docId__": 2,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "ActionSheet",
+    "memberof": "src/ActionSheet/index.js",
+    "longname": "src/ActionSheet/index.js~ActionSheet",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/ActionSheet/index.js",
+    "importStyle": "ActionSheet",
+    "description": "ActionSheet UI",
+    "lineNumber": 51,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see ActionSheet.propTypes"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 3,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -208,7 +91,7 @@
     "importPath": "daifee-react-component/src/ActionSheet/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 124,
+    "lineNumber": 125,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -216,7 +99,7 @@
     ]
   },
   {
-    "__docId__": 6,
+    "__docId__": 4,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -225,7 +108,7 @@
     "longname": "src/ActionSheet/index.js~ApiContainer#render",
     "access": null,
     "description": null,
-    "lineNumber": 127,
+    "lineNumber": 136,
     "undocument": true,
     "params": [],
     "return": {
@@ -236,7 +119,7 @@
     "generator": false
   },
   {
-    "__docId__": 7,
+    "__docId__": 5,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -245,25 +128,64 @@
     "longname": "src/ActionSheet/index.js~ApiContainer#show",
     "access": null,
     "description": null,
-    "lineNumber": 131,
+    "lineNumber": 146,
     "undocument": true,
     "params": [
       {
-        "name": "options",
-        "optional": true,
+        "name": "props",
         "types": [
-          "{}"
-        ],
-        "defaultRaw": {},
-        "defaultValue": "{}"
+          "*"
+        ]
       },
       {
-        "name": "callback",
+        "name": "popupProps",
         "types": [
           "*"
         ]
       }
     ],
+    "generator": false
+  },
+  {
+    "__docId__": 6,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "hide",
+    "memberof": "src/ActionSheet/index.js~ApiContainer",
+    "longname": "src/ActionSheet/index.js~ApiContainer#hide",
+    "access": null,
+    "description": null,
+    "lineNumber": 157,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 7,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "_decorateProps",
+    "memberof": "src/ActionSheet/index.js~ApiContainer",
+    "longname": "src/ActionSheet/index.js~ApiContainer#_decorateProps",
+    "access": null,
+    "description": null,
+    "lineNumber": 166,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
     "generator": false
   },
   {
@@ -277,7 +199,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "/**\n * Button Component\n * @module src/Button\n */\n\nimport React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\n\n\n/**\n * 输出\n * @param {Object} props 传入的 props\n * @param {String} props.type 按钮类型\n */\nexport default function Button(props) {\n  const {children, className, type, disabled, onTouchStart, ...others} = props;\n  const {href} = others;\n  const classes = classNames('btn', {\n    '_user': className,\n    [`btn-${type}`]: true,\n    'btn-disabled': disabled\n  });\n  const Component = href ? 'a' : 'button';\n\n  return (\n    <Component\n      className={classes}\n      {...others}\n      onTouchStart={(e) => {\n        disabled && e.preventDefault();\n        onTouchStart && onTouchStart(e);\n      }}>\n      {children}\n    </Component>\n  );\n}\n\nButton.propTypes = {\n  type: PropTypes.oneOf(['default', 'primary', 'warn']),\n  disabled: PropTypes.bool,\n  href: PropTypes.string,\n  children: PropTypes.node,\n  className: PropTypes.string,\n  onTouchStart: PropTypes.func\n};\n\nButton.defaultProps = {\n  type: 'default'\n};\n\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\n\n\n/**\n * Button UI\n * @param {object} props see Button.propTypes\n */\nexport default function Button(props) {\n  let {type, disabled, href, children, className, ...others} = props;\n  className = classNames('btn', {\n    '_user': className,\n    [`btn-${type}`]: true,\n    'btn-disabled': disabled\n  });\n  let Component = href ? 'a' : 'button';\n\n  return (\n    <Component\n      className={className}\n      disabled={disabled}\n      href={href}\n      {...others}>\n      {children}\n    </Component>\n  );\n}\n\n/**\n * Button 的 props\n * @type {Object}\n * type: 按钮类型\n * disable: 是否禁用？如果定义了 href 属性，此属性无效\n * href: 超链接，使用 <a />\n */\nButton.propTypes = {\n  type: PropTypes.oneOf(['default', 'primary', 'warning']),\n  disabled: PropTypes.bool,\n  href: PropTypes.string,\n  children: PropTypes.node,\n  className: PropTypes.string\n};\n\nButton.defaultProps = {\n  type: 'default'\n};\n\n"
   },
   {
     "__docId__": 9,
@@ -291,28 +213,18 @@
     "export": true,
     "importPath": "daifee-react-component/src/Button/index.js",
     "importStyle": "Button",
-    "description": "输出",
-    "lineNumber": 18,
+    "description": "Button UI",
+    "lineNumber": 12,
     "params": [
       {
         "nullable": null,
         "types": [
-          "Object"
+          "object"
         ],
         "spread": false,
         "optional": false,
         "name": "props",
-        "description": "传入的 props"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.type",
-        "description": "按钮类型"
+        "description": "see Button.propTypes"
       }
     ],
     "return": {
@@ -333,7 +245,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n\tPropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function Cell(props) {\n  const {children, className, component, access, arrow, ...others} = props;\n  const {href} = others;\n  const Component = href ? 'a' : (component ? component : 'div');\n  const classes = classNames('cell', {\n    'cell-access': access,\n    'cell-arrow': arrow,\n    _user: className\n  });\n\n\n  return (\n    <Component {...others} className={classes}>{children}</Component>\n  );\n}\n\nCell.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string,\n  component: PropTypes.string,\n  href: PropTypes.string,\n  access: PropTypes.bool,\n  arrow: PropTypes.bool\n};\n"
+    "content": "import React, {\n\tPropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n/**\n * Cell UI\n * @param {object} props see Cell.propTypes\n */\nexport default function Cell(props) {\n  let {children, className, href, access, arrow, component, ...others} = props;\n  className = classNames('cell', {\n    'cell-access': access,\n    'cell-arrow': arrow,\n    _user: className\n  });\n\n  let Component = component ? component : (href ? 'a' : 'div');\n\n  return (\n    <Component {...others} href={href} className={className}>\n      {children}\n    </Component>\n  );\n}\n\n/**\n * Cell 的 props\n * @type {Object}\n * component: 渲染的组件\n * href: 超链接\n * access: 是否有交互状态\n * arrow: 是否有箭头\n *\n */\nCell.propTypes = {\n  component: PropTypes.oneOfType([\n    PropTypes.string,\n    PropTypes.func\n  ]),\n  href: PropTypes.string,\n  access: PropTypes.bool,\n  arrow: PropTypes.bool,\n  children: PropTypes.node,\n  className: PropTypes.string\n};\n\nCell.defaultProps = {\n  access: true,\n  arrow: true\n};\n"
   },
   {
     "__docId__": 11,
@@ -347,15 +259,18 @@
     "export": true,
     "importPath": "daifee-react-component/src/Cell/Cell.js",
     "importStyle": "Cell",
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "Cell UI",
+    "lineNumber": 10,
     "params": [
       {
-        "name": "props",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see Cell.propTypes"
       }
     ],
     "return": {
@@ -376,7 +291,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n\tPropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n\nexport default function CellBody(props) {\n  const {className, children, ...others} = props;\n  const classes = classNames('cell-body', {_user: className});\n\n  return (\n    <div {...others} className={classes}>{children}</div>\n  );\n}\n\nCellBody.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n"
+    "content": "import React, {\n\tPropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n/**\n * CellBody UI\n * @param {object} props see CellBody.propTypes\n */\nexport default function CellBody(props) {\n  let {className, children, ...others} = props;\n  className = classNames('cell-body', {_user: className});\n\n  return (\n    <div {...others} className={className}>{children}</div>\n  );\n}\n\n/**\n * CellBody 的 props\n * @type {Object}\n */\nCellBody.propTypes = {\n  children: PropTypes.node,\n  className: PropTypes.string\n};\n"
   },
   {
     "__docId__": 13,
@@ -390,15 +305,18 @@
     "export": true,
     "importPath": "daifee-react-component/src/Cell/CellBody.js",
     "importStyle": "CellBody",
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true,
+    "description": "CellBody UI",
+    "lineNumber": 10,
     "params": [
       {
-        "name": "props",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see CellBody.propTypes"
       }
     ],
     "return": {
@@ -419,7 +337,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function CellFooter(props) {\n  const {className, children, ...others} = props;\n  const classes = classNames('cell-footer', {_user: className});\n\n  return (\n    <div {...others} className={classes}>{children}</div>\n  );\n}\n\nCellFooter.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n/**\n * CellFooter UI\n * @param {object} props see CellFooter.propTypes\n */\nexport default function CellFooter(props) {\n  let {className, children, ...others} = props;\n  className = classNames('cell-footer', {_user: className});\n\n  return (\n    <div {...others} className={className}>{children}</div>\n  );\n}\n\n/**\n * CellFooter 的 props\n * @type {Object}\n */\nCellFooter.propTypes = {\n  children: PropTypes.node,\n  className: PropTypes.string\n};\n"
   },
   {
     "__docId__": 15,
@@ -433,15 +351,18 @@
     "export": true,
     "importPath": "daifee-react-component/src/Cell/CellFooter.js",
     "importStyle": "CellFooter",
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "CellFooter UI",
+    "lineNumber": 10,
     "params": [
       {
-        "name": "props",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see CellFooter.propTypes"
       }
     ],
     "return": {
@@ -462,7 +383,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function CellHeader(props) {\n  const {className, children, ...others} = props;\n  const classes = classNames('cell-header', {'_user': className});\n\n  return (\n    <div className={classes} {...others}>{children}</div>\n  );\n};\n\nCellHeader.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n/**\n * CellHeader UI\n * @param {object} props see CellHeader.propTypes\n */\nexport default function CellHeader(props) {\n  let {className, children, ...others} = props;\n  className = classNames('cell-header', {_user: className});\n\n  return (\n    <div {...others} className={className}>{children}</div>\n  );\n}\n\n/**\n * CellHeader 的 props\n * @type {Object}\n */\nCellHeader.propTypes = {\n  children: PropTypes.node,\n  className: PropTypes.string\n};\n"
   },
   {
     "__docId__": 17,
@@ -476,15 +397,18 @@
     "export": true,
     "importPath": "daifee-react-component/src/Cell/CellHeader.js",
     "importStyle": "CellHeader",
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "CellHeader UI",
+    "lineNumber": 10,
     "params": [
       {
-        "name": "props",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see CellHeader.propTypes"
       }
     ],
     "return": {
@@ -505,7 +429,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function Cells(props) {\n  const {children, className, access, arrow, ...others} = props;\n  const classes = classNames('cells', {\n    'cells-access': access,\n    'cells-arrow': arrow,\n    _user: className\n  });\n\n  return (\n    <div className={classes} {...others}>{children}</div>\n  );\n};\n\nCells.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string,\n  access: PropTypes.bool,\n  arrow: PropTypes.bool\n};\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n/**\n * Cells UI\n * @param {object} props see Cells.propTypes\n */\nexport default function Cells(props) {\n  let {className, children, ...others} = props;\n  className = classNames('cells', {_user: className});\n\n  return (\n    <div {...others} className={className}>{children}</div>\n  );\n}\n\n/**\n * Cells 的 props\n * @type {Object}\n */\nCells.propTypes = {\n  children: PropTypes.node,\n  className: PropTypes.string\n};\n"
   },
   {
     "__docId__": 19,
@@ -519,15 +443,18 @@
     "export": true,
     "importPath": "daifee-react-component/src/Cell/Cells.js",
     "importStyle": "Cells",
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "Cells UI",
+    "lineNumber": 10,
     "params": [
       {
-        "name": "props",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see Cells.propTypes"
       }
     ],
     "return": {
@@ -548,29 +475,32 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function CellsTips(props) {\n  const {className, children, ...others} = props;\n  const classes = classNames('cells-tips', {_user: className});\n\n  return (\n    <div className={classes} {...others}>{children}</div>\n  );\n};\n\nCellsTips.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n/**\n * CellTips UI\n * @param {object} props see CellTips.propTypes\n */\nexport default function CellTips(props) {\n  let {className, children, ...others} = props;\n  className = classNames('cells-tips', {_user: className});\n\n  return (\n    <div {...others} className={className}>{children}</div>\n  );\n}\n\n/**\n * CellTips 的 props\n * @type {Object}\n */\nCellTips.propTypes = {\n  children: PropTypes.node,\n  className: PropTypes.string\n};\n"
   },
   {
     "__docId__": 21,
     "kind": "function",
     "static": true,
     "variation": null,
-    "name": "CellsTips",
+    "name": "CellTips",
     "memberof": "src/Cell/CellsTips.js",
-    "longname": "src/Cell/CellsTips.js~CellsTips",
+    "longname": "src/Cell/CellsTips.js~CellTips",
     "access": null,
     "export": true,
     "importPath": "daifee-react-component/src/Cell/CellsTips.js",
-    "importStyle": "CellsTips",
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "importStyle": "CellTips",
+    "description": "CellTips UI",
+    "lineNumber": 10,
     "params": [
       {
-        "name": "props",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see CellTips.propTypes"
       }
     ],
     "return": {
@@ -591,29 +521,32 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nexport default function CellsTitle(props) {\n  const {className, children, ...others} = props;\n  const classes = classNames('cells-title', {_user: className});\n\n  return (\n    <div className={classes} {...others}>{children}</div>\n  );\n};\n\nCellsTitle.propTypes = {\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n/**\n * CellTitle UI\n * @param {object} props see CellTitle.propTypes\n */\nexport default function CellTitle(props) {\n  let {className, children, ...others} = props;\n  className = classNames('cells-title', {_user: className});\n\n  return (\n    <div {...others} className={className}>{children}</div>\n  );\n}\n\n/**\n * CellTitle 的 props\n * @type {Object}\n */\nCellTitle.propTypes = {\n  children: PropTypes.node,\n  className: PropTypes.string\n};\n"
   },
   {
     "__docId__": 23,
     "kind": "function",
     "static": true,
     "variation": null,
-    "name": "CellsTitle",
+    "name": "CellTitle",
     "memberof": "src/Cell/CellsTitle.js",
-    "longname": "src/Cell/CellsTitle.js~CellsTitle",
+    "longname": "src/Cell/CellsTitle.js~CellTitle",
     "access": null,
     "export": true,
     "importPath": "daifee-react-component/src/Cell/CellsTitle.js",
-    "importStyle": "CellsTitle",
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "importStyle": "CellTitle",
+    "description": "CellTitle UI",
+    "lineNumber": 10,
     "params": [
       {
-        "name": "props",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see CellTitle.propTypes"
       }
     ],
     "return": {
@@ -647,7 +580,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport {IconCheck} from '../Icon';\nimport './style';\n\n/**\n * 选择框\n * 所有 checkbox 都有效\n * @param {object} props 传入组件的属性\n * @property {boolean} props.checked 是否选中状态\n * @property {boolean} props.disabled 是否禁止操作（当为 true 不会触发 onChange）\n */\nexport default function Checkbox(props) {\n  let {checked, disabled, className, ...others} = props;\n  className += ' ' + IconCheck.className;\n  let classes = classNames('checkbox', {_user: className});\n\n  return (\n    <input\n      className={classes}\n      type='checkbox'\n      checked={checked}\n      disabled={disabled}\n      {...others} />\n  );\n}\n\nCheckbox.propTypes = {\n  checked: PropTypes.bool.isRequired,\n  disabled: PropTypes.bool,\n  className: PropTypes.string\n};\n\nCheckbox.defaultProps = {\n  checked: false,\n  disabled: false\n};\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport {IconCheck} from '../Icon';\nimport './style';\n\n/**\n * Checkbox\n * 渲染 <input type=\"checkbox\" />\n * @param {object} props see Checkbox.propTypes\n */\nexport default function Checkbox(props) {\n  let {checked, disabled, className, ...others} = props;\n  className += ' ' + IconCheck.className;\n  className = classNames('checkbox', {_user: className});\n\n  return (\n    <input\n      className={className}\n      type='checkbox'\n      checked={checked}\n      disabled={disabled}\n      {...others} />\n  );\n}\n\n/**\n * props\n * @type {Object}\n * checked: 是否选中状态\n * disabled: 是否禁用\n */\nCheckbox.propTypes = {\n  checked: PropTypes.bool,\n  disabled: PropTypes.bool,\n  className: PropTypes.string\n};\n\nCheckbox.defaultProps = {\n  className: ''\n};\n"
   },
   {
     "__docId__": 26,
@@ -661,8 +594,8 @@
     "export": true,
     "importPath": "daifee-react-component/src/Checkbox/index.js",
     "importStyle": "Checkbox",
-    "description": "选择框\n所有 checkbox 都有效",
-    "lineNumber": 15,
+    "description": "Checkbox\n渲染 <input type=\"checkbox\" />",
+    "lineNumber": 13,
     "params": [
       {
         "nullable": null,
@@ -672,29 +605,7 @@
         "spread": false,
         "optional": false,
         "name": "props",
-        "description": "传入组件的属性"
-      }
-    ],
-    "properties": [
-      {
-        "nullable": null,
-        "types": [
-          "boolean"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.checked",
-        "description": "是否选中状态"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "boolean"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.disabled",
-        "description": "是否禁止操作（当为 true 不会触发 onChange）"
+        "description": "see Checkbox.propTypes"
       }
     ],
     "return": {
@@ -709,109 +620,92 @@
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "src/Dialog/index.js",
+    "name": "src/ChildContainer.js",
     "memberof": null,
-    "longname": "src/Dialog/index.js",
+    "longname": "src/ChildContainer.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames, createInstance} from '../utils';\nimport TransitionShow from '../TransitionShow';\nimport './style';\n\nlet apiInstance = null;\n\n\nexport default function Dialog(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    title,\n    content,\n    buttons,\n    _hide,\n    ...others\n  } = props;\n  let classes = classNames('dialog', {_user: className});\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('dialog')}\n      duration={duration}>\n      <div className={classes} style={style} {...others}>\n        <div>\n          <header><strong>{title}</strong></header>\n          <p>{content}</p>\n          <footer>{buttons.map((button, index) => {\n            return (<Button {...button} key={index} _hide={_hide} />);\n          })}</footer>\n        </div>\n      </div>\n    </TransitionShow>\n  );\n}\n\nDialog.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  title: PropTypes.string,\n  content: PropTypes.string,\n  buttons: PropTypes.array,  // [{text: '', onClik: () => {}}]\n  _hide: PropTypes.func\n};\n\nDialog.defaultProps = {\n  ...TransitionShow.shareDefaultProps,\n  buttons: []\n};\n\nDialog.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\nDialog.show = (title, content, buttons, options) => {\n  apiInstance.show(title, content, buttons, options);\n};\n\n\n\nfunction Button(props) {\n  let {text, onClick, _hide, ...others} = props;\n  return (\n    <button\n      {...others}\n      onClick={(e) => {\n        _hide && _hide();\n        onClick && onClick(e);\n      }}>\n      {text}\n    </button>\n  );\n}\n\nButton.propTypes = {\n  text: PropTypes.string,\n  onClick: PropTypes.func,\n  _hide: PropTypes.func\n};\n\n\nclass ApiContainer extends Component {\n  state = {};\n\n  render() {\n    return (<Dialog {...this.state} _hide={this.hide} />);\n  }\n\n  show(title, content, buttons, options) {\n    let nextState = {\n      ...options,\n      title,\n      content,\n      buttons,\n      show: true\n    };\n\n    this.setState(nextState);\n  }\n\n  hide = () => {\n    let nextState = {...this.state, show: false};\n    this.setState(nextState);\n  };\n}\n\napiInstance = createInstance(ApiContainer);\n\n"
+    "content": "//\n\nexport default function ChildContainer(props) {\n  return props.children[0] ? props.children[0] : null;\n}\n"
   },
   {
     "__docId__": 28,
-    "kind": "variable",
+    "kind": "function",
     "static": true,
     "variation": null,
-    "name": "apiInstance",
-    "memberof": "src/Dialog/index.js",
-    "longname": "src/Dialog/index.js~apiInstance",
+    "name": "ChildContainer",
+    "memberof": "src/ChildContainer.js",
+    "longname": "src/ChildContainer.js~ChildContainer",
     "access": null,
-    "export": false,
-    "importPath": "daifee-react-component/src/Dialog/index.js",
-    "importStyle": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/ChildContainer.js",
+    "importStyle": "ChildContainer",
     "description": null,
-    "lineNumber": 9,
+    "lineNumber": 3,
     "undocument": true,
-    "type": {
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
       "types": [
         "*"
       ]
-    }
+    },
+    "generator": false
   },
   {
     "__docId__": 29,
-    "kind": "function",
+    "kind": "file",
     "static": true,
     "variation": null,
-    "name": "Dialog",
-    "memberof": "src/Dialog/index.js",
-    "longname": "src/Dialog/index.js~Dialog",
+    "name": "src/DatePicker/index.js",
+    "memberof": null,
+    "longname": "src/DatePicker/index.js",
     "access": null,
-    "export": true,
-    "importPath": "daifee-react-component/src/Dialog/index.js",
-    "importStyle": "Dialog",
     "description": null,
-    "lineNumber": 12,
-    "undocument": true,
-    "params": [
-      {
-        "name": "props",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "generator": false
+    "lineNumber": 1,
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames, createInstance} from '../utils';\nimport Select from '../Select';\nimport Popup from '../Popup';\nimport './style';\n\nlet apiInstance;\nconst now = new Date();\n\nexport default class DatePicker extends Component {\n  static propTypes = {\n    title: PropTypes.string,\n    minDate: PropTypes.object,\n    maxDate: PropTypes.object,\n    selectedDate: PropTypes.object,\n    onChange: PropTypes.func,\n    onConfirm: PropTypes.func,\n    onCancel: PropTypes.func,\n    className: PropTypes.string\n  };\n\n  static defaultProps = {\n    minDate: now,\n    maxDate: now,\n    selectedDate: now\n  };\n\n  static getInstance = (container) => {\n    return createInstance(ApiContainer, container);\n  };\n\n  static show = (props, popupProps) => {\n    apiInstance.show(props, popupProps);\n  };\n\n  // 方便 _onChange()\n  yearOptions = [];\n  monthOptions = [];\n  dateOptions = [];\n\n  _cancel = () => {\n    let {onCancel, selectedDate} = this.props;\n\n    onCancel && onCancel(selectedDate);\n  };\n\n  _confirm = () => {\n    let {onConfirm, selectedDate} = this.props;\n\n    onConfirm && onConfirm(selectedDate);\n  };\n\n  _changeYear = (yearIndex) => {\n    let {selectedDate} = this.props;\n    let year = this.yearOptions[yearIndex].value;\n    let newDate = copyDate(selectedDate);\n    newDate.setFullYear(year);\n\n    this._change(newDate);\n  };\n\n  _changeMonth = (monthIndex) => {\n    let {selectedDate} = this.props;\n    let month = this.monthOptions[monthIndex].value - 1;  // 纠正 getMonth() 的 +1\n    let newDate = copyDate(selectedDate);\n    newDate.setMonth(month);\n\n    // 当前 3-31\n    // 调动月份，值为2，上面结果变为 3-2\n    // 所以这里要校正\n    if (newDate.getMonth() > month) {\n      newDate.setDate(1);\n      newDate.setMonth(month);\n      newDate.setDate(getLastDate(newDate));\n    }\n\n    this._change(newDate);\n  };\n\n  _changeDate = (dateIndex) => {\n    let {selectedDate} = this.props;\n    let date = this.dateOptions[dateIndex].value;\n    let newDate = copyDate(selectedDate);\n    newDate.setDate(date);\n\n    this._change(newDate);\n  };\n\n  _change(selectedDate) {\n    let {onChange} = this.props;\n    onChange && onChange(selectedDate);\n  }\n\n  render() {\n    let {title, className, ...others} = this.props;\n    let yearOptions = this.yearOptions = this.getYearOptions();\n    let selectedYearIndex = this.getSelectedYearIndex(yearOptions);\n    let monthOptions = this.monthOptions = this.getMonthOptions();\n    let selectedMonthIndex = this.getSelectedMonthIndex(monthOptions);\n    let dateOptions = this.dateOptions = this.getDateOptions();\n    let selectedDateIndex = this.getSelectedDateIndex(dateOptions);\n\n    className = classNames('date-picker', {_user: className});\n\n    return (\n      <div className={className} {...others}>\n        <div className={classNames('date-picker-header')}>\n          <button onClick={this._cancel}>取消</button>\n          <em>{title}</em>\n          <button onClick={this._confirm}>确定</button>\n        </div>\n        <div className={classNames('date-picker-body')}>\n          <Select\n            key='year'\n            options={yearOptions}\n            selectedIndex={selectedYearIndex}\n            onChange={this._changeYear} />\n          <Select\n            key='month'\n            options={monthOptions}\n            selectedIndex={selectedMonthIndex}\n            onChange={this._changeMonth} />\n          <Select\n            key='date'\n            options={dateOptions}\n            selectedIndex={selectedDateIndex}\n            onChange={this._changeDate} />\n        </div>\n      </div>\n    );\n  }\n\n\n  getYearOptions() {\n    let {minDate, maxDate} = this.props;\n    let min = minDate.getFullYear();\n    let max = maxDate.getFullYear();\n    let result = formatOptions(min, max, '年');\n\n    return result;\n  }\n\n  getSelectedYearIndex(options) {\n    let {selectedDate} = this.props;\n    let result = indexOfOptions(options, selectedDate.getFullYear());\n\n    return result;\n  }\n\n  getMonthOptions() {\n    let {minDate, maxDate, selectedDate} = this.props;\n    let min = 1;\n    let max = 12;\n\n    isSameYear(minDate, selectedDate) && (min = getMonth(minDate));\n    isSameYear(maxDate, selectedDate) && (max = getMonth(maxDate));\n\n    let result = formatOptions(min, max, '月');\n\n    return result;\n  }\n\n  getSelectedMonthIndex(options) {\n    let {selectedDate} = this.props;\n    let result = indexOfOptions(options, getMonth(selectedDate));\n\n    return result;\n  }\n\n  getDateOptions() {\n    let {minDate, maxDate, selectedDate} = this.props;\n    let min = 1;\n    let max = getLastDate(selectedDate);\n\n    isSameYearMonth(minDate, selectedDate) && (min = minDate.getDate());\n    isSameYearMonth(maxDate, selectedDate) && (max = maxDate.getDate());\n\n    let result = formatOptions(min, max, '日');\n\n    return result;\n  }\n\n  getSelectedDateIndex(options) {\n    let {selectedDate} = this.props;\n    let result = indexOfOptions(options, selectedDate.getDate());\n\n    return result;\n  }\n\n}\n\n\n\n// 返回 option.value === value 的索引\nfunction indexOfOptions(options, value) {\n  let result = -1;\n  for (var i = options.length - 1; i >= 0; i--) {\n    if (options[i].value === value) {\n      result = i;\n      break;\n    }\n  }\n\n  return result;\n}\n\n// 格式化 options\nfunction formatOptions(min, max, suffix = '') {\n  let result = [];\n\n  while (min <= max) {\n    result.push({\n      name: (min + suffix),\n      value: min\n    });\n    min++;\n  }\n\n  return result;\n}\n\n// 获取本月的最后一日的日期\nfunction getLastDate(date) {\n  let tmp = new Date(date.getTime());\n  tmp.setDate(1);\n  tmp.setMonth(tmp.getMonth() + 1);\n  tmp.setDate(0);\n\n  return tmp.getDate();\n}\n\n// 返回月份，补 +1\nfunction getMonth(date) {\n  return date.getMonth() + 1;\n}\n\n// 是否同年\nfunction isSameYear(date1, date2) {\n  return date1.getFullYear() === date2.getFullYear();\n}\n\n// 是否同年月\nfunction isSameYearMonth(date1, date2) {\n  return isSameYear(date1, date2) && date1.getMonth() === date2.getMonth();\n}\n\n// copy Date 实例\nfunction copyDate(date) {\n  let newDate = new Date(date.getTime());\n\n  return newDate;\n}\n\n\n\nclass ApiContainer extends Component {\n  state = {\n    popupProps: {\n      show: false\n    }\n  };\n\n  render() {\n    let {props, popupProps} = this.state;\n\n    return (\n      <Popup {...popupProps}>\n        <DatePicker {...props} />\n      </Popup>\n    );\n  }\n\n  show(props, popupProps) {\n    props = this._decorateProps(props);\n\n    let nextState = {\n      props: {...this.state.props, ...props},\n      popupProps: {...this.state.popupProps, ...popupProps, show: true}\n    };\n\n    this.setState(nextState);\n  }\n\n  hide() {\n    let nextState = {\n      ...this.state,\n      popupProps: {...this.state.popupProps, show: false}\n    };\n\n    this.setState(nextState);\n  }\n\n  _decorateProps(props) {\n    let onCancel = props.onCancel;\n    let onConfirm = props.onConfirm;\n    let onChange = props.onChange;\n\n    props.onChange = (selectedDate) => {\n      onChange && onChange(onChange);\n\n      // update state.props\n      let nextState = {\n        ...this.state,\n        props: {\n          ...this.state.props,\n          selectedDate\n        }\n      };\n\n      this.setState(nextState);\n    };\n\n    props.onCancel = (selectedDate) => {\n      onCancel && onCancel(selectedDate);\n      this.hide();\n    };\n\n    props.onConfirm = (selectedDate) => {\n      onConfirm && onConfirm(selectedDate);\n      this.hide();\n    };\n\n    return props;\n  }\n}\n\n\n\napiInstance = createInstance(ApiContainer);\n"
   },
   {
     "__docId__": 30,
-    "kind": "function",
+    "kind": "variable",
     "static": true,
     "variation": null,
-    "name": "Button",
-    "memberof": "src/Dialog/index.js",
-    "longname": "src/Dialog/index.js~Button",
+    "name": "now",
+    "memberof": "src/DatePicker/index.js",
+    "longname": "src/DatePicker/index.js~now",
     "access": null,
     "export": false,
-    "importPath": "daifee-react-component/src/Dialog/index.js",
+    "importPath": "daifee-react-component/src/DatePicker/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 75,
+    "lineNumber": 11,
     "undocument": true,
-    "params": [
-      {
-        "name": "props",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "return": {
+    "type": {
       "types": [
-        "*"
+        "Date"
       ]
-    },
-    "generator": false
+    }
   },
   {
     "__docId__": 31,
     "kind": "class",
     "static": true,
     "variation": null,
-    "name": "ApiContainer",
-    "memberof": "src/Dialog/index.js",
-    "longname": "src/Dialog/index.js~ApiContainer",
+    "name": "DatePicker",
+    "memberof": "src/DatePicker/index.js",
+    "longname": "src/DatePicker/index.js~DatePicker",
     "access": null,
-    "export": false,
-    "importPath": "daifee-react-component/src/Dialog/index.js",
-    "importStyle": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/DatePicker/index.js",
+    "importStyle": "DatePicker",
     "description": null,
-    "lineNumber": 96,
+    "lineNumber": 13,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -823,12 +717,34 @@
     "kind": "method",
     "static": false,
     "variation": null,
-    "name": "render",
-    "memberof": "src/Dialog/index.js~ApiContainer",
-    "longname": "src/Dialog/index.js~ApiContainer#render",
+    "name": "_change",
+    "memberof": "src/DatePicker/index.js~DatePicker",
+    "longname": "src/DatePicker/index.js~DatePicker#_change",
     "access": null,
     "description": null,
-    "lineNumber": 99,
+    "lineNumber": 92,
+    "undocument": true,
+    "params": [
+      {
+        "name": "selectedDate",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 33,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "src/DatePicker/index.js~DatePicker",
+    "longname": "src/DatePicker/index.js~DatePicker#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 97,
     "undocument": true,
     "params": [],
     "return": {
@@ -839,76 +755,40 @@
     "generator": false
   },
   {
-    "__docId__": 33,
+    "__docId__": 34,
     "kind": "method",
     "static": false,
     "variation": null,
-    "name": "show",
-    "memberof": "src/Dialog/index.js~ApiContainer",
-    "longname": "src/Dialog/index.js~ApiContainer#show",
+    "name": "getYearOptions",
+    "memberof": "src/DatePicker/index.js~DatePicker",
+    "longname": "src/DatePicker/index.js~DatePicker#getYearOptions",
     "access": null,
     "description": null,
-    "lineNumber": 103,
+    "lineNumber": 137,
     "undocument": true,
-    "params": [
-      {
-        "name": "title",
-        "types": [
-          "*"
-        ]
-      },
-      {
-        "name": "content",
-        "types": [
-          "*"
-        ]
-      },
-      {
-        "name": "buttons",
-        "types": [
-          "*"
-        ]
-      },
-      {
-        "name": "options",
-        "types": [
-          "*"
-        ]
-      }
-    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
     "generator": false
   },
   {
-    "__docId__": 34,
-    "kind": "file",
-    "static": true,
-    "variation": null,
-    "name": "src/Icon/IconAttention.js",
-    "memberof": null,
-    "longname": "src/Icon/IconAttention.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n\nexport default function IconAttention(props) {\n  const {size, className, ...others} = props;\n  let classes = classNames('icon-attention', {'_user': className});\n  let style = {\n    height: size,\n    width: size,\n    fontSize: size\n  };\n\n  return (\n    <i className={classes} style={style} {...others} />\n  );\n}\n\nIconAttention.propTypes = {\n  size: PropTypes.string,\n  className: PropTypes.string\n};\n\nIconAttention.defaultProps = {\n  size: '40px'\n};\n"
-  },
-  {
     "__docId__": 35,
-    "kind": "function",
-    "static": true,
+    "kind": "method",
+    "static": false,
     "variation": null,
-    "name": "IconAttention",
-    "memberof": "src/Icon/IconAttention.js",
-    "longname": "src/Icon/IconAttention.js~IconAttention",
+    "name": "getSelectedYearIndex",
+    "memberof": "src/DatePicker/index.js~DatePicker",
+    "longname": "src/DatePicker/index.js~DatePicker#getSelectedYearIndex",
     "access": null,
-    "export": true,
-    "importPath": "daifee-react-component/src/Icon/IconAttention.js",
-    "importStyle": "IconAttention",
     "description": null,
-    "lineNumber": 7,
+    "lineNumber": 146,
     "undocument": true,
     "params": [
       {
-        "name": "props",
+        "name": "options",
         "types": [
           "*"
         ]
@@ -923,63 +803,42 @@
   },
   {
     "__docId__": 36,
-    "kind": "file",
-    "static": true,
+    "kind": "method",
+    "static": false,
     "variation": null,
-    "name": "src/Icon/IconCheck.js",
-    "memberof": null,
-    "longname": "src/Icon/IconCheck.js",
+    "name": "getMonthOptions",
+    "memberof": "src/DatePicker/index.js~DatePicker",
+    "longname": "src/DatePicker/index.js~DatePicker#getMonthOptions",
     "access": null,
     "description": null,
-    "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n/**\n * 自定义 Icon\n * @param {object} props 传入组件的属性\n * @property {string} props.size 大小\n * @property {string} props.className 自定义 class\n */\nexport default function IconCheck(props) {\n  const {size, className, ...others} = props;\n  let classes = classNames('icon-check', {'_user': className});\n  let style = {\n    height: size,\n    width: size,\n    fontSize: size\n  };\n\n  return (\n    <i className={classes} style={style} {...others} />\n  );\n}\n\n/**\n * 其他元素可以直接使用这个 class\n * @type {[type]}\n */\nIconCheck.className = classNames('icon-check');\n\n\nIconCheck.propTypes = {\n  size: PropTypes.string,\n  className: PropTypes.string\n};\n\nIconCheck.defaultProps = {\n  size: '40px'\n};\n"
+    "lineNumber": 153,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
   },
   {
     "__docId__": 37,
-    "kind": "function",
-    "static": true,
+    "kind": "method",
+    "static": false,
     "variation": null,
-    "name": "IconCheck",
-    "memberof": "src/Icon/IconCheck.js",
-    "longname": "src/Icon/IconCheck.js~IconCheck",
+    "name": "getSelectedMonthIndex",
+    "memberof": "src/DatePicker/index.js~DatePicker",
+    "longname": "src/DatePicker/index.js~DatePicker#getSelectedMonthIndex",
     "access": null,
-    "export": true,
-    "importPath": "daifee-react-component/src/Icon/IconCheck.js",
-    "importStyle": "IconCheck",
-    "description": "自定义 Icon",
-    "lineNumber": 12,
+    "description": null,
+    "lineNumber": 166,
+    "undocument": true,
     "params": [
       {
-        "nullable": null,
+        "name": "options",
         "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props",
-        "description": "传入组件的属性"
-      }
-    ],
-    "properties": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.size",
-        "description": "大小"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.className",
-        "description": "自定义 class"
+          "*"
+        ]
       }
     ],
     "return": {
@@ -991,73 +850,388 @@
   },
   {
     "__docId__": 38,
-    "kind": "file",
-    "static": true,
+    "kind": "method",
+    "static": false,
     "variation": null,
-    "name": "src/Icon/IconLoading.js",
-    "memberof": null,
-    "longname": "src/Icon/IconLoading.js",
+    "name": "getDateOptions",
+    "memberof": "src/DatePicker/index.js~DatePicker",
+    "longname": "src/DatePicker/index.js~DatePicker#getDateOptions",
     "access": null,
     "description": null,
-    "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\nconst count = 12;\nconst opacityUnit = 1 / (count + 13);\n\n\nexport default function IconLoading(props) {\n  const {className, scale, ...others} = props;\n  let classes = classNames('icon-loading', {_user: className});\n  let leafs = [];\n  let cl, rotate, style;\n\n  for (let i = 0; i < count; i++) {\n    cl = classNames('icon-loading-leaf', `icon-loading-leaf-${i}`);\n    rotate = i * 30;\n    style = {\n      transform: (`rotate(${rotate}deg)`),\n      opacity: (1 - opacityUnit * i)\n    };\n    leafs.push((<i key={i} className={cl} style={style} />));\n  }\n\n  //\n  style = {\n    transform: (`scale(${scale})`)\n  };\n\n  //\n  return (\n    <div className={classes} style={style} {...others}>{leafs}</div>\n  );\n}\n\nIconLoading.propTypes = {\n  scale: PropTypes.number,\n  className: PropTypes.string\n};\nIconLoading.defaultProps = {\n  scale: 1\n};\n\n\n"
-  },
-  {
-    "__docId__": 39,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "count",
-    "memberof": "src/Icon/IconLoading.js",
-    "longname": "src/Icon/IconLoading.js~count",
-    "access": null,
-    "export": false,
-    "importPath": "daifee-react-component/src/Icon/IconLoading.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 6,
+    "lineNumber": 173,
     "undocument": true,
-    "type": {
-      "types": [
-        "number"
-      ]
-    }
-  },
-  {
-    "__docId__": 40,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "opacityUnit",
-    "memberof": "src/Icon/IconLoading.js",
-    "longname": "src/Icon/IconLoading.js~opacityUnit",
-    "access": null,
-    "export": false,
-    "importPath": "daifee-react-component/src/Icon/IconLoading.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true,
-    "type": {
+    "params": [],
+    "return": {
       "types": [
         "*"
       ]
-    }
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 39,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getSelectedDateIndex",
+    "memberof": "src/DatePicker/index.js~DatePicker",
+    "longname": "src/DatePicker/index.js~DatePicker#getSelectedDateIndex",
+    "access": null,
+    "description": null,
+    "lineNumber": 186,
+    "undocument": true,
+    "params": [
+      {
+        "name": "options",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 40,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "indexOfOptions",
+    "memberof": "src/DatePicker/index.js",
+    "longname": "src/DatePicker/index.js~indexOfOptions",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/DatePicker/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 198,
+    "undocument": true,
+    "params": [
+      {
+        "name": "options",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
   },
   {
     "__docId__": 41,
     "kind": "function",
     "static": true,
     "variation": null,
-    "name": "IconLoading",
-    "memberof": "src/Icon/IconLoading.js",
-    "longname": "src/Icon/IconLoading.js~IconLoading",
+    "name": "formatOptions",
+    "memberof": "src/DatePicker/index.js",
+    "longname": "src/DatePicker/index.js~formatOptions",
     "access": null,
-    "export": true,
-    "importPath": "daifee-react-component/src/Icon/IconLoading.js",
-    "importStyle": "IconLoading",
+    "export": false,
+    "importPath": "daifee-react-component/src/DatePicker/index.js",
+    "importStyle": null,
     "description": null,
-    "lineNumber": 10,
+    "lineNumber": 211,
+    "undocument": true,
+    "params": [
+      {
+        "name": "min",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "max",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "suffix",
+        "optional": true,
+        "types": [
+          "string"
+        ],
+        "defaultRaw": "",
+        "defaultValue": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 42,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "getLastDate",
+    "memberof": "src/DatePicker/index.js",
+    "longname": "src/DatePicker/index.js~getLastDate",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/DatePicker/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 226,
+    "undocument": true,
+    "params": [
+      {
+        "name": "date",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 43,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "getMonth",
+    "memberof": "src/DatePicker/index.js",
+    "longname": "src/DatePicker/index.js~getMonth",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/DatePicker/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 236,
+    "undocument": true,
+    "params": [
+      {
+        "name": "date",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 44,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "isSameYear",
+    "memberof": "src/DatePicker/index.js",
+    "longname": "src/DatePicker/index.js~isSameYear",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/DatePicker/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 241,
+    "undocument": true,
+    "params": [
+      {
+        "name": "date1",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "date2",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 45,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "isSameYearMonth",
+    "memberof": "src/DatePicker/index.js",
+    "longname": "src/DatePicker/index.js~isSameYearMonth",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/DatePicker/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 246,
+    "undocument": true,
+    "params": [
+      {
+        "name": "date1",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "date2",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 46,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "copyDate",
+    "memberof": "src/DatePicker/index.js",
+    "longname": "src/DatePicker/index.js~copyDate",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/DatePicker/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 251,
+    "undocument": true,
+    "params": [
+      {
+        "name": "date",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 47,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "ApiContainer",
+    "memberof": "src/DatePicker/index.js",
+    "longname": "src/DatePicker/index.js~ApiContainer",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/DatePicker/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 259,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 48,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "src/DatePicker/index.js~ApiContainer",
+    "longname": "src/DatePicker/index.js~ApiContainer#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 266,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 49,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "show",
+    "memberof": "src/DatePicker/index.js~ApiContainer",
+    "longname": "src/DatePicker/index.js~ApiContainer#show",
+    "access": null,
+    "description": null,
+    "lineNumber": 276,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "popupProps",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 50,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "hide",
+    "memberof": "src/DatePicker/index.js~ApiContainer",
+    "longname": "src/DatePicker/index.js~ApiContainer#hide",
+    "access": null,
+    "description": null,
+    "lineNumber": 287,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 51,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "_decorateProps",
+    "memberof": "src/DatePicker/index.js~ApiContainer",
+    "longname": "src/DatePicker/index.js~ApiContainer#_decorateProps",
+    "access": null,
+    "description": null,
+    "lineNumber": 296,
     "undocument": true,
     "params": [
       {
@@ -1075,7 +1249,477 @@
     "generator": false
   },
   {
-    "__docId__": 42,
+    "__docId__": 52,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Dialog/index.js",
+    "memberof": null,
+    "longname": "src/Dialog/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames, createInstance} from '../utils';\nimport Fade from '../Fade';\nimport Mask from '../Mask';\nimport './style';\n\nlet apiInstance = null;\n\n/**\n * 对话框按钮\n * @param {object} props 传统组件的 props\n * @property {string} props.text [description]\n * ...others\n */\nfunction Button(props) {\n  let {text, ...others} = props;\n  return (\n    <button {...others}>{text}</button>\n  );\n}\n\nButton.propTypes = {\n  text: PropTypes.string\n};\n\n/**\n * Dialog UI\n * @param {object} props see Dialog.propTypes\n */\nexport default function Dialog(props) {\n  let {title, content, buttons, className, maskProps, ...others} = props;\n  className = classNames('dialog', {_user: className});\n\n  return (\n    <Mask {...maskProps}>\n      <div className={className} {...others}>\n        <header><strong>{title}</strong></header>\n        <div className={classNames('dialog-body')}>{content}</div>\n        <footer>{buttons.map((button, index) => {\n          return (<Button key={index} {...button} />);\n        })}</footer>\n      </div>\n    </Mask>\n  );\n}\n\n/**\n * props\n * @type {Object}\n * title: 标题\n * content: 内容\n * buttons: 按钮组\n */\nDialog.propTypes = {\n  title: PropTypes.string,\n  content: PropTypes.node,\n  buttons: PropTypes.array,  // [{text: '', onClik: () => {}}]\n  maskProps: PropTypes.shape(Mask.propTypes),\n  className: PropTypes.string\n};\n\nDialog.defaultProps = {\n  buttons: [],\n  maskProps: Mask.defaultProps\n};\n\n\nDialog.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\nDialog.show = (props, fadeProps) => {\n  apiInstance.show(props, fadeProps);\n};\n\n\n\n/**\n * 为 Dialog 组件提供 API 交互\n */\nclass ApiContainer extends Component {\n  state = {\n    fadeProps: {\n      show: false\n    }\n  };\n\n  render() {\n    let {props, fadeProps} = this.state;\n\n    return (\n      <Fade {...fadeProps}>\n        <Dialog {...props} />\n      </Fade>\n    );\n  }\n\n  show(props, fadeProps) {\n    // decorate\n    props = this._decorateProps(props);\n\n    let nextState = {\n      props: {...this.state.props, ...props},\n      fadeProps: {...this.state.fadeProps, ...fadeProps, show: true}\n    };\n\n    this.setState(nextState);\n  }\n\n  hide() {\n    let nextState = {\n      ...this.state,\n      fadeProps: {...this.state.fadeProps, show: false}\n    };\n    this.setState(nextState);\n  }\n\n  _decorateProps(props) {\n    if (!props.buttons) {\n      return props;\n    }\n\n    props.buttons.map((button) => {\n      let onClick = button.onClick;\n      button.onClick = (e) => {\n        onClick && onClick(e);\n        this.hide();\n      };\n    });\n\n    return props;\n  }\n}\n\napiInstance = createInstance(ApiContainer);\n\n\n\n"
+  },
+  {
+    "__docId__": 53,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "apiInstance",
+    "memberof": "src/Dialog/index.js",
+    "longname": "src/Dialog/index.js~apiInstance",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Dialog/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Button",
+    "memberof": "src/Dialog/index.js",
+    "longname": "src/Dialog/index.js~Button",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Dialog/index.js",
+    "importStyle": null,
+    "description": "对话框按钮",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "传统组件的 props"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props.text",
+        "description": "[description]\n...others"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 55,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Dialog",
+    "memberof": "src/Dialog/index.js",
+    "longname": "src/Dialog/index.js~Dialog",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Dialog/index.js",
+    "importStyle": "Dialog",
+    "description": "Dialog UI",
+    "lineNumber": 33,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see Dialog.propTypes"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 56,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "ApiContainer",
+    "memberof": "src/Dialog/index.js",
+    "longname": "src/Dialog/index.js~ApiContainer",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Dialog/index.js",
+    "importStyle": null,
+    "description": "为 Dialog 组件提供 API 交互",
+    "lineNumber": 84,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 57,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "src/Dialog/index.js~ApiContainer",
+    "longname": "src/Dialog/index.js~ApiContainer#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 91,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 58,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "show",
+    "memberof": "src/Dialog/index.js~ApiContainer",
+    "longname": "src/Dialog/index.js~ApiContainer#show",
+    "access": null,
+    "description": null,
+    "lineNumber": 101,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "fadeProps",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 59,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "hide",
+    "memberof": "src/Dialog/index.js~ApiContainer",
+    "longname": "src/Dialog/index.js~ApiContainer#hide",
+    "access": null,
+    "description": null,
+    "lineNumber": 113,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 60,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "_decorateProps",
+    "memberof": "src/Dialog/index.js~ApiContainer",
+    "longname": "src/Dialog/index.js~ApiContainer#_decorateProps",
+    "access": null,
+    "description": null,
+    "lineNumber": 121,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 61,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Fade/index.js",
+    "memberof": null,
+    "longname": "src/Fade/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\nimport ChildContainer from '../ChildContainer';\nimport {classNames} from '../utils';\nimport './style';\n\n/**\n * 淡入淡出动画组件\n * @param {object} props see Fade.propTypes\n */\nexport default function Fade(props) {\n  let {\n    show,\n    duration,\n    timingFunction,\n    children,\n    style,\n    className,\n    ...others\n  } = props;\n  style = {\n    ...style,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n  className = classNames('fade', {_user: className});\n\n  return (\n    <ReactCSSTransitionGroup\n      component={ChildContainer}\n      transitionName={classNames('fade')}\n      transitionEnterTimeout={duration}\n      transitionLeaveTimeout={duration}>\n      {show ? (\n        <props.component style={style} className={className} {...others}>\n          {children}\n        </props.component>\n      ) : null}\n    </ReactCSSTransitionGroup>\n  );\n}\n\n/**\n * 定义属性类型\n * @type {Object}\n * show: 是否显示（淡入 or 淡出）\n * duration: 动画持续时间\n * timingFunction: 动画类型\n * component: 包裹 children 的组件\n */\nFade.propTypes = {\n  show: PropTypes.bool,\n  duration: PropTypes.number,\n  timingFunction: PropTypes.string,\n  component: PropTypes.oneOfType([\n    PropTypes.string,\n    PropTypes.func\n  ]),\n  className: PropTypes.string,\n  style: PropTypes.object,\n  children: PropTypes.node\n};\n\nFade.defaultProps = {\n  show: false,\n  duration: 80,\n  timingFunction: 'ease',\n  component: 'span'\n};\n"
+  },
+  {
+    "__docId__": 62,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Fade",
+    "memberof": "src/Fade/index.js",
+    "longname": "src/Fade/index.js~Fade",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Fade/index.js",
+    "importStyle": "Fade",
+    "description": "淡入淡出动画组件",
+    "lineNumber": 13,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see Fade.propTypes"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 63,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Icon/IconAttention.js",
+    "memberof": null,
+    "longname": "src/Icon/IconAttention.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n/**\n * IconAttention UI\n * @param {object} props see IconAttention.propTypes\n */\nexport default function IconAttention(props) {\n  let {size, className, style, ...others} = props;\n  className = classNames('icon-attention', {'_user': className});\n  style = {\n    ...style,\n    height: size,\n    width: size,\n    fontSize: size\n  };\n\n  return (\n    <i className={className} style={style} {...others} />\n  );\n}\n\n/**\n * 其他元素可以直接使用这个 class\n * @type {string}\n */\nIconAttention.className = classNames('icon-attention');\n\n/**\n * props\n * @type {Object}\n * size: 大小\n */\nIconAttention.propTypes = {\n  size: PropTypes.string,\n  className: PropTypes.string,\n  style: PropTypes.object\n};\n\nIconAttention.defaultProps = {\n  size: '40px'\n};\n"
+  },
+  {
+    "__docId__": 64,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "IconAttention",
+    "memberof": "src/Icon/IconAttention.js",
+    "longname": "src/Icon/IconAttention.js~IconAttention",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Icon/IconAttention.js",
+    "importStyle": "IconAttention",
+    "description": "IconAttention UI",
+    "lineNumber": 10,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see IconAttention.propTypes"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 65,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Icon/IconCheck.js",
+    "memberof": null,
+    "longname": "src/Icon/IconCheck.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n/**\n * IconCheck UI\n * @param {object} props see IconCheck.propTypes\n */\nexport default function IconCheck(props) {\n  let {size, className, style, ...others} = props;\n  className = classNames('icon-check', {'_user': className});\n  style = {\n    ...style,\n    height: size,\n    width: size,\n    fontSize: size\n  };\n\n  return (\n    <i className={className} style={style} {...others} />\n  );\n}\n\n/**\n * 其他元素可以直接使用这个 class\n * @type {string}\n */\nIconCheck.className = classNames('icon-check');\n\n\n/**\n * props\n * @type {Object}\n * size: 大小\n */\nIconCheck.propTypes = {\n  size: PropTypes.string,\n  className: PropTypes.string,\n  style: PropTypes.object\n};\n\nIconCheck.defaultProps = {\n  size: '40px'\n};\n"
+  },
+  {
+    "__docId__": 66,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "IconCheck",
+    "memberof": "src/Icon/IconCheck.js",
+    "longname": "src/Icon/IconCheck.js~IconCheck",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Icon/IconCheck.js",
+    "importStyle": "IconCheck",
+    "description": "IconCheck UI",
+    "lineNumber": 10,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see IconCheck.propTypes"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 67,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Icon/IconLoading.js",
+    "memberof": null,
+    "longname": "src/Icon/IconLoading.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n/**\n * IconLoading UI\n * @param {object} props see IconLoading.propTypes\n */\nexport default function IconLoading(props) {\n  let {scale, className, style, ...others} = props;\n  let leafs = createLeafs();\n  className = classNames('icon-loading', {_user: className});\n  style = {\n    ...style,\n    transform: (`scale(${scale})`)\n  };\n\n  return (\n    <div className={className} style={style} {...others}>{leafs}</div>\n  );\n}\n\n/**\n * props\n * @type {Object}\n * scale: 缩放，影响视图大小\n */\nIconLoading.propTypes = {\n  scale: PropTypes.number,\n  className: PropTypes.string,\n  style: PropTypes.object\n};\n\nIconLoading.defaultProps = {\n  scale: 1\n};\n\nconst count = 12;\nconst opacityUnit = 1 / (count + 13);\n\nfunction createLeafs() {\n  let leafs = [];\n  let className, rotate, style;\n\n  for (let i = 0; i < count; i++) {\n    className = classNames('icon-loading-leaf', `icon-loading-leaf-${i}`);\n    rotate = i * 30;\n    style = {\n      transform: (`rotate(${rotate}deg)`),\n      opacity: (1 - opacityUnit * i)\n    };\n    leafs.push((<i key={i} className={className} style={style} />));\n  }\n\n  return leafs;\n}\n\n\n\n"
+  },
+  {
+    "__docId__": 68,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "IconLoading",
+    "memberof": "src/Icon/IconLoading.js",
+    "longname": "src/Icon/IconLoading.js~IconLoading",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Icon/IconLoading.js",
+    "importStyle": "IconLoading",
+    "description": "IconLoading UI",
+    "lineNumber": 10,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see IconLoading.propTypes"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 69,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "count",
+    "memberof": "src/Icon/IconLoading.js",
+    "longname": "src/Icon/IconLoading.js~count",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Icon/IconLoading.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 70,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "opacityUnit",
+    "memberof": "src/Icon/IconLoading.js",
+    "longname": "src/Icon/IconLoading.js~opacityUnit",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Icon/IconLoading.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 40,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "createLeafs",
+    "memberof": "src/Icon/IconLoading.js",
+    "longname": "src/Icon/IconLoading.js~createLeafs",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Icon/IconLoading.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 42,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 72,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1088,7 +1732,7 @@
     "content": "import './style';\nexport IconAttention from './IconAttention';\nexport IconLoading from './IconLoading';\nexport IconCheck from './IconCheck';\n\n"
   },
   {
-    "__docId__": 43,
+    "__docId__": 73,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1098,10 +1742,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\nimport ScrollView from '../ScrollView';\n\n\n/**\n * ListView 提供“下拉刷新”和“加载更多”功能的列表\n * @param {array} data 列表内容数据\n * @param {function} renderRow 返回每一行的视图，参数是：`data[index], index`\n * @param {function} shouldRefreshIscroller 根据 data 和 nextData 判断是否更新 iscroller。\n * @param {function} renderRefresh “下拉刷新”的交互视图，参数是：`refreshState`\n * @param {number} offsetRefresh 下拉距离超过该值，且 `refreshState === 'normal'`，会\n * 触发 `onReadyRefresh()`\n * @param {string} refreshState “下拉刷新”的状态，除了用于渲染 `renderRefresh()`，\n * 内部也用于控制触发 `onNormalRefresh()` `onReadyRefresh()` `onRefresh`\n * 其值只能是：`none | normal | ready | loading`\n * @param {function} onNormalRefresh 此时应该将 `refreshState` 设置为 `normal`\n * @param {function} onReadyRefresh 此时应该将 `refreshState` 设置为 `ready`\n * @param {function} onRefresh 此时应该将 `refreshState` 设置为 `loading`\n * @param {function} renderLoadMore “加载更多”的交互视图，参数是：`loadMoreState`\n * @param {number} offsetLoadMore 最后一条数据距离底部小于该值，\n * 且 `loadMoreState !== (loading | end)` 会触发 `onLoadMore()`\n * @param {string} loadMoreState “加载更多”的状态，除了用于渲染，还用于内部控制触发 `onLoadMore`\n * @param {function} onLoadMore 此时应该加载“更多数据”\n * @param {string} className 自定义 class\n *\n */\nexport default class ListView extends Component {\n  static propTypes = {\n    data: PropTypes.array.isRequired,\n    renderRow: PropTypes.func.isRequired,\n    shouldRefreshIscroller: PropTypes.func.isRequired,\n    renderRefresh: PropTypes.func,\n    offsetRefresh: PropTypes.number,\n    refreshState: PropTypes.oneOf(['none', 'normal', 'ready', 'loading']),\n    onNormalRefresh: PropTypes.func,\n    onReadyRefresh: PropTypes.func,\n    onRefresh: PropTypes.func,\n    renderLoadMore: PropTypes.func,\n    offsetLoadMore: PropTypes.number,\n    loadMoreState: PropTypes.oneOf(['none', 'normal', 'loading', 'end', 'fail']),\n    onLoadMore: PropTypes.func,\n    className: PropTypes.string\n  };\n\n  static defaultProps = {\n    offsetRefresh: 60,\n    offsetLoadMore: 6,\n    refreshState: 'none',\n    loadMoreState: 'none',\n    renderRefresh: renderRefresh,\n    renderLoadMore: renderLoadMore\n  };\n\n  // iscroll 实例\n  iscroller = null;\n\n  scrollToTop() {\n    this.iscroller.scrollTo(0, 0, 600);\n  }\n\n  // 点击按钮刷新，需要滚动到顶部\n  scrollToRefresh() {\n    this.iscroller.offsetY = this.props.offsetRefresh;\n    this.scrollToTop();\n  }\n\n  _refreshIscroller = () => {\n    this.iscroller.refresh();\n  };\n\n  _onLoadMore = () => {\n    let {loadMoreState, onLoadMore} = this.props;\n\n    console.log(1);\n\n    if (loadMoreState === 'loading' || loadMoreState === 'end') {\n      return;\n    }\n\n    onLoadMore();\n  };\n\n  render() {\n    let {\n      data,\n      renderRow,\n      renderRefresh,\n      refreshState,\n      renderLoadMore,\n      loadMoreState,\n      className,\n      shouldRefreshIscroller,\n      ...others\n    } = this.props;\n    let classes = classNames('list-view', {_user: className});\n\n    // TODO delete 多余的 props\n\n    return (\n      <ScrollView\n        ref='scrollView'\n        className={classes}\n        height='100%'\n        width='100%'\n        {...others}>\n        <div className={classNames('list-view-refresh')}>\n          {renderRefresh(refreshState)}\n        </div>\n        <List\n          data={data}\n          shouldRefreshIscroller={shouldRefreshIscroller}\n          refreshIscroller={this._refreshIscroller}>\n          <div className={classNames('list-view-list')}>\n            {data.map(renderRow)}\n          </div>\n        </List>\n        <div\n          className={classNames('list-view-load-more')}\n          onClick={this._onLoadMore}>\n          {renderLoadMore(loadMoreState)}\n        </div>\n      </ScrollView>\n    );\n  }\n\n  componentDidMount() {\n    this.iscroller = this.refs.scrollView.iscroller;\n\n    this._bindLoadMore();\n    this._bindRefresh();\n\n    // 刷新 iscroller，每次 data 变化都要在 List 组件内执行这个刷新\n    this._refreshIscroller();\n    // 如果 refreshState=loading 需要设置 iscroller.offsetY\n    this._updateOffsetY();\n  }\n\n  componentDidUpdate() {\n    this._updateOffsetY();\n  }\n\n  _updateOffsetY() {\n    let {offsetRefresh, refreshState} = this.props;\n\n    this.iscroller.offsetY = refreshState === 'loading' ? offsetRefresh : 0;\n  }\n\n  _bindLoadMore() {\n    let {offsetLoadMore} = this.props;\n    let iscroller = this.iscroller;\n\n    iscroller.on('scroll', () => {\n      // 判断距离\n      if (iscroller.maxScrollY - iscroller.y > offsetLoadMore) {\n        this._onLoadMore();\n      }\n    });\n  }\n\n  _bindRefresh() {\n    let {\n      offsetRefresh,\n      onReadyRefresh,\n      onNormalRefresh,\n      onRefresh\n    } = this.props;\n    let iscroller = this.iscroller;\n\n    iscroller.on('scroll', () => {\n      let {refreshState} = this.props;\n      let y = iscroller.y;\n\n      if (y < 0 || refreshState === 'loading') {\n        return;\n      }\n\n      // 下拉距离超过 offsetRefresh 激活状态\n      if (iscroller.y > offsetRefresh) {\n        refreshState !== 'ready' && onReadyRefresh();\n      } else {\n        refreshState !== 'normal' && onNormalRefresh();\n      }\n    });\n\n    iscroller.on('touchEnd', () => {\n      let {refreshState} = this.props;\n\n      if (refreshState !== 'ready') {\n        return;\n      }\n\n      onRefresh();\n    });\n  }\n}\n\n\n// 这一切都是为了调用 this.props.refreshIscroller();\nclass List extends Component {\n  static propTypes = {\n    data: PropTypes.array.isRequired,\n    shouldRefreshIscroller: PropTypes.func.isRequired,\n    refreshIscroller: PropTypes.func.isRequired,\n    children: PropTypes.node.isRequired\n  };\n\n  shouldComponentUpdate(nextProps) {\n    return this.props.shouldRefreshIscroller(this.props.data, nextProps.data);\n  }\n\n  render() {\n    let {children} = this.props;\n\n    return children.length === 0 ? null : children;\n  }\n\n  componentDidUpdate() {\n    // 为了调用这个方法才抽象出 List 组件的\n    this.props.refreshIscroller();\n  }\n}\n\n\n\nfunction renderRefresh(status) {\n  switch (status) {\n    case 'none':\n      return null;\n    case 'normal':\n      return (<p>下拉刷新</p>);\n    case 'ready':\n      return (<p>松手即可刷新</p>);\n    case 'loading':\n      return (<p>加载中...</p>);\n  }\n\n  return null;\n}\n\n\nfunction renderLoadMore(status) {\n  switch (status) {\n    case 'none':\n      return null;\n    case 'normal':\n      return (<p>点击，加载更多</p>);\n    case 'loading':\n      return (<p>加载中...</p>);\n    case 'end':\n      return (<p>没有数据了</p>);\n    case 'fail':\n      return (<p>加载失败，请点击重新加载</p>);\n  }\n\n  return null;\n}\n"
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\nimport ScrollView from '../ScrollView';\n\n/**\n * ListView UI\n * @param {object} props see static propTypes\n */\nexport default class ListView extends Component {\n\n  /**\n   * props\n   * @type {Object}\n   * data: 数据\n   * renderRow: 渲染每行数据，参数是 [data[index], index]\n   * shouldRefreshIscroller: 是否需要 refresh iscroll，参数是 [props.data, nextProps.data]\n   * renderRefresh: 渲染下拉刷新交互组件，参数是 [refreshState]\n   * offsetRefresh: 下拉距离超过该值，应该改变 refreshState\n   * refreshState: 下拉刷新状态\n   * onNormalRefresh: 告知父组件应该将 refreshState 设置为 normal\n   * onReadyRefresh: 告知父组件应该将 refreshState 设置为 ready\n   * onRefresh: 告知父组件应该将 refreshState 设置为 loading\n   * renderLoadMore: 渲染加载更多的交互组件\n   * offsetLoadMore: ListView 底部距离视口距离小于该值，应该改变 loadMoreState\n   * onLoadMore: 告知父组件应该将 loadMoreState 设置为 loading\n   */\n  static propTypes = {\n    data: PropTypes.array.isRequired,\n    renderRow: PropTypes.func.isRequired,\n    shouldRefreshIscroller: PropTypes.func.isRequired,\n    renderRefresh: PropTypes.func,\n    offsetRefresh: PropTypes.number,\n    refreshState: PropTypes.oneOf(['none', 'normal', 'ready', 'loading']),\n    onNormalRefresh: PropTypes.func,\n    onReadyRefresh: PropTypes.func,\n    onRefresh: PropTypes.func,\n    renderLoadMore: PropTypes.func,\n    offsetLoadMore: PropTypes.number,\n    loadMoreState: PropTypes.oneOf(['none', 'normal', 'loading', 'end', 'fail']),\n    onLoadMore: PropTypes.func,\n    className: PropTypes.string\n  };\n\n  static defaultProps = {\n    offsetRefresh: 60,\n    offsetLoadMore: 6,\n    refreshState: 'none',\n    loadMoreState: 'none',\n    renderRefresh: renderRefresh,\n    renderLoadMore: renderLoadMore\n  };\n\n  static renderRefresh = renderRefresh;\n  static renderLoadMore = renderLoadMore;\n\n  // iscroll 实例\n  iscroller = null;\n\n  scrollToTop() {\n    this.iscroller.scrollTo(0, 0, 600);\n  }\n\n  // 点击按钮刷新，需要滚动到顶部\n  scrollToRefresh() {\n    this.iscroller.offsetY = this.props.offsetRefresh;\n    this.scrollToTop();\n  }\n\n  _refreshIscroller = () => {\n    this.iscroller.refresh();\n  };\n\n  _onLoadMore = () => {\n    let {loadMoreState, onLoadMore} = this.props;\n\n    if (loadMoreState === 'loading' || loadMoreState === 'end') {\n      return;\n    }\n\n    onLoadMore();\n  };\n\n  render() {\n    let {\n      data,\n      renderRow,\n      renderRefresh,\n      refreshState,\n      renderLoadMore,\n      loadMoreState,\n      className,\n      shouldRefreshIscroller,\n      ...others\n    } = this.props;\n    className = classNames('list-view', {_user: className});\n\n    return (\n      <ScrollView\n        ref='scrollView'\n        className={className}\n        height='100%'\n        width='100%'\n        {...others}>\n        <div className={classNames('list-view-refresh')}>\n          {renderRefresh(refreshState)}\n        </div>\n        <List\n          data={data}\n          shouldRefreshIscroller={shouldRefreshIscroller}\n          refreshIscroller={this._refreshIscroller}>\n          <div className={classNames('list-view-list')}>\n            {data.map(renderRow)}\n          </div>\n        </List>\n        <div\n          className={classNames('list-view-load-more')}\n          onClick={this._onLoadMore}>\n          {renderLoadMore(loadMoreState)}\n        </div>\n      </ScrollView>\n    );\n  }\n\n  componentDidMount() {\n    this.iscroller = this.refs.scrollView.iscroller;\n\n    this._bindLoadMore();\n    this._bindRefresh();\n\n    // 刷新 iscroller，每次 data 变化都要在 List 组件内执行这个刷新\n    this._refreshIscroller();\n    // 如果 refreshState=loading 需要设置 iscroller.offsetY\n    this._updateOffsetY();\n  }\n\n  componentDidUpdate() {\n    this._updateOffsetY();\n  }\n\n  _updateOffsetY() {\n    let {offsetRefresh, refreshState} = this.props;\n\n    this.iscroller.offsetY = refreshState === 'loading' ? offsetRefresh : 0;\n  }\n\n  _bindLoadMore() {\n    let {offsetLoadMore} = this.props;\n    let iscroller = this.iscroller;\n\n    iscroller.on('scroll', () => {\n      // 判断距离\n      if (iscroller.maxScrollY - iscroller.y > offsetLoadMore) {\n        this._onLoadMore();\n      }\n    });\n  }\n\n  _bindRefresh() {\n    let {\n      offsetRefresh,\n      onReadyRefresh,\n      onNormalRefresh,\n      onRefresh\n    } = this.props;\n    let iscroller = this.iscroller;\n\n    iscroller.on('scroll', () => {\n      let {refreshState} = this.props;\n      let y = iscroller.y;\n\n      if (y < 0 || refreshState === 'loading') {\n        return;\n      }\n\n      // 下拉距离超过 offsetRefresh 激活状态\n      if (iscroller.y > offsetRefresh) {\n        refreshState !== 'ready' && onReadyRefresh();\n      } else {\n        refreshState !== 'normal' && onNormalRefresh();\n      }\n    });\n\n    iscroller.on('touchEnd', () => {\n      let {refreshState} = this.props;\n\n      if (refreshState !== 'ready') {\n        return;\n      }\n\n      onRefresh();\n    });\n  }\n}\n\n\n// 这一切都是为了调用 this.props.refreshIscroller();\nclass List extends Component {\n  static propTypes = {\n    data: PropTypes.array.isRequired,\n    shouldRefreshIscroller: PropTypes.func.isRequired,\n    refreshIscroller: PropTypes.func.isRequired,\n    children: PropTypes.node.isRequired\n  };\n\n  shouldComponentUpdate(nextProps) {\n    return this.props.shouldRefreshIscroller(this.props.data, nextProps.data);\n  }\n\n  render() {\n    let {children} = this.props;\n\n    return children.length === 0 ? null : children;\n  }\n\n  componentDidUpdate() {\n    let {refreshIscroller} = this.props;\n    // 为了调用这个方法才抽象出 List 组件的\n    refreshIscroller();\n  }\n}\n\n\n\nfunction renderRefresh(status) {\n  switch (status) {\n    case 'none':\n      return null;\n    case 'normal':\n      return (<p>下拉刷新</p>);\n    case 'ready':\n      return (<p>松手即可刷新</p>);\n    case 'loading':\n      return (<p>加载中...</p>);\n  }\n\n  return null;\n}\n\n\nfunction renderLoadMore(status) {\n  switch (status) {\n    case 'none':\n      return null;\n    case 'normal':\n      return (<p>点击，加载更多</p>);\n    case 'loading':\n      return (<p>加载中...</p>);\n    case 'end':\n      return (<p>没有数据了</p>);\n    case 'fail':\n      return (<p>加载失败，请点击重新加载</p>);\n  }\n\n  return null;\n}\n"
   },
   {
-    "__docId__": 44,
+    "__docId__": 74,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1112,148 +1756,18 @@
     "export": true,
     "importPath": "daifee-react-component/src/ListView/index.js",
     "importStyle": "ListView",
-    "description": "ListView 提供“下拉刷新”和“加载更多”功能的列表",
-    "lineNumber": 32,
+    "description": "ListView UI",
+    "lineNumber": 13,
     "params": [
       {
         "nullable": null,
         "types": [
-          "array"
+          "object"
         ],
         "spread": false,
         "optional": false,
-        "name": "data",
-        "description": "列表内容数据"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "function"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "renderRow",
-        "description": "返回每一行的视图，参数是：`data[index], index`"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "function"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "shouldRefreshIscroller",
-        "description": "根据 data 和 nextData 判断是否更新 iscroller。"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "function"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "renderRefresh",
-        "description": "“下拉刷新”的交互视图，参数是：`refreshState`"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "offsetRefresh",
-        "description": "下拉距离超过该值，且 `refreshState === 'normal'`，会\n触发 `onReadyRefresh()`"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "refreshState",
-        "description": "“下拉刷新”的状态，除了用于渲染 `renderRefresh()`，\n内部也用于控制触发 `onNormalRefresh()` `onReadyRefresh()` `onRefresh`\n其值只能是：`none | normal | ready | loading`"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "function"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "onNormalRefresh",
-        "description": "此时应该将 `refreshState` 设置为 `normal`"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "function"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "onReadyRefresh",
-        "description": "此时应该将 `refreshState` 设置为 `ready`"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "function"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "onRefresh",
-        "description": "此时应该将 `refreshState` 设置为 `loading`"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "function"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "renderLoadMore",
-        "description": "“加载更多”的交互视图，参数是：`loadMoreState`"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "offsetLoadMore",
-        "description": "最后一条数据距离底部小于该值，\n且 `loadMoreState !== (loading | end)` 会触发 `onLoadMore()`"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "loadMoreState",
-        "description": "“加载更多”的状态，除了用于渲染，还用于内部控制触发 `onLoadMore`"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "function"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "onLoadMore",
-        "description": "此时应该加载“更多数据”"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "className",
-        "description": "自定义 class"
+        "name": "props",
+        "description": "see static propTypes"
       }
     ],
     "interface": false,
@@ -1262,7 +1776,7 @@
     ]
   },
   {
-    "__docId__": 45,
+    "__docId__": 75,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1271,13 +1785,13 @@
     "longname": "src/ListView/index.js~ListView#scrollToTop",
     "access": null,
     "description": null,
-    "lineNumber": 62,
+    "lineNumber": 63,
     "undocument": true,
     "params": [],
     "generator": false
   },
   {
-    "__docId__": 46,
+    "__docId__": 76,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1286,13 +1800,13 @@
     "longname": "src/ListView/index.js~ListView#scrollToRefresh",
     "access": null,
     "description": null,
-    "lineNumber": 67,
+    "lineNumber": 68,
     "undocument": true,
     "params": [],
     "generator": false
   },
   {
-    "__docId__": 47,
+    "__docId__": 77,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1301,7 +1815,7 @@
     "longname": "src/ListView/index.js~ListView#render",
     "access": null,
     "description": null,
-    "lineNumber": 88,
+    "lineNumber": 87,
     "undocument": true,
     "params": [],
     "return": {
@@ -1312,7 +1826,7 @@
     "generator": false
   },
   {
-    "__docId__": 48,
+    "__docId__": 78,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1321,13 +1835,13 @@
     "longname": "src/ListView/index.js~ListView#componentDidMount",
     "access": null,
     "description": null,
-    "lineNumber": 131,
+    "lineNumber": 128,
     "undocument": true,
     "params": [],
     "generator": false
   },
   {
-    "__docId__": 49,
+    "__docId__": 79,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -1336,7 +1850,7 @@
     "longname": "src/ListView/index.js~ListView#iscroller",
     "access": null,
     "description": null,
-    "lineNumber": 132,
+    "lineNumber": 129,
     "undocument": true,
     "type": {
       "types": [
@@ -1345,7 +1859,7 @@
     }
   },
   {
-    "__docId__": 50,
+    "__docId__": 80,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1354,13 +1868,13 @@
     "longname": "src/ListView/index.js~ListView#componentDidUpdate",
     "access": null,
     "description": null,
-    "lineNumber": 143,
+    "lineNumber": 140,
     "undocument": true,
     "params": [],
     "generator": false
   },
   {
-    "__docId__": 51,
+    "__docId__": 81,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1369,13 +1883,13 @@
     "longname": "src/ListView/index.js~ListView#_updateOffsetY",
     "access": null,
     "description": null,
-    "lineNumber": 147,
+    "lineNumber": 144,
     "undocument": true,
     "params": [],
     "generator": false
   },
   {
-    "__docId__": 52,
+    "__docId__": 82,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1384,13 +1898,13 @@
     "longname": "src/ListView/index.js~ListView#_bindLoadMore",
     "access": null,
     "description": null,
-    "lineNumber": 153,
+    "lineNumber": 150,
     "undocument": true,
     "params": [],
     "generator": false
   },
   {
-    "__docId__": 53,
+    "__docId__": 83,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1399,13 +1913,13 @@
     "longname": "src/ListView/index.js~ListView#_bindRefresh",
     "access": null,
     "description": null,
-    "lineNumber": 165,
+    "lineNumber": 162,
     "undocument": true,
     "params": [],
     "generator": false
   },
   {
-    "__docId__": 54,
+    "__docId__": 84,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1417,7 +1931,7 @@
     "importPath": "daifee-react-component/src/ListView/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 204,
+    "lineNumber": 201,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -1425,7 +1939,7 @@
     ]
   },
   {
-    "__docId__": 55,
+    "__docId__": 85,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1434,7 +1948,7 @@
     "longname": "src/ListView/index.js~List#shouldComponentUpdate",
     "access": null,
     "description": null,
-    "lineNumber": 212,
+    "lineNumber": 209,
     "undocument": true,
     "params": [
       {
@@ -1452,7 +1966,7 @@
     "generator": false
   },
   {
-    "__docId__": 56,
+    "__docId__": 86,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1461,7 +1975,7 @@
     "longname": "src/ListView/index.js~List#render",
     "access": null,
     "description": null,
-    "lineNumber": 216,
+    "lineNumber": 213,
     "undocument": true,
     "params": [],
     "return": {
@@ -1472,7 +1986,7 @@
     "generator": false
   },
   {
-    "__docId__": 57,
+    "__docId__": 87,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1481,13 +1995,13 @@
     "longname": "src/ListView/index.js~List#componentDidUpdate",
     "access": null,
     "description": null,
-    "lineNumber": 222,
+    "lineNumber": 219,
     "undocument": true,
     "params": [],
     "generator": false
   },
   {
-    "__docId__": 58,
+    "__docId__": 88,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1499,7 +2013,7 @@
     "importPath": "daifee-react-component/src/ListView/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 230,
+    "lineNumber": 228,
     "undocument": true,
     "params": [
       {
@@ -1517,7 +2031,7 @@
     "generator": false
   },
   {
-    "__docId__": 59,
+    "__docId__": 89,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1529,7 +2043,7 @@
     "importPath": "daifee-react-component/src/ListView/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 246,
+    "lineNumber": 244,
     "undocument": true,
     "params": [
       {
@@ -1547,7 +2061,7 @@
     "generator": false
   },
   {
-    "__docId__": 60,
+    "__docId__": 90,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1557,10 +2071,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\nimport TransitionShow from '../TransitionShow';\n\nexport default function Mask(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    transparent,\n    ...others\n  } = props;\n  let classes = classNames('mask', {\n    _user: className,\n    'mask-transparent': transparent\n  });\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('mask')}\n      duration={duration}>\n      <div className={classes} {...others} style={style} />\n    </TransitionShow>\n  );\n}\n\nMask.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  transparent: PropTypes.bool\n};\n\nMask.defaultProps = TransitionShow.shareDefaultProps;\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\n\n/**\n * Mask UI\n * @param {props} props see Mask.propTypes\n */\nexport default function Mask(props) {\n  let {className, transparent, children, ...others} = props;\n  className = classNames('mask', {\n    _user: className,\n    'mask-transparent': transparent\n  });\n\n  return (<div className={className} {...others}>{children}</div>);\n}\n\n/**\n * props\n * @type {Object}\n * transparent: 是否透明\n */\nMask.propTypes = {\n  transparent: PropTypes.bool,\n  children: PropTypes.node,\n  className: PropTypes.string\n};\n"
   },
   {
-    "__docId__": 61,
+    "__docId__": 91,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1571,15 +2085,18 @@
     "export": true,
     "importPath": "daifee-react-component/src/Mask/index.js",
     "importStyle": "Mask",
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true,
+    "description": "Mask UI",
+    "lineNumber": 11,
     "params": [
       {
-        "name": "props",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "props"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see Mask.propTypes"
       }
     ],
     "return": {
@@ -1590,7 +2107,7 @@
     "generator": false
   },
   {
-    "__docId__": 62,
+    "__docId__": 92,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1600,10 +2117,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\nimport {classNames, createInstance} from '../utils';\nimport './style';\n\nlet apiInstance = null;\n// Notification 显示和隐藏动画持续时间 毫秒\n// container 和 item 都需要设置 duration，而且必须相同\n// 所以不能为 item 自定义 duration\nlet duration = 150;\nlet id = 0;\nfunction getId() {\n  return id++;\n}\n\n\nexport default function Notification(props) {\n  let {type, content, timingFunction, className, style, ...others} = props;\n  let classes = classNames('notification', `notification-${type}`, {\n    _user: className\n  });\n  style = {\n    ...style,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <li className={classes} style={style} {...others}>\n      <span>{content}</span>\n    </li>\n  );\n}\n\nNotification.propTypes = {\n  type: PropTypes.oneOf(['default', 'info', 'success', 'warning', 'danger']),\n  content: PropTypes.string.isRequired,\n  timingFunction: PropTypes.string,\n  className: PropTypes.string,\n  style: PropTypes.object\n};\n\nNotification.defaultProps = {\n  type: 'default',\n  timingFunction: 'ease-in'\n};\n\n\nNotification.show = (content, type, options) => {\n  apiInstance.show(content, type, options);\n};\n\nNotification.getInstance = (container) => {\n  return createInstance(Notifications, container);\n};\n\n\n\nclass Notifications extends Component {\n  state = {\n    zIndex: 9999,\n    notifications: []\n  };\n\n  render() {\n    const {\n      zIndex,\n      notifications\n    } = this.state;\n    let classes = classNames('notification-container');\n    let style = {\n      zIndex\n    };\n\n    return (\n      <ReactCSSTransitionGroup\n        component='ul'\n        transitionName={classNames('notification')}\n        transitionEnterTimeout={duration}\n        transitionLeaveTimeout={duration}\n        className={classes}\n        style={style}>\n        {notifications.map((item) => {\n          const {id, ...others} = item;\n          return (<Notification key={id} {...others} />);\n        })}\n      </ReactCSSTransitionGroup>\n    );\n  }\n\n  // zIndex, timeout\n  show(content, type, options = {}) {\n    let [...notifications] = this.state.notifications;\n    // others 赋值到 notification\n    let {timeout, zIndex, ...others} = options;\n    let id = getId();\n    let notification = {id, type, content, ...others};\n\n    notifications.unshift(notification);\n\n    let nextState = {zIndex, notifications};\n\n    this.setState(nextState);\n\n    setTimeout(() => {\n      this.hide(id);\n    }, (timeout || 2000));\n  }\n\n  hide(id) {\n    let notifications = this.state.notifications.filter((item) => {\n      return id !== item.id;\n    });\n    let nextState = {...this.state, notifications};\n\n    this.setState(nextState);\n  }\n}\n\n\napiInstance = createInstance(Notifications);\n"
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\nimport {classNames, createInstance} from '../utils';\nimport Popup from '../Popup';\nimport './style';\n\nlet apiInstance = null;\n\n/**\n * Notification UI\n * @param {object} props see Notification.propTypes\n */\nexport default function Notification(props) {\n  let {className, content, ...others} = props;\n  className = classNames('notification', {_user: className});\n\n  return (<div className={className} {...content} {...others}>{content}</div>);\n}\n\n/**\n * props\n * @type {Object}\n * content: 通知内容（不限于文本）\n */\nNotification.propTypes = {\n  className: PropTypes.string,\n  content: PropTypes.node\n};\n\nNotification.show = (props, time) => {\n  apiInstance.show(props, time);\n};\n\nNotification.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\n\n//\nconst duration = 300;\nconst timingFunction = 'ease';\n// ID 生成器\nfunction getId() {\n  return getId.id++;\n}\ngetId.id = 0;\n\nclass ApiContainer extends Component {\n  state = {\n    popupProps: {\n      show: false,\n      className: classNames('notification-popup'),\n      direction: 'top'\n    },\n    notification: []  // 永远只有一个值的数组\n  };\n\n  timer = null;\n\n  render() {\n    let {notification, popupProps} = this.state;\n    let children = notification.map((item) => {\n      let {_id, style, ...others} = item;\n      style = {\n        ...style,\n        transitionDuration: (duration + 'ms'),\n        transitionTimingFunction: timingFunction\n      };\n      return (<Notification key={_id} style={style} {...others} />);\n    });\n\n    return (\n      <Popup {...popupProps}>\n        <ReactCSSTransitionGroup\n          component='div'\n          className={classNames('notification-container')}\n          transitionName={classNames('notification')}\n          transitionEnterTimeout={duration}\n          transitionLeaveTimeout={duration}>\n          {children}\n        </ReactCSSTransitionGroup>\n      </Popup>\n    );\n  }\n\n  show(props, popupProps, time = 4000) {\n    props['_id'] = getId();\n    let notification = [props];\n\n    let nextState = {\n      notification,\n      popupProps: {\n        ...this.state.popupProps,\n        show: true\n      }\n    };\n    this.setState(nextState);\n\n    clearTimeout(this.timer);\n    this.timer = setTimeout(() => {\n      this._hide();\n    }, time);\n  }\n\n  _hide() {\n    let nextState = {\n      ...this.state,\n      popupProps: {\n        ...this.state.popupProps,\n        show: false\n      }\n    };\n\n    this.setState(nextState);\n  }\n}\n\n\napiInstance = createInstance(ApiContainer);\n"
   },
   {
-    "__docId__": 63,
+    "__docId__": 93,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1615,7 +2132,7 @@
     "importPath": "daifee-react-component/src/Notification/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 9,
+    "lineNumber": 10,
     "undocument": true,
     "type": {
       "types": [
@@ -1624,7 +2141,40 @@
     }
   },
   {
-    "__docId__": 64,
+    "__docId__": 94,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Notification",
+    "memberof": "src/Notification/index.js",
+    "longname": "src/Notification/index.js~Notification",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Notification/index.js",
+    "importStyle": "Notification",
+    "description": "Notification UI",
+    "lineNumber": 16,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see Notification.propTypes"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 95,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1636,7 +2186,7 @@
     "importPath": "daifee-react-component/src/Notification/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 13,
+    "lineNumber": 43,
     "undocument": true,
     "type": {
       "types": [
@@ -1645,28 +2195,28 @@
     }
   },
   {
-    "__docId__": 65,
+    "__docId__": 96,
     "kind": "variable",
     "static": true,
     "variation": null,
-    "name": "id",
+    "name": "timingFunction",
     "memberof": "src/Notification/index.js",
-    "longname": "src/Notification/index.js~id",
+    "longname": "src/Notification/index.js~timingFunction",
     "access": null,
     "export": false,
     "importPath": "daifee-react-component/src/Notification/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 14,
+    "lineNumber": 44,
     "undocument": true,
     "type": {
       "types": [
-        "number"
+        "string"
       ]
     }
   },
   {
-    "__docId__": 66,
+    "__docId__": 97,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1678,7 +2228,7 @@
     "importPath": "daifee-react-component/src/Notification/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 15,
+    "lineNumber": 46,
     "undocument": true,
     "params": [],
     "return": {
@@ -1689,49 +2239,19 @@
     "generator": false
   },
   {
-    "__docId__": 67,
-    "kind": "function",
-    "static": true,
-    "variation": null,
-    "name": "Notification",
-    "memberof": "src/Notification/index.js",
-    "longname": "src/Notification/index.js~Notification",
-    "access": null,
-    "export": true,
-    "importPath": "daifee-react-component/src/Notification/index.js",
-    "importStyle": "Notification",
-    "description": null,
-    "lineNumber": 20,
-    "undocument": true,
-    "params": [
-      {
-        "name": "props",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "generator": false
-  },
-  {
-    "__docId__": 68,
+    "__docId__": 98,
     "kind": "class",
     "static": true,
     "variation": null,
-    "name": "Notifications",
+    "name": "ApiContainer",
     "memberof": "src/Notification/index.js",
-    "longname": "src/Notification/index.js~Notifications",
+    "longname": "src/Notification/index.js~ApiContainer",
     "access": null,
     "export": false,
     "importPath": "daifee-react-component/src/Notification/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 62,
+    "lineNumber": 51,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -1739,16 +2259,16 @@
     ]
   },
   {
-    "__docId__": 69,
+    "__docId__": 99,
     "kind": "method",
     "static": false,
     "variation": null,
     "name": "render",
-    "memberof": "src/Notification/index.js~Notifications",
-    "longname": "src/Notification/index.js~Notifications#render",
+    "memberof": "src/Notification/index.js~ApiContainer",
+    "longname": "src/Notification/index.js~ApiContainer#render",
     "access": null,
     "description": null,
-    "lineNumber": 68,
+    "lineNumber": 63,
     "undocument": true,
     "params": [],
     "return": {
@@ -1759,66 +2279,219 @@
     "generator": false
   },
   {
-    "__docId__": 70,
+    "__docId__": 100,
     "kind": "method",
     "static": false,
     "variation": null,
     "name": "show",
-    "memberof": "src/Notification/index.js~Notifications",
-    "longname": "src/Notification/index.js~Notifications#show",
+    "memberof": "src/Notification/index.js~ApiContainer",
+    "longname": "src/Notification/index.js~ApiContainer#show",
     "access": null,
     "description": null,
-    "lineNumber": 95,
+    "lineNumber": 89,
     "undocument": true,
     "params": [
       {
-        "name": "content",
+        "name": "props",
         "types": [
           "*"
         ]
       },
       {
-        "name": "type",
+        "name": "popupProps",
         "types": [
           "*"
         ]
       },
       {
-        "name": "options",
+        "name": "time",
         "optional": true,
         "types": [
-          "{}"
+          "number"
         ],
-        "defaultRaw": {},
-        "defaultValue": "{}"
+        "defaultRaw": 4000,
+        "defaultValue": "4000"
       }
     ],
     "generator": false
   },
   {
-    "__docId__": 71,
+    "__docId__": 101,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "timer",
+    "memberof": "src/Notification/index.js~ApiContainer",
+    "longname": "src/Notification/index.js~ApiContainer#timer",
+    "access": null,
+    "description": null,
+    "lineNumber": 103,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 102,
     "kind": "method",
     "static": false,
     "variation": null,
-    "name": "hide",
-    "memberof": "src/Notification/index.js~Notifications",
-    "longname": "src/Notification/index.js~Notifications#hide",
+    "name": "_hide",
+    "memberof": "src/Notification/index.js~ApiContainer",
+    "longname": "src/Notification/index.js~ApiContainer#_hide",
     "access": null,
     "description": null,
-    "lineNumber": 113,
+    "lineNumber": 108,
     "undocument": true,
-    "params": [
-      {
-        "name": "id",
-        "types": [
-          "*"
-        ]
-      }
-    ],
+    "params": [],
     "generator": false
   },
   {
-    "__docId__": 72,
+    "__docId__": 103,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Page/index.js",
+    "memberof": null,
+    "longname": "src/Page/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\nimport './style';\n\n\nconst timeout = 500;\nconst duration = 400;\nconst timingFunction = 'ease';\n\n/**\n * Page UI\n * 应该用于单页应用，配合 react-router 使用\n * @param {object} props see Page.propTypes\n */\nexport default function Page(props) {\n  let {className, style, children, ...others} = props;\n  className = classNames('page', {_user: className});\n  style = {\n    ...style,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (<div className={className} style={style} {...others}>{children}</div>);\n}\n\n/**\n * props\n * @type {Object}\n */\nPage.propTypes = {\n  style: PropTypes.object,\n  className: PropTypes.string,\n  children: PropTypes.node\n};\n\n// 暴露啦\nPage.Scene = Scene;\n\n\n/**\n * Scene 过场动画\n * 根据 react-router 的 location.action 定义不同的过场动画\n *   * PUSH\n *   * POP\n *   * REPLACE\n * @param {object} props see Scene.propTypes\n */\nfunction Scene(props) {\n  let {className, children, action, ...others} = props;\n  className = classNames('page-scene', {_user: className});\n  action = action.toLowerCase();\n\n  return (\n    <ReactCSSTransitionGroup\n      component='div'\n      transitionName={classNames(`page-scene-${action}`)}\n      transitionEnterTimeout={timeout}\n      transitionLeaveTimeout={timeout}\n      className={className}\n      {...others}>\n      {children}\n    </ReactCSSTransitionGroup>\n  );\n}\n\n/**\n * props\n * @type {Object}\n */\nScene.propTypes = {\n  action: PropTypes.oneOf(['push', 'pop', 'replace', 'PUSH', 'POP', 'REPLACE']),\n  children: PropTypes.node,\n  className: PropTypes.string\n};\n\nScene.defaultProps = {\n  action: 'push'\n};\n"
+  },
+  {
+    "__docId__": 104,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "timeout",
+    "memberof": "src/Page/index.js",
+    "longname": "src/Page/index.js~timeout",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Page/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 105,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "duration",
+    "memberof": "src/Page/index.js",
+    "longname": "src/Page/index.js~duration",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Page/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 106,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "timingFunction",
+    "memberof": "src/Page/index.js",
+    "longname": "src/Page/index.js~timingFunction",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Page/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 107,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Page",
+    "memberof": "src/Page/index.js",
+    "longname": "src/Page/index.js~Page",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Page/index.js",
+    "importStyle": "Page",
+    "description": "Page UI\n应该用于单页应用，配合 react-router 使用",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see Page.propTypes"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 108,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "Scene",
+    "memberof": "src/Page/index.js",
+    "longname": "src/Page/index.js~Scene",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Page/index.js",
+    "importStyle": null,
+    "description": "Scene 过场动画\n根据 react-router 的 location.action 定义不同的过场动画\n  * PUSH\n  * POP\n  * REPLACE",
+    "lineNumber": 52,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see Scene.propTypes"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 109,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1828,10 +2501,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport TransitionShow from '../TransitionShow';\nimport './style';\n\n/**\n * 抽屉，从视口某个方向（direction:top/bottom/left/right）弹出一个“层”\n * 方向是上或下，width=100%;height=auto;max-height:100%;\n * 方向是左或右，width=auto;max-width=100%;height=100%;\n * 可以通过自定义 className 重置\n * @param {object} props 传入组件的属性，部分属性继承自 {@link sharePropTypes}\n * @param {string} props.direction 抽屉从这个方向弹出：[top|bottom|left|right]\n * @param {PropTypes.node} props.children 子组件（抽屉装的内容）\n */\nexport default function Popup(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    direction,\n    children,\n    ...others\n  } = props;\n  let classes = classNames('popup', {\n    '_user': className\n  });\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('popup')}\n      duration={duration}>\n      <div className={classes} style={style} {...others}>\n        <div\n          className={classNames('popup-main', `popup-main-${direction}`)}\n          style={style}>\n          {children}\n        </div>\n      </div>\n    </TransitionShow>\n  );\n}\n\nPopup.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  direction: PropTypes.oneOf(['left', 'right', 'top', 'bottom']).isRequired,\n  children: PropTypes.node.isRequired\n};\n\nPopup.defaultProps = {\n  ...TransitionShow.shareDefaultProps\n};\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\nimport ChildContainer from '../ChildContainer';\nimport './style';\n\n/**\n * 弹出层（抽屉）动画组件\n * @param {object} props see Popup.propTypes\n */\nexport default function Popup(props) {\n  let {\n    show,\n    duration,\n    timingFunction,\n    direction,\n    children,\n    className,\n    style,\n    ...others\n  } = props;\n  className = classNames('popup', {_user: className});\n  style = {\n    ...style,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <ReactCSSTransitionGroup\n      component={ChildContainer}\n      transitionName={classNames('popup')}\n      transitionEnterTimeout={duration}\n      transitionLeaveTimeout={duration}>\n      {show ? (\n        <div className={className} style={style} {...others}>\n          <div\n            className={classNames('popup-main', `popup-main-${direction}`)}\n            style={style}>\n            {children}\n          </div>\n        </div>\n      ) : null}\n    </ReactCSSTransitionGroup>\n  );\n}\n\n/**\n * 定义属性类型\n * @type {Object}\n * show: 是否显示\n * duration: 动画持续时间\n * timingFunction: 动画类型\n * direction: 从哪个方向出现\n */\nPopup.propTypes = {\n  show: PropTypes.bool.isRequired,\n  duration: PropTypes.number.isRequired,\n  timingFunction: PropTypes.string.isRequired,\n  direction: PropTypes.oneOf(['left', 'right', 'top', 'bottom']).isRequired,\n  children: PropTypes.node.isRequired,\n  className: PropTypes.string,\n  style: PropTypes.object\n};\n\nPopup.defaultProps = {\n  show: false,\n  duration: 400,\n  timingFunction: 'ease',\n  direction: 'bottom'\n};\n\n\n"
   },
   {
-    "__docId__": 73,
+    "__docId__": 110,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1842,8 +2515,8 @@
     "export": true,
     "importPath": "daifee-react-component/src/Popup/index.js",
     "importStyle": "Popup",
-    "description": "抽屉，从视口某个方向（direction:top/bottom/left/right）弹出一个“层”\n方向是上或下，width=100%;height=auto;max-height:100%;\n方向是左或右，width=auto;max-width=100%;height=100%;\n可以通过自定义 className 重置",
-    "lineNumber": 17,
+    "description": "弹出层（抽屉）动画组件",
+    "lineNumber": 13,
     "params": [
       {
         "nullable": null,
@@ -1853,27 +2526,7 @@
         "spread": false,
         "optional": false,
         "name": "props",
-        "description": "传入组件的属性，部分属性继承自 {@link sharePropTypes}"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.direction",
-        "description": "抽屉从这个方向弹出：[top|bottom|left|right]"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "PropTypes.node"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.children",
-        "description": "子组件（抽屉装的内容）"
+        "description": "see Popup.propTypes"
       }
     ],
     "return": {
@@ -1884,7 +2537,7 @@
     "generator": false
   },
   {
-    "__docId__": 74,
+    "__docId__": 111,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1894,10 +2547,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport IScroll from 'xiscroll';\nimport {classNames} from '../utils';\nimport './style';\n\n/**\n * ScrollView 将 IScroll 包装为 React Component\n * `instance.iscroller` 是 `IScroll` 实例\n * @param {object} props 传入组件的 props\n * @property {string} props.className 自定义 class\n * @property {PtopTypes.node} props.children 子组件\n * @property {object} props.iscrollOptions IScroll 的配置\n * @property {string} props.width 组件的宽度，默认：100%\n * @property {string} props.height 组件的高度，默认：300px\n * @property {object} props.style 样式，在这里定义的 width, height 会被上面属性覆盖\n */\nexport default class ScrollView extends Component {\n  static propTypes = {\n    className: PropTypes.string,\n    children: PropTypes.node,\n    iscrollOptions: PropTypes.object,\n    width: PropTypes.string,\n    height: PropTypes.string,\n    style: PropTypes.object\n  };\n\n  static defaultProps = {\n    width: '100%',\n    height: '300px'\n  };\n\n  // IScroll 实例\n  iscroller = null;\n\n  render() {\n    let {\n      className,\n      children,\n      width,\n      height,\n      style,\n      ...others\n    } = this.props;\n    let classes = classNames('scroll-view', {_user: className});\n    style = {...style, width, height};\n\n    return (\n      <div ref='wrapper' className={classes} style={style} {...others}>\n        <div className={classNames('scroll-view-scroller')}>\n          {children}\n        </div>\n      </div>\n    );\n  }\n\n  componentDidMount() {\n    let {\n      iscrollOptions\n    } = this.props;\n    let {wrapper} = this.refs;\n    this.iscroller = new IScroll(wrapper, {\n      probeType: 2,\n      mouseWheel: true,\n      ...iscrollOptions\n    });\n\n    wrapper.addEventListener('touchmove', (e) => {\n      e.preventDefault();\n    });\n  }\n}\n\n\n"
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport IScroll from 'xiscroll';\nimport {classNames} from '../utils';\nimport './style';\n\n/**\n * ScrollView UI\n * @param {object} props see static propTypes\n */\nexport default class ScrollView extends Component {\n  /**\n   * props\n   * @type {Object}\n   * iscrollOptions: 配置 iscroll\n   * width: 定义组件宽度\n   * height: 定义组件高度\n   */\n  static propTypes = {\n    iscrollOptions: PropTypes.object,\n    width: PropTypes.string,\n    height: PropTypes.string,\n    className: PropTypes.string,\n    children: PropTypes.node,\n    style: PropTypes.object\n  };\n\n  static defaultProps = {\n    width: '100%',\n    height: '300px'\n  };\n\n  // IScroll 实例\n  iscroller = null;\n\n  render() {\n    let {\n      width,\n      height,\n      className,\n      children,\n      style,\n      ...others\n    } = this.props;\n    className = classNames('scroll-view', {_user: className});\n    style = {...style, width, height};\n\n    return (\n      <div ref='wrapper' className={className} style={style} {...others}>\n        <div className={classNames('scroll-view-scroller')}>\n          {children}\n        </div>\n      </div>\n    );\n  }\n\n  componentDidMount() {\n    let {\n      iscrollOptions\n    } = this.props;\n    let {wrapper} = this.refs;\n    this.iscroller = new IScroll(wrapper, {\n      probeType: 2,\n      mouseWheel: true,\n      ...iscrollOptions\n    });\n\n    wrapper.addEventListener('touchmove', (e) => {\n      e.preventDefault();\n    });\n  }\n}\n\n\n"
   },
   {
-    "__docId__": 75,
+    "__docId__": 112,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1908,8 +2561,8 @@
     "export": true,
     "importPath": "daifee-react-component/src/ScrollView/index.js",
     "importStyle": "ScrollView",
-    "description": "ScrollView 将 IScroll 包装为 React Component\n`instance.iscroller` 是 `IScroll` 实例",
-    "lineNumber": 20,
+    "description": "ScrollView UI",
+    "lineNumber": 13,
     "params": [
       {
         "nullable": null,
@@ -1919,69 +2572,7 @@
         "spread": false,
         "optional": false,
         "name": "props",
-        "description": "传入组件的 props"
-      }
-    ],
-    "properties": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.className",
-        "description": "自定义 class"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "PtopTypes.node"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.children",
-        "description": "子组件"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.iscrollOptions",
-        "description": "IScroll 的配置"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.width",
-        "description": "组件的宽度，默认：100%"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.height",
-        "description": "组件的高度，默认：300px"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.style",
-        "description": "样式，在这里定义的 width, height 会被上面属性覆盖"
+        "description": "see static propTypes"
       }
     ],
     "interface": false,
@@ -1990,7 +2581,7 @@
     ]
   },
   {
-    "__docId__": 76,
+    "__docId__": 113,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -2010,7 +2601,7 @@
     "generator": false
   },
   {
-    "__docId__": 77,
+    "__docId__": 114,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -2025,7 +2616,7 @@
     "generator": false
   },
   {
-    "__docId__": 78,
+    "__docId__": 115,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -2043,7 +2634,7 @@
     }
   },
   {
-    "__docId__": 79,
+    "__docId__": 116,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -2053,10 +2644,214 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": ""
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport IScroll from 'xiscroll';\nimport './style';\n\nconst height = 34;\nconst maskStyle = {height: (height * 3 + 'px')};\nconst optionStyle = {\n  height: (height + 'px'),\n  lineHeight: (height + 'px')\n};\n\n/**\n * Select UI\n * @param {object} props see static propTypes\n */\nexport default class Select extends Component {\n  /**\n   * props\n   * @type {Object}\n   * options: 选项\n   * selectedIndex: 选中项的索引\n   * onChange: 监听 selectedIndex 改变，参数是 [selectedIndex]\n   * iscrollOptions: 配置 iscroll\n   */\n  static propTypes = {\n    options: PropTypes.array.isRequired,\n    selectedIndex: PropTypes.number,\n    onChange: PropTypes.func,\n    iscrollOptions: PropTypes.object,\n    className: PropTypes.string,\n    style: PropTypes.object\n  };\n\n  static defaultProps = {\n    selectedIndex: 0\n  };\n\n  // iscroll 实例\n  iscroller = null;\n\n\n  render() {\n    let {options, className, style, ...others} = this.props;\n\n    className = classNames('select', {_user: className});\n    style = {...style, height: (height * 7 + 'px')};\n    // fill\n    options = ['', '', ''].concat(options).concat(['', '', '']);\n\n    return (\n      <div ref='wrapper' className={className} style={style} {...others}>\n        <ul className={classNames('select-options')}>\n          {options.map((option, index) => {\n            let name = typeof option === 'object' ? option.name : option;\n            let key = index + '@-@' + name;\n\n            return (<li key={key} style={optionStyle}>{name}</li>);\n          })}\n        </ul>\n\n        <div style={maskStyle} className={classNames('select-mask-top')}></div>\n        <div style={maskStyle} className={classNames('select-mask-bottom')}></div>\n      </div>\n    );\n  }\n\n  componentDidMount() {\n    let {\n      iscrollOptions,\n      onChange\n    } = this.props;\n    let {wrapper} = this.refs;\n    // fuck a bug\n    setTimeout(() => {\n      this.iscroller = new IScroll(wrapper, {\n        probeType: 2,  // 默认值\n        ...iscrollOptions\n      });\n\n      this.iscroller.on('scrollEnd', () => {\n        let index = Math.abs(this.iscroller.y / height);\n        onChange && onChange(index);\n      });\n\n      // 通过 hookNewY 修改滚动位置\n      this.iscroller.hookNewY = (newY) => {\n        // Math.ceil(-8.74) = -8\n        // 所以已经 -1 了\n        let index = Math.ceil(newY / height);\n\n        if (Math.abs(this.iscroller.distY) > (height / 2)) {\n          if (this.iscroller.directionY === 1) {\n            index -= 1;\n          }\n        }\n\n        newY = index * height;\n\n        return newY;\n      };\n\n      this.resetPosition();\n\n      // 阻止默认事件\n      wrapper.addEventListener('touchmove', (e) => {\n        e.preventDefault();\n      });\n    }, 0);\n  }\n\n  shouldComponentUpdate(nextProps) {\n    return true;\n  }\n\n  componentDidUpdate() {\n    this.iscroller.refresh();\n    this.resetPosition();\n  }\n\n  resetPosition() {\n    let {selectedIndex} = this.props;\n    // 定位到指定的 selectIndex\n    this.iscroller.scrollTo(0, (-selectedIndex * height));\n  }\n}\n"
   },
   {
-    "__docId__": 80,
+    "__docId__": 117,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "height",
+    "memberof": "src/Select/index.js",
+    "longname": "src/Select/index.js~height",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Select/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 118,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "maskStyle",
+    "memberof": "src/Select/index.js",
+    "longname": "src/Select/index.js~maskStyle",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Select/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 119,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "optionStyle",
+    "memberof": "src/Select/index.js",
+    "longname": "src/Select/index.js~optionStyle",
+    "access": null,
+    "export": false,
+    "importPath": "daifee-react-component/src/Select/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 120,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Select",
+    "memberof": "src/Select/index.js",
+    "longname": "src/Select/index.js~Select",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/Select/index.js",
+    "importStyle": "Select",
+    "description": "Select UI",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see static propTypes"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 121,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "src/Select/index.js~Select",
+    "longname": "src/Select/index.js~Select#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 46,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 122,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "componentDidMount",
+    "memberof": "src/Select/index.js~Select",
+    "longname": "src/Select/index.js~Select#componentDidMount",
+    "access": null,
+    "description": null,
+    "lineNumber": 71,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 123,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "iscroller",
+    "memberof": "src/Select/index.js~Select",
+    "longname": "src/Select/index.js~Select#iscroller",
+    "access": null,
+    "description": null,
+    "lineNumber": 79,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 124,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "shouldComponentUpdate",
+    "memberof": "src/Select/index.js~Select",
+    "longname": "src/Select/index.js~Select#shouldComponentUpdate",
+    "access": null,
+    "description": null,
+    "lineNumber": 115,
+    "undocument": true,
+    "params": [
+      {
+        "name": "nextProps",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 125,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "componentDidUpdate",
+    "memberof": "src/Select/index.js~Select",
+    "longname": "src/Select/index.js~Select#componentDidUpdate",
+    "access": null,
+    "description": null,
+    "lineNumber": 119,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 126,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "resetPosition",
+    "memberof": "src/Select/index.js~Select",
+    "longname": "src/Select/index.js~Select#resetPosition",
+    "access": null,
+    "description": null,
+    "lineNumber": 124,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 127,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -2066,10 +2861,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\n\n/**\n * 开关（其实就是将 checkbox 改了样式）\n * 所有 checkbox 都有效\n * @param {object} props 传入组件的属性\n * @property {boolean} props.checked 是否选中状态\n * @property {boolean} props.disabled 是否禁止操作（当为 true 不会触发 onChange）\n */\nexport default function Switch(props) {\n  let {checked, disabled, className, ...others} = props;\n  let classes = classNames('switch', {_user: className});\n\n  return (\n    <input\n      className={classes}\n      type='checkbox'\n      checked={checked}\n      disabled={disabled}\n      {...others} />\n  );\n}\n\nSwitch.propTypes = {\n  checked: PropTypes.bool.isRequired,\n  disabled: PropTypes.bool,\n  className: PropTypes.string\n};\n\nSwitch.defaultProps = {\n  checked: false,\n  disabled: false\n};\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport './style';\n\n/**\n * Switch 开关，其实就是漂亮的 checkbox\n * 渲染 <input type=\"checkbox\" />\n */\nexport default function Switch(props) {\n  let {className, ...others} = props;\n  className = classNames('switch', {_user: className});\n\n  return (\n    <input\n      className={className}\n      type='checkbox'\n      {...others} />\n  );\n}\n\n/**\n * props\n * @type {Object}\n */\nSwitch.propTypes = {\n  className: PropTypes.string\n};\n\n"
   },
   {
-    "__docId__": 81,
+    "__docId__": 128,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2080,77 +2875,8 @@
     "export": true,
     "importPath": "daifee-react-component/src/Switch/index.js",
     "importStyle": "Switch",
-    "description": "开关（其实就是将 checkbox 改了样式）\n所有 checkbox 都有效",
-    "lineNumber": 14,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props",
-        "description": "传入组件的属性"
-      }
-    ],
-    "properties": [
-      {
-        "nullable": null,
-        "types": [
-          "boolean"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.checked",
-        "description": "是否选中状态"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "boolean"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.disabled",
-        "description": "是否禁止操作（当为 true 不会触发 onChange）"
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "generator": false
-  },
-  {
-    "__docId__": 82,
-    "kind": "file",
-    "static": true,
-    "variation": null,
-    "name": "src/TabBar/TabBar.js",
-    "memberof": null,
-    "longname": "src/TabBar/TabBar.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport TabBarItem from './TabBarItem';\n\nexport default function TabBar(props) {\n  const {\n    barColor,\n    lineColor,\n    color,\n    selectedColor,\n    translucent,\n    children,\n    className,\n    ...others\n  } = props;\n  let classes = classNames('tab-bar', {\n    '_user': className,\n    'tab-bar-translucent': translucent\n  });\n  let barStyle = {\n    backgroundColor: barColor\n  };\n  let lineStyle = {\n    backgroundColor: lineColor\n  };\n\n  return (\n    <div className={classes} {...others}>\n      <div className={classNames('tab-bar-body')}>\n        {children}\n      </div>\n      <footer style={barStyle}>\n        <div style={lineStyle} />\n        <ul>{children.map((child, index) => {\n          let props = {...child.props};\n          delete props.children;\n\n          return (\n            <Button\n              key={index}\n              color={color}\n              selectedColor={selectedColor}\n              {...props} />\n          );\n        })}</ul>\n      </footer>\n    </div>\n  );\n}\n\nTabBar.propTypes = {\n  barColor: PropTypes.string,  // 导航条颜色\n  lineColor: PropTypes.string,  // 线条颜色\n  color: PropTypes.string,  // tab 内容验证\n  selectedColor: PropTypes.string,  // tab 内容选中状态颜色\n  translucent: PropTypes.bool  // 是否半透明\n};\n\nTabBar.defaultProps = {\n  barColor: '#f7f7fa',\n  lineColor: '#979797',\n  color: '#888',\n  selectedColor: '#09bb07',\n  translucent: false\n};\n\nTabBar.Item = TabBarItem;\n\n\nfunction Button(props) {\n  const {\n    // from TabBar\n    color, selectedColor,\n    // from TabBarItem\n    selected, icon, selectedIcon, title, badge, onClick, className, ...others\n  } = props;\n  let classes = classNames('tab-bar-item', {\n    '_user': className,\n    'tab-bar-item-selected': selected\n  });\n  let iconClass = (selected && selectedIcon) ? selectedIcon : icon;\n  let style = {\n    color: (selected ? selectedColor : color)\n  };\n\n  return (\n    <li className={classes} onClick={onClick} {...others}>\n      <div className={classNames('tab-bar-item-label')}>\n        <i className={iconClass} style={style} />\n        {typeof badge !== 'undefined' ? (<span>{badge}</span>) : null}\n      </div>\n      <div className={classNames('tab-bar-item-title')} style={style}>\n        {title}\n      </div>\n    </li>\n  );\n}\n\nButton.propTypes = {\n  // from TabBar\n  color: TabBar.propTypes.color,\n  selectedColor: TabBar.propTypes.selectedColor,\n  // from TabBarItem 不包含 children\n  ...TabBarItem.propTypes\n};\n"
-  },
-  {
-    "__docId__": 83,
-    "kind": "function",
-    "static": true,
-    "variation": null,
-    "name": "TabBar",
-    "memberof": "src/TabBar/TabBar.js",
-    "longname": "src/TabBar/TabBar.js~TabBar",
-    "access": null,
-    "export": true,
-    "importPath": "daifee-react-component/src/TabBar/TabBar.js",
-    "importStyle": "TabBar",
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true,
+    "description": "Switch 开关，其实就是漂亮的 checkbox\n渲染 <input type=\"checkbox\" />",
+    "lineNumber": 11,
     "params": [
       {
         "name": "props",
@@ -2167,7 +2893,53 @@
     "generator": false
   },
   {
-    "__docId__": 84,
+    "__docId__": 129,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/TabBar/TabBar.js",
+    "memberof": null,
+    "longname": "src/TabBar/TabBar.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\nimport TabBarItem from './TabBarItem';\n\n/**\n * TabBar UI\n * @param {object} props see TabBar.propTypes\n */\nexport default function TabBar(props) {\n  let {\n    barColor,\n    lineColor,\n    color,\n    selectedColor,\n    translucent,\n    children,\n    className,\n    ...others\n  } = props;\n  className = classNames('tab-bar', {\n    '_user': className,\n    'tab-bar-translucent': translucent\n  });\n  let barStyle = {\n    backgroundColor: barColor\n  };\n  let lineStyle = {\n    backgroundColor: lineColor\n  };\n\n  return (\n    <div className={className} {...others}>\n      <div className={classNames('tab-bar-body')}>\n        {children}\n      </div>\n      <footer style={barStyle}>\n        <div style={lineStyle} />\n        <ul>{children.map((child, index) => {\n          let props = {...child.props};\n\n          return (\n            <Button\n              key={index}\n              color={color}\n              selectedColor={selectedColor}\n              {...props} />\n          );\n        })}</ul>\n      </footer>\n    </div>\n  );\n}\n\n/**\n * props\n * @type {Object}\n * barColor: 导航条颜色\n * lineColor: 线条颜色\n * color: tab 内容颜色\n * translucent: 是否半透明\n */\nTabBar.propTypes = {\n  barColor: PropTypes.string,\n  lineColor: PropTypes.string,\n  color: PropTypes.string,\n  selectedColor: PropTypes.string,\n  translucent: PropTypes.bool\n};\n\nTabBar.defaultProps = {\n  barColor: '#f7f7fa',\n  lineColor: '#979797',\n  color: '#888',\n  selectedColor: '#09bb07',\n  translucent: false\n};\n\nTabBar.Item = TabBarItem;\n\n\nfunction Button(props) {\n  let {\n    // from TabBar\n    color, selectedColor,\n    // from TabBarItem\n    selected, icon, selectedIcon, title, badge, onClick, className, ...others\n  } = props;\n  className = classNames('tab-bar-item', {\n    '_user': className,\n    'tab-bar-item-selected': selected\n  });\n  let iconClass = (selected && selectedIcon) ? selectedIcon : icon;\n  let style = {\n    color: (selected ? selectedColor : color)\n  };\n\n  return (\n    <li className={className} onClick={onClick} {...others}>\n      <div className={classNames('tab-bar-item-label')}>\n        <i className={iconClass} style={style} />\n        {typeof badge !== 'undefined' ? (<span>{badge}</span>) : null}\n      </div>\n      <div className={classNames('tab-bar-item-title')} style={style}>\n        {title}\n      </div>\n    </li>\n  );\n}\n\nButton.propTypes = {\n  // from TabBar\n  color: TabBar.propTypes.color,\n  selectedColor: TabBar.propTypes.selectedColor,\n  // from TabBarItem 不包含 children\n  ...TabBarItem.propTypes\n};\n"
+  },
+  {
+    "__docId__": 130,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "TabBar",
+    "memberof": "src/TabBar/TabBar.js",
+    "longname": "src/TabBar/TabBar.js~TabBar",
+    "access": null,
+    "export": true,
+    "importPath": "daifee-react-component/src/TabBar/TabBar.js",
+    "importStyle": "TabBar",
+    "description": "TabBar UI",
+    "lineNumber": 11,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "see TabBar.propTypes"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 131,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2179,7 +2951,7 @@
     "importPath": "daifee-react-component/src/TabBar/TabBar.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 72,
+    "lineNumber": 83,
     "undocument": true,
     "params": [
       {
@@ -2197,7 +2969,7 @@
     "generator": false
   },
   {
-    "__docId__": 85,
+    "__docId__": 132,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -2207,10 +2979,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n\nexport default function TabBarItem(props) {\n  const {selected, children} = props;\n  let classes = classNames('tab-bar-body-item', {\n    'tab-bar-body-item-selected': selected\n  });\n\n  return (\n    <div className={classes}>{children}</div>\n  );\n}\n\nTabBarItem.propTypes = {\n  children: PropTypes.node,\n  selected: PropTypes.bool,\n  icon: PropTypes.string,\n  selectedIcon: PropTypes.string,\n  title: PropTypes.string,\n  badge: PropTypes.oneOfType([\n    PropTypes.string,\n    PropTypes.number\n  ]),\n  onClick: PropTypes.func,\n  className: PropTypes.string\n};\n"
+    "content": "import React, {\n  PropTypes\n} from 'react';\nimport {classNames} from '../utils';\n\n\nexport default function TabBarItem(props) {\n  const {selected, children} = props;\n  let className = classNames('tab-bar-body-item', {\n    'tab-bar-body-item-selected': selected\n  });\n\n  return (\n    <div className={className}>{children}</div>\n  );\n}\n\nTabBarItem.propTypes = {\n  children: PropTypes.node,\n  selected: PropTypes.bool,\n  icon: PropTypes.string,\n  selectedIcon: PropTypes.string,\n  title: PropTypes.string,\n  badge: PropTypes.oneOfType([\n    PropTypes.string,\n    PropTypes.number\n  ]),\n  onClick: PropTypes.func,\n  className: PropTypes.string\n};\n"
   },
   {
-    "__docId__": 86,
+    "__docId__": 133,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2240,7 +3012,7 @@
     "generator": false
   },
   {
-    "__docId__": 87,
+    "__docId__": 134,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -2253,7 +3025,7 @@
     "content": "import './style';\n\nexport TabBar from './TabBar';\nexport TabBarItem from './TabBarItem';\n"
   },
   {
-    "__docId__": 88,
+    "__docId__": 135,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -2263,10 +3035,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames, createInstance} from '../utils';\nimport {\n  IconAttention,\n  IconLoading\n} from '../Icon';\nimport './style';\nimport TransitionShow from '../TransitionShow';\n\nlet apiInstance = null;\nlet timer = null;\n\nexport default function Toast(props) {\n  let {\n    show,\n    zIndex,\n    duration,\n    timingFunction,\n    style,\n    className,\n    icon,\n    content,\n    ...others\n  } = props;\n  let classes = classNames('toast', {_user: className});\n  style = {\n    ...style,\n    zIndex,\n    transitionDuration: (duration + 'ms'),\n    transitionTimingFunction: timingFunction\n  };\n\n  return (\n    <TransitionShow\n      show={show}\n      transitionName={classNames('toast')}\n      duration={duration}>\n      <div className={classes} style={style} {...others} >\n        <div>\n          <div>\n            {matchIcon(icon)}\n            <p>{content}</p>\n          </div>\n        </div>\n      </div>\n    </TransitionShow>\n  );\n}\n\n\nToast.propTypes = {\n  ...TransitionShow.sharePropTypes,\n  icon: PropTypes.string,\n  content: PropTypes.string\n};\n\nToast.defaultProps = TransitionShow.shareDefaultProps;\n\n\nToast.getInstance = (container) => {\n  return createInstance(ApiContainer, container);\n};\n\nToast.show = (icon, content, options, timeout) => {\n  apiInstance.show(icon, content, options, timeout);\n};\n\nToast.hide = () => {\n  apiInstance.hide();\n};\n\nToast.showLoading = (content, options) => {\n  apiInstance.showLoading(content, options);\n};\n\nToast.hideLoading = () => {\n  apiInstance.hideLoading();\n};\n\n\nfunction matchIcon(name) {\n  switch (name) {\n    case 'loading':\n      return (<IconLoading />);\n    case 'attention':\n      return (<IconAttention />);\n    default:\n      return null;\n  }\n}\n\n\n/**\n * 提供接口\n */\n\nclass ApiContainer extends Component {\n  state = {};\n\n  render() {\n    return (<Toast {...this.state} />);\n  }\n\n  show(icon, content, options = {}, timeout = 2200) {\n    let nexState = {\n      ...this.state,\n      ...options,\n      icon,\n      content,\n      show: true\n    };\n    this.setState(nexState);\n\n    // 如果 icon != loading 定时隐藏\n    clearTimeout(timer);\n    if (icon === 'loading') return;\n    timer = setTimeout(() => {\n      this.hide();\n    }, timeout);\n  }\n\n  hide() {\n    let nexState = {...this.state, show: false};\n    this.setState(nexState);\n  }\n\n  showLoading(content = '加载中…', options) {\n    this.show('loading', content, options);\n  }\n\n  hideLoading() {\n    this.hide();\n  }\n}\n\napiInstance = createInstance(ApiContainer);\n"
+    "content": "import React, {\n  Component,\n  PropTypes\n} from 'react';\nimport {classNames, createInstance} from '../utils';\nimport {\n  IconAttention,\n  IconLoading\n} from '../Icon';\nimport Fade from '../Fade';\nimport './style';\n\nlet apiInstance = null;\n\nexport default function Toast(props) {\n  let {icon, content, className, ...others} = props;\n  className = classNames('toast', {_user: className});\n\n  return (\n    <div className={className} {...others}>\n      {icon ? <div>{mapIcon(icon)}</div> : null}\n      <p>{content}</p>\n    </div>\n  );\n}\n\nToast.propTypes = {\n  icon: PropTypes.oneOfType([\n    PropTypes.element,\n    PropTypes.oneOf(['loading', 'attention'])\n  ]),\n  content: PropTypes.node.isRequired,\n  className: PropTypes.string\n};\n\n\nToast.getInstance = (container) => {\n  createInstance(ApiContainer, container);\n};\n\nToast.show = (props, fadeProps, time) => {\n  apiInstance.show(props, fadeProps, time);\n};\n\nToast.hide = () => {\n  apiInstance.hide();\n};\n\nToast.showLoading = (props, fadeProps) => {\n  apiInstance.showLoading(props, fadeProps);\n};\n\nToast.hideLoading = () => {\n  apiInstance.hideLoading();\n};\n\n\nfunction mapIcon(icon) {\n  switch (icon) {\n    case 'loading':\n      return (<IconLoading />);\n    case 'attention':\n      return (<IconAttention />);\n    default:\n      return icon;\n  }\n}\n\n\n/**\n * 提供接口\n */\n\nclass ApiContainer extends Component {\n  state = {\n    props: {\n      content: ''\n    },\n    fadeProps: {\n      show: false\n    }\n  };\n\n  render() {\n    let {props, fadeProps} = this.state;\n\n    return (\n      <Fade {...fadeProps}>\n        <Toast {...props} />\n      </Fade>\n    );\n  }\n\n  show(props, fadeProps, time) {\n    let nextState = {\n      props: {...this.state.props, ...props},\n      fadeProps: {...this.state.fadeProps, show: true}\n    };\n    this.setState(nextState);\n\n    if (typeof time === 'number') {\n      clearTimeout(this.timer);\n      this.timer = setTimeout(() => {\n        this.hide();\n      }, time);\n    }\n  }\n\n  // 延时执行，单位：ms\n  hide(delay) {\n    let nextState = {\n      ...this.state,\n      fadeProps: {...this.state.fadeProps, show: false}\n    };\n\n    this.setState(nextState);\n  }\n\n  showLoading(props, fadeProps) {\n    props = {...props, icon: 'loading'};\n    this.show(props, fadeProps);\n  }\n\n  hideLoading(delay) {\n    this.hide(delay);\n  }\n}\n\napiInstance = createInstance(ApiContainer);\n"
   },
   {
-    "__docId__": 89,
+    "__docId__": 136,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -2287,28 +3059,7 @@
     }
   },
   {
-    "__docId__": 90,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "timer",
-    "memberof": "src/Toast/index.js",
-    "longname": "src/Toast/index.js~timer",
-    "access": null,
-    "export": false,
-    "importPath": "daifee-react-component/src/Toast/index.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 91,
+    "__docId__": 137,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2320,7 +3071,7 @@
     "importPath": "daifee-react-component/src/Toast/index.js",
     "importStyle": "Toast",
     "description": null,
-    "lineNumber": 16,
+    "lineNumber": 15,
     "undocument": true,
     "params": [
       {
@@ -2338,23 +3089,23 @@
     "generator": false
   },
   {
-    "__docId__": 92,
+    "__docId__": 138,
     "kind": "function",
     "static": true,
     "variation": null,
-    "name": "matchIcon",
+    "name": "mapIcon",
     "memberof": "src/Toast/index.js",
-    "longname": "src/Toast/index.js~matchIcon",
+    "longname": "src/Toast/index.js~mapIcon",
     "access": null,
     "export": false,
     "importPath": "daifee-react-component/src/Toast/index.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 84,
+    "lineNumber": 58,
     "undocument": true,
     "params": [
       {
-        "name": "name",
+        "name": "icon",
         "types": [
           "*"
         ]
@@ -2368,7 +3119,7 @@
     "generator": false
   },
   {
-    "__docId__": 93,
+    "__docId__": 139,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -2380,14 +3131,14 @@
     "importPath": "daifee-react-component/src/Toast/index.js",
     "importStyle": null,
     "description": "提供接口",
-    "lineNumber": 100,
+    "lineNumber": 74,
     "interface": false,
     "extends": [
       "react~Component"
     ]
   },
   {
-    "__docId__": 94,
+    "__docId__": 140,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -2396,7 +3147,7 @@
     "longname": "src/Toast/index.js~ApiContainer#render",
     "access": null,
     "description": null,
-    "lineNumber": 103,
+    "lineNumber": 84,
     "undocument": true,
     "params": [],
     "return": {
@@ -2407,7 +3158,7 @@
     "generator": false
   },
   {
-    "__docId__": 95,
+    "__docId__": 141,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -2416,44 +3167,50 @@
     "longname": "src/Toast/index.js~ApiContainer#show",
     "access": null,
     "description": null,
-    "lineNumber": 107,
+    "lineNumber": 94,
     "undocument": true,
     "params": [
       {
-        "name": "icon",
+        "name": "props",
         "types": [
           "*"
         ]
       },
       {
-        "name": "content",
+        "name": "fadeProps",
         "types": [
           "*"
         ]
       },
       {
-        "name": "options",
-        "optional": true,
+        "name": "time",
         "types": [
-          "{}"
-        ],
-        "defaultRaw": {},
-        "defaultValue": "{}"
-      },
-      {
-        "name": "timeout",
-        "optional": true,
-        "types": [
-          "number"
-        ],
-        "defaultRaw": 2200,
-        "defaultValue": "2200"
+          "*"
+        ]
       }
     ],
     "generator": false
   },
   {
-    "__docId__": 96,
+    "__docId__": 142,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "timer",
+    "memberof": "src/Toast/index.js~ApiContainer",
+    "longname": "src/Toast/index.js~ApiContainer#timer",
+    "access": null,
+    "description": null,
+    "lineNumber": 103,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 143,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -2462,13 +3219,20 @@
     "longname": "src/Toast/index.js~ApiContainer#hide",
     "access": null,
     "description": null,
-    "lineNumber": 125,
+    "lineNumber": 110,
     "undocument": true,
-    "params": [],
+    "params": [
+      {
+        "name": "delay",
+        "types": [
+          "*"
+        ]
+      }
+    ],
     "generator": false
   },
   {
-    "__docId__": 97,
+    "__docId__": 144,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -2477,20 +3241,17 @@
     "longname": "src/Toast/index.js~ApiContainer#showLoading",
     "access": null,
     "description": null,
-    "lineNumber": 130,
+    "lineNumber": 119,
     "undocument": true,
     "params": [
       {
-        "name": "content",
-        "optional": true,
+        "name": "props",
         "types": [
-          "string"
-        ],
-        "defaultRaw": "加载中…",
-        "defaultValue": "加载中…"
+          "*"
+        ]
       },
       {
-        "name": "options",
+        "name": "fadeProps",
         "types": [
           "*"
         ]
@@ -2499,7 +3260,7 @@
     "generator": false
   },
   {
-    "__docId__": 98,
+    "__docId__": 145,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -2508,245 +3269,20 @@
     "longname": "src/Toast/index.js~ApiContainer#hideLoading",
     "access": null,
     "description": null,
-    "lineNumber": 134,
-    "undocument": true,
-    "params": [],
-    "generator": false
-  },
-  {
-    "__docId__": 99,
-    "kind": "file",
-    "static": true,
-    "variation": null,
-    "name": "src/TransitionShow.js",
-    "memberof": null,
-    "longname": "src/TransitionShow.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1,
-    "content": "import React, {\n  PropTypes\n} from 'react';\nimport ReactCSSTransitionGroup from 'react-addons-css-transition-group';\n\n/**\n * TransitionShow 使子组件实现简单的“显示和隐藏”过渡动画\n * @param {object} props 传入组件的参数\n * @param {boolean} props.show=false 是否显示子组件（children）\n * @param {string} props.transitionName 实现过渡动画的 className\n * @param {number} props.duration 过渡动画持续时间\n * @param {PropTypes.node} props.children 子组件\n * @return {PropTypes.element} React element\n *\n * @example\n * function Dialog(props) {\n *   let {show, duration} = props;\n *\n *   return (\n *     <TranstionShow show={show} transitionName='dialog'>\n *       <div>啥班</div>\n *     </TransitionShow>\n *   );\n * }\n */\nexport default function TransitionShow(props) {\n  let {show, transitionName, duration, children} = props;\n\n  return (\n    <ReactCSSTransitionGroup\n      component={EmptyContainer}\n      transitionName={transitionName}\n      transitionEnterTimeout={duration}\n      transitionLeaveTimeout={duration}>\n      {show ? children : null}\n    </ReactCSSTransitionGroup>\n  );\n}\n\nTransitionShow.propTypes = {\n  show: PropTypes.bool,\n  transitionName: PropTypes.string.isRequired,\n  duration: PropTypes.number.isRequired,\n  children: PropTypes.node\n};\n\nTransitionShow.defaultProps = {\n  show: false\n};\n\n\n\n/**\n * TransitionShow 子组件需要定义的属性\n * @type {object}\n * @property {boolean} show 显示（true）或 隐藏（false）\n * @property {number} duration 过渡动画持续时间，单位：ms\n * @property {number} zIndex 组件的 z-index 值\n * @property {string} timingFunction 过渡动画类型，CSS3 动画\n * @property {object} style 组件内联样式\n * @property {string} className 自定义 class\n */\nexport const sharePropTypes = TransitionShow.sharePropTypes = {\n  show: TransitionShow.propTypes.show,\n  duration: TransitionShow.propTypes.duration,\n  zIndex: PropTypes.number,\n  timingFunction: PropTypes.string,\n  style: PropTypes.object,  // 通过 style 定义动画 duration/zIndex/timgFunction\n  className: PropTypes.string  // 用户自定义 class，所有组件都提供的属性\n};\n\n/**\n * TransitionShow 子组件需要定义的属性 默认值\n * @type {Object}\n */\nexport const shareDefaultProps = TransitionShow.shareDefaultProps = {\n  duration: 80,\n  zIndex: 9999,\n  timingFunction: 'ease',\n  style: {}\n};\n\n\n\n\nfunction EmptyContainer(props) {\n  return props.children[0] || null;\n}\n"
-  },
-  {
-    "__docId__": 100,
-    "kind": "function",
-    "static": true,
-    "variation": null,
-    "name": "TransitionShow",
-    "memberof": "src/TransitionShow.js",
-    "longname": "src/TransitionShow.js~TransitionShow",
-    "access": null,
-    "export": true,
-    "importPath": "daifee-react-component/src/TransitionShow.js",
-    "importStyle": "TransitionShow",
-    "description": "TransitionShow 使子组件实现简单的“显示和隐藏”过渡动画",
-    "examples": [
-      "function Dialog(props) {\n  let {show, duration} = props;\n\n  return (\n    <TranstionShow show={show} transitionName='dialog'>\n      <div>啥班</div>\n    </TransitionShow>\n  );\n}"
-    ],
-    "lineNumber": 26,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props",
-        "description": "传入组件的参数"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "boolean"
-        ],
-        "spread": false,
-        "optional": false,
-        "defaultValue": "false",
-        "defaultRaw": false,
-        "name": "props.show",
-        "description": "是否显示子组件（children）"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.transitionName",
-        "description": "实现过渡动画的 className"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.duration",
-        "description": "过渡动画持续时间"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "PropTypes.node"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "props.children",
-        "description": "子组件"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "PropTypes.element"
-      ],
-      "spread": false,
-      "description": "React element"
-    },
-    "generator": false
-  },
-  {
-    "__docId__": 101,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "sharePropTypes",
-    "memberof": "src/TransitionShow.js",
-    "longname": "src/TransitionShow.js~sharePropTypes",
-    "access": null,
-    "export": true,
-    "importPath": "daifee-react-component/src/TransitionShow.js",
-    "importStyle": "{sharePropTypes}",
-    "description": "TransitionShow 子组件需要定义的属性",
-    "lineNumber": 63,
-    "properties": [
-      {
-        "nullable": null,
-        "types": [
-          "boolean"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "show",
-        "description": "显示（true）或 隐藏（false）"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "duration",
-        "description": "过渡动画持续时间，单位：ms"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "zIndex",
-        "description": "组件的 z-index 值"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "timingFunction",
-        "description": "过渡动画类型，CSS3 动画"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "style",
-        "description": "组件内联样式"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "className",
-        "description": "自定义 class"
-      }
-    ],
-    "type": {
-      "nullable": null,
-      "types": [
-        "object"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 102,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "shareDefaultProps",
-    "memberof": "src/TransitionShow.js",
-    "longname": "src/TransitionShow.js~shareDefaultProps",
-    "access": null,
-    "export": true,
-    "importPath": "daifee-react-component/src/TransitionShow.js",
-    "importStyle": "{shareDefaultProps}",
-    "description": "TransitionShow 子组件需要定义的属性 默认值",
-    "lineNumber": 76,
-    "type": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 103,
-    "kind": "function",
-    "static": true,
-    "variation": null,
-    "name": "EmptyContainer",
-    "memberof": "src/TransitionShow.js",
-    "longname": "src/TransitionShow.js~EmptyContainer",
-    "access": null,
-    "export": false,
-    "importPath": "daifee-react-component/src/TransitionShow.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 86,
+    "lineNumber": 124,
     "undocument": true,
     "params": [
       {
-        "name": "props",
+        "name": "delay",
         "types": [
           "*"
         ]
       }
     ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
     "generator": false
   },
   {
-    "__docId__": 104,
+    "__docId__": 146,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -2759,7 +3295,7 @@
     "content": "/**\n * 配置文件\n */\n\n\n/**\n * @type {object} 配置数据对象\n * @property {string} config.namespace='daifee-rc' 用于 css 的命名空间，\n * 如要修改，必须同时修改 ./variables.scss 文件的 $namespace\n */\nconst config = {\n  namespace: 'daifee-rc'\n};\n\nexport default config;\n\n"
   },
   {
-    "__docId__": 105,
+    "__docId__": 147,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -2796,7 +3332,7 @@
     }
   },
   {
-    "__docId__": 106,
+    "__docId__": 148,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -2806,10 +3342,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import './style';\n\nexport {\n  IconAttention,\n  IconLoading,\n  IconCheck\n} from './Icon';\n\nexport {\n  Cell,\n  CellBody,\n  CellFooter,\n  CellHeader,\n  Cells,\n  CellsTitle,\n  CellsTips\n} from './Cell';\n\nexport Button from './Button';\nexport Mask from './Mask';\nexport Toast from './Toast';\nexport Dialog from './Dialog';\nexport Notification from './Notification';\nexport ActionSheet from './ActionSheet';\nexport {\n  TabBar,\n  TabBarItem\n} from './TabBar';\nexport Popup from './Popup';\nexport Switch from './Switch';\nexport Checkbox from './Checkbox';\nexport ScrollView from './ScrollView';\nexport ListView from './ListView';\n"
+    "content": "import './style';\n\nexport {\n  IconAttention,\n  IconLoading,\n  IconCheck\n} from './Icon';\n\nexport {\n  Cell,\n  CellBody,\n  CellFooter,\n  CellHeader,\n  Cells,\n  CellsTitle,\n  CellsTips\n} from './Cell';\n\nexport Button from './Button';\nexport Mask from './Mask';\nexport Toast from './Toast';\nexport Dialog from './Dialog';\nexport Notification from './Notification';\nexport ActionSheet from './ActionSheet';\nexport {\n  TabBar,\n  TabBarItem\n} from './TabBar';\nexport Popup from './Popup';\nexport Switch from './Switch';\nexport Checkbox from './Checkbox';\nexport ScrollView from './ScrollView';\nexport ListView from './ListView';\nexport Select from './Select';\nexport DatePicker from './DatePicker';\nexport Page from './Page';\nexport Fade from './Fade';\n"
   },
   {
-    "__docId__": 107,
+    "__docId__": 149,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -2819,10 +3355,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import config from './config';\nimport React from 'react';\nimport {render} from 'react-dom';\n\nconst {namespace} = config;\nconst hasOwn = {}.hasOwnProperty;\n\n/**\n * 包装返回 className\n * @param  {string|object} args 要被包装的 className\n * 所有 className 都回被加上项目的 namespace 前缀。\n * 如果参数是对象，则其属性是 class 名，值为 true 则该 class 名被返回。\n * 如果参数的属性是 `_user` 则直接返回其值，不作包装\n * @return {string}         一个或多个 class。例如：\"class1 class2 class3\"\n *\n * @example\n * let classes = classNames('dialog', {\n *   'dialog-btn': false,\n *   'dialog-title': true,\n *   '_user': 'user-class'\n * });\n * console.log(classes);\n * // 假设 namespace='rd'\n * // output: \"rc-dialog rc-dialog-title user-class\"\n */\nexport function classNames(...args) {\n  let classes = [];\n  let arg, argType, key;\n\n  for (let i = 0, len = args.length; i < len; i++) {\n    arg = args[i];\n    argType = typeof arg;\n\n    if (!arg) continue;\n\n    if (argType === 'string' || argType === 'number') {\n      prePush(classes, arg);\n    } else if (Array.isArray(arg)) {\n      classes.push(classNames.apply(null, arg));\n    } else if (argType === 'object') {\n      for (key in arg) {\n        if (!hasOwn.call(arg, key) || !arg[key]) continue;\n\n        // 用户传入的\n        if (key === '_user') {\n          classes.push(arg[key]);\n        } else {\n          prePush(classes, key);\n        }\n      }\n    }\n  }\n\n  return classes.join(' ');\n}\n\nfunction prePush(arr, value) {\n  value = `${namespace}-${value}`;\n  return arr.push(value);\n}\n\n\n/**\n * 根据传入的 Component 创建一个实例，并渲染到 container\n * @param  {Component} Component React 组件\n * @param  {?dom} container 实例将渲染到该 dom 节点，\n * 如果缺少，内部创建 dom 节点。\n * @return {PropTypes.element}           Component 的实例\n */\nexport function createInstance(Component, container) {\n  if (!container) {\n    container = createContainer();\n  }\n\n  return render(<Component />, container);\n}\n\n/**\n * 创建一个 dom 节点，div.${namespace}-apicontainer\n * @return {dom} 节点\n */\nfunction createContainer() {\n  let div = document.createElement('div');\n  div.className = classNames('api-container');\n  document.body.appendChild(div);\n\n  return div;\n}\n\n\n"
+    "content": "import config from './config';\nimport React from 'react';\nimport {render} from 'react-dom';\n\nconst {namespace} = config;\nconst hasOwn = {}.hasOwnProperty;\n\n/**\n * 包装返回 className\n * @param  {string|object} args 要被包装的 className\n * 所有 className 都回被加上项目的 namespace 前缀。\n * 如果参数是对象，则其属性是 class 名，值为 true 则该 class 名被返回。\n * 如果参数的属性是 `_user` 则直接返回其值，不作包装\n * @return {string}         一个或多个 class。例如：\"class1 class2 class3\"\n *\n * @example\n * let classes = classNames('dialog', {\n *   'dialog-btn': false,\n *   'dialog-title': true,\n *   '_user': 'user-class'\n * });\n * console.log(classes);\n * // 假设 namespace='rd'\n * // output: \"rc-dialog rc-dialog-title user-class\"\n */\nexport function classNames(...args) {\n  let classes = [];\n  let arg, argType, key;\n\n  for (let i = 0, len = args.length; i < len; i++) {\n    arg = args[i];\n    argType = typeof arg;\n\n    if (!arg) continue;\n\n    if (argType === 'string' || argType === 'number') {\n      prePush(classes, arg);\n    } else if (Array.isArray(arg)) {\n      classes.push(classNames.apply(null, arg));\n    } else if (argType === 'object') {\n      for (key in arg) {\n        if (!hasOwn.call(arg, key) || !arg[key]) continue;\n\n        // 用户传入的\n        if (key === '_user') {\n          classes.push(arg[key]);\n        } else {\n          prePush(classes, key);\n        }\n      }\n    }\n  }\n\n  return classes.join(' ');\n}\n\nfunction prePush(arr, value) {\n  value = `${namespace}-${value}`;\n  return arr.push(value);\n}\n\n\n/**\n * 根据传入的 Component 创建一个实例，并渲染到 container\n * @param  {Component} Component React 组件\n * @param  {node} container 实例将渲染到该 dom 节点，\n * 如果缺少，内部创建 dom 节点。\n * @return {PropTypes.element}           Component 的实例\n */\nexport function createInstance(Component, container) {\n  if (!container) {\n    container = createContainer();\n  }\n\n  return render(<Component />, container);\n}\n\n/**\n * 创建一个 dom 节点，div.${namespace}-apicontainer\n * @return {dom} 节点\n */\nfunction createContainer() {\n  let div = document.createElement('div');\n  div.className = classNames('api-container');\n  document.body.appendChild(div);\n\n  return div;\n}\n\n\n"
   },
   {
-    "__docId__": 108,
+    "__docId__": 150,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -2843,7 +3379,7 @@
     }
   },
   {
-    "__docId__": 109,
+    "__docId__": 151,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -2864,7 +3400,7 @@
     }
   },
   {
-    "__docId__": 110,
+    "__docId__": 152,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2904,7 +3440,7 @@
     "generator": false
   },
   {
-    "__docId__": 111,
+    "__docId__": 153,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2940,7 +3476,7 @@
     "generator": false
   },
   {
-    "__docId__": 112,
+    "__docId__": 154,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2965,9 +3501,9 @@
         "description": "React 组件"
       },
       {
-        "nullable": true,
+        "nullable": null,
         "types": [
-          "dom"
+          "node"
         ],
         "spread": false,
         "optional": false,
@@ -2986,7 +3522,7 @@
     "generator": false
   },
   {
-    "__docId__": 113,
+    "__docId__": 155,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -3011,7 +3547,7 @@
     "generator": false
   },
   {
-    "__docId__": 115,
+    "__docId__": 157,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3024,7 +3560,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 116,
+    "__docId__": 158,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3037,7 +3573,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 117,
+    "__docId__": 159,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3050,7 +3586,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 118,
+    "__docId__": 160,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3063,7 +3599,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 119,
+    "__docId__": 161,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3076,7 +3612,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 120,
+    "__docId__": 162,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3089,7 +3625,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 121,
+    "__docId__": 163,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3102,7 +3638,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 122,
+    "__docId__": 164,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3115,7 +3651,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 123,
+    "__docId__": 165,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3128,7 +3664,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 124,
+    "__docId__": 166,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3141,7 +3677,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 125,
+    "__docId__": 167,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3154,7 +3690,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 126,
+    "__docId__": 168,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3167,7 +3703,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 127,
+    "__docId__": 169,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3180,7 +3716,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 128,
+    "__docId__": 170,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3193,7 +3729,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 129,
+    "__docId__": 171,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3206,7 +3742,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 130,
+    "__docId__": 172,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3219,7 +3755,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 131,
+    "__docId__": 173,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3232,7 +3768,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 132,
+    "__docId__": 174,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3245,7 +3781,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 133,
+    "__docId__": 175,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3258,7 +3794,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 134,
+    "__docId__": 176,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3271,7 +3807,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 135,
+    "__docId__": 177,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3284,7 +3820,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 136,
+    "__docId__": 178,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3297,7 +3833,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 137,
+    "__docId__": 179,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3310,7 +3846,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 138,
+    "__docId__": 180,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3323,7 +3859,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 139,
+    "__docId__": 181,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3336,7 +3872,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 140,
+    "__docId__": 182,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3349,7 +3885,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 141,
+    "__docId__": 183,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3362,7 +3898,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 142,
+    "__docId__": 184,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3375,7 +3911,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 143,
+    "__docId__": 185,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3388,7 +3924,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 144,
+    "__docId__": 186,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3401,7 +3937,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 145,
+    "__docId__": 187,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3414,7 +3950,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 146,
+    "__docId__": 188,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3427,7 +3963,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 147,
+    "__docId__": 189,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3440,7 +3976,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 148,
+    "__docId__": 190,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3453,7 +3989,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 149,
+    "__docId__": 191,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3466,7 +4002,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 150,
+    "__docId__": 192,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3479,7 +4015,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 151,
+    "__docId__": 193,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3492,7 +4028,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 152,
+    "__docId__": 194,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3505,7 +4041,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 153,
+    "__docId__": 195,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3518,7 +4054,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 154,
+    "__docId__": 196,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3531,7 +4067,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 155,
+    "__docId__": 197,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3544,7 +4080,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 156,
+    "__docId__": 198,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3557,7 +4093,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 157,
+    "__docId__": 199,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3570,7 +4106,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 158,
+    "__docId__": 200,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3583,7 +4119,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 159,
+    "__docId__": 201,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3596,7 +4132,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 160,
+    "__docId__": 202,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3609,7 +4145,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 161,
+    "__docId__": 203,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3622,7 +4158,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 163,
+    "__docId__": 205,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3635,7 +4171,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 164,
+    "__docId__": 206,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3648,7 +4184,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 165,
+    "__docId__": 207,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3661,7 +4197,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 166,
+    "__docId__": 208,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3674,7 +4210,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 167,
+    "__docId__": 209,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3687,7 +4223,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 168,
+    "__docId__": 210,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3700,7 +4236,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 169,
+    "__docId__": 211,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -3713,7 +4249,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 170,
+    "__docId__": 212,
     "kind": "external",
     "static": true,
     "variation": null,

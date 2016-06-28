@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/DatePicker/index.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/daifee/react-component.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ChildContainer">ChildContainer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-classNames">classNames</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createInstance">createInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-config">config</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">ActionSheet</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ActionSheet">ActionSheet</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Button</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Button">Button</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Cell</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Cell">Cell</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellBody">CellBody</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellFooter">CellFooter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellHeader">CellHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Cells">Cells</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellTips">CellTips</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CellTitle">CellTitle</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Checkbox</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Checkbox">Checkbox</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">DatePicker</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/DatePicker/index.js~DatePicker.html">DatePicker</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Dialog</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Dialog">Dialog</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Fade</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Fade">Fade</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Icon</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-IconAttention">IconAttention</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-IconCheck">IconCheck</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-IconLoading">IconLoading</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">ListView</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ListView/index.js~ListView.html">ListView</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Mask</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Mask">Mask</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Notification</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Notification">Notification</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Page</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Page">Page</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Popup</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Popup">Popup</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">ScrollView</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ScrollView/index.js~ScrollView.html">ScrollView</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Select</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Select/index.js~Select.html">Select</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Switch</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Switch">Switch</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">TabBar</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TabBar">TabBar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-TabBarItem">TabBarItem</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">Toast</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Toast">Toast</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/DatePicker/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, {
+  Component,
+  PropTypes
+} from &apos;react&apos;;
+import {classNames, createInstance} from &apos;../utils&apos;;
+import Select from &apos;../Select&apos;;
+import Popup from &apos;../Popup&apos;;
+import &apos;./style&apos;;
+
+let apiInstance;
+const now = new Date();
+
+export default class DatePicker extends Component {
+  static propTypes = {
+    title: PropTypes.string,
+    minDate: PropTypes.object,
+    maxDate: PropTypes.object,
+    selectedDate: PropTypes.object,
+    onChange: PropTypes.func,
+    onConfirm: PropTypes.func,
+    onCancel: PropTypes.func,
+    className: PropTypes.string
+  };
+
+  static defaultProps = {
+    minDate: now,
+    maxDate: now,
+    selectedDate: now
+  };
+
+  static getInstance = (container) =&gt; {
+    return createInstance(ApiContainer, container);
+  };
+
+  static show = (props, popupProps) =&gt; {
+    apiInstance.show(props, popupProps);
+  };
+
+  // &#x65B9;&#x4FBF; _onChange()
+  yearOptions = [];
+  monthOptions = [];
+  dateOptions = [];
+
+  _cancel = () =&gt; {
+    let {onCancel, selectedDate} = this.props;
+
+    onCancel &amp;&amp; onCancel(selectedDate);
+  };
+
+  _confirm = () =&gt; {
+    let {onConfirm, selectedDate} = this.props;
+
+    onConfirm &amp;&amp; onConfirm(selectedDate);
+  };
+
+  _changeYear = (yearIndex) =&gt; {
+    let {selectedDate} = this.props;
+    let year = this.yearOptions[yearIndex].value;
+    let newDate = copyDate(selectedDate);
+    newDate.setFullYear(year);
+
+    this._change(newDate);
+  };
+
+  _changeMonth = (monthIndex) =&gt; {
+    let {selectedDate} = this.props;
+    let month = this.monthOptions[monthIndex].value - 1;  // &#x7EA0;&#x6B63; getMonth() &#x7684; +1
+    let newDate = copyDate(selectedDate);
+    newDate.setMonth(month);
+
+    // &#x5F53;&#x524D; 3-31
+    // &#x8C03;&#x52A8;&#x6708;&#x4EFD;&#xFF0C;&#x503C;&#x4E3A;2&#xFF0C;&#x4E0A;&#x9762;&#x7ED3;&#x679C;&#x53D8;&#x4E3A; 3-2
+    // &#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x8981;&#x6821;&#x6B63;
+    if (newDate.getMonth() &gt; month) {
+      newDate.setDate(1);
+      newDate.setMonth(month);
+      newDate.setDate(getLastDate(newDate));
+    }
+
+    this._change(newDate);
+  };
+
+  _changeDate = (dateIndex) =&gt; {
+    let {selectedDate} = this.props;
+    let date = this.dateOptions[dateIndex].value;
+    let newDate = copyDate(selectedDate);
+    newDate.setDate(date);
+
+    this._change(newDate);
+  };
+
+  _change(selectedDate) {
+    let {onChange} = this.props;
+    onChange &amp;&amp; onChange(selectedDate);
+  }
+
+  render() {
+    let {title, className, ...others} = this.props;
+    let yearOptions = this.yearOptions = this.getYearOptions();
+    let selectedYearIndex = this.getSelectedYearIndex(yearOptions);
+    let monthOptions = this.monthOptions = this.getMonthOptions();
+    let selectedMonthIndex = this.getSelectedMonthIndex(monthOptions);
+    let dateOptions = this.dateOptions = this.getDateOptions();
+    let selectedDateIndex = this.getSelectedDateIndex(dateOptions);
+
+    className = classNames(&apos;date-picker&apos;, {_user: className});
+
+    return (
+      &lt;div className={className} {...others}&gt;
+        &lt;div className={classNames(&apos;date-picker-header&apos;)}&gt;
+          &lt;button onClick={this._cancel}&gt;&#x53D6;&#x6D88;&lt;/button&gt;
+          &lt;em&gt;{title}&lt;/em&gt;
+          &lt;button onClick={this._confirm}&gt;&#x786E;&#x5B9A;&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div className={classNames(&apos;date-picker-body&apos;)}&gt;
+          &lt;Select
+            key=&apos;year&apos;
+            options={yearOptions}
+            selectedIndex={selectedYearIndex}
+            onChange={this._changeYear} /&gt;
+          &lt;Select
+            key=&apos;month&apos;
+            options={monthOptions}
+            selectedIndex={selectedMonthIndex}
+            onChange={this._changeMonth} /&gt;
+          &lt;Select
+            key=&apos;date&apos;
+            options={dateOptions}
+            selectedIndex={selectedDateIndex}
+            onChange={this._changeDate} /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    );
+  }
+
+
+  getYearOptions() {
+    let {minDate, maxDate} = this.props;
+    let min = minDate.getFullYear();
+    let max = maxDate.getFullYear();
+    let result = formatOptions(min, max, &apos;&#x5E74;&apos;);
+
+    return result;
+  }
+
+  getSelectedYearIndex(options) {
+    let {selectedDate} = this.props;
+    let result = indexOfOptions(options, selectedDate.getFullYear());
+
+    return result;
+  }
+
+  getMonthOptions() {
+    let {minDate, maxDate, selectedDate} = this.props;
+    let min = 1;
+    let max = 12;
+
+    isSameYear(minDate, selectedDate) &amp;&amp; (min = getMonth(minDate));
+    isSameYear(maxDate, selectedDate) &amp;&amp; (max = getMonth(maxDate));
+
+    let result = formatOptions(min, max, &apos;&#x6708;&apos;);
+
+    return result;
+  }
+
+  getSelectedMonthIndex(options) {
+    let {selectedDate} = this.props;
+    let result = indexOfOptions(options, getMonth(selectedDate));
+
+    return result;
+  }
+
+  getDateOptions() {
+    let {minDate, maxDate, selectedDate} = this.props;
+    let min = 1;
+    let max = getLastDate(selectedDate);
+
+    isSameYearMonth(minDate, selectedDate) &amp;&amp; (min = minDate.getDate());
+    isSameYearMonth(maxDate, selectedDate) &amp;&amp; (max = maxDate.getDate());
+
+    let result = formatOptions(min, max, &apos;&#x65E5;&apos;);
+
+    return result;
+  }
+
+  getSelectedDateIndex(options) {
+    let {selectedDate} = this.props;
+    let result = indexOfOptions(options, selectedDate.getDate());
+
+    return result;
+  }
+
+}
+
+
+
+// &#x8FD4;&#x56DE; option.value === value &#x7684;&#x7D22;&#x5F15;
+function indexOfOptions(options, value) {
+  let result = -1;
+  for (var i = options.length - 1; i &gt;= 0; i--) {
+    if (options[i].value === value) {
+      result = i;
+      break;
+    }
+  }
+
+  return result;
+}
+
+// &#x683C;&#x5F0F;&#x5316; options
+function formatOptions(min, max, suffix = &apos;&apos;) {
+  let result = [];
+
+  while (min &lt;= max) {
+    result.push({
+      name: (min + suffix),
+      value: min
+    });
+    min++;
+  }
+
+  return result;
+}
+
+// &#x83B7;&#x53D6;&#x672C;&#x6708;&#x7684;&#x6700;&#x540E;&#x4E00;&#x65E5;&#x7684;&#x65E5;&#x671F;
+function getLastDate(date) {
+  let tmp = new Date(date.getTime());
+  tmp.setDate(1);
+  tmp.setMonth(tmp.getMonth() + 1);
+  tmp.setDate(0);
+
+  return tmp.getDate();
+}
+
+// &#x8FD4;&#x56DE;&#x6708;&#x4EFD;&#xFF0C;&#x8865; +1
+function getMonth(date) {
+  return date.getMonth() + 1;
+}
+
+// &#x662F;&#x5426;&#x540C;&#x5E74;
+function isSameYear(date1, date2) {
+  return date1.getFullYear() === date2.getFullYear();
+}
+
+// &#x662F;&#x5426;&#x540C;&#x5E74;&#x6708;
+function isSameYearMonth(date1, date2) {
+  return isSameYear(date1, date2) &amp;&amp; date1.getMonth() === date2.getMonth();
+}
+
+// copy Date &#x5B9E;&#x4F8B;
+function copyDate(date) {
+  let newDate = new Date(date.getTime());
+
+  return newDate;
+}
+
+
+
+class ApiContainer extends Component {
+  state = {
+    popupProps: {
+      show: false
+    }
+  };
+
+  render() {
+    let {props, popupProps} = this.state;
+
+    return (
+      &lt;Popup {...popupProps}&gt;
+        &lt;DatePicker {...props} /&gt;
+      &lt;/Popup&gt;
+    );
+  }
+
+  show(props, popupProps) {
+    props = this._decorateProps(props);
+
+    let nextState = {
+      props: {...this.state.props, ...props},
+      popupProps: {...this.state.popupProps, ...popupProps, show: true}
+    };
+
+    this.setState(nextState);
+  }
+
+  hide() {
+    let nextState = {
+      ...this.state,
+      popupProps: {...this.state.popupProps, show: false}
+    };
+
+    this.setState(nextState);
+  }
+
+  _decorateProps(props) {
+    let onCancel = props.onCancel;
+    let onConfirm = props.onConfirm;
+    let onChange = props.onChange;
+
+    props.onChange = (selectedDate) =&gt; {
+      onChange &amp;&amp; onChange(onChange);
+
+      // update state.props
+      let nextState = {
+        ...this.state,
+        props: {
+          ...this.state.props,
+          selectedDate
+        }
+      };
+
+      this.setState(nextState);
+    };
+
+    props.onCancel = (selectedDate) =&gt; {
+      onCancel &amp;&amp; onCancel(selectedDate);
+      this.hide();
+    };
+
+    props.onConfirm = (selectedDate) =&gt; {
+      onConfirm &amp;&amp; onConfirm(selectedDate);
+      this.hide();
+    };
+
+    return props;
+  }
+}
+
+
+
+apiInstance = createInstance(ApiContainer);
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.7)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

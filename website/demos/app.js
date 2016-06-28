@@ -56,17 +56,17 @@
 
 	var _reactRouter = __webpack_require__(168);
 
-	var _pagesMapping = __webpack_require__(229);
+	var _pagesMapping = __webpack_require__(230);
 
 	var _pagesMapping2 = _interopRequireDefault(_pagesMapping);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
-	var _fastclick = __webpack_require__(331);
+	var _fastclick = __webpack_require__(332);
 
 	var _fastclick2 = _interopRequireDefault(_fastclick);
 
-	__webpack_require__(332);
+	__webpack_require__(333);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75,18 +75,24 @@
 
 	// 定义路由
 	function Routes() {
+	  var _this = this;
+
 	  var routes = _pagesMapping2.default.map(function (page, index) {
-	    return _react2.default.createElement(_reactRouter.Route, { key: index, path: page.name, component: page.component });
+	    return _react2.default.createElement(_reactRouter.Route, { key: index, path: page.name, component: page.component, __self: _this
+	    });
 	  });
 
-	  routes.unshift(_react2.default.createElement(_reactRouter.IndexRoute, { key: _pagesMapping2.default.length, component: Home }));
+	  routes.unshift(_react2.default.createElement(_reactRouter.IndexRoute, { key: _pagesMapping2.default.length, component: Home, __self: this
+	  }));
 
 	  return _react2.default.createElement(
 	    _reactRouter.Router,
-	    { history: _reactRouter.hashHistory },
+	    { history: _reactRouter.hashHistory, __self: this
+	    },
 	    _react2.default.createElement(
 	      _reactRouter.Route,
-	      { path: '/', component: App },
+	      { path: '/', component: App, __self: this
+	      },
 	      routes
 	    )
 	  );
@@ -101,39 +107,53 @@
 
 	  return _react2.default.createElement(
 	    _daifeeReactComponent.Page.Scene,
-	    { action: location.action },
+	    { action: location.action, __self: this
+	    },
 	    _react2.default.cloneElement(children, { key: location.pathname })
 	  );
 	}
 
 	// 首页
 	function Home() {
+	  var _this2 = this;
+
 	  return _react2.default.createElement(
 	    _daifeeReactComponent.Page,
-	    null,
+	    {
+	      __self: this
+	    },
 	    _react2.default.createElement(
 	      'h1',
-	      null,
+	      {
+	        __self: this
+	      },
 	      'Components'
 	    ),
 	    _react2.default.createElement(
 	      _daifeeReactComponent.CellsTitle,
-	      null,
+	      {
+	        __self: this
+	      },
 	      'Components'
 	    ),
 	    _react2.default.createElement(
 	      _daifeeReactComponent.Cells,
-	      null,
+	      {
+	        __self: this
+	      },
 	      _pagesMapping2.default.map(function (page, index) {
 	        return _react2.default.createElement(
 	          _daifeeReactComponent.Cell,
 	          {
 	            key: index,
 	            component: _reactRouter.Link,
-	            to: '/' + page.name },
+	            to: '/' + page.name, __self: _this2
+	          },
 	          _react2.default.createElement(
 	            _daifeeReactComponent.CellBody,
-	            null,
+	            {
+	              __self: _this2
+	            },
 	            page.name
 	          )
 	        );
@@ -142,7 +162,9 @@
 	  );
 	}
 
-	_reactDom2.default.render(_react2.default.createElement(Routes, null), document.getElementById('app'));
+	_reactDom2.default.render(_react2.default.createElement(Routes, {
+	  __self: undefined
+	}), document.getElementById('app'));
 
 /***/ },
 /* 1 */
@@ -20483,81 +20505,81 @@
 
 	var _Router3 = _interopRequireDefault(_Router2);
 
-	var _Link2 = __webpack_require__(206);
+	var _Link2 = __webpack_require__(207);
 
 	var _Link3 = _interopRequireDefault(_Link2);
 
-	var _IndexLink2 = __webpack_require__(207);
+	var _IndexLink2 = __webpack_require__(208);
 
 	var _IndexLink3 = _interopRequireDefault(_IndexLink2);
 
-	var _withRouter2 = __webpack_require__(208);
+	var _withRouter2 = __webpack_require__(209);
 
 	var _withRouter3 = _interopRequireDefault(_withRouter2);
 
-	var _IndexRedirect2 = __webpack_require__(210);
+	var _IndexRedirect2 = __webpack_require__(211);
 
 	var _IndexRedirect3 = _interopRequireDefault(_IndexRedirect2);
 
-	var _IndexRoute2 = __webpack_require__(212);
+	var _IndexRoute2 = __webpack_require__(213);
 
 	var _IndexRoute3 = _interopRequireDefault(_IndexRoute2);
 
-	var _Redirect2 = __webpack_require__(211);
+	var _Redirect2 = __webpack_require__(212);
 
 	var _Redirect3 = _interopRequireDefault(_Redirect2);
 
-	var _Route2 = __webpack_require__(213);
+	var _Route2 = __webpack_require__(214);
 
 	var _Route3 = _interopRequireDefault(_Route2);
 
-	var _History2 = __webpack_require__(214);
+	var _History2 = __webpack_require__(215);
 
 	var _History3 = _interopRequireDefault(_History2);
 
-	var _Lifecycle2 = __webpack_require__(215);
+	var _Lifecycle2 = __webpack_require__(216);
 
 	var _Lifecycle3 = _interopRequireDefault(_Lifecycle2);
 
-	var _RouteContext2 = __webpack_require__(216);
+	var _RouteContext2 = __webpack_require__(217);
 
 	var _RouteContext3 = _interopRequireDefault(_RouteContext2);
 
-	var _useRoutes2 = __webpack_require__(217);
+	var _useRoutes2 = __webpack_require__(218);
 
 	var _useRoutes3 = _interopRequireDefault(_useRoutes2);
 
-	var _RouterContext2 = __webpack_require__(203);
+	var _RouterContext2 = __webpack_require__(204);
 
 	var _RouterContext3 = _interopRequireDefault(_RouterContext2);
 
-	var _RoutingContext2 = __webpack_require__(218);
+	var _RoutingContext2 = __webpack_require__(219);
 
 	var _RoutingContext3 = _interopRequireDefault(_RoutingContext2);
 
 	var _PropTypes3 = _interopRequireDefault(_PropTypes2);
 
-	var _match2 = __webpack_require__(219);
+	var _match2 = __webpack_require__(220);
 
 	var _match3 = _interopRequireDefault(_match2);
 
-	var _useRouterHistory2 = __webpack_require__(223);
+	var _useRouterHistory2 = __webpack_require__(224);
 
 	var _useRouterHistory3 = _interopRequireDefault(_useRouterHistory2);
 
-	var _applyRouterMiddleware2 = __webpack_require__(224);
+	var _applyRouterMiddleware2 = __webpack_require__(225);
 
 	var _applyRouterMiddleware3 = _interopRequireDefault(_applyRouterMiddleware2);
 
-	var _browserHistory2 = __webpack_require__(225);
+	var _browserHistory2 = __webpack_require__(226);
 
 	var _browserHistory3 = _interopRequireDefault(_browserHistory2);
 
-	var _hashHistory2 = __webpack_require__(228);
+	var _hashHistory2 = __webpack_require__(229);
 
 	var _hashHistory3 = _interopRequireDefault(_hashHistory2);
 
-	var _createMemoryHistory2 = __webpack_require__(220);
+	var _createMemoryHistory2 = __webpack_require__(221);
 
 	var _createMemoryHistory3 = _interopRequireDefault(_createMemoryHistory2);
 
@@ -21343,6 +21365,10 @@
 
 	var _useQueries2 = _interopRequireDefault(_useQueries);
 
+	var _invariant = __webpack_require__(176);
+
+	var _invariant2 = _interopRequireDefault(_invariant);
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -21353,13 +21379,13 @@
 
 	var _InternalPropTypes = __webpack_require__(174);
 
-	var _RouterContext = __webpack_require__(203);
+	var _RouterContext = __webpack_require__(204);
 
 	var _RouterContext2 = _interopRequireDefault(_RouterContext);
 
 	var _RouteUtils = __webpack_require__(169);
 
-	var _RouterUtils = __webpack_require__(205);
+	var _RouterUtils = __webpack_require__(206);
 
 	var _routerWarning = __webpack_require__(170);
 
@@ -21371,6 +21397,12 @@
 
 	function isDeprecatedHistory(history) {
 	  return !history || !history.__v2_compatible__;
+	}
+
+	/* istanbul ignore next: sanity check */
+	function isUnsupportedHistory(history) {
+	  // v3 histories expose getCurrentLocation, but aren't currently supported.
+	  return history && history.getCurrentLocation;
 	}
 
 	var _React$PropTypes = _react2.default.PropTypes;
@@ -21462,6 +21494,8 @@
 	    var routes = _props2.routes;
 	    var children = _props2.children;
 
+
+	    !!isUnsupportedHistory(history) ? process.env.NODE_ENV !== 'production' ? (0, _invariant2.default)(false, 'You have provided a history object created with history v3.x. ' + 'This version of React Router is not compatible with v3 history ' + 'objects. Please use history v2.x instead.') : (0, _invariant2.default)(false) : void 0;
 
 	    if (isDeprecatedHistory(history)) {
 	      history = this.wrapDeprecatedHistory(history);
@@ -23003,7 +23037,7 @@
 
 	var _getComponents2 = _interopRequireDefault(_getComponents);
 
-	var _matchRoutes = __webpack_require__(202);
+	var _matchRoutes = __webpack_require__(203);
 
 	var _matchRoutes2 = _interopRequireDefault(_matchRoutes);
 
@@ -23193,9 +23227,9 @@
 	   * Registers the given hook function to run before leaving the given route.
 	   *
 	   * During a normal transition, the hook function receives the next location
-	   * as its only argument and must return either a) a prompt message to show
-	   * the user, to make sure they want to leave the page or b) false, to prevent
-	   * the transition.
+	   * as its only argument and can return either a prompt message (string) to show the user,
+	   * to make sure they want to leave the page; or `false`, to prevent the transition.
+	   * Any other return value will have no effect.
 	   *
 	   * During the beforeunload event (in browsers) the hook receives no arguments.
 	   * In this case it must return a prompt message to prevent the transition.
@@ -23748,19 +23782,15 @@
 /* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	'use strict';
 
 	exports.__esModule = true;
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var _AsyncUtils = __webpack_require__(199);
 
-	var _deprecateObjectProperties = __webpack_require__(173);
+	var _makeStateWithLocation = __webpack_require__(202);
 
-	var _routerWarning = __webpack_require__(170);
-
-	var _routerWarning2 = _interopRequireDefault(_routerWarning);
+	var _makeStateWithLocation2 = _interopRequireDefault(_makeStateWithLocation);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23778,36 +23808,7 @@
 
 	  var location = nextState.location;
 
-	  var nextStateWithLocation = void 0;
-
-	  if (process.env.NODE_ENV !== 'production' && _deprecateObjectProperties.canUseMembrane) {
-	    nextStateWithLocation = _extends({}, nextState);
-
-	    // I don't use deprecateObjectProperties here because I want to keep the
-	    // same code path between development and production, in that we just
-	    // assign extra properties to the copy of the state object in both cases.
-
-	    var _loop = function _loop(prop) {
-	      if (!Object.prototype.hasOwnProperty.call(location, prop)) {
-	        return 'continue';
-	      }
-
-	      Object.defineProperty(nextStateWithLocation, prop, {
-	        get: function get() {
-	          process.env.NODE_ENV !== 'production' ? (0, _routerWarning2.default)(false, 'Accessing location properties from the first argument to `getComponent` and `getComponents` is deprecated. That argument is now the router state (`nextState`) rather than the location. To access the location, use `nextState.location`.') : void 0;
-	          return location[prop];
-	        }
-	      });
-	    };
-
-	    for (var prop in location) {
-	      var _ret = _loop(prop);
-
-	      if (_ret === 'continue') continue;
-	    }
-	  } else {
-	    nextStateWithLocation = _extends({}, nextState, location);
-	  }
+	  var nextStateWithLocation = (0, _makeStateWithLocation2.default)(nextState, location);
 
 	  getComponent.call(route, nextStateWithLocation, callback);
 	}
@@ -23827,10 +23828,64 @@
 
 	exports.default = getComponents;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
 /* 202 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	exports.__esModule = true;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports.default = makeStateWithLocation;
+
+	var _deprecateObjectProperties = __webpack_require__(173);
+
+	var _routerWarning = __webpack_require__(170);
+
+	var _routerWarning2 = _interopRequireDefault(_routerWarning);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function makeStateWithLocation(state, location) {
+	  if (process.env.NODE_ENV !== 'production' && _deprecateObjectProperties.canUseMembrane) {
+	    var stateWithLocation = _extends({}, state);
+
+	    // I don't use deprecateObjectProperties here because I want to keep the
+	    // same code path between development and production, in that we just
+	    // assign extra properties to the copy of the state object in both cases.
+
+	    var _loop = function _loop(prop) {
+	      if (!Object.prototype.hasOwnProperty.call(location, prop)) {
+	        return 'continue';
+	      }
+
+	      Object.defineProperty(stateWithLocation, prop, {
+	        get: function get() {
+	          process.env.NODE_ENV !== 'production' ? (0, _routerWarning2.default)(false, 'Accessing location properties directly from the first argument to `getComponent`, `getComponents`, `getChildRoutes`, and `getIndexRoute` is deprecated. That argument is now the router state (`nextState` or `partialNextState`) rather than the location. To access the location, use `nextState.location` or `partialNextState.location`.') : void 0;
+	          return location[prop];
+	        }
+	      });
+	    };
+
+	    for (var prop in location) {
+	      var _ret = _loop(prop);
+
+	      if (_ret === 'continue') continue;
+	    }
+
+	    return stateWithLocation;
+	  }
+
+	  return _extends({}, state, location);
+	}
+	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -23843,19 +23898,23 @@
 
 	exports.default = matchRoutes;
 
+	var _AsyncUtils = __webpack_require__(199);
+
+	var _makeStateWithLocation = __webpack_require__(202);
+
+	var _makeStateWithLocation2 = _interopRequireDefault(_makeStateWithLocation);
+
+	var _PatternUtils = __webpack_require__(175);
+
 	var _routerWarning = __webpack_require__(170);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
-
-	var _AsyncUtils = __webpack_require__(199);
-
-	var _PatternUtils = __webpack_require__(175);
 
 	var _RouteUtils = __webpack_require__(169);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function getChildRoutes(route, location, callback) {
+	function getChildRoutes(route, location, paramNames, paramValues, callback) {
 	  if (route.childRoutes) {
 	    return [null, route.childRoutes];
 	  }
@@ -23866,7 +23925,14 @@
 	  var sync = true,
 	      result = void 0;
 
-	  route.getChildRoutes(location, function (error, childRoutes) {
+	  var partialNextState = {
+	    location: location,
+	    params: createParams(paramNames, paramValues)
+	  };
+
+	  var partialNextStateWithLocation = (0, _makeStateWithLocation2.default)(partialNextState, location);
+
+	  route.getChildRoutes(partialNextStateWithLocation, function (error, childRoutes) {
 	    childRoutes = !error && (0, _RouteUtils.createRoutes)(childRoutes);
 	    if (sync) {
 	      result = [error, childRoutes];
@@ -23880,11 +23946,18 @@
 	  return result; // Might be undefined.
 	}
 
-	function getIndexRoute(route, location, callback) {
+	function getIndexRoute(route, location, paramNames, paramValues, callback) {
 	  if (route.indexRoute) {
 	    callback(null, route.indexRoute);
 	  } else if (route.getIndexRoute) {
-	    route.getIndexRoute(location, function (error, indexRoute) {
+	    var partialNextState = {
+	      location: location,
+	      params: createParams(paramNames, paramValues)
+	    };
+
+	    var partialNextStateWithLocation = (0, _makeStateWithLocation2.default)(partialNextState, location);
+
+	    route.getIndexRoute(partialNextStateWithLocation, function (error, indexRoute) {
 	      callback(error, !error && (0, _RouteUtils.createRoutes)(indexRoute)[0]);
 	    });
 	  } else if (route.childRoutes) {
@@ -23894,7 +23967,7 @@
 	      });
 
 	      (0, _AsyncUtils.loopAsync)(pathless.length, function (index, next, done) {
-	        getIndexRoute(pathless[index], location, function (error, indexRoute) {
+	        getIndexRoute(pathless[index], location, paramNames, paramValues, function (error, indexRoute) {
 	          if (error || indexRoute) {
 	            var routes = [pathless[index]].concat(Array.isArray(indexRoute) ? indexRoute : [indexRoute]);
 	            done(error, routes);
@@ -23965,7 +24038,7 @@
 	          params: createParams(paramNames, paramValues)
 	        };
 
-	        getIndexRoute(route, location, function (error, indexRoute) {
+	        getIndexRoute(route, location, paramNames, paramValues, function (error, indexRoute) {
 	          if (error) {
 	            callback(error);
 	          } else {
@@ -24019,7 +24092,7 @@
 	      }
 	    };
 
-	    var result = getChildRoutes(route, location, onChildRoutes);
+	    var result = getChildRoutes(route, location, paramNames, paramValues, onChildRoutes);
 	    if (result) {
 	      onChildRoutes.apply(undefined, result);
 	    }
@@ -24069,7 +24142,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 203 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24092,7 +24165,7 @@
 
 	var _deprecateObjectProperties2 = _interopRequireDefault(_deprecateObjectProperties);
 
-	var _getRouteParams = __webpack_require__(204);
+	var _getRouteParams = __webpack_require__(205);
 
 	var _getRouteParams2 = _interopRequireDefault(_getRouteParams);
 
@@ -24231,7 +24304,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 204 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24249,13 +24322,11 @@
 
 	  if (!route.path) return routeParams;
 
-	  var paramNames = (0, _PatternUtils.getParamNames)(route.path);
-
-	  for (var p in params) {
-	    if (Object.prototype.hasOwnProperty.call(params, p) && paramNames.indexOf(p) !== -1) {
+	  (0, _PatternUtils.getParamNames)(route.path).forEach(function (p) {
+	    if (Object.prototype.hasOwnProperty.call(params, p)) {
 	      routeParams[p] = params[p];
 	    }
-	  }
+	  });
 
 	  return routeParams;
 	}
@@ -24264,7 +24335,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 205 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24302,7 +24373,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 206 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24318,6 +24389,10 @@
 	var _routerWarning = __webpack_require__(170);
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
+
+	var _invariant = __webpack_require__(176);
+
+	var _invariant2 = _interopRequireDefault(_invariant);
 
 	var _PropTypes = __webpack_require__(172);
 
@@ -24405,6 +24480,8 @@
 	    };
 	  },
 	  handleClick: function handleClick(event) {
+	    !this.context.router ? process.env.NODE_ENV !== 'production' ? (0, _invariant2.default)(false, '<Link>s rendered outside of a router context cannot handle clicks.') : (0, _invariant2.default)(false) : void 0;
+
 	    var allowTransition = true;
 
 	    if (this.props.onClick) this.props.onClick(event);
@@ -24481,7 +24558,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 207 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24494,7 +24571,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Link = __webpack_require__(206);
+	var _Link = __webpack_require__(207);
 
 	var _Link2 = _interopRequireDefault(_Link);
 
@@ -24514,7 +24591,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 208 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24529,7 +24606,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _hoistNonReactStatics = __webpack_require__(209);
+	var _hoistNonReactStatics = __webpack_require__(210);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
@@ -24559,7 +24636,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 209 */
+/* 210 */
 /***/ function(module, exports) {
 
 	/**
@@ -24615,7 +24692,7 @@
 
 
 /***/ },
-/* 210 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24634,7 +24711,7 @@
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _Redirect = __webpack_require__(211);
+	var _Redirect = __webpack_require__(212);
 
 	var _Redirect2 = _interopRequireDefault(_Redirect);
 
@@ -24684,7 +24761,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 211 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24792,7 +24869,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 212 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24858,7 +24935,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 213 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24921,7 +24998,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 214 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -24956,7 +25033,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 215 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25030,7 +25107,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25081,7 +25158,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 217 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25138,7 +25215,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25149,7 +25226,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _RouterContext = __webpack_require__(203);
+	var _RouterContext = __webpack_require__(204);
 
 	var _RouterContext2 = _interopRequireDefault(_RouterContext);
 
@@ -25174,7 +25251,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25187,7 +25264,7 @@
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _createMemoryHistory = __webpack_require__(220);
+	var _createMemoryHistory = __webpack_require__(221);
 
 	var _createMemoryHistory2 = _interopRequireDefault(_createMemoryHistory);
 
@@ -25197,7 +25274,7 @@
 
 	var _RouteUtils = __webpack_require__(169);
 
-	var _RouterUtils = __webpack_require__(205);
+	var _RouterUtils = __webpack_require__(206);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25261,7 +25338,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25273,11 +25350,11 @@
 
 	var _useQueries2 = _interopRequireDefault(_useQueries);
 
-	var _useBasename = __webpack_require__(221);
+	var _useBasename = __webpack_require__(222);
 
 	var _useBasename2 = _interopRequireDefault(_useBasename);
 
-	var _createMemoryHistory = __webpack_require__(222);
+	var _createMemoryHistory = __webpack_require__(223);
 
 	var _createMemoryHistory2 = _interopRequireDefault(_createMemoryHistory);
 
@@ -25298,7 +25375,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25462,7 +25539,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25622,7 +25699,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25634,7 +25711,7 @@
 
 	var _useQueries2 = _interopRequireDefault(_useQueries);
 
-	var _useBasename = __webpack_require__(221);
+	var _useBasename = __webpack_require__(222);
 
 	var _useBasename2 = _interopRequireDefault(_useBasename);
 
@@ -25650,7 +25727,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25663,7 +25740,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _RouterContext = __webpack_require__(203);
+	var _RouterContext = __webpack_require__(204);
 
 	var _RouterContext2 = _interopRequireDefault(_RouterContext);
 
@@ -25705,18 +25782,18 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _createBrowserHistory = __webpack_require__(226);
+	var _createBrowserHistory = __webpack_require__(227);
 
 	var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
 
-	var _createRouterHistory = __webpack_require__(227);
+	var _createRouterHistory = __webpack_require__(228);
 
 	var _createRouterHistory2 = _interopRequireDefault(_createRouterHistory);
 
@@ -25726,7 +25803,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25912,7 +25989,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25925,7 +26002,7 @@
 	  return history;
 	};
 
-	var _useRouterHistory = __webpack_require__(223);
+	var _useRouterHistory = __webpack_require__(224);
 
 	var _useRouterHistory2 = _interopRequireDefault(_useRouterHistory);
 
@@ -25936,7 +26013,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25947,7 +26024,7 @@
 
 	var _createHashHistory2 = _interopRequireDefault(_createHashHistory);
 
-	var _createRouterHistory = __webpack_require__(227);
+	var _createRouterHistory = __webpack_require__(228);
 
 	var _createRouterHistory2 = _interopRequireDefault(_createRouterHistory);
 
@@ -25957,7 +26034,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25966,79 +26043,79 @@
 	  value: true
 	});
 
-	var _ActionSheet = __webpack_require__(230);
+	var _ActionSheet = __webpack_require__(231);
 
 	var _ActionSheet2 = _interopRequireDefault(_ActionSheet);
 
-	var _ApiContainer = __webpack_require__(313);
+	var _ApiContainer = __webpack_require__(314);
 
 	var _ApiContainer2 = _interopRequireDefault(_ApiContainer);
 
-	var _Button = __webpack_require__(314);
+	var _Button = __webpack_require__(315);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Cell = __webpack_require__(315);
+	var _Cell = __webpack_require__(316);
 
 	var _Cell2 = _interopRequireDefault(_Cell);
 
-	var _Checkbox = __webpack_require__(316);
+	var _Checkbox = __webpack_require__(317);
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
-	var _DatePicker = __webpack_require__(317);
+	var _DatePicker = __webpack_require__(318);
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 
-	var _Dialog = __webpack_require__(318);
+	var _Dialog = __webpack_require__(319);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
-	var _Fade = __webpack_require__(319);
+	var _Fade = __webpack_require__(320);
 
 	var _Fade2 = _interopRequireDefault(_Fade);
 
-	var _Icon = __webpack_require__(320);
+	var _Icon = __webpack_require__(321);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
-	var _ListView = __webpack_require__(321);
+	var _ListView = __webpack_require__(322);
 
 	var _ListView2 = _interopRequireDefault(_ListView);
 
-	var _Mask = __webpack_require__(322);
+	var _Mask = __webpack_require__(323);
 
 	var _Mask2 = _interopRequireDefault(_Mask);
 
-	var _Notification = __webpack_require__(323);
+	var _Notification = __webpack_require__(324);
 
 	var _Notification2 = _interopRequireDefault(_Notification);
 
-	var _Page = __webpack_require__(324);
+	var _Page = __webpack_require__(325);
 
 	var _Page2 = _interopRequireDefault(_Page);
 
-	var _Popup = __webpack_require__(325);
+	var _Popup = __webpack_require__(326);
 
 	var _Popup2 = _interopRequireDefault(_Popup);
 
-	var _ScrollView = __webpack_require__(326);
+	var _ScrollView = __webpack_require__(327);
 
 	var _ScrollView2 = _interopRequireDefault(_ScrollView);
 
-	var _Select = __webpack_require__(327);
+	var _Select = __webpack_require__(328);
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Switch = __webpack_require__(328);
+	var _Switch = __webpack_require__(329);
 
 	var _Switch2 = _interopRequireDefault(_Switch);
 
-	var _TabBar = __webpack_require__(329);
+	var _TabBar = __webpack_require__(330);
 
 	var _TabBar2 = _interopRequireDefault(_TabBar);
 
-	var _Toast = __webpack_require__(330);
+	var _Toast = __webpack_require__(331);
 
 	var _Toast2 = _interopRequireDefault(_Toast);
 
@@ -26049,7 +26126,7 @@
 	exports.default = mapping;
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26066,7 +26143,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26120,22 +26197,32 @@
 
 	      return _react2.default.createElement(
 	        _daifeeReactComponent.Page,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          'h1',
-	          null,
+	          {
+	            __self: this
+	          },
 	          'ActionSheet'
 	        ),
 	        _react2.default.createElement(_daifeeReactComponent.ActionSheet, {
 	          title: title,
 	          actions: actions,
 	          callback: this.doAction,
-	          destroyIndex: destroyIndex }),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement('br', null),
+	          destroyIndex: destroyIndex, __self: this
+	        }),
+	        _react2.default.createElement('br', {
+	          __self: this
+	        }),
+	        _react2.default.createElement('br', {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'wrap' },
+	          { className: 'wrap', __self: this
+	          },
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Button,
 	            { onClick: function onClick() {
@@ -26145,7 +26232,8 @@
 	                  destroyIndex: destroyIndex,
 	                  callback: _this2.doAction
 	                });
-	              } },
+	              }, __self: this
+	            },
 	            '按钮'
 	          )
 	        )
@@ -26159,7 +26247,7 @@
 	exports.default = ActionSheetPage;
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26169,7 +26257,7 @@
 	});
 	exports.Fade = exports.Page = exports.DatePicker = exports.Select = exports.ListView = exports.ScrollView = exports.Checkbox = exports.Switch = exports.Popup = exports.TabBarItem = exports.TabBar = exports.ActionSheet = exports.Notification = exports.Dialog = exports.Toast = exports.Mask = exports.Button = exports.CellsTips = exports.CellsTitle = exports.Cells = exports.CellHeader = exports.CellFooter = exports.CellBody = exports.Cell = exports.IconCheck = exports.IconLoading = exports.IconAttention = undefined;
 
-	var _Icon = __webpack_require__(232);
+	var _Icon = __webpack_require__(233);
 
 	Object.defineProperty(exports, 'IconAttention', {
 	  enumerable: true,
@@ -26190,7 +26278,7 @@
 	  }
 	});
 
-	var _Cell = __webpack_require__(242);
+	var _Cell = __webpack_require__(243);
 
 	Object.defineProperty(exports, 'Cell', {
 	  enumerable: true,
@@ -26235,7 +26323,7 @@
 	  }
 	});
 
-	var _TabBar = __webpack_require__(252);
+	var _TabBar = __webpack_require__(253);
 
 	Object.defineProperty(exports, 'TabBar', {
 	  enumerable: true,
@@ -26250,65 +26338,65 @@
 	  }
 	});
 
-	__webpack_require__(257);
+	__webpack_require__(258);
 
-	var _Button2 = __webpack_require__(259);
+	var _Button2 = __webpack_require__(260);
 
 	var _Button3 = _interopRequireDefault(_Button2);
 
-	var _Mask2 = __webpack_require__(262);
+	var _Mask2 = __webpack_require__(263);
 
 	var _Mask3 = _interopRequireDefault(_Mask2);
 
-	var _Toast2 = __webpack_require__(265);
+	var _Toast2 = __webpack_require__(266);
 
 	var _Toast3 = _interopRequireDefault(_Toast2);
 
-	var _Dialog2 = __webpack_require__(279);
+	var _Dialog2 = __webpack_require__(280);
 
 	var _Dialog3 = _interopRequireDefault(_Dialog2);
 
-	var _Notification2 = __webpack_require__(282);
+	var _Notification2 = __webpack_require__(283);
 
 	var _Notification3 = _interopRequireDefault(_Notification2);
 
-	var _ActionSheet2 = __webpack_require__(288);
+	var _ActionSheet2 = __webpack_require__(289);
 
 	var _ActionSheet3 = _interopRequireDefault(_ActionSheet2);
 
-	var _Popup2 = __webpack_require__(283);
+	var _Popup2 = __webpack_require__(284);
 
 	var _Popup3 = _interopRequireDefault(_Popup2);
 
-	var _Switch2 = __webpack_require__(291);
+	var _Switch2 = __webpack_require__(292);
 
 	var _Switch3 = _interopRequireDefault(_Switch2);
 
-	var _Checkbox2 = __webpack_require__(294);
+	var _Checkbox2 = __webpack_require__(295);
 
 	var _Checkbox3 = _interopRequireDefault(_Checkbox2);
 
-	var _ScrollView2 = __webpack_require__(297);
+	var _ScrollView2 = __webpack_require__(298);
 
 	var _ScrollView3 = _interopRequireDefault(_ScrollView2);
 
-	var _ListView2 = __webpack_require__(301);
+	var _ListView2 = __webpack_require__(302);
 
 	var _ListView3 = _interopRequireDefault(_ListView2);
 
-	var _Select2 = __webpack_require__(304);
+	var _Select2 = __webpack_require__(305);
 
 	var _Select3 = _interopRequireDefault(_Select2);
 
-	var _DatePicker2 = __webpack_require__(307);
+	var _DatePicker2 = __webpack_require__(308);
 
 	var _DatePicker3 = _interopRequireDefault(_DatePicker2);
 
-	var _Page2 = __webpack_require__(310);
+	var _Page2 = __webpack_require__(311);
 
 	var _Page3 = _interopRequireDefault(_Page2);
 
-	var _Fade2 = __webpack_require__(266);
+	var _Fade2 = __webpack_require__(267);
 
 	var _Fade3 = _interopRequireDefault(_Fade2);
 
@@ -26331,7 +26419,7 @@
 	exports.Fade = _Fade3.default;
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26341,17 +26429,17 @@
 	});
 	exports.IconCheck = exports.IconLoading = exports.IconAttention = undefined;
 
-	__webpack_require__(233);
+	__webpack_require__(234);
 
-	var _IconAttention2 = __webpack_require__(237);
+	var _IconAttention2 = __webpack_require__(238);
 
 	var _IconAttention3 = _interopRequireDefault(_IconAttention2);
 
-	var _IconLoading2 = __webpack_require__(240);
+	var _IconLoading2 = __webpack_require__(241);
 
 	var _IconLoading3 = _interopRequireDefault(_IconLoading2);
 
-	var _IconCheck2 = __webpack_require__(241);
+	var _IconCheck2 = __webpack_require__(242);
 
 	var _IconCheck3 = _interopRequireDefault(_IconCheck2);
 
@@ -26362,16 +26450,16 @@
 	exports.IconCheck = _IconCheck3.default;
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 234 */,
 /* 235 */,
 /* 236 */,
-/* 237 */
+/* 237 */,
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26388,7 +26476,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26412,7 +26500,9 @@
 	    fontSize: size
 	  });
 
-	  return _react2.default.createElement('i', _extends({ className: className, style: style }, others));
+	  return _react2.default.createElement('i', _extends({ className: className, style: style }, others, {
+	    __self: this
+	  }));
 	}
 
 	/**
@@ -26437,7 +26527,7 @@
 	};
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26451,7 +26541,7 @@
 	exports.classNames = classNames;
 	exports.createInstance = createInstance;
 
-	var _config = __webpack_require__(239);
+	var _config = __webpack_require__(240);
 
 	var _config2 = _interopRequireDefault(_config);
 
@@ -26539,7 +26629,9 @@
 	    container = createContainer();
 	  }
 
-	  return (0, _reactDom.render)(_react2.default.createElement(Component, null), container);
+	  return (0, _reactDom.render)(_react2.default.createElement(Component, {
+	    __self: this
+	  }), container);
 	}
 
 	/**
@@ -26555,7 +26647,7 @@
 	}
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26579,7 +26671,7 @@
 	exports.default = config;
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26596,7 +26688,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26621,7 +26713,9 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className, style: style }, others),
+	    _extends({ className: className, style: style }, others, {
+	      __self: this
+	    }),
 	    leafs
 	  );
 	}
@@ -26657,14 +26751,15 @@
 	      transform: 'rotate(' + rotate + 'deg)',
 	      opacity: 1 - opacityUnit * i
 	    };
-	    leafs.push(_react2.default.createElement('i', { key: i, className: className, style: style }));
+	    leafs.push(_react2.default.createElement('i', { key: i, className: className, style: style, __self: this
+	    }));
 	  }
 
 	  return leafs;
 	}
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26681,7 +26776,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26705,7 +26800,9 @@
 	    fontSize: size
 	  });
 
-	  return _react2.default.createElement('i', _extends({ className: className, style: style }, others));
+	  return _react2.default.createElement('i', _extends({ className: className, style: style }, others, {
+	    __self: this
+	  }));
 	}
 
 	/**
@@ -26730,7 +26827,7 @@
 	};
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26740,33 +26837,33 @@
 	});
 	exports.CellsTips = exports.CellsTitle = exports.Cells = exports.CellHeader = exports.CellFooter = exports.CellBody = exports.Cell = undefined;
 
-	__webpack_require__(243);
+	__webpack_require__(244);
 
-	var _Cell2 = __webpack_require__(245);
+	var _Cell2 = __webpack_require__(246);
 
 	var _Cell3 = _interopRequireDefault(_Cell2);
 
-	var _CellBody2 = __webpack_require__(246);
+	var _CellBody2 = __webpack_require__(247);
 
 	var _CellBody3 = _interopRequireDefault(_CellBody2);
 
-	var _CellFooter2 = __webpack_require__(247);
+	var _CellFooter2 = __webpack_require__(248);
 
 	var _CellFooter3 = _interopRequireDefault(_CellFooter2);
 
-	var _CellHeader2 = __webpack_require__(248);
+	var _CellHeader2 = __webpack_require__(249);
 
 	var _CellHeader3 = _interopRequireDefault(_CellHeader2);
 
-	var _Cells2 = __webpack_require__(249);
+	var _Cells2 = __webpack_require__(250);
 
 	var _Cells3 = _interopRequireDefault(_Cells2);
 
-	var _CellsTitle2 = __webpack_require__(250);
+	var _CellsTitle2 = __webpack_require__(251);
 
 	var _CellsTitle3 = _interopRequireDefault(_CellsTitle2);
 
-	var _CellsTips2 = __webpack_require__(251);
+	var _CellsTips2 = __webpack_require__(252);
 
 	var _CellsTips3 = _interopRequireDefault(_CellsTips2);
 
@@ -26781,14 +26878,14 @@
 	exports.CellsTips = _CellsTips3.default;
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 244 */,
-/* 245 */
+/* 245 */,
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26805,7 +26902,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26835,7 +26932,8 @@
 
 	  return _react2.default.createElement(
 	    Component,
-	    _extends({}, others, { href: href, className: className }),
+	    _extends({}, others, { href: href, className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -26864,7 +26962,7 @@
 	};
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26881,7 +26979,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26901,7 +26999,8 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({}, others, { className: className }),
+	    _extends({}, others, { className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -26916,7 +27015,7 @@
 	};
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26933,7 +27032,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26953,7 +27052,8 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({}, others, { className: className }),
+	    _extends({}, others, { className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -26968,7 +27068,7 @@
 	};
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26985,7 +27085,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27005,7 +27105,8 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({}, others, { className: className }),
+	    _extends({}, others, { className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -27020,7 +27121,7 @@
 	};
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27037,7 +27138,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27057,7 +27158,8 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({}, others, { className: className }),
+	    _extends({}, others, { className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -27072,7 +27174,7 @@
 	};
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27089,7 +27191,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27109,7 +27211,8 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({}, others, { className: className }),
+	    _extends({}, others, { className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -27124,7 +27227,7 @@
 	};
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27141,7 +27244,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27161,7 +27264,8 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({}, others, { className: className }),
+	    _extends({}, others, { className: className, __self: this
+	    }),
 	    children
 	  );
 	}
@@ -27176,7 +27280,7 @@
 	};
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27186,13 +27290,13 @@
 	});
 	exports.TabBarItem = exports.TabBar = undefined;
 
-	__webpack_require__(253);
+	__webpack_require__(254);
 
-	var _TabBar2 = __webpack_require__(255);
+	var _TabBar2 = __webpack_require__(256);
 
 	var _TabBar3 = _interopRequireDefault(_TabBar2);
 
-	var _TabBarItem2 = __webpack_require__(256);
+	var _TabBarItem2 = __webpack_require__(257);
 
 	var _TabBarItem3 = _interopRequireDefault(_TabBarItem2);
 
@@ -27202,14 +27306,14 @@
 	exports.TabBarItem = _TabBarItem3.default;
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 254 */,
-/* 255 */
+/* 255 */,
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27226,9 +27330,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	var _TabBarItem = __webpack_require__(256);
+	var _TabBarItem = __webpack_require__(257);
 
 	var _TabBarItem2 = _interopRequireDefault(_TabBarItem);
 
@@ -27241,6 +27345,8 @@
 	 * @param {object} props see TabBar.propTypes
 	 */
 	function TabBar(props) {
+	  var _this = this;
+
 	  var barColor = props.barColor;
 	  var lineColor = props.lineColor;
 	  var color = props.color;
@@ -27264,19 +27370,26 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className }, others),
+	    _extends({ className: className }, others, {
+	      __self: this
+	    }),
 	    _react2.default.createElement(
 	      'div',
-	      { className: (0, _utils.classNames)('tab-bar-body') },
+	      { className: (0, _utils.classNames)('tab-bar-body'), __self: this
+	      },
 	      children
 	    ),
 	    _react2.default.createElement(
 	      'footer',
-	      { style: barStyle },
-	      _react2.default.createElement('div', { style: lineStyle }),
+	      { style: barStyle, __self: this
+	      },
+	      _react2.default.createElement('div', { style: lineStyle, __self: this
+	      }),
 	      _react2.default.createElement(
 	        'ul',
-	        null,
+	        {
+	          __self: this
+	        },
 	        children.map(function (child, index) {
 	          var props = _extends({}, child.props);
 
@@ -27284,7 +27397,9 @@
 	            key: index,
 	            color: color,
 	            selectedColor: selectedColor
-	          }, props));
+	          }, props, {
+	            __self: _this
+	          }));
 	        })
 	      )
 	    )
@@ -27318,13 +27433,9 @@
 	TabBar.Item = _TabBarItem2.default;
 
 	function Button(props) {
-	  var
-	  // from TabBar
-	  color = props.color;
+	  var color = props.color;
 	  var selectedColor = props.selectedColor;
-	  var
-	  // from TabBarItem
-	  selected = props.selected;
+	  var selected = props.selected;
 	  var icon = props.icon;
 	  var selectedIcon = props.selectedIcon;
 	  var title = props.title;
@@ -27345,20 +27456,27 @@
 
 	  return _react2.default.createElement(
 	    'li',
-	    _extends({ className: className, onClick: onClick }, others),
+	    _extends({ className: className, onClick: onClick }, others, {
+	      __self: this
+	    }),
 	    _react2.default.createElement(
 	      'div',
-	      { className: (0, _utils.classNames)('tab-bar-item-label') },
-	      _react2.default.createElement('i', { className: iconClass, style: style }),
+	      { className: (0, _utils.classNames)('tab-bar-item-label'), __self: this
+	      },
+	      _react2.default.createElement('i', { className: iconClass, style: style, __self: this
+	      }),
 	      typeof badge !== 'undefined' ? _react2.default.createElement(
 	        'span',
-	        null,
+	        {
+	          __self: this
+	        },
 	        badge
 	      ) : null
 	    ),
 	    _react2.default.createElement(
 	      'div',
-	      { className: (0, _utils.classNames)('tab-bar-item-title'), style: style },
+	      { className: (0, _utils.classNames)('tab-bar-item-title'), style: style, __self: this
+	      },
 	      title
 	    )
 	  );
@@ -27371,7 +27489,7 @@
 	}, _TabBarItem2.default.propTypes);
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27385,7 +27503,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27399,7 +27517,8 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    { className: className },
+	    { className: className, __self: this
+	    },
 	    children
 	  );
 	}
@@ -27416,14 +27535,14 @@
 	};
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 258 */,
-/* 259 */
+/* 259 */,
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27440,9 +27559,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	__webpack_require__(260);
+	__webpack_require__(261);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27476,7 +27595,9 @@
 	      className: className,
 	      disabled: disabled,
 	      href: href
-	    }, others),
+	    }, others, {
+	      __self: this
+	    }),
 	    children
 	  );
 	}
@@ -27501,14 +27622,14 @@
 	};
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 261 */,
-/* 262 */
+/* 262 */,
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27525,9 +27646,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	__webpack_require__(263);
+	__webpack_require__(264);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27551,7 +27672,9 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className }, others),
+	    _extends({ className: className }, others, {
+	      __self: this
+	    }),
 	    children
 	  );
 	}
@@ -27568,14 +27691,14 @@
 	};
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 264 */,
-/* 265 */
+/* 265 */,
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27594,15 +27717,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	var _Icon = __webpack_require__(232);
+	var _Icon = __webpack_require__(233);
 
-	var _Fade = __webpack_require__(266);
+	var _Fade = __webpack_require__(267);
 
 	var _Fade2 = _interopRequireDefault(_Fade);
 
-	__webpack_require__(277);
+	__webpack_require__(278);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27627,15 +27750,21 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className }, others),
+	    _extends({ className: className }, others, {
+	      __self: this
+	    }),
 	    icon ? _react2.default.createElement(
 	      'div',
-	      null,
+	      {
+	        __self: this
+	      },
 	      mapIcon(icon)
 	    ) : null,
 	    _react2.default.createElement(
 	      'p',
-	      null,
+	      {
+	        __self: this
+	      },
 	      content
 	    )
 	  );
@@ -27670,9 +27799,13 @@
 	function mapIcon(icon) {
 	  switch (icon) {
 	    case 'loading':
-	      return _react2.default.createElement(_Icon.IconLoading, null);
+	      return _react2.default.createElement(_Icon.IconLoading, {
+	        __self: this
+	      });
 	    case 'attention':
-	      return _react2.default.createElement(_Icon.IconAttention, null);
+	      return _react2.default.createElement(_Icon.IconAttention, {
+	        __self: this
+	      });
 	    default:
 	      return icon;
 	  }
@@ -27716,8 +27849,12 @@
 
 	      return _react2.default.createElement(
 	        _Fade2.default,
-	        fadeProps,
-	        _react2.default.createElement(Toast, props)
+	        _extends({}, fadeProps, {
+	          __self: this
+	        }),
+	        _react2.default.createElement(Toast, _extends({}, props, {
+	          __self: this
+	        }))
 	      );
 	    }
 	  }, {
@@ -27769,7 +27906,7 @@
 	apiInstance = (0, _utils.createInstance)(ApiContainer);
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27786,17 +27923,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactAddonsCssTransitionGroup = __webpack_require__(267);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(268);
 
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 
-	var _ChildContainer = __webpack_require__(274);
+	var _ChildContainer = __webpack_require__(275);
 
 	var _ChildContainer2 = _interopRequireDefault(_ChildContainer);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	__webpack_require__(275);
+	__webpack_require__(276);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27828,10 +27965,13 @@
 	      component: _ChildContainer2.default,
 	      transitionName: (0, _utils.classNames)('fade'),
 	      transitionEnterTimeout: duration,
-	      transitionLeaveTimeout: duration },
+	      transitionLeaveTimeout: duration, __self: this
+	    },
 	    show ? _react2.default.createElement(
 	      props.component,
-	      _extends({ style: style, className: className }, others),
+	      _extends({ style: style, className: className }, others, {
+	        __self: this
+	      }),
 	      children
 	    ) : null
 	  );
@@ -27863,13 +28003,13 @@
 	};
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(268);
+	module.exports = __webpack_require__(269);
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27889,8 +28029,8 @@
 
 	var React = __webpack_require__(2);
 
-	var ReactTransitionGroup = __webpack_require__(269);
-	var ReactCSSTransitionGroupChild = __webpack_require__(271);
+	var ReactTransitionGroup = __webpack_require__(270);
+	var ReactCSSTransitionGroupChild = __webpack_require__(272);
 
 	function createTransitionTimeoutPropValidator(transitionType) {
 	  var timeoutPropName = 'transition' + transitionType + 'Timeout';
@@ -27961,7 +28101,7 @@
 	module.exports = ReactCSSTransitionGroup;
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27980,7 +28120,7 @@
 	var _assign = __webpack_require__(4);
 
 	var React = __webpack_require__(2);
-	var ReactTransitionChildMapping = __webpack_require__(270);
+	var ReactTransitionChildMapping = __webpack_require__(271);
 
 	var emptyFunction = __webpack_require__(11);
 
@@ -28177,7 +28317,7 @@
 	module.exports = ReactTransitionGroup;
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28279,7 +28419,7 @@
 	module.exports = ReactTransitionChildMapping;
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28298,8 +28438,8 @@
 	var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(39);
 
-	var CSSCore = __webpack_require__(272);
-	var ReactTransitionEvents = __webpack_require__(273);
+	var CSSCore = __webpack_require__(273);
+	var ReactTransitionEvents = __webpack_require__(274);
 
 	var onlyChild = __webpack_require__(37);
 
@@ -28443,9 +28583,8 @@
 
 	module.exports = ReactCSSTransitionGroupChild;
 
-
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -28572,7 +28711,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 273 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28650,7 +28789,7 @@
 	module.exports = ReactTransitionEvents;
 
 /***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -28666,21 +28805,21 @@
 	}
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 276 */,
-/* 277 */
+/* 277 */,
+/* 278 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 278 */,
-/* 279 */
+/* 279 */,
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28699,17 +28838,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	var _Fade = __webpack_require__(266);
+	var _Fade = __webpack_require__(267);
 
 	var _Fade2 = _interopRequireDefault(_Fade);
 
-	var _Mask = __webpack_require__(262);
+	var _Mask = __webpack_require__(263);
 
 	var _Mask2 = _interopRequireDefault(_Mask);
 
-	__webpack_require__(280);
+	__webpack_require__(281);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28736,7 +28875,9 @@
 
 	  return _react2.default.createElement(
 	    'button',
-	    others,
+	    _extends({}, others, {
+	      __self: this
+	    }),
 	    text
 	  );
 	}
@@ -28750,6 +28891,8 @@
 	 * @param {object} props see Dialog.propTypes
 	 */
 	function Dialog(props) {
+	  var _this = this;
+
 	  var title = props.title;
 	  var content = props.content;
 	  var buttons = props.buttons;
@@ -28762,29 +28905,42 @@
 
 	  return _react2.default.createElement(
 	    _Mask2.default,
-	    maskProps,
+	    _extends({}, maskProps, {
+	      __self: this
+	    }),
 	    _react2.default.createElement(
 	      'div',
-	      _extends({ className: className }, others),
+	      _extends({ className: className }, others, {
+	        __self: this
+	      }),
 	      _react2.default.createElement(
 	        'header',
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          'strong',
-	          null,
+	          {
+	            __self: this
+	          },
 	          title
 	        )
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { className: (0, _utils.classNames)('dialog-body') },
+	        { className: (0, _utils.classNames)('dialog-body'), __self: this
+	        },
 	        content
 	      ),
 	      _react2.default.createElement(
 	        'footer',
-	        null,
+	        {
+	          __self: this
+	        },
 	        buttons.map(function (button, index) {
-	          return _react2.default.createElement(Button, _extends({ key: index }, button));
+	          return _react2.default.createElement(Button, _extends({ key: index }, button, {
+	            __self: _this
+	          }));
 	        })
 	      )
 	    )
@@ -28829,7 +28985,7 @@
 	  function ApiContainer() {
 	    var _Object$getPrototypeO;
 
-	    var _temp, _this, _ret;
+	    var _temp, _this2, _ret;
 
 	    _classCallCheck(this, ApiContainer);
 
@@ -28837,11 +28993,11 @@
 	      args[_key] = arguments[_key];
 	    }
 
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+	    return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this2), _this2.state = {
 	      fadeProps: {
 	        show: false
 	      }
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }, _temp), _possibleConstructorReturn(_this2, _ret);
 	  }
 
 	  _createClass(ApiContainer, [{
@@ -28854,8 +29010,12 @@
 
 	      return _react2.default.createElement(
 	        _Fade2.default,
-	        fadeProps,
-	        _react2.default.createElement(Dialog, props)
+	        _extends({}, fadeProps, {
+	          __self: this
+	        }),
+	        _react2.default.createElement(Dialog, _extends({}, props, {
+	          __self: this
+	        }))
 	      );
 	    }
 	  }, {
@@ -28882,7 +29042,7 @@
 	  }, {
 	    key: '_decorateProps',
 	    value: function _decorateProps(props) {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      if (!props.buttons) {
 	        return props;
@@ -28892,7 +29052,7 @@
 	        var onClick = button.onClick;
 	        button.onClick = function (e) {
 	          onClick && onClick(e);
-	          _this2.hide();
+	          _this3.hide();
 	        };
 	      });
 
@@ -28906,14 +29066,14 @@
 	apiInstance = (0, _utils.createInstance)(ApiContainer);
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 281 */,
-/* 282 */
+/* 282 */,
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28932,17 +29092,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactAddonsCssTransitionGroup = __webpack_require__(267);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(268);
 
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	var _Popup = __webpack_require__(283);
+	var _Popup = __webpack_require__(284);
 
 	var _Popup2 = _interopRequireDefault(_Popup);
 
-	__webpack_require__(286);
+	__webpack_require__(287);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28970,7 +29130,9 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className }, content, others),
+	    _extends({ className: className }, content, others, {
+	      __self: this
+	    }),
 	    content
 	  );
 	}
@@ -29029,6 +29191,8 @@
 	  _createClass(ApiContainer, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      var _state = this.state;
 	      var notification = _state.notification;
 	      var popupProps = _state.popupProps;
@@ -29043,12 +29207,16 @@
 	          transitionDuration: duration + 'ms',
 	          transitionTimingFunction: timingFunction
 	        });
-	        return _react2.default.createElement(Notification, _extends({ key: _id, style: style }, others));
+	        return _react2.default.createElement(Notification, _extends({ key: _id, style: style }, others, {
+	          __self: _this2
+	        }));
 	      });
 
 	      return _react2.default.createElement(
 	        _Popup2.default,
-	        popupProps,
+	        _extends({}, popupProps, {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          _reactAddonsCssTransitionGroup2.default,
 	          {
@@ -29056,7 +29224,8 @@
 	            className: (0, _utils.classNames)('notification-container'),
 	            transitionName: (0, _utils.classNames)('notification'),
 	            transitionEnterTimeout: duration,
-	            transitionLeaveTimeout: duration },
+	            transitionLeaveTimeout: duration, __self: this
+	          },
 	          children
 	        )
 	      );
@@ -29064,7 +29233,7 @@
 	  }, {
 	    key: 'show',
 	    value: function show(props, popupProps) {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      var time = arguments.length <= 2 || arguments[2] === undefined ? 4000 : arguments[2];
 
@@ -29081,7 +29250,7 @@
 
 	      clearTimeout(this.timer);
 	      this.timer = setTimeout(function () {
-	        _this2._hide();
+	        _this3._hide();
 	      }, time);
 	    }
 	  }, {
@@ -29103,7 +29272,7 @@
 	apiInstance = (0, _utils.createInstance)(ApiContainer);
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29120,17 +29289,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	var _reactAddonsCssTransitionGroup = __webpack_require__(267);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(268);
 
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 
-	var _ChildContainer = __webpack_require__(274);
+	var _ChildContainer = __webpack_require__(275);
 
 	var _ChildContainer2 = _interopRequireDefault(_ChildContainer);
 
-	__webpack_require__(284);
+	__webpack_require__(285);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29163,15 +29332,19 @@
 	      component: _ChildContainer2.default,
 	      transitionName: (0, _utils.classNames)('popup'),
 	      transitionEnterTimeout: duration,
-	      transitionLeaveTimeout: duration },
+	      transitionLeaveTimeout: duration, __self: this
+	    },
 	    show ? _react2.default.createElement(
 	      'div',
-	      _extends({ className: className, style: style }, others),
+	      _extends({ className: className, style: style }, others, {
+	        __self: this
+	      }),
 	      _react2.default.createElement(
 	        'div',
 	        {
 	          className: (0, _utils.classNames)('popup-main', 'popup-main-' + direction),
-	          style: style },
+	          style: style, __self: this
+	        },
 	        children
 	      )
 	    ) : null
@@ -29204,21 +29377,21 @@
 	};
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 285 */,
-/* 286 */
+/* 286 */,
+/* 287 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 287 */,
-/* 288 */
+/* 288 */,
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29237,11 +29410,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	__webpack_require__(289);
+	__webpack_require__(290);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	var _Popup = __webpack_require__(283);
+	var _Popup = __webpack_require__(284);
 
 	var _Popup2 = _interopRequireDefault(_Popup);
 
@@ -29277,10 +29450,13 @@
 	    'li',
 	    { className: className, onClick: function onClick() {
 	        return callback(index);
-	      } },
+	      }, __self: this
+	    },
 	    _react2.default.createElement(
 	      'button',
-	      null,
+	      {
+	        __self: this
+	      },
 	      children
 	    )
 	  );
@@ -29308,6 +29484,8 @@
 	 * @param {object} props see ActionSheet.propTypes
 	 */
 	function ActionSheet(props) {
+	  var _this = this;
+
 	  var title = props.title;
 	  var actions = props.actions;
 	  var callback = props.callback;
@@ -29322,15 +29500,21 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className }, others),
+	    _extends({ className: className }, others, {
+	      __self: this
+	    }),
 	    title ? _react2.default.createElement(
 	      'header',
-	      null,
+	      {
+	        __self: this
+	      },
 	      title
 	    ) : null,
 	    _react2.default.createElement(
 	      'ol',
-	      null,
+	      {
+	        __self: this
+	      },
 	      actions.map(function (content, index) {
 	        return _react2.default.createElement(
 	          Button,
@@ -29339,7 +29523,8 @@
 	            index: index,
 	            cancel: cancelIndex === index,
 	            destroy: destroyIndex === index,
-	            callback: callback },
+	            callback: callback, __self: _this
+	          },
 	          content
 	        );
 	      })
@@ -29390,7 +29575,7 @@
 	  function ApiContainer() {
 	    var _Object$getPrototypeO;
 
-	    var _temp, _this, _ret;
+	    var _temp, _this2, _ret;
 
 	    _classCallCheck(this, ApiContainer);
 
@@ -29398,7 +29583,7 @@
 	      args[_key] = arguments[_key];
 	    }
 
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+	    return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this2), _this2.state = {
 	      props: {
 	        actions: [],
 	        callback: function callback() {}
@@ -29406,7 +29591,7 @@
 	      popupProps: {
 	        show: false
 	      }
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }, _temp), _possibleConstructorReturn(_this2, _ret);
 	  }
 
 	  _createClass(ApiContainer, [{
@@ -29419,8 +29604,12 @@
 
 	      return _react2.default.createElement(
 	        _Popup2.default,
-	        popupProps,
-	        _react2.default.createElement(ActionSheet, props)
+	        _extends({}, popupProps, {
+	          __self: this
+	        }),
+	        _react2.default.createElement(ActionSheet, _extends({}, props, {
+	          __self: this
+	        }))
 	      );
 	    }
 	  }, {
@@ -29447,12 +29636,12 @@
 	  }, {
 	    key: '_decorateProps',
 	    value: function _decorateProps(props) {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      var callback = props.callback;
 	      props.callback = function (index) {
 	        callback && callback(index);
-	        _this2.hide();
+	        _this3.hide();
 	      };
 
 	      return props;
@@ -29465,14 +29654,14 @@
 	apiInstance = (0, _utils.createInstance)(ApiContainer);
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 290 */,
-/* 291 */
+/* 291 */,
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29489,9 +29678,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	__webpack_require__(292);
+	__webpack_require__(293);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29511,7 +29700,9 @@
 	  return _react2.default.createElement('input', _extends({
 	    className: className,
 	    type: 'checkbox'
-	  }, others));
+	  }, others, {
+	    __self: this
+	  }));
 	}
 
 	/**
@@ -29523,14 +29714,14 @@
 	};
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 293 */,
-/* 294 */
+/* 294 */,
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29547,11 +29738,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	var _Icon = __webpack_require__(232);
+	var _Icon = __webpack_require__(233);
 
-	__webpack_require__(295);
+	__webpack_require__(296);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29577,7 +29768,9 @@
 	    type: 'checkbox',
 	    checked: checked,
 	    disabled: disabled
-	  }, others));
+	  }, others, {
+	    __self: this
+	  }));
 	}
 
 	/**
@@ -29597,14 +29790,14 @@
 	};
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 296 */,
-/* 297 */
+/* 297 */,
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29621,13 +29814,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _xiscroll = __webpack_require__(298);
+	var _xiscroll = __webpack_require__(299);
 
 	var _xiscroll2 = _interopRequireDefault(_xiscroll);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	__webpack_require__(299);
+	__webpack_require__(300);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29689,10 +29882,13 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        _extends({ ref: 'wrapper', className: className, style: style }, others),
+	        _extends({ ref: 'wrapper', className: className, style: style }, others, {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: (0, _utils.classNames)('scroll-view-scroller') },
+	          { className: (0, _utils.classNames)('scroll-view-scroller'), __self: this
+	          },
 	          children
 	        )
 	      );
@@ -29732,10 +29928,10 @@
 	exports.default = ScrollView;
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;/*! iScroll v5.2.0 ~ (c) 2008-2016 Matteo Spinelli ~ http://cubiq.org/license */
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*! iScroll v5.2.2 ~ (c) 2008-2016 Matteo Spinelli ~ http://cubiq.org/license */
 	(function (window, document, Math) {
 	var rAF = window.requestAnimationFrame	||
 		window.webkitRequestAnimationFrame	||
@@ -30136,7 +30332,7 @@
 	}
 
 	IScroll.prototype = {
-		version: '5.2.0',
+		version: '5.2.2',
 
 		_init: function () {
 			this._initEvents();
@@ -30426,7 +30622,10 @@
 	// INSERT POINT: _end
 			if (this.hookNewY) {
 				newY = this.hookNewY(newY);
-				time === 0 && (time = 10);
+				// 移动一段距离后，300ms 再松手，time=0，无法触发 scrollEnd 事件
+				if (time <= 0) {
+					time = 10;
+				}
 			}
 
 			if ( newX != this.x || newY != this.y ) {
@@ -31374,7 +31573,7 @@
 				if ( now >= destTime ) {
 					that.isAnimating = false;
 					that._translate(destX, destY);
-
+					
 					if ( !that.resetPosition(that.options.bounceTime) ) {
 						that._execEvent('scrollEnd');
 					}
@@ -31925,14 +32124,14 @@
 
 
 /***/ },
-/* 299 */
+/* 300 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 300 */,
-/* 301 */
+/* 301 */,
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31949,11 +32148,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	__webpack_require__(302);
+	__webpack_require__(303);
 
-	var _ScrollView = __webpack_require__(297);
+	var _ScrollView = __webpack_require__(298);
 
 	var _ScrollView2 = _interopRequireDefault(_ScrollView);
 
@@ -32061,10 +32260,13 @@
 	          className: className,
 	          height: '100%',
 	          width: '100%'
-	        }, others),
+	        }, others, {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: (0, _utils.classNames)('list-view-refresh') },
+	          { className: (0, _utils.classNames)('list-view-refresh'), __self: this
+	          },
 	          renderRefresh(refreshState)
 	        ),
 	        _react2.default.createElement(
@@ -32072,10 +32274,12 @@
 	          {
 	            data: data,
 	            shouldRefreshIscroller: shouldRefreshIscroller,
-	            refreshIscroller: this._refreshIscroller },
+	            refreshIscroller: this._refreshIscroller, __self: this
+	          },
 	          _react2.default.createElement(
 	            'div',
-	            { className: (0, _utils.classNames)('list-view-list') },
+	            { className: (0, _utils.classNames)('list-view-list'), __self: this
+	            },
 	            data.map(renderRow)
 	          )
 	        ),
@@ -32083,7 +32287,8 @@
 	          'div',
 	          {
 	            className: (0, _utils.classNames)('list-view-load-more'),
-	            onClick: this._onLoadMore },
+	            onClick: this._onLoadMore, __self: this
+	          },
 	          renderLoadMore(loadMoreState)
 	        )
 	      );
@@ -32259,19 +32464,25 @@
 	    case 'normal':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '下拉刷新'
 	      );
 	    case 'ready':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '松手即可刷新'
 	      );
 	    case 'loading':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '加载中...'
 	      );
 	  }
@@ -32286,25 +32497,33 @@
 	    case 'normal':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '点击，加载更多'
 	      );
 	    case 'loading':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '加载中...'
 	      );
 	    case 'end':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '没有数据了'
 	      );
 	    case 'fail':
 	      return _react2.default.createElement(
 	        'p',
-	        null,
+	        {
+	          __self: this
+	        },
 	        '加载失败，请点击重新加载'
 	      );
 	  }
@@ -32313,14 +32532,14 @@
 	}
 
 /***/ },
-/* 302 */
+/* 303 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 303 */,
-/* 304 */
+/* 304 */,
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32339,13 +32558,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	var _xiscroll = __webpack_require__(298);
+	var _xiscroll = __webpack_require__(299);
 
 	var _xiscroll2 = _interopRequireDefault(_xiscroll);
 
-	__webpack_require__(305);
+	__webpack_require__(306);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32401,6 +32620,8 @@
 	  _createClass(Select, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      var _props = this.props;
 	      var options = _props.options;
 	      var className = _props.className;
@@ -32415,29 +32636,35 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        _extends({ ref: 'wrapper', className: className, style: style }, others),
+	        _extends({ ref: 'wrapper', className: className, style: style }, others, {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          'ul',
-	          { className: (0, _utils.classNames)('select-options') },
+	          { className: (0, _utils.classNames)('select-options'), __self: this
+	          },
 	          options.map(function (option, index) {
 	            var name = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) === 'object' ? option.name : option;
 	            var key = index + '@-@' + name;
 
 	            return _react2.default.createElement(
 	              'li',
-	              { key: key, style: optionStyle },
+	              { key: key, style: optionStyle, __self: _this2
+	              },
 	              name
 	            );
 	          })
 	        ),
-	        _react2.default.createElement('div', { style: maskStyle, className: (0, _utils.classNames)('select-mask-top') }),
-	        _react2.default.createElement('div', { style: maskStyle, className: (0, _utils.classNames)('select-mask-bottom') })
+	        _react2.default.createElement('div', { style: maskStyle, className: (0, _utils.classNames)('select-mask-top'), __self: this
+	        }),
+	        _react2.default.createElement('div', { style: maskStyle, className: (0, _utils.classNames)('select-mask-bottom'), __self: this
+	        })
 	      );
 	    }
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      var _props2 = this.props;
 	      var iscrollOptions = _props2.iscrollOptions;
@@ -32446,22 +32673,22 @@
 	      // fuck a bug
 
 	      setTimeout(function () {
-	        _this2.iscroller = new _xiscroll2.default(wrapper, _extends({
+	        _this3.iscroller = new _xiscroll2.default(wrapper, _extends({
 	          probeType: 2 }, iscrollOptions));
 
-	        _this2.iscroller.on('scrollEnd', function () {
-	          var index = Math.abs(_this2.iscroller.y / height);
+	        _this3.iscroller.on('scrollEnd', function () {
+	          var index = Math.abs(_this3.iscroller.y / height);
 	          onChange && onChange(index);
 	        });
 
 	        // 通过 hookNewY 修改滚动位置
-	        _this2.iscroller.hookNewY = function (newY) {
+	        _this3.iscroller.hookNewY = function (newY) {
 	          // Math.ceil(-8.74) = -8
 	          // 所以已经 -1 了
 	          var index = Math.ceil(newY / height);
 
-	          if (Math.abs(_this2.iscroller.distY) > height / 2) {
-	            if (_this2.iscroller.directionY === 1) {
+	          if (Math.abs(_this3.iscroller.distY) > height / 2) {
+	            if (_this3.iscroller.directionY === 1) {
 	              index -= 1;
 	            }
 	          }
@@ -32471,7 +32698,7 @@
 	          return newY;
 	        };
 
-	        _this2.resetPosition();
+	        _this3.resetPosition();
 
 	        // 阻止默认事件
 	        wrapper.addEventListener('touchmove', function (e) {
@@ -32517,14 +32744,14 @@
 	exports.default = Select;
 
 /***/ },
-/* 305 */
+/* 306 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 306 */,
-/* 307 */
+/* 307 */,
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32541,17 +32768,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	var _Select = __webpack_require__(304);
+	var _Select = __webpack_require__(305);
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Popup = __webpack_require__(283);
+	var _Popup = __webpack_require__(284);
 
 	var _Popup2 = _interopRequireDefault(_Popup);
 
-	__webpack_require__(308);
+	__webpack_require__(309);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32660,44 +32887,55 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        _extends({ className: className }, others),
+	        _extends({ className: className }, others, {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: (0, _utils.classNames)('date-picker-header') },
+	          { className: (0, _utils.classNames)('date-picker-header'), __self: this
+	          },
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this._cancel },
+	            { onClick: this._cancel, __self: this
+	            },
 	            '取消'
 	          ),
 	          _react2.default.createElement(
 	            'em',
-	            null,
+	            {
+	              __self: this
+	            },
 	            title
 	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this._confirm },
+	            { onClick: this._confirm, __self: this
+	            },
 	            '确定'
 	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: (0, _utils.classNames)('date-picker-body') },
+	          { className: (0, _utils.classNames)('date-picker-body'), __self: this
+	          },
 	          _react2.default.createElement(_Select2.default, {
 	            key: 'year',
 	            options: yearOptions,
 	            selectedIndex: selectedYearIndex,
-	            onChange: this._changeYear }),
+	            onChange: this._changeYear, __self: this
+	          }),
 	          _react2.default.createElement(_Select2.default, {
 	            key: 'month',
 	            options: monthOptions,
 	            selectedIndex: selectedMonthIndex,
-	            onChange: this._changeMonth }),
+	            onChange: this._changeMonth, __self: this
+	          }),
 	          _react2.default.createElement(_Select2.default, {
 	            key: 'date',
 	            options: dateOptions,
 	            selectedIndex: selectedDateIndex,
-	            onChange: this._changeDate })
+	            onChange: this._changeDate, __self: this
+	          })
 	        )
 	      );
 	    }
@@ -32902,8 +33140,12 @@
 
 	      return _react2.default.createElement(
 	        _Popup2.default,
-	        popupProps,
-	        _react2.default.createElement(DatePicker, props)
+	        _extends({}, popupProps, {
+	          __self: this
+	        }),
+	        _react2.default.createElement(DatePicker, _extends({}, props, {
+	          __self: this
+	        }))
 	      );
 	    }
 	  }, {
@@ -32969,14 +33211,14 @@
 	apiInstance = (0, _utils.createInstance)(ApiContainer);
 
 /***/ },
-/* 308 */
+/* 309 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 309 */,
-/* 310 */
+/* 310 */,
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32993,17 +33235,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(238);
+	var _utils = __webpack_require__(239);
 
-	var _ChildContainer = __webpack_require__(274);
-
-	var _ChildContainer2 = _interopRequireDefault(_ChildContainer);
-
-	var _reactAddonsCssTransitionGroup = __webpack_require__(267);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(268);
 
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 
-	__webpack_require__(311);
+	__webpack_require__(312);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33033,7 +33271,9 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    _extends({ className: className, style: style }, others),
+	    _extends({ className: className, style: style }, others, {
+	      __self: this
+	    }),
 	    children
 	  );
 	}
@@ -33071,12 +33311,15 @@
 
 	  return _react2.default.createElement(
 	    _reactAddonsCssTransitionGroup2.default,
-	    {
+	    _extends({
 	      component: 'div',
 	      transitionName: (0, _utils.classNames)('page-scene-' + action),
 	      transitionEnterTimeout: timeout,
 	      transitionLeaveTimeout: timeout,
-	      className: className },
+	      className: className
+	    }, others, {
+	      __self: this
+	    }),
 	    children
 	  );
 	}
@@ -33096,14 +33339,14 @@
 	};
 
 /***/ },
-/* 311 */
+/* 312 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 312 */,
-/* 313 */
+/* 313 */,
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33118,7 +33361,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33157,23 +33400,32 @@
 
 	      return _react2.default.createElement(
 	        _daifeeReactComponent.Page,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'wrap' },
+	          { className: 'wrap', __self: this
+	          },
 	          _react2.default.createElement(
 	            'h1',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'ApiContainer'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            '为了方便使用，很多组件都提供静态方法（“接口”）调用。其实现方式是，为该组件定义一个 ApiContainer 组件，import 该组件时就渲染到页面，返回的实例用“接口”封装使用。 这种方式，ApiContainer 被渲染到一个新建的 div 中。'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            '这种组件必须有一个接口创建（getInstance(container)）新的 ApiContainer 实例， 并渲染到特定的 DOM 节点中。返回 ApiContainer 实例。'
 	          ),
 	          _react2.default.createElement(
@@ -33184,10 +33436,12 @@
 	                  content: '直接调用静态方法',
 	                  buttons: [{ text: '取消' }, { text: '确定' }]
 	                });
-	              } },
+	              }, __self: this
+	            },
 	            'Dialog.show()'
 	          ),
-	          _react2.default.createElement('div', { ref: 'container' })
+	          _react2.default.createElement('div', { ref: 'container', __self: this
+	          })
 	        )
 	      );
 	    }
@@ -33204,7 +33458,7 @@
 	exports.default = ApiContainer;
 
 /***/ },
-/* 314 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33218,7 +33472,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33226,38 +33480,48 @@
 
 	  return _react2.default.createElement(
 	    _daifeeReactComponent.Page,
-	    null,
+	    {
+	      __self: this
+	    },
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'wrap' },
+	      { className: 'wrap', __self: this
+	      },
 	      _react2.default.createElement(
 	        'h1',
-	        null,
+	        {
+	          __self: this
+	        },
 	        'Button'
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Button,
-	        { onClick: _alert },
+	        { onClick: _alert, __self: this
+	        },
 	        'Default'
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Button,
-	        { type: 'primary', onClick: _alert },
+	        { type: 'primary', onClick: _alert, __self: this
+	        },
 	        'Primary'
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Button,
-	        { type: 'warning', onClick: _alert },
+	        { type: 'warning', onClick: _alert, __self: this
+	        },
 	        'Primary'
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Button,
-	        { disabled: true, onClick: _alert },
+	        { disabled: true, onClick: _alert, __self: this
+	        },
 	        'Disabled'
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Button,
-	        { href: 'https://weibo.com', onClick: _alert },
+	        { href: 'https://weibo.com', onClick: _alert, __self: this
+	        },
 	        'Weibo'
 	      )
 	    )
@@ -33269,7 +33533,7 @@
 	}
 
 /***/ },
-/* 315 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33283,199 +33547,284 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function CellPage() {
 	  return _react2.default.createElement(
 	    _daifeeReactComponent.Page,
-	    null,
+	    {
+	      __self: this
+	    },
 	    _react2.default.createElement(
 	      'h1',
-	      null,
+	      {
+	        __self: this
+	      },
 	      'Cell ',
-	      _react2.default.createElement('br', null),
+	      _react2.default.createElement('br', {
+	        __self: this
+	      }),
 	      ' Checkbox ',
-	      _react2.default.createElement('br', null),
+	      _react2.default.createElement('br', {
+	        __self: this
+	      }),
 	      ' Switch'
 	    ),
 	    _react2.default.createElement(
 	      _daifeeReactComponent.CellsTitle,
-	      null,
+	      {
+	        __self: this
+	      },
 	      'CellsTitle Cells Cell'
 	    ),
 	    _react2.default.createElement(
 	      _daifeeReactComponent.Cells,
-	      null,
+	      {
+	        __self: this
+	      },
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellHeader,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Header'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Body'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellFooter,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Footer'
 	        )
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        { access: false, arrow: false },
+	        { access: false, arrow: false, __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellHeader,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Header'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Body'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellFooter,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Footer'
 	        )
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        { href: 'https://weibo.com' },
+	        { href: 'https://weibo.com', __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellHeader,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Header'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Body'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellFooter,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Footer'
 	        )
 	      )
 	    ),
 	    _react2.default.createElement(
 	      _daifeeReactComponent.CellsTips,
-	      null,
+	      {
+	        __self: this
+	      },
 	      'CellsTips'
 	    ),
-	    _react2.default.createElement('br', null),
+	    _react2.default.createElement('br', {
+	      __self: this
+	    }),
 	    _react2.default.createElement(
 	      _daifeeReactComponent.CellsTitle,
-	      null,
+	      {
+	        __self: this
+	      },
 	      'Checkbox'
 	    ),
 	    _react2.default.createElement(
 	      _daifeeReactComponent.Cells,
-	      null,
+	      {
+	        __self: this
+	      },
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        { component: 'label', arrow: false },
+	        { component: 'label', arrow: false, __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellHeader,
-	          null,
+	          {
+	            __self: this
+	          },
 	          _react2.default.createElement(_daifeeReactComponent.Checkbox, { onChange: function onChange(e) {
 	              alert(e.target.checked);
-	            } })
+	            }, __self: this
+	          })
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
+	          {
+	            __self: this
+	          },
 	          '默认'
 	        )
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        { component: 'label', arrow: false },
+	        { component: 'label', arrow: false, __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellHeader,
-	          null,
-	          _react2.default.createElement(_daifeeReactComponent.Checkbox, { defaultChecked: true })
+	          {
+	            __self: this
+	          },
+	          _react2.default.createElement(_daifeeReactComponent.Checkbox, { defaultChecked: true, __self: this
+	          })
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'defaultChecked'
 	        )
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        { component: 'label', arrow: false },
+	        { component: 'label', arrow: false, __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellHeader,
-	          null,
-	          _react2.default.createElement(_daifeeReactComponent.Checkbox, { disabled: true })
+	          {
+	            __self: this
+	          },
+	          _react2.default.createElement(_daifeeReactComponent.Checkbox, { disabled: true, __self: this
+	          })
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'disabled'
 	        )
 	      )
 	    ),
-	    _react2.default.createElement('br', null),
+	    _react2.default.createElement('br', {
+	      __self: this
+	    }),
 	    _react2.default.createElement(
 	      _daifeeReactComponent.CellsTitle,
-	      null,
+	      {
+	        __self: this
+	      },
 	      'Switch'
 	    ),
 	    _react2.default.createElement(
 	      _daifeeReactComponent.Cells,
-	      null,
+	      {
+	        __self: this
+	      },
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        { access: false, arrow: false },
+	        { access: false, arrow: false, __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
+	          {
+	            __self: this
+	          },
 	          '默认'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellFooter,
-	          null,
-	          _react2.default.createElement(_daifeeReactComponent.Switch, null)
+	          {
+	            __self: this
+	          },
+	          _react2.default.createElement(_daifeeReactComponent.Switch, {
+	            __self: this
+	          })
 	        )
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        { access: false, arrow: false },
+	        { access: false, arrow: false, __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'defaultChecked'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellFooter,
-	          null,
+	          {
+	            __self: this
+	          },
 	          _react2.default.createElement(_daifeeReactComponent.Switch, { defaultChecked: true, onChange: function onChange(e) {
 	              alert(e.target.checked);
-	            } })
+	            }, __self: this
+	          })
 	        )
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        { access: false, arrow: false },
+	        { access: false, arrow: false, __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'desabled'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellFooter,
-	          null,
-	          _react2.default.createElement(_daifeeReactComponent.Switch, { disabled: true, checked: true })
+	          {
+	            __self: this
+	          },
+	          _react2.default.createElement(_daifeeReactComponent.Switch, { disabled: true, checked: true, __self: this
+	          })
 	        )
 	      )
 	    )
@@ -33483,7 +33832,7 @@
 	}
 
 /***/ },
-/* 316 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33492,7 +33841,7 @@
 	  value: true
 	});
 
-	var _Cell = __webpack_require__(315);
+	var _Cell = __webpack_require__(316);
 
 	var _Cell2 = _interopRequireDefault(_Cell);
 
@@ -33501,7 +33850,7 @@
 	exports.default = _Cell2.default;
 
 /***/ },
-/* 317 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33518,7 +33867,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33571,12 +33920,18 @@
 
 	      return _react2.default.createElement(
 	        _daifeeReactComponent.Page,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          'h1',
-	          null,
+	          {
+	            __self: this
+	          },
 	          'DatePicker',
-	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('br', {
+	            __self: this
+	          }),
 	          format(selectedDate)
 	        ),
 	        _react2.default.createElement(_daifeeReactComponent.DatePicker, {
@@ -33586,12 +33941,18 @@
 	          selectedDate: temp,
 	          onChange: this.change,
 	          onCancel: this.cancel,
-	          onConfirm: this.confirm }),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement('br', null),
+	          onConfirm: this.confirm, __self: this
+	        }),
+	        _react2.default.createElement('br', {
+	          __self: this
+	        }),
+	        _react2.default.createElement('br', {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'wrap' },
+	          { className: 'wrap', __self: this
+	          },
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Button,
 	            { onClick: function onClick() {
@@ -33603,7 +33964,8 @@
 	                  onCancel: _this2.cancel,
 	                  onConfirm: _this2.confirm
 	                });
-	              } },
+	              }, __self: this
+	            },
 	            format(selectedDate)
 	          )
 	        )
@@ -33635,7 +33997,7 @@
 	exports.default = DatePickerPage;
 
 /***/ },
-/* 318 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33650,7 +34012,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33689,29 +34051,42 @@
 
 	      return _react2.default.createElement(
 	        _daifeeReactComponent.Page,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          'h1',
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Dialog'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.Cells,
-	          null,
+	          {
+	            __self: this
+	          },
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Cell,
-	            null,
+	            {
+	              __self: this
+	            },
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellBody,
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Dialog 状态'
 	            ),
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellFooter,
-	              null,
+	              {
+	                __self: this
+	              },
 	              _react2.default.createElement(_daifeeReactComponent.Switch, { checked: show, onChange: function onChange(e) {
 	                  _this2.setState({ show: e.target.checked });
-	                } })
+	                }, __self: this
+	              })
 	            )
 	          )
 	        ),
@@ -33723,12 +34098,18 @@
 	            onClick: function onClick() {
 	              _this2.setState({ show: !show });
 	            }
-	          }] }) : null,
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement('br', null),
+	          }], __self: this
+	        }) : null,
+	        _react2.default.createElement('br', {
+	          __self: this
+	        }),
+	        _react2.default.createElement('br', {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'wrap' },
+	          { className: 'wrap', __self: this
+	          },
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Button,
 	            { onClick: function onClick() {
@@ -33737,7 +34118,8 @@
 	                  content: '直接调用静态方法',
 	                  buttons: [{ text: '取消' }, { text: '确定' }]
 	                });
-	              } },
+	              }, __self: this
+	            },
 	            'Dialog.show()'
 	          )
 	        )
@@ -33751,7 +34133,7 @@
 	exports.default = DialogPage;
 
 /***/ },
-/* 319 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33766,7 +34148,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33805,29 +34187,42 @@
 
 	      return _react2.default.createElement(
 	        _daifeeReactComponent.Page,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          'h1',
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Fade'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.Cells,
-	          null,
+	          {
+	            __self: this
+	          },
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Cell,
-	            null,
+	            {
+	              __self: this
+	            },
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellBody,
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Fade 状态'
 	            ),
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellFooter,
-	              null,
+	              {
+	                __self: this
+	              },
 	              _react2.default.createElement(_daifeeReactComponent.Switch, { checked: show, onChange: function onChange(e) {
 	                  _this2.setState({ show: e.target.checked });
-	                } })
+	                }, __self: this
+	              })
 	            )
 	          )
 	        ),
@@ -33851,15 +34246,20 @@
 	              textAlign: 'center',
 	              paddingTop: '60px',
 	              backgroundColor: '#ddd'
-	            } },
+	            }, __self: this
+	          },
 	          _react2.default.createElement(
 	            'h2',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'Fade'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'Fade 是控制淡入淡出的动画'
 	          )
 	        )
@@ -33873,7 +34273,7 @@
 	exports.default = FadePage;
 
 /***/ },
-/* 320 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33887,95 +34287,143 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function IconPage() {
 	  return _react2.default.createElement(
 	    _daifeeReactComponent.Page,
-	    null,
+	    {
+	      __self: this
+	    },
 	    _react2.default.createElement(
 	      'h1',
-	      null,
+	      {
+	        __self: this
+	      },
 	      'Icon'
 	    ),
 	    _react2.default.createElement(
 	      _daifeeReactComponent.Cells,
-	      null,
+	      {
+	        __self: this
+	      },
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellHeader,
-	          null,
-	          _react2.default.createElement(_daifeeReactComponent.IconAttention, { size: '22px' })
+	          {
+	            __self: this
+	          },
+	          _react2.default.createElement(_daifeeReactComponent.IconAttention, { size: '22px', __self: this
+	          })
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
-	          _react2.default.createElement(_daifeeReactComponent.IconAttention, null),
+	          {
+	            __self: this
+	          },
+	          _react2.default.createElement(_daifeeReactComponent.IconAttention, {
+	            __self: this
+	          }),
 	          _react2.default.createElement(
 	            'span',
-	            null,
+	            {
+	              __self: this
+	            },
 	            ' '
 	          ),
 	          _react2.default.createElement(
 	            'span',
-	            null,
+	            {
+	              __self: this
+	            },
 	            ' '
 	          ),
-	          _react2.default.createElement(_daifeeReactComponent.IconAttention, { size: '60px' })
+	          _react2.default.createElement(_daifeeReactComponent.IconAttention, { size: '60px', __self: this
+	          })
 	        )
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellHeader,
-	          null,
-	          _react2.default.createElement(_daifeeReactComponent.IconCheck, { size: '22px' })
+	          {
+	            __self: this
+	          },
+	          _react2.default.createElement(_daifeeReactComponent.IconCheck, { size: '22px', __self: this
+	          })
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
-	          _react2.default.createElement(_daifeeReactComponent.IconCheck, null),
+	          {
+	            __self: this
+	          },
+	          _react2.default.createElement(_daifeeReactComponent.IconCheck, {
+	            __self: this
+	          }),
 	          _react2.default.createElement(
 	            'span',
-	            null,
+	            {
+	              __self: this
+	            },
 	            ' '
 	          ),
 	          _react2.default.createElement(
 	            'span',
-	            null,
+	            {
+	              __self: this
+	            },
 	            ' '
 	          ),
-	          _react2.default.createElement(_daifeeReactComponent.IconCheck, { size: '60px' })
+	          _react2.default.createElement(_daifeeReactComponent.IconCheck, { size: '60px', __self: this
+	          })
 	        )
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellHeader,
-	          null,
-	          _react2.default.createElement(_daifeeReactComponent.IconLoading, { scale: 0.7 })
+	          {
+	            __self: this
+	          },
+	          _react2.default.createElement(_daifeeReactComponent.IconLoading, { scale: 0.7, __self: this
+	          })
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
-	          _react2.default.createElement(_daifeeReactComponent.IconLoading, null),
+	          {
+	            __self: this
+	          },
+	          _react2.default.createElement(_daifeeReactComponent.IconLoading, {
+	            __self: this
+	          }),
 	          _react2.default.createElement(
 	            'span',
-	            null,
+	            {
+	              __self: this
+	            },
 	            ' '
 	          ),
 	          _react2.default.createElement(
 	            'span',
-	            null,
+	            {
+	              __self: this
+	            },
 	            ' '
 	          ),
-	          _react2.default.createElement(_daifeeReactComponent.IconLoading, { scale: 1.2 })
+	          _react2.default.createElement(_daifeeReactComponent.IconLoading, { scale: 1.2, __self: this
+	          })
 	        )
 	      )
 	    )
@@ -33983,7 +34431,7 @@
 	}
 
 /***/ },
-/* 321 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34000,7 +34448,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34110,7 +34558,8 @@
 
 	      return _react2.default.createElement(
 	        _daifeeReactComponent.Page,
-	        { style: { height: '100%' } },
+	        { style: { height: '100%' }, __self: this
+	        },
 	        _react2.default.createElement(_daifeeReactComponent.ListView, {
 	          ref: 'listView',
 	          data: data,
@@ -34125,7 +34574,8 @@
 	          renderLoadMore: this._renderLoadMore,
 	          offsetLoadMore: -10,
 	          loadMoreState: loadMoreState,
-	          onLoadMore: this._loadMore })
+	          onLoadMore: this._loadMore, __self: this
+	        })
 	      );
 	    }
 	  }, {
@@ -34144,7 +34594,8 @@
 	            lineHeight: '40px',
 	            textAlign: 'center',
 	            borderTop: '1px solid #ddd'
-	          }, key: row.id },
+	          }, key: row.id, __self: this
+	        },
 	        row.content
 	      );
 	    }
@@ -34183,7 +34634,7 @@
 	exports.default = ListViewPage;
 
 /***/ },
-/* 322 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34198,7 +34649,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34237,29 +34688,42 @@
 
 	      return _react2.default.createElement(
 	        _daifeeReactComponent.Page,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          'h1',
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Mask'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.Cells,
-	          null,
+	          {
+	            __self: this
+	          },
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Cell,
-	            null,
+	            {
+	              __self: this
+	            },
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellBody,
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Mask 状态'
 	            ),
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellFooter,
-	              null,
+	              {
+	                __self: this
+	              },
 	              _react2.default.createElement(_daifeeReactComponent.Switch, { checked: show, onChange: function onChange(e) {
 	                  _this2.setState({ show: e.target.checked });
-	                } })
+	                }, __self: this
+	              })
 	            )
 	          )
 	        ),
@@ -34267,10 +34731,13 @@
 	          _daifeeReactComponent.Mask,
 	          { onClick: function onClick() {
 	              _this2.setState({ show: false });
-	            } },
+	            }, __self: this
+	          },
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            '这是在 Mask 之上的内容'
 	          )
 	        ) : null
@@ -34284,7 +34751,7 @@
 	exports.default = MaskPage;
 
 /***/ },
-/* 323 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34298,22 +34765,27 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function NotificationPage() {
 	  return _react2.default.createElement(
 	    _daifeeReactComponent.Page,
-	    null,
+	    {
+	      __self: this
+	    },
 	    _react2.default.createElement(
 	      'h1',
-	      null,
+	      {
+	        __self: this
+	      },
 	      'Notification'
 	    ),
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'wrap' },
+	      { className: 'wrap', __self: this
+	      },
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Button,
 	        { onClick: function onClick() {
@@ -34325,7 +34797,8 @@
 	                textAlign: 'center'
 	              }
 	            });
-	          } },
+	          }, __self: this
+	        },
 	        'notify'
 	      )
 	    )
@@ -34333,7 +34806,7 @@
 	}
 
 /***/ },
-/* 324 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34347,7 +34820,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	var _reactRouter = __webpack_require__(168);
 
@@ -34356,30 +34829,42 @@
 	function PagePage() {
 	  return _react2.default.createElement(
 	    _daifeeReactComponent.Page,
-	    null,
+	    {
+	      __self: this
+	    },
 	    _react2.default.createElement(
 	      'h1',
-	      null,
+	      {
+	        __self: this
+	      },
 	      'Page'
 	    ),
 	    _react2.default.createElement(
 	      _daifeeReactComponent.Cells,
-	      null,
+	      {
+	        __self: this
+	      },
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        { component: _reactRouter.Link, to: '/' },
+	        { component: _reactRouter.Link, to: '/', __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Home'
 	        )
 	      ),
 	      _react2.default.createElement(
 	        _daifeeReactComponent.Cell,
-	        { arrow: false },
+	        { arrow: false, __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.CellBody,
-	          null,
+	          {
+	            __self: this
+	          },
 	          'react-router'
 	        )
 	      )
@@ -34388,7 +34873,7 @@
 	}
 
 /***/ },
-/* 325 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34405,7 +34890,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34455,93 +34940,129 @@
 
 	      return _react2.default.createElement(
 	        _daifeeReactComponent.Page,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          'h1',
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Popup'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.Cells,
-	          null,
+	          {
+	            __self: this
+	          },
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Cell,
-	            { arrow: false, access: false },
+	            { arrow: false, access: false, __self: this
+	            },
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellBody,
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Popup top'
 	            ),
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellFooter,
-	              null,
+	              {
+	                __self: this
+	              },
 	              _react2.default.createElement(_daifeeReactComponent.Switch, { checked: top, onChange: function onChange(e) {
 	                  _this2.setState(_extends({}, _this2.state, { top: e.target.checked }));
-	                } })
+	                }, __self: this
+	              })
 	            )
 	          ),
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Cell,
-	            { arrow: false, access: false },
+	            { arrow: false, access: false, __self: this
+	            },
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellBody,
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Popup right'
 	            ),
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellFooter,
-	              null,
+	              {
+	                __self: this
+	              },
 	              _react2.default.createElement(_daifeeReactComponent.Switch, { checked: right, onChange: function onChange(e) {
 	                  _this2.setState(_extends({}, _this2.state, { right: e.target.checked }));
-	                } })
+	                }, __self: this
+	              })
 	            )
 	          ),
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Cell,
-	            { arrow: false, access: false },
+	            { arrow: false, access: false, __self: this
+	            },
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellBody,
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Popup bottom'
 	            ),
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellFooter,
-	              null,
+	              {
+	                __self: this
+	              },
 	              _react2.default.createElement(_daifeeReactComponent.Switch, { checked: bottom, onChange: function onChange(e) {
 	                  _this2.setState(_extends({}, _this2.state, { bottom: e.target.checked }));
-	                } })
+	                }, __self: this
+	              })
 	            )
 	          ),
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Cell,
-	            { arrow: false, access: false },
+	            { arrow: false, access: false, __self: this
+	            },
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellBody,
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Popup left'
 	            ),
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellFooter,
-	              null,
+	              {
+	                __self: this
+	              },
 	              _react2.default.createElement(_daifeeReactComponent.Switch, { checked: left, onChange: function onChange(e) {
 	                  _this2.setState(_extends({}, _this2.state, { left: e.target.checked }));
-	                } })
+	                }, __self: this
+	              })
 	            )
 	          ),
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Cell,
-	            { arrow: false, access: false },
+	            { arrow: false, access: false, __self: this
+	            },
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellBody,
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Popup login'
 	            ),
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellFooter,
-	              null,
+	              {
+	                __self: this
+	              },
 	              _react2.default.createElement(_daifeeReactComponent.Switch, { checked: login, onChange: function onChange(e) {
 	                  _this2.setState(_extends({}, _this2.state, { login: e.target.checked }));
-	                } })
+	                }, __self: this
+	              })
 	            )
 	          )
 	        ),
@@ -34550,25 +35071,34 @@
 	          {
 	            show: top,
 	            direction: 'top',
-	            onClick: this._hide },
+	            onClick: this._hide, __self: this
+	          },
 	          _react2.default.createElement(
 	            'h2',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'top'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'fjaio放假爱偶奇偶'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'fjaio放假爱偶奇偶'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'fjaio放假爱偶奇偶'
 	          )
 	        ),
@@ -34577,25 +35107,34 @@
 	          {
 	            show: right,
 	            direction: 'right',
-	            onClick: this._hide },
+	            onClick: this._hide, __self: this
+	          },
 	          _react2.default.createElement(
 	            'h2',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'right'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'fjaio放假爱偶奇偶'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'fjaio放假爱偶奇偶'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'fjaio放假爱偶奇偶'
 	          )
 	        ),
@@ -34604,25 +35143,34 @@
 	          {
 	            show: bottom,
 	            direction: 'bottom',
-	            onClick: this._hide },
+	            onClick: this._hide, __self: this
+	          },
 	          _react2.default.createElement(
 	            'h2',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'bottom'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'fjaio放假爱偶奇偶'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'fjaio放假爱偶奇偶'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'fjaio放假爱偶奇偶'
 	          )
 	        ),
@@ -34631,25 +35179,34 @@
 	          {
 	            show: left,
 	            direction: 'left',
-	            onClick: this._hide },
+	            onClick: this._hide, __self: this
+	          },
 	          _react2.default.createElement(
 	            'h2',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'left'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'fjaio放假爱偶奇偶'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'fjaio放假爱偶奇偶'
 	          ),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'fjaio放假爱偶奇偶'
 	          )
 	        ),
@@ -34660,18 +35217,23 @@
 	            direction: 'bottom',
 	            style: {
 	              height: '100%'
-	            } },
+	            }, __self: this
+	          },
 	          _react2.default.createElement(
 	            'h1',
-	            null,
+	            {
+	              __self: this
+	            },
 	            'Login'
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'wrap' },
+	            { className: 'wrap', __self: this
+	            },
 	            _react2.default.createElement(
 	              _daifeeReactComponent.Button,
-	              { onClick: this._hide },
+	              { onClick: this._hide, __self: this
+	              },
 	              '取消'
 	            )
 	          )
@@ -34686,7 +35248,7 @@
 	exports.default = PopupPage;
 
 /***/ },
-/* 326 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34700,17 +35262,21 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function ScrollViewPage() {
 	  return _react2.default.createElement(
 	    _daifeeReactComponent.Page,
-	    null,
+	    {
+	      __self: this
+	    },
 	    _react2.default.createElement(
 	      'h1',
-	      null,
+	      {
+	        __self: this
+	      },
 	      'ScrollView'
 	    ),
 	    _react2.default.createElement(
@@ -34719,212 +35285,298 @@
 	        height: '400px',
 	        iscrollOptions: {
 	          scrollbars: true
-	        } },
+	        }, __self: this
+	      },
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'wrap' },
+	        { className: 'wrap', __self: this
+	        },
 	        _react2.default.createElement(
 	          'h2',
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Vertical'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '哈哈哈哈哈哈'
 	        )
 	      )
 	    ),
-	    _react2.default.createElement('br', null),
-	    _react2.default.createElement('br', null),
+	    _react2.default.createElement('br', {
+	      __self: this
+	    }),
+	    _react2.default.createElement('br', {
+	      __self: this
+	    }),
 	    _react2.default.createElement(
 	      'h2',
-	      null,
+	      {
+	        __self: this
+	      },
 	      'Horizontal'
 	    ),
 	    _react2.default.createElement(
@@ -34935,53 +35587,74 @@
 	        iscrollOptions: {
 	          scrollY: false,
 	          scrollX: true
-	        } },
+	        }, __self: this
+	      },
 	      _react2.default.createElement(
 	        'ul',
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          'li',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '1'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '2'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '3'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '4'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '5'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '6'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '7'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '8'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          null,
+	          {
+	            __self: this
+	          },
 	          '9'
 	        )
 	      )
@@ -34990,7 +35663,7 @@
 	}
 
 /***/ },
-/* 327 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35004,17 +35677,21 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function SelectPage() {
 	  return _react2.default.createElement(
 	    _daifeeReactComponent.Page,
-	    null,
+	    {
+	      __self: this
+	    },
 	    _react2.default.createElement(
 	      'h1',
-	      null,
+	      {
+	        __self: this
+	      },
 	      'Select'
 	    ),
 	    _react2.default.createElement(_daifeeReactComponent.Select, {
@@ -35022,12 +35699,13 @@
 	      selectedIndex: 7,
 	      onChange: function onChange(index) {
 	        console.log(index);
-	      } })
+	      }, __self: this
+	    })
 	  );
 	}
 
 /***/ },
-/* 328 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35036,7 +35714,7 @@
 	  value: true
 	});
 
-	var _Cell = __webpack_require__(315);
+	var _Cell = __webpack_require__(316);
 
 	var _Cell2 = _interopRequireDefault(_Cell);
 
@@ -35045,7 +35723,7 @@
 	exports.default = _Cell2.default;
 
 /***/ },
-/* 329 */
+/* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35060,7 +35738,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35099,10 +35777,14 @@
 
 	      return _react2.default.createElement(
 	        _daifeeReactComponent.Page,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          _daifeeReactComponent.TabBar,
-	          null,
+	          {
+	            __self: this
+	          },
 	          _react2.default.createElement(
 	            _daifeeReactComponent.TabBar.Item,
 	            {
@@ -35112,30 +35794,41 @@
 	                _this2.setState({
 	                  selectedIndex: 0
 	                });
-	              } },
+	              }, __self: this
+	            },
 	            _react2.default.createElement(
 	              'h1',
-	              null,
+	              {
+	                __self: this
+	              },
 	              'TabBar'
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              {
+	                __self: this
+	              },
 	              '发i哦剪发i熬剪发i道交法i都爱'
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              {
+	                __self: this
+	              },
 	              '发i哦剪发i熬剪发i道交法i都爱'
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              {
+	                __self: this
+	              },
 	              '发i哦剪发i熬剪发i道交法i都爱'
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              {
+	                __self: this
+	              },
 	              '发i哦剪发i熬剪发i道交法i都爱'
 	            )
 	          ),
@@ -35148,30 +35841,41 @@
 	                _this2.setState({
 	                  selectedIndex: 1
 	                });
-	              } },
+	              }, __self: this
+	            },
 	            _react2.default.createElement(
 	              'h1',
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Attention'
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              {
+	                __self: this
+	              },
 	              '放假爱偶佛教阿迪哦放假带哦'
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              {
+	                __self: this
+	              },
 	              '放假爱偶佛教阿迪哦放假带哦'
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              {
+	                __self: this
+	              },
 	              '放假爱偶佛教阿迪哦放假带哦'
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              {
+	                __self: this
+	              },
 	              '放假爱偶佛教阿迪哦放假带哦'
 	            )
 	          ),
@@ -35184,30 +35888,41 @@
 	                _this2.setState({
 	                  selectedIndex: 2
 	                });
-	              } },
+	              }, __self: this
+	            },
 	            _react2.default.createElement(
 	              'h1',
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Loading'
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Loading loiading'
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Loading loiading'
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Loading loiading'
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              {
+	                __self: this
+	              },
 	              'Loading loiading'
 	            )
 	          )
@@ -35222,7 +35937,7 @@
 	exports.default = TabBarPage;
 
 /***/ },
-/* 330 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35239,7 +35954,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _daifeeReactComponent = __webpack_require__(231);
+	var _daifeeReactComponent = __webpack_require__(232);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35283,75 +35998,104 @@
 
 	      return _react2.default.createElement(
 	        _daifeeReactComponent.Page,
-	        null,
+	        {
+	          __self: this
+	        },
 	        _react2.default.createElement(
 	          'h1',
-	          null,
+	          {
+	            __self: this
+	          },
 	          'Toast'
 	        ),
 	        _react2.default.createElement(
 	          _daifeeReactComponent.Cells,
-	          null,
+	          {
+	            __self: this
+	          },
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Cell,
-	            { arrow: false },
+	            { arrow: false, __self: this
+	            },
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellBody,
-	              null,
+	              {
+	                __self: this
+	              },
 	              'loading'
 	            ),
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellFooter,
-	              null,
+	              {
+	                __self: this
+	              },
 	              _react2.default.createElement(_daifeeReactComponent.Switch, {
 	                checked: loading,
 	                onChange: function onChange(e) {
 	                  _this2.setState(_extends({}, _this2.state, { loading: e.target.checked }));
-	                } })
+	                }, __self: this
+	              })
 	            )
 	          ),
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Cell,
-	            { arrow: false },
+	            { arrow: false, __self: this
+	            },
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellBody,
-	              null,
+	              {
+	                __self: this
+	              },
 	              'attention'
 	            ),
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellFooter,
-	              null,
+	              {
+	                __self: this
+	              },
 	              _react2.default.createElement(_daifeeReactComponent.Switch, {
 	                checked: attention,
 	                onChange: function onChange(e) {
 	                  _this2.setState(_extends({}, _this2.state, { attention: e.target.checked }));
-	                } })
+	                }, __self: this
+	              })
 	            )
 	          ),
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Cell,
-	            { arrow: false },
+	            { arrow: false, __self: this
+	            },
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellBody,
-	              null,
+	              {
+	                __self: this
+	              },
 	              'tips'
 	            ),
 	            _react2.default.createElement(
 	              _daifeeReactComponent.CellFooter,
-	              null,
+	              {
+	                __self: this
+	              },
 	              _react2.default.createElement(_daifeeReactComponent.Switch, {
 	                checked: tips,
 	                onChange: function onChange(e) {
 	                  _this2.setState(_extends({}, _this2.state, { tips: e.target.checked }));
-	                } })
+	                }, __self: this
+	              })
 	            )
 	          )
 	        ),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('br', {
+	          __self: this
+	        }),
+	        _react2.default.createElement('br', {
+	          __self: this
+	        }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'wrap' },
+	          { className: 'wrap', __self: this
+	          },
 	          _react2.default.createElement(
 	            _daifeeReactComponent.Button,
 	            { onClick: function onClick() {
@@ -35359,18 +36103,22 @@
 	                  icon: 'attention',
 	                  content: 'API 调用'
 	                }, {}, 3000);
-	              } },
+	              }, __self: this
+	            },
 	            '调用接口'
 	          )
 	        ),
 	        loading ? _react2.default.createElement(_daifeeReactComponent.Toast, {
 	          icon: 'loading',
-	          content: '加载中...' }) : null,
+	          content: '加载中...', __self: this
+	        }) : null,
 	        attention ? _react2.default.createElement(_daifeeReactComponent.Toast, {
 	          icon: 'attention',
-	          content: '注意啦！' }) : null,
+	          content: '注意啦！', __self: this
+	        }) : null,
 	        tips ? _react2.default.createElement(_daifeeReactComponent.Toast, {
-	          content: '我没有 icon' }) : null
+	          content: '我没有 icon', __self: this
+	        }) : null
 	      );
 	    }
 	  }]);
@@ -35381,7 +36129,7 @@
 	exports.default = ToastPage;
 
 /***/ },
-/* 331 */
+/* 332 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;;(function () {
@@ -36228,7 +36976,7 @@
 
 
 /***/ },
-/* 332 */
+/* 333 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

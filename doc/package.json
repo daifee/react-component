@@ -7,14 +7,18 @@
     "url": "https://github.com/daifee/react-component.git"
   },
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --progress --colors --host 0.0.0.0 --port 8082  --config ./webpack.config.dev.js",
-    "test": "npm run lint && mocha --require ./test/setup.js --compilers js:babel-core/register --recursive",
+    "refreshPages": "node ./example/createPagesMapping.js",
+    "start": "npm run refreshPages && webpack-dev-server --hot --inline --progress --colors --host 0.0.0.0 --port 8082  --config ./webpack.config.dev.js",
+    "test": "exit 0 && npm run lint && mocha --require ./test/setup.js --compilers js:babel-core/register --recursive",
     "lint": "eslint src/",
     "lint:watch": "esw -w src/",
-    "esdoc": "esdoc -c esdoc.json",
+    "doc": "esdoc -c esdoc.json",
     "build": "npm run clear && npm run build:development && npm run build:production",
     "build:production": "NODE_ENV=production webpack -p --progress --colors",
     "build:development": "NODE_ENV=development webpack --progress --colors",
+    "build:website": "./website/build.js",
+    "build:website-demos": "webpack --propress --colors --config ./website/webpack.config.demos.js",
+    "build:website-demos-externals": "webpack --propress --colors --config ./website/webpack.config.demos-externals.js",
     "clear": "rm -rf ./dist",
     "prepublish": "npm run test",
     "postpublish": "git push --all",
@@ -40,6 +44,7 @@
     "babel-preset-stage-1": "^6.5.0",
     "chai": "^3.5.0",
     "css-loader": "^0.23.1",
+    "ejs": "^2.4.2",
     "enzyme": "^2.3.0",
     "esdoc": "^0.4.7",
     "esdoc-es7-plugin": "0.0.3",
@@ -71,6 +76,6 @@
     "react": "^15.1.0",
     "react-addons-css-transition-group": "^15.1.0",
     "react-dom": "^15.1.0",
-    "xiscroll": "^5.2.0"
+    "xiscroll": "^5.2.3"
   }
 }
