@@ -20,4 +20,7 @@ execSync(`cp -R ${xiscrollPath} ${externalPath}`);
 execSync(`cp -R ${distPath} ${externalPath}`);
 
 // webpack 编译
-execSync(`cd ${ROOT_PATH} && npm run build:website`);
+execSync(`cd ${ROOT_PATH}`);
+execSync('npm run doc');
+execSync('npm run build:website-demos');
+execSync('npm run build:website-demos-externals');

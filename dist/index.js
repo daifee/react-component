@@ -11,41 +11,41 @@
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -55,14 +55,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.Fade = exports.Page = exports.DatePicker = exports.Select = exports.ListView = exports.ScrollView = exports.Checkbox = exports.Switch = exports.Popup = exports.TabBarItem = exports.TabBar = exports.ActionSheet = exports.Notification = exports.Dialog = exports.Toast = exports.Mask = exports.Button = exports.CellsTips = exports.CellsTitle = exports.Cells = exports.CellHeader = exports.CellFooter = exports.CellBody = exports.Cell = exports.IconCheck = exports.IconLoading = exports.IconAttention = undefined;
-	
+
 	var _Icon = __webpack_require__(6);
-	
+
 	Object.defineProperty(exports, 'IconAttention', {
 	  enumerable: true,
 	  get: function get() {
@@ -81,9 +81,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return _Icon.IconCheck;
 	  }
 	});
-	
+
 	var _Cell = __webpack_require__(22);
-	
+
 	Object.defineProperty(exports, 'Cell', {
 	  enumerable: true,
 	  get: function get() {
@@ -126,9 +126,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return _Cell.CellsTips;
 	  }
 	});
-	
+
 	var _TabBar = __webpack_require__(34);
-	
+
 	Object.defineProperty(exports, 'TabBar', {
 	  enumerable: true,
 	  get: function get() {
@@ -141,71 +141,71 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return _TabBar.TabBarItem;
 	  }
 	});
-	
+
 	__webpack_require__(55);
-	
+
 	var _Button2 = __webpack_require__(14);
-	
+
 	var _Button3 = _interopRequireDefault(_Button2);
-	
+
 	var _Mask2 = __webpack_require__(8);
-	
+
 	var _Mask3 = _interopRequireDefault(_Mask2);
-	
+
 	var _Toast2 = __webpack_require__(35);
-	
+
 	var _Toast3 = _interopRequireDefault(_Toast2);
-	
+
 	var _Dialog2 = __webpack_require__(25);
-	
+
 	var _Dialog3 = _interopRequireDefault(_Dialog2);
-	
+
 	var _Notification2 = __webpack_require__(30);
-	
+
 	var _Notification3 = _interopRequireDefault(_Notification2);
-	
+
 	var _ActionSheet2 = __webpack_require__(13);
-	
+
 	var _ActionSheet3 = _interopRequireDefault(_ActionSheet2);
-	
+
 	var _Popup2 = __webpack_require__(3);
-	
+
 	var _Popup3 = _interopRequireDefault(_Popup2);
-	
+
 	var _Switch2 = __webpack_require__(32);
-	
+
 	var _Switch3 = _interopRequireDefault(_Switch2);
-	
+
 	var _Checkbox2 = __webpack_require__(23);
-	
+
 	var _Checkbox3 = _interopRequireDefault(_Checkbox2);
-	
+
 	var _ScrollView2 = __webpack_require__(9);
-	
+
 	var _ScrollView3 = _interopRequireDefault(_ScrollView2);
-	
+
 	var _ListView2 = __webpack_require__(29);
-	
+
 	var _ListView3 = _interopRequireDefault(_ListView2);
-	
+
 	var _Select2 = __webpack_require__(10);
-	
+
 	var _Select3 = _interopRequireDefault(_Select2);
-	
+
 	var _DatePicker2 = __webpack_require__(24);
-	
+
 	var _DatePicker3 = _interopRequireDefault(_DatePicker2);
-	
+
 	var _Page2 = __webpack_require__(31);
-	
+
 	var _Page3 = _interopRequireDefault(_Page2);
-	
+
 	var _Fade2 = __webpack_require__(5);
-	
+
 	var _Fade3 = _interopRequireDefault(_Fade2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	exports.Button = _Button3.default;
 	exports.Mask = _Mask3.default;
 	exports.Toast = _Toast3.default;
@@ -233,32 +233,32 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
+
 	exports.classNames = classNames;
 	exports.createInstance = createInstance;
-	
+
 	var _config = __webpack_require__(36);
-	
+
 	var _config2 = _interopRequireDefault(_config);
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactDom = __webpack_require__(56);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	var namespace = _config2.default.namespace;
-	
+
 	var hasOwn = {}.hasOwnProperty;
-	
+
 	/**
 	 * 包装返回 className
 	 * @param  {string|object} args 要被包装的 className
@@ -282,17 +282,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var arg = void 0,
 	      argType = void 0,
 	      key = void 0;
-	
+
 	  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	    args[_key] = arguments[_key];
 	  }
-	
+
 	  for (var i = 0, len = args.length; i < len; i++) {
 	    arg = args[i];
 	    argType = typeof arg === 'undefined' ? 'undefined' : _typeof(arg);
-	
+
 	    if (!arg) continue;
-	
+
 	    if (argType === 'string' || argType === 'number') {
 	      prePush(classes, arg);
 	    } else if (Array.isArray(arg)) {
@@ -300,7 +300,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else if (argType === 'object') {
 	      for (key in arg) {
 	        if (!hasOwn.call(arg, key) || !arg[key]) continue;
-	
+
 	        // 用户传入的
 	        if (key === '_user') {
 	          classes.push(arg[key]);
@@ -310,15 +310,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  }
-	
+
 	  return classes.join(' ');
 	}
-	
+
 	function prePush(arr, value) {
 	  value = namespace + '-' + value;
 	  return arr.push(value);
 	}
-	
+
 	/**
 	 * 根据传入的 Component 创建一个实例，并渲染到 container
 	 * @param  {Component} Component React 组件
@@ -330,12 +330,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (!container) {
 	    container = createContainer();
 	  }
-	
+
 	  return (0, _reactDom.render)(_react2.default.createElement(Component, {
 	    __self: this
 	  }), container);
 	}
-	
+
 	/**
 	 * 创建一个 dom 节点，div.${namespace}-apicontainer
 	 * @return {dom} 节点
@@ -344,7 +344,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var div = document.createElement('div');
 	  div.className = classNames('api-container');
 	  document.body.appendChild(div);
-	
+
 	  return div;
 	}
 
@@ -353,35 +353,35 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = Popup;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	var _reactAddonsCssTransitionGroup = __webpack_require__(4);
-	
+
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
-	
+
 	var _ChildContainer = __webpack_require__(7);
-	
+
 	var _ChildContainer2 = _interopRequireDefault(_ChildContainer);
-	
+
 	__webpack_require__(49);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * 弹出层（抽屉）动画组件
 	 * @param {object} props see Popup.propTypes
@@ -394,15 +394,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var children = props.children;
 	  var className = props.className;
 	  var style = props.style;
-	
+
 	  var others = _objectWithoutProperties(props, ['show', 'duration', 'timingFunction', 'direction', 'children', 'className', 'style']);
-	
+
 	  className = (0, _utils.classNames)('popup', { _user: className });
 	  style = _extends({}, style, {
 	    transitionDuration: duration + 'ms',
 	    transitionTimingFunction: timingFunction
 	  });
-	
+
 	  return _react2.default.createElement(
 	    _reactAddonsCssTransitionGroup2.default,
 	    {
@@ -427,7 +427,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ) : null
 	  );
 	}
-	
+
 	/**
 	 * 定义属性类型
 	 * @type {Object}
@@ -445,7 +445,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  className: _react.PropTypes.string,
 	  style: _react.PropTypes.object
 	};
-	
+
 	Popup.defaultProps = {
 	  show: false,
 	  duration: 400,
@@ -464,35 +464,35 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = Fade;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactAddonsCssTransitionGroup = __webpack_require__(4);
-	
+
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
-	
+
 	var _ChildContainer = __webpack_require__(7);
-	
+
 	var _ChildContainer2 = _interopRequireDefault(_ChildContainer);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	__webpack_require__(43);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * 淡入淡出动画组件
 	 * @param {object} props see Fade.propTypes
@@ -504,15 +504,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var children = props.children;
 	  var style = props.style;
 	  var className = props.className;
-	
+
 	  var others = _objectWithoutProperties(props, ['show', 'duration', 'timingFunction', 'children', 'style', 'className']);
-	
+
 	  style = _extends({}, style, {
 	    transitionDuration: duration + 'ms',
 	    transitionTimingFunction: timingFunction
 	  });
 	  className = (0, _utils.classNames)('fade', { _user: className });
-	
+
 	  return _react2.default.createElement(
 	    _reactAddonsCssTransitionGroup2.default,
 	    {
@@ -530,7 +530,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ) : null
 	  );
 	}
-	
+
 	/**
 	 * 定义属性类型
 	 * @type {Object}
@@ -548,7 +548,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  style: _react.PropTypes.object,
 	  children: _react.PropTypes.node
 	};
-	
+
 	Fade.defaultProps = {
 	  show: false,
 	  duration: 80,
@@ -561,28 +561,28 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.IconCheck = exports.IconLoading = exports.IconAttention = undefined;
-	
+
 	__webpack_require__(44);
-	
+
 	var _IconAttention2 = __webpack_require__(26);
-	
+
 	var _IconAttention3 = _interopRequireDefault(_IconAttention2);
-	
+
 	var _IconLoading2 = __webpack_require__(28);
-	
+
 	var _IconLoading3 = _interopRequireDefault(_IconLoading2);
-	
+
 	var _IconCheck2 = __webpack_require__(27);
-	
+
 	var _IconCheck3 = _interopRequireDefault(_IconCheck2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	exports.IconAttention = _IconAttention3.default;
 	exports.IconLoading = _IconLoading3.default;
 	exports.IconCheck = _IconCheck3.default;
@@ -592,13 +592,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.default = ChildContainer;
 	//
-	
+
 	function ChildContainer(props) {
 	  return props.children[0] ? props.children[0] : null;
 	}
@@ -608,27 +608,27 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = Mask;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	__webpack_require__(46);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * Mask UI
 	 * @param {props} props see Mask.propTypes
@@ -637,14 +637,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var className = props.className;
 	  var transparent = props.transparent;
 	  var children = props.children;
-	
+
 	  var others = _objectWithoutProperties(props, ['className', 'transparent', 'children']);
-	
+
 	  className = (0, _utils.classNames)('mask', {
 	    _user: className,
 	    'mask-transparent': transparent
 	  });
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({ className: className }, others, {
@@ -653,7 +653,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children
 	  );
 	}
-	
+
 	/**
 	 * props
 	 * @type {Object}
@@ -670,56 +670,56 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _xiscroll = __webpack_require__(12);
-	
+
 	var _xiscroll2 = _interopRequireDefault(_xiscroll);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	__webpack_require__(50);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	/**
 	 * ScrollView UI
 	 * @param {object} props see static propTypes
 	 */
-	
+
 	var ScrollView = function (_Component) {
 	  _inherits(ScrollView, _Component);
-	
+
 	  function ScrollView() {
 	    var _Object$getPrototypeO;
-	
+
 	    var _temp, _this, _ret;
-	
+
 	    _classCallCheck(this, ScrollView);
-	
+
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
-	
+
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ScrollView)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.iscroller = null, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 	  /**
@@ -729,11 +729,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * width: 定义组件宽度
 	   * height: 定义组件高度
 	   */
-	
-	
+
+
 	  // IScroll 实例
-	
-	
+
+
 	  _createClass(ScrollView, [{
 	    key: 'render',
 	    value: function render() {
@@ -743,12 +743,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var className = _props.className;
 	      var children = _props.children;
 	      var style = _props.style;
-	
+
 	      var others = _objectWithoutProperties(_props, ['width', 'height', 'className', 'children', 'style']);
-	
+
 	      className = (0, _utils.classNames)('scroll-view', { _user: className });
 	      style = _extends({}, style, { width: width, height: height });
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        _extends({ ref: 'wrapper', className: className, style: style }, others, {
@@ -767,21 +767,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function componentDidMount() {
 	      var iscrollOptions = this.props.iscrollOptions;
 	      var wrapper = this.refs.wrapper;
-	
+
 	      this.iscroller = new _xiscroll2.default(wrapper, _extends({
 	        probeType: 2,
 	        mouseWheel: true
 	      }, iscrollOptions));
-	
+
 	      wrapper.addEventListener('touchmove', function (e) {
 	        e.preventDefault();
 	      });
 	    }
 	  }]);
-	
+
 	  return ScrollView;
 	}(_react.Component);
-	
+
 	ScrollView.propTypes = {
 	  iscrollOptions: _react.PropTypes.object,
 	  width: _react.PropTypes.string,
@@ -801,65 +801,65 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	var _xiscroll = __webpack_require__(12);
-	
+
 	var _xiscroll2 = _interopRequireDefault(_xiscroll);
-	
+
 	__webpack_require__(51);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var height = 34;
 	var maskStyle = { height: height * 3 + 'px' };
 	var optionStyle = {
 	  height: height + 'px',
 	  lineHeight: height + 'px'
 	};
-	
+
 	/**
 	 * Select UI
 	 * @param {object} props see static propTypes
 	 */
-	
+
 	var Select = function (_Component) {
 	  _inherits(Select, _Component);
-	
+
 	  function Select() {
 	    var _Object$getPrototypeO;
-	
+
 	    var _temp, _this, _ret;
-	
+
 	    _classCallCheck(this, Select);
-	
+
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
-	
+
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Select)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.iscroller = null, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 	  /**
@@ -870,28 +870,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * onChange: 监听 selectedIndex 改变，参数是 [selectedIndex]
 	   * iscrollOptions: 配置 iscroll
 	   */
-	
-	
+
+
 	  // iscroll 实例
-	
-	
+
+
 	  _createClass(Select, [{
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
-	
+
 	      var _props = this.props;
 	      var options = _props.options;
 	      var className = _props.className;
 	      var style = _props.style;
-	
+
 	      var others = _objectWithoutProperties(_props, ['options', 'className', 'style']);
-	
+
 	      className = (0, _utils.classNames)('select', { _user: className });
 	      style = _extends({}, style, { height: height * 7 + 'px' });
 	      // fill
 	      options = ['', '', ''].concat(options).concat(['', '', '']);
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        _extends({ ref: 'wrapper', className: className, style: style }, others, {
@@ -904,7 +904,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          options.map(function (option, index) {
 	            var name = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) === 'object' ? option.name : option;
 	            var key = index + '@-@' + name;
-	
+
 	            return _react2.default.createElement(
 	              'li',
 	              { key: key, style: optionStyle, __self: _this2
@@ -923,41 +923,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this3 = this;
-	
+
 	      var _props2 = this.props;
 	      var iscrollOptions = _props2.iscrollOptions;
 	      var onChange = _props2.onChange;
 	      var wrapper = this.refs.wrapper;
 	      // fuck a bug
-	
+
 	      setTimeout(function () {
 	        _this3.iscroller = new _xiscroll2.default(wrapper, _extends({
 	          probeType: 2 }, iscrollOptions));
-	
+
 	        _this3.iscroller.on('scrollEnd', function () {
 	          var index = Math.abs(_this3.iscroller.y / height);
 	          onChange && onChange(index);
 	        });
-	
+
 	        // 通过 hookNewY 修改滚动位置
 	        _this3.iscroller.hookNewY = function (newY) {
 	          // Math.ceil(-8.74) = -8
 	          // 所以已经 -1 了
 	          var index = Math.ceil(newY / height);
-	
+
 	          if (Math.abs(_this3.iscroller.distY) > height / 2) {
 	            if (_this3.iscroller.directionY === 1) {
 	              index -= 1;
 	            }
 	          }
-	
+
 	          newY = index * height;
-	
+
 	          return newY;
 	        };
-	
+
 	        _this3.resetPosition();
-	
+
 	        // 阻止默认事件
 	        wrapper.addEventListener('touchmove', function (e) {
 	          e.preventDefault();
@@ -980,14 +980,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function resetPosition() {
 	      var selectedIndex = this.props.selectedIndex;
 	      // 定位到指定的 selectIndex
-	
+
 	      this.iscroller.scrollTo(0, -selectedIndex * height);
 	    }
 	  }]);
-	
+
 	  return Select;
 	}(_react.Component);
-	
+
 	Select.propTypes = {
 	  options: _react.PropTypes.array.isRequired,
 	  selectedIndex: _react.PropTypes.number,
@@ -1006,28 +1006,28 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.default = TabBarItem;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function TabBarItem(props) {
 	  var selected = props.selected;
 	  var children = props.children;
-	
+
 	  var className = (0, _utils.classNames)('tab-bar-body-item', {
 	    'tab-bar-body-item-selected': selected
 	  });
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    { className: className, __self: this
@@ -1035,7 +1035,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children
 	  );
 	}
-	
+
 	TabBarItem.propTypes = {
 	  children: _react.PropTypes.node,
 	  selected: _react.PropTypes.bool,
@@ -1058,41 +1058,41 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = ActionSheet;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	__webpack_require__(37);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	var _Popup = __webpack_require__(3);
-	
+
 	var _Popup2 = _interopRequireDefault(_Popup);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	var apiInstance = void 0;
-	
+
 	/**
 	 * action 按钮
 	 * @param {object} props see Button.propTypes
@@ -1103,12 +1103,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var cancel = props.cancel;
 	  var destroy = props.destroy;
 	  var callback = props.callback;
-	
+
 	  var className = (0, _utils.classNames)('action-sheet-item', {
 	    'action-sheet-item-cancel': cancel,
 	    'action-sheet-item-destroy': destroy
 	  });
-	
+
 	  return _react2.default.createElement(
 	    'li',
 	    { className: className, onClick: function onClick() {
@@ -1124,7 +1124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    )
 	  );
 	}
-	
+
 	/**
 	 * 传入 Button 的属性
 	 * @type {Object}
@@ -1141,26 +1141,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	  destroy: _react.PropTypes.bool,
 	  callback: _react.PropTypes.func.isRequired
 	};
-	
+
 	/**
 	 * ActionSheet UI
 	 * @param {object} props see ActionSheet.propTypes
 	 */
 	function ActionSheet(props) {
 	  var _this = this;
-	
+
 	  var title = props.title;
 	  var actions = props.actions;
 	  var callback = props.callback;
 	  var cancelIndex = props.cancelIndex;
 	  var destroyIndex = props.destroyIndex;
 	  var className = props.className;
-	
+
 	  var others = _objectWithoutProperties(props, ['title', 'actions', 'callback', 'cancelIndex', 'destroyIndex', 'className']);
-	
+
 	  className = (0, _utils.classNames)('action-sheet', { _user: className });
 	  typeof cancelIndex === 'undefined' && (cancelIndex = actions.length - 1);
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({ className: className }, others, {
@@ -1194,7 +1194,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    )
 	  );
 	}
-	
+
 	/**
 	 * ActionSheet 的 props
 	 * @type {Object}
@@ -1212,7 +1212,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  destroyIndex: _react.PropTypes.number,
 	  className: _react.PropTypes.string
 	};
-	
+
 	/**
 	 * 创建 ActionSheet 的 ApiContainer 实例
 	 * @param  {node} container {@see createInstance}
@@ -1221,7 +1221,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	ActionSheet.getInstance = function (container) {
 	  return (0, _utils.createInstance)(ApiContainer, container);
 	};
-	
+
 	/**
 	 * 显示全局ActionSheet
 	 * @param  {object} props      see ActionSheet.propTypes
@@ -1231,21 +1231,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	ActionSheet.show = function (props, popupProps) {
 	  apiInstance.show(props, popupProps);
 	};
-	
+
 	var ApiContainer = function (_Component) {
 	  _inherits(ApiContainer, _Component);
-	
+
 	  function ApiContainer() {
 	    var _Object$getPrototypeO;
-	
+
 	    var _temp, _this2, _ret;
-	
+
 	    _classCallCheck(this, ApiContainer);
-	
+
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
-	
+
 	    return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this2), _this2.state = {
 	      props: {
 	        actions: [],
@@ -1256,15 +1256,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }, _temp), _possibleConstructorReturn(_this2, _ret);
 	  }
-	
+
 	  _createClass(ApiContainer, [{
 	    key: 'render',
 	    value: function render() {
 	      var _state = this.state;
 	      var props = _state.props;
 	      var popupProps = _state.popupProps;
-	
-	
+
+
 	      return _react2.default.createElement(
 	        _Popup2.default,
 	        _extends({}, popupProps, {
@@ -1279,12 +1279,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'show',
 	    value: function show(props, popupProps) {
 	      props = this._decorateProps(props);
-	
+
 	      var nextState = {
 	        props: _extends({}, this.state.props, props),
 	        popupProps: _extends({}, this.state.popupProps, popupProps, { show: true })
 	      };
-	
+
 	      this.setState(nextState);
 	    }
 	  }, {
@@ -1293,27 +1293,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var nextState = _extends({}, this.state, {
 	        popupProps: _extends({}, this.state.popupProps, { show: false })
 	      });
-	
+
 	      this.setState(nextState);
 	    }
 	  }, {
 	    key: '_decorateProps',
 	    value: function _decorateProps(props) {
 	      var _this3 = this;
-	
+
 	      var callback = props.callback;
 	      props.callback = function (index) {
 	        callback && callback(index);
 	        _this3.hide();
 	      };
-	
+
 	      return props;
 	    }
 	  }]);
-	
+
 	  return ApiContainer;
 	}(_react.Component);
-	
+
 	apiInstance = (0, _utils.createInstance)(ApiContainer);
 
 /***/ },
@@ -1321,49 +1321,49 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = Button;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	__webpack_require__(38);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * Button UI
 	 * @param {object} props see Button.propTypes
 	 */
 	function Button(props) {
 	  var _classNames;
-	
+
 	  var type = props.type;
 	  var disabled = props.disabled;
 	  var href = props.href;
 	  var children = props.children;
 	  var className = props.className;
-	
+
 	  var others = _objectWithoutProperties(props, ['type', 'disabled', 'href', 'children', 'className']);
-	
+
 	  className = (0, _utils.classNames)('btn', (_classNames = {
 	    '_user': className
 	  }, _defineProperty(_classNames, 'btn-' + type, true), _defineProperty(_classNames, 'btn-disabled', disabled), _classNames));
 	  var Component = href ? 'a' : 'button';
-	
+
 	  return _react2.default.createElement(
 	    Component,
 	    _extends({
@@ -1376,7 +1376,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children
 	  );
 	}
-	
+
 	/**
 	 * Button 的 props
 	 * @type {Object}
@@ -1391,7 +1391,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  children: _react.PropTypes.node,
 	  className: _react.PropTypes.string
 	};
-	
+
 	Button.defaultProps = {
 	  type: 'default'
 	};
@@ -1401,25 +1401,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = Cell;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * Cell UI
 	 * @param {object} props see Cell.propTypes
@@ -1431,17 +1431,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var access = props.access;
 	  var arrow = props.arrow;
 	  var component = props.component;
-	
+
 	  var others = _objectWithoutProperties(props, ['children', 'className', 'href', 'access', 'arrow', 'component']);
-	
+
 	  className = (0, _utils.classNames)('cell', {
 	    'cell-access': access,
 	    'cell-arrow': arrow,
 	    _user: className
 	  });
-	
+
 	  var Component = component ? component : href ? 'a' : 'div';
-	
+
 	  return _react2.default.createElement(
 	    Component,
 	    _extends({}, others, { href: href, className: className, __self: this
@@ -1449,7 +1449,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children
 	  );
 	}
-	
+
 	/**
 	 * Cell 的 props
 	 * @type {Object}
@@ -1467,7 +1467,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  children: _react.PropTypes.node,
 	  className: _react.PropTypes.string
 	};
-	
+
 	Cell.defaultProps = {
 	  access: true,
 	  arrow: true
@@ -1478,25 +1478,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = CellBody;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * CellBody UI
 	 * @param {object} props see CellBody.propTypes
@@ -1504,11 +1504,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function CellBody(props) {
 	  var className = props.className;
 	  var children = props.children;
-	
+
 	  var others = _objectWithoutProperties(props, ['className', 'children']);
-	
+
 	  className = (0, _utils.classNames)('cell-body', { _user: className });
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({}, others, { className: className, __self: this
@@ -1516,7 +1516,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children
 	  );
 	}
-	
+
 	/**
 	 * CellBody 的 props
 	 * @type {Object}
@@ -1531,25 +1531,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = CellFooter;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * CellFooter UI
 	 * @param {object} props see CellFooter.propTypes
@@ -1557,11 +1557,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function CellFooter(props) {
 	  var className = props.className;
 	  var children = props.children;
-	
+
 	  var others = _objectWithoutProperties(props, ['className', 'children']);
-	
+
 	  className = (0, _utils.classNames)('cell-footer', { _user: className });
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({}, others, { className: className, __self: this
@@ -1569,7 +1569,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children
 	  );
 	}
-	
+
 	/**
 	 * CellFooter 的 props
 	 * @type {Object}
@@ -1584,25 +1584,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = CellHeader;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * CellHeader UI
 	 * @param {object} props see CellHeader.propTypes
@@ -1610,11 +1610,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function CellHeader(props) {
 	  var className = props.className;
 	  var children = props.children;
-	
+
 	  var others = _objectWithoutProperties(props, ['className', 'children']);
-	
+
 	  className = (0, _utils.classNames)('cell-header', { _user: className });
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({}, others, { className: className, __self: this
@@ -1622,7 +1622,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children
 	  );
 	}
-	
+
 	/**
 	 * CellHeader 的 props
 	 * @type {Object}
@@ -1637,25 +1637,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = Cells;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * Cells UI
 	 * @param {object} props see Cells.propTypes
@@ -1663,11 +1663,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function Cells(props) {
 	  var className = props.className;
 	  var children = props.children;
-	
+
 	  var others = _objectWithoutProperties(props, ['className', 'children']);
-	
+
 	  className = (0, _utils.classNames)('cells', { _user: className });
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({}, others, { className: className, __self: this
@@ -1675,7 +1675,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children
 	  );
 	}
-	
+
 	/**
 	 * Cells 的 props
 	 * @type {Object}
@@ -1690,25 +1690,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = CellTips;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * CellTips UI
 	 * @param {object} props see CellTips.propTypes
@@ -1716,11 +1716,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function CellTips(props) {
 	  var className = props.className;
 	  var children = props.children;
-	
+
 	  var others = _objectWithoutProperties(props, ['className', 'children']);
-	
+
 	  className = (0, _utils.classNames)('cells-tips', { _user: className });
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({}, others, { className: className, __self: this
@@ -1728,7 +1728,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children
 	  );
 	}
-	
+
 	/**
 	 * CellTips 的 props
 	 * @type {Object}
@@ -1743,25 +1743,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = CellTitle;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * CellTitle UI
 	 * @param {object} props see CellTitle.propTypes
@@ -1769,11 +1769,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function CellTitle(props) {
 	  var className = props.className;
 	  var children = props.children;
-	
+
 	  var others = _objectWithoutProperties(props, ['className', 'children']);
-	
+
 	  className = (0, _utils.classNames)('cells-title', { _user: className });
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({}, others, { className: className, __self: this
@@ -1781,7 +1781,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children
 	  );
 	}
-	
+
 	/**
 	 * CellTitle 的 props
 	 * @type {Object}
@@ -1796,44 +1796,44 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.CellsTips = exports.CellsTitle = exports.Cells = exports.CellHeader = exports.CellFooter = exports.CellBody = exports.Cell = undefined;
-	
+
 	__webpack_require__(39);
-	
+
 	var _Cell2 = __webpack_require__(15);
-	
+
 	var _Cell3 = _interopRequireDefault(_Cell2);
-	
+
 	var _CellBody2 = __webpack_require__(16);
-	
+
 	var _CellBody3 = _interopRequireDefault(_CellBody2);
-	
+
 	var _CellFooter2 = __webpack_require__(17);
-	
+
 	var _CellFooter3 = _interopRequireDefault(_CellFooter2);
-	
+
 	var _CellHeader2 = __webpack_require__(18);
-	
+
 	var _CellHeader3 = _interopRequireDefault(_CellHeader2);
-	
+
 	var _Cells2 = __webpack_require__(19);
-	
+
 	var _Cells3 = _interopRequireDefault(_Cells2);
-	
+
 	var _CellsTitle2 = __webpack_require__(21);
-	
+
 	var _CellsTitle3 = _interopRequireDefault(_CellsTitle2);
-	
+
 	var _CellsTips2 = __webpack_require__(20);
-	
+
 	var _CellsTips3 = _interopRequireDefault(_CellsTips2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	exports.Cell = _Cell3.default;
 	exports.CellBody = _CellBody3.default;
 	exports.CellFooter = _CellFooter3.default;
@@ -1847,29 +1847,29 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = Checkbox;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	var _Icon = __webpack_require__(6);
-	
+
 	__webpack_require__(40);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * Checkbox
 	 * 渲染 <input type="checkbox" />
@@ -1879,12 +1879,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var checked = props.checked;
 	  var disabled = props.disabled;
 	  var className = props.className;
-	
+
 	  var others = _objectWithoutProperties(props, ['checked', 'disabled', 'className']);
-	
+
 	  className += ' ' + _Icon.IconCheck.className;
 	  className = (0, _utils.classNames)('checkbox', { _user: className });
-	
+
 	  return _react2.default.createElement('input', _extends({
 	    className: className,
 	    type: 'checkbox',
@@ -1894,7 +1894,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    __self: this
 	  }));
 	}
-	
+
 	/**
 	 * props
 	 * @type {Object}
@@ -1906,7 +1906,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  disabled: _react.PropTypes.bool,
 	  className: _react.PropTypes.string
 	};
-	
+
 	Checkbox.defaultProps = {
 	  className: ''
 	};
@@ -1916,87 +1916,87 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	var _Select = __webpack_require__(10);
-	
+
 	var _Select2 = _interopRequireDefault(_Select);
-	
+
 	var _Popup = __webpack_require__(3);
-	
+
 	var _Popup2 = _interopRequireDefault(_Popup);
-	
+
 	__webpack_require__(41);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var apiInstance = void 0;
 	var now = new Date();
-	
+
 	var DatePicker = function (_Component) {
 	  _inherits(DatePicker, _Component);
-	
+
 	  function DatePicker() {
 	    var _Object$getPrototypeO;
-	
+
 	    var _temp, _this, _ret;
-	
+
 	    _classCallCheck(this, DatePicker);
-	
+
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
-	
+
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(DatePicker)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.yearOptions = [], _this.monthOptions = [], _this.dateOptions = [], _this._cancel = function () {
 	      var _this$props = _this.props;
 	      var onCancel = _this$props.onCancel;
 	      var selectedDate = _this$props.selectedDate;
-	
-	
+
+
 	      onCancel && onCancel(selectedDate);
 	    }, _this._confirm = function () {
 	      var _this$props2 = _this.props;
 	      var onConfirm = _this$props2.onConfirm;
 	      var selectedDate = _this$props2.selectedDate;
-	
-	
+
+
 	      onConfirm && onConfirm(selectedDate);
 	    }, _this._changeYear = function (yearIndex) {
 	      var selectedDate = _this.props.selectedDate;
-	
+
 	      var year = _this.yearOptions[yearIndex].value;
 	      var newDate = copyDate(selectedDate);
 	      newDate.setFullYear(year);
-	
+
 	      _this._change(newDate);
 	    }, _this._changeMonth = function (monthIndex) {
 	      var selectedDate = _this.props.selectedDate;
-	
+
 	      var month = _this.monthOptions[monthIndex].value - 1; // 纠正 getMonth() 的 +1
 	      var newDate = copyDate(selectedDate);
 	      newDate.setMonth(month);
-	
+
 	      // 当前 3-31
 	      // 调动月份，值为2，上面结果变为 3-2
 	      // 所以这里要校正
@@ -2005,27 +2005,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	        newDate.setMonth(month);
 	        newDate.setDate(getLastDate(newDate));
 	      }
-	
+
 	      _this._change(newDate);
 	    }, _this._changeDate = function (dateIndex) {
 	      var selectedDate = _this.props.selectedDate;
-	
+
 	      var date = _this.dateOptions[dateIndex].value;
 	      var newDate = copyDate(selectedDate);
 	      newDate.setDate(date);
-	
+
 	      _this._change(newDate);
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
-	
+
 	  // 方便 _onChange()
-	
-	
+
+
 	  _createClass(DatePicker, [{
 	    key: '_change',
 	    value: function _change(selectedDate) {
 	      var onChange = this.props.onChange;
-	
+
 	      onChange && onChange(selectedDate);
 	    }
 	  }, {
@@ -2034,18 +2034,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _props = this.props;
 	      var title = _props.title;
 	      var className = _props.className;
-	
+
 	      var others = _objectWithoutProperties(_props, ['title', 'className']);
-	
+
 	      var yearOptions = this.yearOptions = this.getYearOptions();
 	      var selectedYearIndex = this.getSelectedYearIndex(yearOptions);
 	      var monthOptions = this.monthOptions = this.getMonthOptions();
 	      var selectedMonthIndex = this.getSelectedMonthIndex(monthOptions);
 	      var dateOptions = this.dateOptions = this.getDateOptions();
 	      var selectedDateIndex = this.getSelectedDateIndex(dateOptions);
-	
+
 	      className = (0, _utils.classNames)('date-picker', { _user: className });
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        _extends({ className: className }, others, {
@@ -2106,20 +2106,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _props2 = this.props;
 	      var minDate = _props2.minDate;
 	      var maxDate = _props2.maxDate;
-	
+
 	      var min = minDate.getFullYear();
 	      var max = maxDate.getFullYear();
 	      var result = formatOptions(min, max, '年');
-	
+
 	      return result;
 	    }
 	  }, {
 	    key: 'getSelectedYearIndex',
 	    value: function getSelectedYearIndex(options) {
 	      var selectedDate = this.props.selectedDate;
-	
+
 	      var result = indexOfOptions(options, selectedDate.getFullYear());
-	
+
 	      return result;
 	    }
 	  }, {
@@ -2129,24 +2129,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var minDate = _props3.minDate;
 	      var maxDate = _props3.maxDate;
 	      var selectedDate = _props3.selectedDate;
-	
+
 	      var min = 1;
 	      var max = 12;
-	
+
 	      isSameYear(minDate, selectedDate) && (min = getMonth(minDate));
 	      isSameYear(maxDate, selectedDate) && (max = getMonth(maxDate));
-	
+
 	      var result = formatOptions(min, max, '月');
-	
+
 	      return result;
 	    }
 	  }, {
 	    key: 'getSelectedMonthIndex',
 	    value: function getSelectedMonthIndex(options) {
 	      var selectedDate = this.props.selectedDate;
-	
+
 	      var result = indexOfOptions(options, getMonth(selectedDate));
-	
+
 	      return result;
 	    }
 	  }, {
@@ -2156,34 +2156,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var minDate = _props4.minDate;
 	      var maxDate = _props4.maxDate;
 	      var selectedDate = _props4.selectedDate;
-	
+
 	      var min = 1;
 	      var max = getLastDate(selectedDate);
-	
+
 	      isSameYearMonth(minDate, selectedDate) && (min = minDate.getDate());
 	      isSameYearMonth(maxDate, selectedDate) && (max = maxDate.getDate());
-	
+
 	      var result = formatOptions(min, max, '日');
-	
+
 	      return result;
 	    }
 	  }, {
 	    key: 'getSelectedDateIndex',
 	    value: function getSelectedDateIndex(options) {
 	      var selectedDate = this.props.selectedDate;
-	
+
 	      var result = indexOfOptions(options, selectedDate.getDate());
-	
+
 	      return result;
 	    }
 	  }]);
-	
+
 	  return DatePicker;
 	}(_react.Component);
-	
+
 	// 返回 option.value === value 的索引
-	
-	
+
+
 	DatePicker.propTypes = {
 	  title: _react.PropTypes.string,
 	  minDate: _react.PropTypes.object,
@@ -2199,15 +2199,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  maxDate: now,
 	  selectedDate: now
 	};
-	
+
 	DatePicker.getInstance = function (container) {
 	  return (0, _utils.createInstance)(ApiContainer, container);
 	};
-	
+
 	DatePicker.show = function (props, popupProps) {
 	  apiInstance.show(props, popupProps);
 	};
-	
+
 	exports.default = DatePicker;
 	function indexOfOptions(options, value) {
 	  var result = -1;
@@ -2217,16 +2217,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	      break;
 	    }
 	  }
-	
+
 	  return result;
 	}
-	
+
 	// 格式化 options
 	function formatOptions(min, max) {
 	  var suffix = arguments.length <= 2 || arguments[2] === undefined ? '' : arguments[2];
-	
+
 	  var result = [];
-	
+
 	  while (min <= max) {
 	    result.push({
 	      name: min + suffix,
@@ -2234,71 +2234,71 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	    min++;
 	  }
-	
+
 	  return result;
 	}
-	
+
 	// 获取本月的最后一日的日期
 	function getLastDate(date) {
 	  var tmp = new Date(date.getTime());
 	  tmp.setDate(1);
 	  tmp.setMonth(tmp.getMonth() + 1);
 	  tmp.setDate(0);
-	
+
 	  return tmp.getDate();
 	}
-	
+
 	// 返回月份，补 +1
 	function getMonth(date) {
 	  return date.getMonth() + 1;
 	}
-	
+
 	// 是否同年
 	function isSameYear(date1, date2) {
 	  return date1.getFullYear() === date2.getFullYear();
 	}
-	
+
 	// 是否同年月
 	function isSameYearMonth(date1, date2) {
 	  return isSameYear(date1, date2) && date1.getMonth() === date2.getMonth();
 	}
-	
+
 	// copy Date 实例
 	function copyDate(date) {
 	  var newDate = new Date(date.getTime());
-	
+
 	  return newDate;
 	}
-	
+
 	var ApiContainer = function (_Component2) {
 	  _inherits(ApiContainer, _Component2);
-	
+
 	  function ApiContainer() {
 	    var _Object$getPrototypeO2;
-	
+
 	    var _temp2, _this2, _ret2;
-	
+
 	    _classCallCheck(this, ApiContainer);
-	
+
 	    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
 	      args[_key2] = arguments[_key2];
 	    }
-	
+
 	    return _ret2 = (_temp2 = (_this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO2 = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO2, [this].concat(args))), _this2), _this2.state = {
 	      popupProps: {
 	        show: false
 	      }
 	    }, _temp2), _possibleConstructorReturn(_this2, _ret2);
 	  }
-	
+
 	  _createClass(ApiContainer, [{
 	    key: 'render',
 	    value: function render() {
 	      var _state = this.state;
 	      var props = _state.props;
 	      var popupProps = _state.popupProps;
-	
-	
+
+
 	      return _react2.default.createElement(
 	        _Popup2.default,
 	        _extends({}, popupProps, {
@@ -2313,12 +2313,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'show',
 	    value: function show(props, popupProps) {
 	      props = this._decorateProps(props);
-	
+
 	      var nextState = {
 	        props: _extends({}, this.state.props, props),
 	        popupProps: _extends({}, this.state.popupProps, popupProps, { show: true })
 	      };
-	
+
 	      this.setState(nextState);
 	    }
 	  }, {
@@ -2327,48 +2327,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var nextState = _extends({}, this.state, {
 	        popupProps: _extends({}, this.state.popupProps, { show: false })
 	      });
-	
+
 	      this.setState(nextState);
 	    }
 	  }, {
 	    key: '_decorateProps',
 	    value: function _decorateProps(props) {
 	      var _this3 = this;
-	
+
 	      var onCancel = props.onCancel;
 	      var onConfirm = props.onConfirm;
 	      var onChange = props.onChange;
-	
+
 	      props.onChange = function (selectedDate) {
 	        onChange && onChange(onChange);
-	
+
 	        // update state.props
 	        var nextState = _extends({}, _this3.state, {
 	          props: _extends({}, _this3.state.props, {
 	            selectedDate: selectedDate
 	          })
 	        });
-	
+
 	        _this3.setState(nextState);
 	      };
-	
+
 	      props.onCancel = function (selectedDate) {
 	        onCancel && onCancel(selectedDate);
 	        _this3.hide();
 	      };
-	
+
 	      props.onConfirm = function (selectedDate) {
 	        onConfirm && onConfirm(selectedDate);
 	        _this3.hide();
 	      };
-	
+
 	      return props;
 	    }
 	  }]);
-	
+
 	  return ApiContainer;
 	}(_react.Component);
-	
+
 	apiInstance = (0, _utils.createInstance)(ApiContainer);
 
 /***/ },
@@ -2376,45 +2376,45 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = Dialog;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	var _Fade = __webpack_require__(5);
-	
+
 	var _Fade2 = _interopRequireDefault(_Fade);
-	
+
 	var _Mask = __webpack_require__(8);
-	
+
 	var _Mask2 = _interopRequireDefault(_Mask);
-	
+
 	__webpack_require__(42);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	var apiInstance = null;
-	
+
 	/**
 	 * 对话框按钮
 	 * @param {object} props 传统组件的 props
@@ -2423,9 +2423,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	function Button(props) {
 	  var text = props.text;
-	
+
 	  var others = _objectWithoutProperties(props, ['text']);
-	
+
 	  return _react2.default.createElement(
 	    'button',
 	    _extends({}, others, {
@@ -2434,28 +2434,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	    text
 	  );
 	}
-	
+
 	Button.propTypes = {
 	  text: _react.PropTypes.string
 	};
-	
+
 	/**
 	 * Dialog UI
 	 * @param {object} props see Dialog.propTypes
 	 */
 	function Dialog(props) {
 	  var _this = this;
-	
+
 	  var title = props.title;
 	  var content = props.content;
 	  var buttons = props.buttons;
 	  var className = props.className;
 	  var maskProps = props.maskProps;
-	
+
 	  var others = _objectWithoutProperties(props, ['title', 'content', 'buttons', 'className', 'maskProps']);
-	
+
 	  className = (0, _utils.classNames)('dialog', { _user: className });
-	
+
 	  return _react2.default.createElement(
 	    _Mask2.default,
 	    _extends({}, maskProps, {
@@ -2499,7 +2499,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    )
 	  );
 	}
-	
+
 	/**
 	 * props
 	 * @type {Object}
@@ -2514,53 +2514,53 @@ return /******/ (function(modules) { // webpackBootstrap
 	  maskProps: _react.PropTypes.shape(_Mask2.default.propTypes),
 	  className: _react.PropTypes.string
 	};
-	
+
 	Dialog.defaultProps = {
 	  buttons: [],
 	  maskProps: _Mask2.default.defaultProps
 	};
-	
+
 	Dialog.getInstance = function (container) {
 	  return (0, _utils.createInstance)(ApiContainer, container);
 	};
-	
+
 	Dialog.show = function (props, fadeProps) {
 	  apiInstance.show(props, fadeProps);
 	};
-	
+
 	/**
 	 * 为 Dialog 组件提供 API 交互
 	 */
-	
+
 	var ApiContainer = function (_Component) {
 	  _inherits(ApiContainer, _Component);
-	
+
 	  function ApiContainer() {
 	    var _Object$getPrototypeO;
-	
+
 	    var _temp, _this2, _ret;
-	
+
 	    _classCallCheck(this, ApiContainer);
-	
+
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
-	
+
 	    return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this2), _this2.state = {
 	      fadeProps: {
 	        show: false
 	      }
 	    }, _temp), _possibleConstructorReturn(_this2, _ret);
 	  }
-	
+
 	  _createClass(ApiContainer, [{
 	    key: 'render',
 	    value: function render() {
 	      var _state = this.state;
 	      var props = _state.props;
 	      var fadeProps = _state.fadeProps;
-	
-	
+
+
 	      return _react2.default.createElement(
 	        _Fade2.default,
 	        _extends({}, fadeProps, {
@@ -2576,12 +2576,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function show(props, fadeProps) {
 	      // decorate
 	      props = this._decorateProps(props);
-	
+
 	      var nextState = {
 	        props: _extends({}, this.state.props, props),
 	        fadeProps: _extends({}, this.state.fadeProps, fadeProps, { show: true })
 	      };
-	
+
 	      this.setState(nextState);
 	    }
 	  }, {
@@ -2596,11 +2596,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: '_decorateProps',
 	    value: function _decorateProps(props) {
 	      var _this3 = this;
-	
+
 	      if (!props.buttons) {
 	        return props;
 	      }
-	
+
 	      props.buttons.map(function (button) {
 	        var onClick = button.onClick;
 	        button.onClick = function (e) {
@@ -2608,14 +2608,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _this3.hide();
 	        };
 	      });
-	
+
 	      return props;
 	    }
 	  }]);
-	
+
 	  return ApiContainer;
 	}(_react.Component);
-	
+
 	apiInstance = (0, _utils.createInstance)(ApiContainer);
 
 /***/ },
@@ -2623,25 +2623,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = IconAttention;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * IconAttention UI
 	 * @param {object} props see IconAttention.propTypes
@@ -2650,27 +2650,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var size = props.size;
 	  var className = props.className;
 	  var style = props.style;
-	
+
 	  var others = _objectWithoutProperties(props, ['size', 'className', 'style']);
-	
+
 	  className = (0, _utils.classNames)('icon-attention', { '_user': className });
 	  style = _extends({}, style, {
 	    height: size,
 	    width: size,
 	    fontSize: size
 	  });
-	
+
 	  return _react2.default.createElement('i', _extends({ className: className, style: style }, others, {
 	    __self: this
 	  }));
 	}
-	
+
 	/**
 	 * 其他元素可以直接使用这个 class
 	 * @type {string}
 	 */
 	IconAttention.className = (0, _utils.classNames)('icon-attention');
-	
+
 	/**
 	 * props
 	 * @type {Object}
@@ -2681,7 +2681,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  className: _react.PropTypes.string,
 	  style: _react.PropTypes.object
 	};
-	
+
 	IconAttention.defaultProps = {
 	  size: '40px'
 	};
@@ -2691,25 +2691,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = IconCheck;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * IconCheck UI
 	 * @param {object} props see IconCheck.propTypes
@@ -2718,27 +2718,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var size = props.size;
 	  var className = props.className;
 	  var style = props.style;
-	
+
 	  var others = _objectWithoutProperties(props, ['size', 'className', 'style']);
-	
+
 	  className = (0, _utils.classNames)('icon-check', { '_user': className });
 	  style = _extends({}, style, {
 	    height: size,
 	    width: size,
 	    fontSize: size
 	  });
-	
+
 	  return _react2.default.createElement('i', _extends({ className: className, style: style }, others, {
 	    __self: this
 	  }));
 	}
-	
+
 	/**
 	 * 其他元素可以直接使用这个 class
 	 * @type {string}
 	 */
 	IconCheck.className = (0, _utils.classNames)('icon-check');
-	
+
 	/**
 	 * props
 	 * @type {Object}
@@ -2749,7 +2749,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  className: _react.PropTypes.string,
 	  style: _react.PropTypes.object
 	};
-	
+
 	IconCheck.defaultProps = {
 	  size: '40px'
 	};
@@ -2759,25 +2759,25 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = IconLoading;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * IconLoading UI
 	 * @param {object} props see IconLoading.propTypes
@@ -2786,15 +2786,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var scale = props.scale;
 	  var className = props.className;
 	  var style = props.style;
-	
+
 	  var others = _objectWithoutProperties(props, ['scale', 'className', 'style']);
-	
+
 	  var leafs = createLeafs();
 	  className = (0, _utils.classNames)('icon-loading', { _user: className });
 	  style = _extends({}, style, {
 	    transform: 'scale(' + scale + ')'
 	  });
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({ className: className, style: style }, others, {
@@ -2803,7 +2803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    leafs
 	  );
 	}
-	
+
 	/**
 	 * props
 	 * @type {Object}
@@ -2814,20 +2814,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  className: _react.PropTypes.string,
 	  style: _react.PropTypes.object
 	};
-	
+
 	IconLoading.defaultProps = {
 	  scale: 1
 	};
-	
+
 	var count = 12;
 	var opacityUnit = 1 / (count + 13);
-	
+
 	function createLeafs() {
 	  var leafs = [];
 	  var className = void 0,
 	      rotate = void 0,
 	      style = void 0;
-	
+
 	  for (var i = 0; i < count; i++) {
 	    className = (0, _utils.classNames)('icon-loading-leaf', 'icon-loading-leaf-' + i);
 	    rotate = i * 30;
@@ -2838,7 +2838,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    leafs.push(_react2.default.createElement('i', { key: i, className: className, style: style, __self: this
 	    }));
 	  }
-	
+
 	  return leafs;
 	}
 
@@ -2847,72 +2847,72 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	__webpack_require__(45);
-	
+
 	var _ScrollView = __webpack_require__(9);
-	
+
 	var _ScrollView2 = _interopRequireDefault(_ScrollView);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	/**
 	 * ListView UI
 	 * @param {object} props see static propTypes
 	 */
-	
+
 	var ListView = function (_Component) {
 	  _inherits(ListView, _Component);
-	
+
 	  function ListView() {
 	    var _Object$getPrototypeO;
-	
+
 	    var _temp, _this, _ret;
-	
+
 	    _classCallCheck(this, ListView);
-	
+
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
-	
+
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ListView)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.iscroller = null, _this._refreshIscroller = function () {
 	      _this.iscroller.refresh();
 	    }, _this._onLoadMore = function () {
 	      var _this$props = _this.props;
 	      var loadMoreState = _this$props.loadMoreState;
 	      var onLoadMore = _this$props.onLoadMore;
-	
-	
+
+
 	      if (loadMoreState === 'loading' || loadMoreState === 'end') {
 	        return;
 	      }
-	
+
 	      onLoadMore();
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
-	
+
 	  /**
 	   * props
 	   * @type {Object}
@@ -2929,19 +2929,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * offsetLoadMore: ListView 底部距离视口距离小于该值，应该改变 loadMoreState
 	   * onLoadMore: 告知父组件应该将 loadMoreState 设置为 loading
 	   */
-	
-	
+
+
 	  // iscroll 实例
-	
-	
+
+
 	  _createClass(ListView, [{
 	    key: 'scrollToTop',
 	    value: function scrollToTop() {
 	      this.iscroller.scrollTo(0, 0, 600);
 	    }
-	
+
 	    // 点击按钮刷新，需要滚动到顶部
-	
+
 	  }, {
 	    key: 'scrollToRefresh',
 	    value: function scrollToRefresh() {
@@ -2960,11 +2960,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var loadMoreState = _props.loadMoreState;
 	      var className = _props.className;
 	      var shouldRefreshIscroller = _props.shouldRefreshIscroller;
-	
+
 	      var others = _objectWithoutProperties(_props, ['data', 'renderRow', 'renderRefresh', 'refreshState', 'renderLoadMore', 'loadMoreState', 'className', 'shouldRefreshIscroller']);
-	
+
 	      className = (0, _utils.classNames)('list-view', { _user: className });
-	
+
 	      return _react2.default.createElement(
 	        _ScrollView2.default,
 	        _extends({
@@ -3009,10 +3009,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.iscroller = this.refs.scrollView.iscroller;
-	
+
 	      this._bindLoadMore();
 	      this._bindRefresh();
-	
+
 	      // 刷新 iscroller，每次 data 变化都要在 List 组件内执行这个刷新
 	      this._refreshIscroller();
 	      // 如果 refreshState=loading 需要设置 iscroller.offsetY
@@ -3029,19 +3029,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _props2 = this.props;
 	      var offsetRefresh = _props2.offsetRefresh;
 	      var refreshState = _props2.refreshState;
-	
-	
+
+
 	      this.iscroller.offsetY = refreshState === 'loading' ? offsetRefresh : 0;
 	    }
 	  }, {
 	    key: '_bindLoadMore',
 	    value: function _bindLoadMore() {
 	      var _this2 = this;
-	
+
 	      var offsetLoadMore = this.props.offsetLoadMore;
-	
+
 	      var iscroller = this.iscroller;
-	
+
 	      iscroller.on('scroll', function () {
 	        // 判断距离
 	        if (iscroller.maxScrollY - iscroller.y > offsetLoadMore) {
@@ -3053,24 +3053,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: '_bindRefresh',
 	    value: function _bindRefresh() {
 	      var _this3 = this;
-	
+
 	      var _props3 = this.props;
 	      var offsetRefresh = _props3.offsetRefresh;
 	      var onReadyRefresh = _props3.onReadyRefresh;
 	      var onNormalRefresh = _props3.onNormalRefresh;
 	      var onRefresh = _props3.onRefresh;
-	
+
 	      var iscroller = this.iscroller;
-	
+
 	      iscroller.on('scroll', function () {
 	        var refreshState = _this3.props.refreshState;
-	
+
 	        var y = iscroller.y;
-	
+
 	        if (y < 0 || refreshState === 'loading') {
 	          return;
 	        }
-	
+
 	        // 下拉距离超过 offsetRefresh 激活状态
 	        if (iscroller.y > offsetRefresh) {
 	          refreshState !== 'ready' && onReadyRefresh();
@@ -3078,26 +3078,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	          refreshState !== 'normal' && onNormalRefresh();
 	        }
 	      });
-	
+
 	      iscroller.on('touchEnd', function () {
 	        var refreshState = _this3.props.refreshState;
-	
-	
+
+
 	        if (refreshState !== 'ready') {
 	          return;
 	        }
-	
+
 	        onRefresh();
 	      });
 	    }
 	  }]);
-	
+
 	  return ListView;
 	}(_react.Component);
-	
+
 	// 这一切都是为了调用 this.props.refreshIscroller();
-	
-	
+
+
 	ListView.propTypes = {
 	  data: _react.PropTypes.array.isRequired,
 	  renderRow: _react.PropTypes.func.isRequired,
@@ -3125,16 +3125,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	ListView.renderRefresh = renderRefresh;
 	ListView.renderLoadMore = renderLoadMore;
 	exports.default = ListView;
-	
+
 	var List = function (_Component2) {
 	  _inherits(List, _Component2);
-	
+
 	  function List() {
 	    _classCallCheck(this, List);
-	
+
 	    return _possibleConstructorReturn(this, Object.getPrototypeOf(List).apply(this, arguments));
 	  }
-	
+
 	  _createClass(List, [{
 	    key: 'shouldComponentUpdate',
 	    value: function shouldComponentUpdate(nextProps) {
@@ -3144,8 +3144,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'render',
 	    value: function render() {
 	      var children = this.props.children;
-	
-	
+
+
 	      return children.length === 0 ? null : children;
 	    }
 	  }, {
@@ -3153,22 +3153,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function componentDidUpdate() {
 	      var refreshIscroller = this.props.refreshIscroller;
 	      // 为了调用这个方法才抽象出 List 组件的
-	
+
 	      refreshIscroller();
 	    }
 	  }]);
-	
+
 	  return List;
 	}(_react.Component);
-	
+
 	List.propTypes = {
 	  data: _react.PropTypes.array.isRequired,
 	  shouldRefreshIscroller: _react.PropTypes.func.isRequired,
 	  refreshIscroller: _react.PropTypes.func.isRequired,
 	  children: _react.PropTypes.node.isRequired
 	};
-	
-	
+
+
 	function renderRefresh(status) {
 	  switch (status) {
 	    case 'none':
@@ -3198,10 +3198,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        '加载中...'
 	      );
 	  }
-	
+
 	  return null;
 	}
-	
+
 	function renderLoadMore(status) {
 	  switch (status) {
 	    case 'none':
@@ -3239,7 +3239,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        '加载失败，请点击重新加载'
 	      );
 	  }
-	
+
 	  return null;
 	}
 
@@ -3248,45 +3248,45 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = Notification;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactAddonsCssTransitionGroup = __webpack_require__(4);
-	
+
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	var _Popup = __webpack_require__(3);
-	
+
 	var _Popup2 = _interopRequireDefault(_Popup);
-	
+
 	__webpack_require__(47);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	var apiInstance = null;
-	
+
 	/**
 	 * Notification UI
 	 * @param {object} props see Notification.propTypes
@@ -3294,11 +3294,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function Notification(props) {
 	  var className = props.className;
 	  var content = props.content;
-	
+
 	  var others = _objectWithoutProperties(props, ['className', 'content']);
-	
+
 	  className = (0, _utils.classNames)('notification', { _user: className });
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({ className: className }, content, others, {
@@ -3307,7 +3307,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    content
 	  );
 	}
-	
+
 	/**
 	 * props
 	 * @type {Object}
@@ -3317,15 +3317,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  className: _react.PropTypes.string,
 	  content: _react.PropTypes.node
 	};
-	
+
 	Notification.show = function (props, time) {
 	  apiInstance.show(props, time);
 	};
-	
+
 	Notification.getInstance = function (container) {
 	  return (0, _utils.createInstance)(ApiContainer, container);
 	};
-	
+
 	//
 	var duration = 300;
 	var timingFunction = 'ease';
@@ -3334,21 +3334,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return getId.id++;
 	}
 	getId.id = 0;
-	
+
 	var ApiContainer = function (_Component) {
 	  _inherits(ApiContainer, _Component);
-	
+
 	  function ApiContainer() {
 	    var _Object$getPrototypeO;
-	
+
 	    var _temp, _this, _ret;
-	
+
 	    _classCallCheck(this, ApiContainer);
-	
+
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
-	
+
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
 	      popupProps: {
 	        show: false,
@@ -3358,22 +3358,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      notification: [] // 永远只有一个值的数组
 	    }, _this.timer = null, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
-	
+
 	  _createClass(ApiContainer, [{
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
-	
+
 	      var _state = this.state;
 	      var notification = _state.notification;
 	      var popupProps = _state.popupProps;
-	
+
 	      var children = notification.map(function (item) {
 	        var _id = item._id;
 	        var style = item.style;
-	
+
 	        var others = _objectWithoutProperties(item, ['_id', 'style']);
-	
+
 	        style = _extends({}, style, {
 	          transitionDuration: duration + 'ms',
 	          transitionTimingFunction: timingFunction
@@ -3382,7 +3382,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          __self: _this2
 	        }));
 	      });
-	
+
 	      return _react2.default.createElement(
 	        _Popup2.default,
 	        _extends({}, popupProps, {
@@ -3405,12 +3405,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'show',
 	    value: function show(props, popupProps) {
 	      var _this3 = this;
-	
+
 	      var time = arguments.length <= 2 || arguments[2] === undefined ? 4000 : arguments[2];
-	
+
 	      props['_id'] = getId();
 	      var notification = [props];
-	
+
 	      var nextState = {
 	        notification: notification,
 	        popupProps: _extends({}, this.state.popupProps, {
@@ -3418,7 +3418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        })
 	      };
 	      this.setState(nextState);
-	
+
 	      clearTimeout(this.timer);
 	      this.timer = setTimeout(function () {
 	        _this3._hide();
@@ -3432,14 +3432,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	          show: false
 	        })
 	      });
-	
+
 	      this.setState(nextState);
 	    }
 	  }]);
-	
+
 	  return ApiContainer;
 	}(_react.Component);
-	
+
 	apiInstance = (0, _utils.createInstance)(ApiContainer);
 
 /***/ },
@@ -3447,35 +3447,35 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = Page;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	var _reactAddonsCssTransitionGroup = __webpack_require__(4);
-	
+
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
-	
+
 	__webpack_require__(48);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	var timeout = 500;
 	var duration = 400;
 	var timingFunction = 'ease';
-	
+
 	/**
 	 * Page UI
 	 * 应该用于单页应用，配合 react-router 使用
@@ -3485,15 +3485,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var className = props.className;
 	  var style = props.style;
 	  var children = props.children;
-	
+
 	  var others = _objectWithoutProperties(props, ['className', 'style', 'children']);
-	
+
 	  className = (0, _utils.classNames)('page', { _user: className });
 	  style = _extends({}, style, {
 	    transitionDuration: duration + 'ms',
 	    transitionTimingFunction: timingFunction
 	  });
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({ className: className, style: style }, others, {
@@ -3502,7 +3502,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children
 	  );
 	}
-	
+
 	/**
 	 * props
 	 * @type {Object}
@@ -3512,10 +3512,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  className: _react.PropTypes.string,
 	  children: _react.PropTypes.node
 	};
-	
+
 	// 暴露啦
 	Page.Scene = Scene;
-	
+
 	/**
 	 * Scene 过场动画
 	 * 根据 react-router 的 location.action 定义不同的过场动画
@@ -3528,12 +3528,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var className = props.className;
 	  var children = props.children;
 	  var action = props.action;
-	
+
 	  var others = _objectWithoutProperties(props, ['className', 'children', 'action']);
-	
+
 	  className = (0, _utils.classNames)('page-scene', { _user: className });
 	  action = action.toLowerCase();
-	
+
 	  return _react2.default.createElement(
 	    _reactAddonsCssTransitionGroup2.default,
 	    _extends({
@@ -3548,7 +3548,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children
 	  );
 	}
-	
+
 	/**
 	 * props
 	 * @type {Object}
@@ -3558,7 +3558,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  children: _react.PropTypes.node,
 	  className: _react.PropTypes.string
 	};
-	
+
 	Scene.defaultProps = {
 	  action: 'push'
 	};
@@ -3568,38 +3568,38 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = Switch;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	__webpack_require__(52);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * Switch 开关，其实就是漂亮的 checkbox
 	 * 渲染 <input type="checkbox" />
 	 */
 	function Switch(props) {
 	  var className = props.className;
-	
+
 	  var others = _objectWithoutProperties(props, ['className']);
-	
+
 	  className = (0, _utils.classNames)('switch', { _user: className });
-	
+
 	  return _react2.default.createElement('input', _extends({
 	    className: className,
 	    type: 'checkbox'
@@ -3607,7 +3607,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    __self: this
 	  }));
 	}
-	
+
 	/**
 	 * props
 	 * @type {Object}
@@ -3621,36 +3621,36 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = TabBar;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	var _TabBarItem = __webpack_require__(11);
-	
+
 	var _TabBarItem2 = _interopRequireDefault(_TabBarItem);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	/**
 	 * TabBar UI
 	 * @param {object} props see TabBar.propTypes
 	 */
 	function TabBar(props) {
 	  var _this = this;
-	
+
 	  var barColor = props.barColor;
 	  var lineColor = props.lineColor;
 	  var color = props.color;
@@ -3658,9 +3658,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var translucent = props.translucent;
 	  var children = props.children;
 	  var className = props.className;
-	
+
 	  var others = _objectWithoutProperties(props, ['barColor', 'lineColor', 'color', 'selectedColor', 'translucent', 'children', 'className']);
-	
+
 	  className = (0, _utils.classNames)('tab-bar', {
 	    '_user': className,
 	    'tab-bar-translucent': translucent
@@ -3671,7 +3671,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var lineStyle = {
 	    backgroundColor: lineColor
 	  };
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({ className: className }, others, {
@@ -3696,7 +3696,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        children.map(function (child, index) {
 	          var props = _extends({}, child.props);
-	
+
 	          return _react2.default.createElement(Button, _extends({
 	            key: index,
 	            color: color,
@@ -3709,7 +3709,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    )
 	  );
 	}
-	
+
 	/**
 	 * props
 	 * @type {Object}
@@ -3725,7 +3725,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  selectedColor: _react.PropTypes.string,
 	  translucent: _react.PropTypes.bool
 	};
-	
+
 	TabBar.defaultProps = {
 	  barColor: '#f7f7fa',
 	  lineColor: '#979797',
@@ -3733,9 +3733,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  selectedColor: '#09bb07',
 	  translucent: false
 	};
-	
+
 	TabBar.Item = _TabBarItem2.default;
-	
+
 	function Button(props) {
 	  var color = props.color;
 	  var selectedColor = props.selectedColor;
@@ -3746,9 +3746,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var badge = props.badge;
 	  var onClick = props.onClick;
 	  var className = props.className;
-	
+
 	  var others = _objectWithoutProperties(props, ['color', 'selectedColor', 'selected', 'icon', 'selectedIcon', 'title', 'badge', 'onClick', 'className']);
-	
+
 	  className = (0, _utils.classNames)('tab-bar-item', {
 	    '_user': className,
 	    'tab-bar-item-selected': selected
@@ -3757,7 +3757,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var style = {
 	    color: selected ? selectedColor : color
 	  };
-	
+
 	  return _react2.default.createElement(
 	    'li',
 	    _extends({ className: className, onClick: onClick }, others, {
@@ -3785,7 +3785,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    )
 	  );
 	}
-	
+
 	Button.propTypes = _extends({
 	  // from TabBar
 	  color: TabBar.propTypes.color,
@@ -3797,24 +3797,24 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.TabBarItem = exports.TabBar = undefined;
-	
+
 	__webpack_require__(53);
-	
+
 	var _TabBar2 = __webpack_require__(33);
-	
+
 	var _TabBar3 = _interopRequireDefault(_TabBar2);
-	
+
 	var _TabBarItem2 = __webpack_require__(11);
-	
+
 	var _TabBarItem3 = _interopRequireDefault(_TabBarItem2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	exports.TabBar = _TabBar3.default;
 	exports.TabBarItem = _TabBarItem3.default;
 
@@ -3823,52 +3823,52 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	exports.default = Toast;
-	
+
 	var _react = __webpack_require__(1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(2);
-	
+
 	var _Icon = __webpack_require__(6);
-	
+
 	var _Fade = __webpack_require__(5);
-	
+
 	var _Fade2 = _interopRequireDefault(_Fade);
-	
+
 	__webpack_require__(54);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
+
 	var apiInstance = null;
-	
+
 	function Toast(props) {
 	  var icon = props.icon;
 	  var content = props.content;
 	  var className = props.className;
-	
+
 	  var others = _objectWithoutProperties(props, ['icon', 'content', 'className']);
-	
+
 	  className = (0, _utils.classNames)('toast', { _user: className });
-	
+
 	  return _react2.default.createElement(
 	    'div',
 	    _extends({ className: className }, others, {
@@ -3890,33 +3890,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	    )
 	  );
 	}
-	
+
 	Toast.propTypes = {
 	  icon: _react.PropTypes.oneOfType([_react.PropTypes.element, _react.PropTypes.oneOf(['loading', 'attention'])]),
 	  content: _react.PropTypes.node.isRequired,
 	  className: _react.PropTypes.string
 	};
-	
+
 	Toast.getInstance = function (container) {
 	  (0, _utils.createInstance)(ApiContainer, container);
 	};
-	
+
 	Toast.show = function (props, fadeProps, time) {
 	  apiInstance.show(props, fadeProps, time);
 	};
-	
+
 	Toast.hide = function () {
 	  apiInstance.hide();
 	};
-	
+
 	Toast.showLoading = function (props, fadeProps) {
 	  apiInstance.showLoading(props, fadeProps);
 	};
-	
+
 	Toast.hideLoading = function () {
 	  apiInstance.hideLoading();
 	};
-	
+
 	function mapIcon(icon) {
 	  switch (icon) {
 	    case 'loading':
@@ -3931,25 +3931,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return icon;
 	  }
 	}
-	
+
 	/**
 	 * 提供接口
 	 */
-	
+
 	var ApiContainer = function (_Component) {
 	  _inherits(ApiContainer, _Component);
-	
+
 	  function ApiContainer() {
 	    var _Object$getPrototypeO;
-	
+
 	    var _temp, _this, _ret;
-	
+
 	    _classCallCheck(this, ApiContainer);
-	
+
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
-	
+
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ApiContainer)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
 	      props: {
 	        content: ''
@@ -3959,15 +3959,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
-	
+
 	  _createClass(ApiContainer, [{
 	    key: 'render',
 	    value: function render() {
 	      var _state = this.state;
 	      var props = _state.props;
 	      var fadeProps = _state.fadeProps;
-	
-	
+
+
 	      return _react2.default.createElement(
 	        _Fade2.default,
 	        _extends({}, fadeProps, {
@@ -3982,13 +3982,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'show',
 	    value: function show(props, fadeProps, time) {
 	      var _this2 = this;
-	
+
 	      var nextState = {
 	        props: _extends({}, this.state.props, props),
 	        fadeProps: _extends({}, this.state.fadeProps, { show: true })
 	      };
 	      this.setState(nextState);
-	
+
 	      if (typeof time === 'number') {
 	        clearTimeout(this.timer);
 	        this.timer = setTimeout(function () {
@@ -3996,16 +3996,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }, time);
 	      }
 	    }
-	
+
 	    // 延时执行，单位：ms
-	
+
 	  }, {
 	    key: 'hide',
 	    value: function hide(delay) {
 	      var nextState = _extends({}, this.state, {
 	        fadeProps: _extends({}, this.state.fadeProps, { show: false })
 	      });
-	
+
 	      this.setState(nextState);
 	    }
 	  }, {
@@ -4020,10 +4020,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this.hide(delay);
 	    }
 	  }]);
-	
+
 	  return ApiContainer;
 	}(_react.Component);
-	
+
 	apiInstance = (0, _utils.createInstance)(ApiContainer);
 
 /***/ },
@@ -4031,14 +4031,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	/**
 	 * 配置文件
 	 */
-	
+
 	/**
 	 * @type {object} 配置数据对象
 	 * @property {string} config.namespace='daifee-rc' 用于 css 的命名空间，
@@ -4047,7 +4047,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var config = {
 	  namespace: 'daifee-rc'
 	};
-	
+
 	exports.default = config;
 
 /***/ },
@@ -4174,4 +4174,3 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
-//# sourceMappingURL=index.js.map
