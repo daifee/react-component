@@ -1,5 +1,6 @@
 import React, {
-  PropTypes
+  PropTypes,
+  Component
 } from 'react';
 import {classNames} from '../utils';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -15,16 +16,26 @@ const timingFunction = 'ease';
  * 应该用于单页应用，配合 react-router 使用
  * @param {object} props see Page.propTypes
  */
-export default function Page(props) {
-  let {className, style, children, ...others} = props;
-  className = classNames('page', {_user: className});
-  style = {
-    ...style,
-    transitionDuration: (duration + 'ms'),
-    transitionTimingFunction: timingFunction
-  };
+export default class Page extends Component {
+  render() {
+    let {className, style, children, ...others} = this.props;
+    className = classNames('page', {_user: className});
+    style = {
+      ...style,
+      transitionDuration: (duration + 'ms'),
+      transitionTimingFunction: timingFunction
+    };
 
-  return (<div className={className} style={style} {...others}>{children}</div>);
+    return (
+      <div
+        ref='page'
+        className={className}
+        style={style}
+        {...others}>
+        {children}
+      </div>
+    );
+  }
 }
 
 /**
