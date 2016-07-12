@@ -3454,7 +3454,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	exports.default = Page;
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
@@ -3472,6 +3472,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 	var timeout = 500;
 	var duration = 400;
 	var timingFunction = 'ease';
@@ -3481,32 +3487,56 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * 应该用于单页应用，配合 react-router 使用
 	 * @param {object} props see Page.propTypes
 	 */
-	function Page(props) {
-	  var className = props.className;
-	  var style = props.style;
-	  var children = props.children;
 
-	  var others = _objectWithoutProperties(props, ['className', 'style', 'children']);
+	var Page = function (_Component) {
+	  _inherits(Page, _Component);
 
-	  className = (0, _utils.classNames)('page', { _user: className });
-	  style = _extends({}, style, {
-	    transitionDuration: duration + 'ms',
-	    transitionTimingFunction: timingFunction
-	  });
+	  function Page() {
+	    _classCallCheck(this, Page);
 
-	  return _react2.default.createElement(
-	    'div',
-	    _extends({ className: className, style: style }, others, {
-	      __self: this
-	    }),
-	    children
-	  );
-	}
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Page).apply(this, arguments));
+	  }
+
+	  _createClass(Page, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var className = _props.className;
+	      var style = _props.style;
+	      var children = _props.children;
+
+	      var others = _objectWithoutProperties(_props, ['className', 'style', 'children']);
+
+	      className = (0, _utils.classNames)('page', { _user: className });
+	      style = _extends({}, style, {
+	        transitionDuration: duration + 'ms',
+	        transitionTimingFunction: timingFunction
+	      });
+
+	      return _react2.default.createElement(
+	        'div',
+	        _extends({
+	          ref: 'page',
+	          className: className,
+	          style: style
+	        }, others, {
+	          __self: this
+	        }),
+	        children
+	      );
+	    }
+	  }]);
+
+	  return Page;
+	}(_react.Component);
 
 	/**
 	 * props
 	 * @type {Object}
 	 */
+
+
+	exports.default = Page;
 	Page.propTypes = {
 	  style: _react.PropTypes.object,
 	  className: _react.PropTypes.string,
