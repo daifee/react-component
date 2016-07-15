@@ -504,9 +504,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var children = props.children;
 	  var style = props.style;
 	  var className = props.className;
+	  var component = props.component;
 
-	  var others = _objectWithoutProperties(props, ['show', 'duration', 'timingFunction', 'children', 'style', 'className']);
+	  var others = _objectWithoutProperties(props, ['show', 'duration', 'timingFunction', 'children', 'style', 'className', 'component']);
 
+	  var Component = component;
 	  style = _extends({}, style, {
 	    transitionDuration: duration + 'ms',
 	    transitionTimingFunction: timingFunction
@@ -522,7 +524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      transitionLeaveTimeout: duration, __self: this
 	    },
 	    show ? _react2.default.createElement(
-	      props.component,
+	      Component,
 	      _extends({ style: style, className: className }, others, {
 	        __self: this
 	      }),
