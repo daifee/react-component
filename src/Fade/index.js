@@ -18,8 +18,10 @@ export default function Fade(props) {
     children,
     style,
     className,
+    component,
     ...others
   } = props;
+  let Component = component;
   style = {
     ...style,
     transitionDuration: (duration + 'ms'),
@@ -34,9 +36,9 @@ export default function Fade(props) {
       transitionEnterTimeout={duration}
       transitionLeaveTimeout={duration}>
       {show ? (
-        <props.component style={style} className={className} {...others}>
+        <Component style={style} className={className} {...others}>
           {children}
-        </props.component>
+        </Component>
       ) : null}
     </ReactCSSTransitionGroup>
   );
