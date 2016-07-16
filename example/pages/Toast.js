@@ -68,9 +68,20 @@ export default class ToastPage extends Component {
             Toast.show({
               icon: 'attention',
               content: 'API 调用'
-            }, {}, 3000);
+            }, null, 3000);
           }}>调用接口</Button>
+
+          <Button onClick={() => {
+            Toast.showAttention('shortcut');
+          }}>sortcut api</Button>
+
+          <Button onClick={() => {
+            Toast.showLoading();
+
+            setTimeout(() => Toast.hide(), 2000);
+          }}>showLoading</Button>
         </div>
+
 
         {loading ? (
           <Toast

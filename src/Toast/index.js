@@ -29,7 +29,7 @@ Toast.propTypes = {
     PropTypes.element,
     PropTypes.oneOf(['loading', 'attention'])
   ]),
-  content: PropTypes.node.isRequired,
+  content: PropTypes.node,
   className: PropTypes.string
 };
 
@@ -46,12 +46,16 @@ Toast.hide = () => {
   apiInstance.hide();
 };
 
-Toast.showLoading = (props, fadeProps) => {
-  apiInstance.showLoading(props, fadeProps);
+Toast.showLoading = (content) => {
+  apiInstance.showLoading(content);
 };
 
 Toast.hideLoading = () => {
   apiInstance.hideLoading();
+};
+
+Toast.showAttention = (content, time) => {
+  apiInstance.showAttention(content, time);
 };
 
 
@@ -94,7 +98,7 @@ class ApiContainer extends Component {
   show(props, fadeProps, time) {
     let nextState = {
       props: {...this.state.props, ...props},
-      fadeProps: {...this.state.fadeProps, show: true}
+      fadeProps: {...this.state.fadeProps, ...fadeProps, show: true}
     };
     this.setState(nextState);
 
@@ -107,7 +111,7 @@ class ApiContainer extends Component {
   }
 
   // 延时执行，单位：ms
-  hide(delay) {
+  hide() {
     let nextState = {
       ...this.state,
       fadeProps: {...this.state.fadeProps, show: false}
@@ -116,13 +120,18 @@ class ApiContainer extends Component {
     this.setState(nextState);
   }
 
-  showLoading(props, fadeProps) {
-    props = {...props, icon: 'loading'};
-    this.show(props, fadeProps);
+  showLoading(content = '加载中...') {
+    let props = {icon: 'loading', content};
+    this.show(props);
   }
 
-  hideLoading(delay) {
-    this.hide(delay);
+  hideLoading() {
+    this.hide();
+  }
+
+  showAttention(content, time = 2000) {
+    let props = {icon: 'attention', content};
+    this.show(props, {}, time);
   }
 }
 
