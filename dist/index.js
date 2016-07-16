@@ -3925,7 +3925,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Toast.propTypes = {
 	  icon: _react.PropTypes.oneOfType([_react.PropTypes.element, _react.PropTypes.oneOf(['loading', 'attention'])]),
-	  content: _react.PropTypes.node.isRequired,
+	  content: _react.PropTypes.node,
 	  className: _react.PropTypes.string
 	};
 
@@ -3941,12 +3941,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  apiInstance.hide();
 	};
 
-	Toast.showLoading = function (props, fadeProps) {
-	  apiInstance.showLoading(props, fadeProps);
+	Toast.showLoading = function (content) {
+	  apiInstance.showLoading(content);
 	};
 
 	Toast.hideLoading = function () {
 	  apiInstance.hideLoading();
+	};
+
+	Toast.showAttention = function (content, time) {
+	  apiInstance.showAttention(content, time);
 	};
 
 	function mapIcon(icon) {
@@ -4017,7 +4021,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var nextState = {
 	        props: _extends({}, this.state.props, props),
-	        fadeProps: _extends({}, this.state.fadeProps, { show: true })
+	        fadeProps: _extends({}, this.state.fadeProps, fadeProps, { show: true })
 	      };
 	      this.setState(nextState);
 
@@ -4033,7 +4037,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  }, {
 	    key: 'hide',
-	    value: function hide(delay) {
+	    value: function hide() {
 	      var nextState = _extends({}, this.state, {
 	        fadeProps: _extends({}, this.state.fadeProps, { show: false })
 	      });
@@ -4042,14 +4046,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, {
 	    key: 'showLoading',
-	    value: function showLoading(props, fadeProps) {
-	      props = _extends({}, props, { icon: 'loading' });
-	      this.show(props, fadeProps);
+	    value: function showLoading() {
+	      var content = arguments.length <= 0 || arguments[0] === undefined ? '加载中...' : arguments[0];
+
+	      var props = { icon: 'loading', content: content };
+	      this.show(props);
 	    }
 	  }, {
 	    key: 'hideLoading',
-	    value: function hideLoading(delay) {
-	      this.hide(delay);
+	    value: function hideLoading() {
+	      this.hide();
+	    }
+	  }, {
+	    key: 'showAttention',
+	    value: function showAttention(content) {
+	      var time = arguments.length <= 1 || arguments[1] === undefined ? 2000 : arguments[1];
+
+	      var props = { icon: 'attention', content: content };
+	      this.show(props, {}, time);
 	    }
 	  }]);
 
